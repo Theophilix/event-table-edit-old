@@ -49,7 +49,7 @@ class EventtableeditControllerappointmentform extends JControllerLegacy
 		
 	//	implode(glue,$user->id);
 
-		// update appointment date to Reserved // 
+		// update appointment date to reserved // 
 		foreach ($totalappointments_row_col as $rowcol) {
 			$temps = explode('_', $rowcol);
 			$rops = $temps[0];
@@ -88,7 +88,7 @@ class EventtableeditControllerappointmentform extends JControllerLegacy
 			$db->setQuery($Update);
 			$db->query();
 		}
-		// END update appointment date to Reserved // 
+		// END update appointment date to reserved // 
 	
 		// create ics files //		
 		$ttemp = 0;

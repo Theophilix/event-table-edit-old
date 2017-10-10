@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `#__eventtableedit_details` (
   `float_separator` char(1) NOT NULL DEFAULT ',',
   `link_target` varchar(15) NOT NULL DEFAULT '_blank',
   `cellbreak` int(11) NOT NULL DEFAULT '0',
-  `pagebreak` int(11) NOT NULL DEFAULT '15',
+  `pagebreak` int(11) NOT NULL DEFAULT '100',
   `asset_id` int(10) NOT NULL DEFAULT '0',
   `lft` int(11) NOT NULL DEFAULT '0',
   `rgt` int(11) NOT NULL DEFAULT '0',
