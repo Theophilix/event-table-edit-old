@@ -6,7 +6,7 @@ You can  transform the table into an appointment booking system with confirmatio
 
 Try all the functions in the demo site: https://demo.eventtableedit.com.
 
-Download latest version 4.5.4 (since 06.07.2017): https://github.com/Theophilix/event-table-edit/archive/master.zip
+Download latest version 4.5.5 (since 16.10.2017): https://github.com/Theophilix/event-table-edit/archive/master.zip
 
 Version history: scroll down to "II".
 
@@ -68,6 +68,12 @@ Please post all feature requests in the issues tab.
 
 ## II Version history
 
+
+**For version 4.5.5:**
+
+[1] Normal mode
+- enhancement: sorting by timestamp https://github.com/Theophilix/event-table-edit/issues/74
+- bugfix: pagination rows changed to 100: If appointment system is in use, 15 rows are too few and wrong time and date was in ics-File https://github.com/Theophilix/event-table-edit/issues/76
 
 **For version 4.5.4:**
 
