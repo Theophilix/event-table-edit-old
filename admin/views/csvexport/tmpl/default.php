@@ -50,6 +50,14 @@ defined( '_JEXEC' ) or die;
 					<option value="0"><?php echo JText::_('JNO'); ?></option>
 				</select>
 			</li>
+			
+			<li>
+				<label><?php echo JText::_('COM_EVENTTABLEEDIT_CSVEXPORT_TIMESTAMP'); ?>: </label>
+				<select name="csvexptimestamp">
+					<option selected="selected" value="1"><?php echo JText::_('JYES'); ?></option>
+					<option value="0"><?php echo JText::_('JNO'); ?></option>
+				</select>
+			</li>
 		</ul>
 	</fieldset>
 	</div>

@@ -34,6 +34,15 @@ defined( '_JEXEC' ) or die;
 				<label><?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLES_DESC'); ?>: </label>
 				<?php echo $this->tables; ?>
 			</li>
+			<li>
+				<label><?php echo JText::_('COM_EVENTTABLEEDIT_XMLEXPORT_TIMESTAMP'); ?>: </label>
+				<select name="xmlexporttimestamp">
+					<option selected="selected" value="1"><?php JText::_('JYES'); ?></option>
+					<option value="0"><?php echo JText::_('JNO'); ?></option>
+				</select>
+			</li>
+			
+			
 			<!--<li>
 				<label><?php //echo JText::_('COM_EVENTTABLEEDIT_SEPARATOR'); ?>: </label>
 				<select name="separator">
