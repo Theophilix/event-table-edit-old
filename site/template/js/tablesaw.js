@@ -355,7 +355,7 @@ if( Tablesaw.mustard ) {
 
 		// Expose headers and allHeaders properties on the widget
 		// headers references the THs within the first TR in the table
-		this.headers = this.$table.find( 'tr:first > th' );
+		this.headers = this.$table.find( 'tr:first > th:not("#timestamp-head")' );
 
 		this.$table.data( 'tablesaw-coltoggle', this );
 	};
@@ -834,19 +834,26 @@ if( Tablesaw.mustard ) {
 
 }( this, jQuery ));
 
-;(function( $ ) {
-	function getSortValue( cell ) {
-		return $.map( cell.childNodes, function( el ) {
-				var $el = $( el );
-				if( $el.is( 'input, select' ) ) {
-					return $el.val();
-				} else if( $el.hasClass( 'tablesaw-cell-label' ) ) {
-					return;
-				}
-				return $.trim( $el.text() );
-			}).join( '' );
-	}
+;(function( $ ) {	
 
+	function getSortValue( cell ) {
+		if (typeof cell.childNodes[0] === 'undefined')
+			return '0';
+		var $el = $( cell.childNodes[0] );
+		if( $el.is( 'input, select' ) ) {
+			if ($el.val().trim().length == 0)
+				return '0';
+			return $el.val();
+		} else if( $el.hasClass( 'tablesaw-cell-label' ) ) {
+			return;
+		}
+		if ($.trim( $el.text()).length == 0)
+			return '0';
+		return $.trim( $el.text() );
+		
+			
+	}
+	
 	var pluginName = "tablesaw-sortable",
 		initSelector = "table[data-" + pluginName + "]",
 		sortableSwitchSelector = "[data-" + pluginName + "-switch]",
@@ -1052,8 +1059,7 @@ if( Tablesaw.mustard ) {
 
 				cells = getCells( rows );
 				var customFn = $( col ).data( 'tablesaw-sort' );
-				fn = ( customFn && typeof customFn === "function" ? customFn( ascending ) : false ) ||
-					getSortFxn( ascending, $( col ).is( '[data-sortable-numeric]' ) && !$( col ).is( '[data-sortable-numeric="false"]' ) );
+				fn = getSortFxn( ascending, $( col ).is( '[data-sortable-numeric]' ) && !$( col ).is( '[data-sortable-numeric="false"]' ) );
 				sorted = cells.sort( fn );
 				rows = applyToRows( sorted , rows );
 				return rows;
@@ -1126,7 +1132,7 @@ if( Tablesaw.mustard ) {
 		var $btns = $( '<div class="tablesaw-advance minimap">' ),
 			$dotNav = $( '<ul class="tablesaw-advance-dots">' ).appendTo( $btns ),
 			hideDot = 'tablesaw-advance-dots-hide',
-			$headerCells = $table.find( 'thead th' );
+			$headerCells = $table.find( 'thead th:not("#timestamp-head")' );
 
 		// populate dots
 		$headerCells.each(function(){

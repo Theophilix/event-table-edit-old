@@ -333,6 +333,8 @@ class EventtableeditModelEtetable extends JModelAdmin {
 				for ($i=0; $i <= count($data['headdata']['linehead'])-1; $i++) {
 					$temp = $data['headdata']['linehead'][$i]; 
 					$nameofhead = $temp['name'];
+					if (strtolower($nameofhead) === 'timestamp' || strtolower($temp['headtable']) === 'timestamp')
+						continue;
 					$datatype = $temp['datatype'];
 					$ins = "INSERT INTO #__eventtableedit_heads (`id`,`table_id`,`name`,`datatype`,`ordering`) VALUES ('',".$table->id.",'".$nameofhead."','".$datatype."',".$i.")";	
 					$db->setQuery($ins);
@@ -359,6 +361,8 @@ class EventtableeditModelEtetable extends JModelAdmin {
 			$headdefine .= '`head_'.$filedsname[$x].'`,';
 		}
 	
+		$headdefine .= '`timestamp`,';
+		
 		$headdefine = rtrim($headdefine,',');
 		
 		$aemptyda = count($filedsname);
@@ -368,9 +372,17 @@ class EventtableeditModelEtetable extends JModelAdmin {
 			$nbspstring .= "'&nbsp',";
 		}
 
+		$nbspstring .= "'obj_timestamp_obj'";
+		$currentTime = new DateTime();
+		
 		for ($z=0; $z < $emptyrow; $z++) { 
 			$nbspstring = rtrim($nbspstring,',');
-			$insert = "INSERT INTO `#__eventtableedit_rows_" . $id . "` ($headdefine) VALUES ($nbspstring)";
+			$currentTime->modify("+1 second"); 
+			$timestamp = $currentTime->format("Y-m-d H:i:s");
+			$valueString = str_replace('obj_timestamp_obj', $timestamp, $nbspstring);
+
+			$insert = "INSERT INTO `#__eventtableedit_rows_" . $id . "` ($headdefine) VALUES ($valueString)";
+
 			$db->setQuery($insert);
 			$db->query();
 		}
@@ -386,16 +398,31 @@ class EventtableeditModelEtetable extends JModelAdmin {
 		$db->setQuery($select);
 		$filedsname = $db->loadColumn();
 		$headdefine = '`ordering`,`created_by`,';
-		for ($x=0; $x < count($filedsname); $x++) { 
+
+		$beginCol = 2;
+		$haveTimestamp = false;
+		if (isset($prerow[0]) && $prerow[0]['timestamp']) {
+			$beginCol = 3;
+			$haveTimestamp = true;
+		}
+
+		for ($x=0; $x < count($filedsname); $x++) {
+
 			$headdefine .= '`head_'.$filedsname[$x].'`,';
 		}
+		$headdefine .= '`timestamp`,';
 		$headdefine = rtrim($headdefine,',');
 		$aemptyda = count($filedsname);
+		$currentTime = new DateTime();
+
+
+
 		for ($z=0; $z < count($prerow); $z++) { 
 			$reocrddata = array_values($prerow[$z]);
 			$nbspstring = '';
-			
-			for ($p=2; $p < count($reocrddata); $p++) { 
+
+
+			for ($p=$beginCol; $p < count($reocrddata); $p++) {
 
 				$checkstring = str_replace("'", "\'",$reocrddata[$p]);
 				if(is_array($checkstring)){
@@ -407,9 +434,31 @@ class EventtableeditModelEtetable extends JModelAdmin {
 				}
 				$nbspstring .= '"'.$checkstring.'",';
 			}
+			$nbspstring .= "'obj_timestamp_obj'";
 			$nbspstring = rtrim($nbspstring,',');
+			if ($haveTimestamp === true) {
+				if (isset($reocrddata[0]) && $reocrddata[0] != '') {
+					$reocrddata[0] = str_replace("'", '', $reocrddata[0]);
+					$date = str_replace('.', '-', $reocrddata[0]);
+					$timestamp = date('Y-m-d H:i:s', strtotime($date));
+				} else {
+					$currentTime->modify("+1 second");
+					$timestamp = $currentTime->format("Y-m-d H:i:s");
+				}
+
+			} else {
+				$currentTime->modify("+1 second");
+				$timestamp = $currentTime->format("Y-m-d H:i:s");
+			}
+			if ($timestamp == '1970-01-01 00:00:00') {
+				$currentTime->modify("+1 second");
+				$timestamp = $currentTime->format("Y-m-d H:i:s");
+			}
+			$valueString = str_replace('obj_timestamp_obj', $timestamp, $nbspstring);
 			//$nbspstring = rtrim($nbspstring,',');
-			 $insert = "INSERT INTO `#__eventtableedit_rows_" . $id . "` ($headdefine) VALUES ($nbspstring)";
+
+			 $insert = "INSERT INTO `#__eventtableedit_rows_" . $id . "` ($headdefine) VALUES ($valueString)";
+
 			
 			$db->setQuery($insert);
 			$db->query();
@@ -433,6 +482,9 @@ class EventtableeditModelEtetable extends JModelAdmin {
 				 ' (id INT NOT NULL AUTO_INCREMENT,' .
 				 ' ordering INT(11) NOT NULL default 0,' .
 				 ' created_by INT(11) NOT NULL default 0,' .
+
+				 ' timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,' .
+
 				 ' PRIMARY KEY (id))' .
 				 ' ENGINE=MyISAM CHARACTER SET \'utf8\' COLLATE \'utf8_general_ci\'';
 		$db->setQuery($query);

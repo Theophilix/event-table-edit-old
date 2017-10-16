@@ -71,8 +71,11 @@ class EventtableeditModelCsvimportnewtable extends EventtableeditModelCsvimport 
 		$updatecol = "UPDATE `#__eventtableedit_details` SET col='".count($this->csvHeadLine)."' WHERE id='".$this->id."'";
 		$db->setQuery($updatecol);
 		$db->query();
+		$len = count($this->csvHeadLine);
+		if (isset($this->csvHeadLine[0]) && $this->csvHeadLine[0] === 'timestamp')
+			$len = $len - 1;
 		
-		for ($a = 0; $a < count($this->csvHeadLine); $a++) {
+		for ($a = 0; $a < $len; $a++) {
 			$table = JTable::getInstance('Heads', 'EventtableeditTable');
 			
 			$data = array();
@@ -104,6 +107,7 @@ class EventtableeditModelCsvimportnewtable extends EventtableeditModelCsvimport 
 				 ' (id INT NOT NULL AUTO_INCREMENT,' .
 				 ' ordering INT(11) NOT NULL default 0,' .
 				 ' created_by INT(11) NOT NULL default 0,' .
+				 ' timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,' .
 				 ' PRIMARY KEY (id)
 				 )' .
 				 ' ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;';

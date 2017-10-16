@@ -154,6 +154,8 @@ class EventtableeditModelCsvimport extends JModelLegacy {
 		$this->getHeads();
 
 		$lineCount = 0;
+		
+		$currentTime = new DateTime();
 		while(!feof($fp)) {
 			$row = fgets($fp, 1021024);
 
@@ -166,7 +168,7 @@ class EventtableeditModelCsvimport extends JModelLegacy {
 			if (empty($row)) continue;
 
 			$data = $this->readCsvLine($row);
-			$this->insertRowToDb($data, $startRow + $lineCount,$checkfun);
+			$this->insertRowToDb($data, $startRow + $lineCount,$checkfun, $currentTime);
 			$lineCount++;
 		}
 		fclose($fp);
@@ -231,26 +233,66 @@ class EventtableeditModelCsvimport extends JModelLegacy {
 	/**
 	 * Writes one csv data row to the db
 	 */
-	protected function insertRowToDb($data, $ordering,$checkfun) {
+	protected function insertRowToDb($data, $ordering,$checkfun, $currentTime=null) {
 		$user = JFactory::getUser();
 		
 		$data = $this->prepareDataForDb($data);
 
+		
+		if ($currentTime == null)
+			$currentTime = new DateTime();
 
-		if($checkfun == 1){
-			// NULL replace with free //
-			$newdata = str_replace('NULL', "'free'", implode(', ', $data));
-			// END NULL replace with free //
-		}else{
-			$newdata =implode(', ', $data);
+        $newdata = '';
+
+		if (isset($this->csvHeadLine[0]) && $this->csvHeadLine[0] === 'timestamp') {
+			//convert to timestamp to sql format
+            if (isset($data[0]) && $data[0] != '') {
+				$data[0] = str_replace("'", '', $data[0]);
+				$date = str_replace('.', '-', $data[0]);
+				$timestamp = date('Y-m-d H:i:s', strtotime($date));
+			} else {
+				$currentTime->modify("+1 second");
+                $timestamp = $currentTime->format("Y-m-d H:i:s");
+			}
+			
+			if ($timestamp == '1970-01-01 00:00:00') {
+				$currentTime->modify("+1 second");
+                $timestamp = $currentTime->format("Y-m-d H:i:s");
+			}
+			
+            $data[0] = "'" . $timestamp . "'";
+            if($checkfun == 1){
+                // NULL replace with free //
+                $newdata .= str_replace('NULL', "'free'", implode(', ', $data));
+                // END NULL replace with free //
+            }else{
+                $newdata .= implode(', ', $data);
+            }
+
+
+            $query = 'INSERT INTO #__eventtableedit_rows_' . $this->id .
+                ' (created_by, ordering, timestamp, ' . implode(', ', $this->heads['name']) . ')' .
+                ' VALUES (' . $user->get('id') . ', ' . $ordering . ", " . $newdata . ')';
+
+		} else {
+			$currentTime->modify("+1 second"); 
+			$timestamp = $currentTime->format("Y-m-d H:i:s");
+
+            if($checkfun == 1){
+                // NULL replace with free //
+                $newdata .= str_replace('NULL', "'free'", implode(', ', $data));
+                // END NULL replace with free //
+            }else{
+                $newdata .= implode(', ', $data);
+            }
+
+
+            $query = 'INSERT INTO #__eventtableedit_rows_' . $this->id .
+                ' (created_by, ordering, timestamp, ' . implode(', ', $this->heads['name']) . ')' .
+                ' VALUES (' . $user->get('id') . ', ' . $ordering . ", '" . $timestamp . "', " . $newdata . ')';
+			
 		}
 
-
-
-		
-		 $query = 'INSERT INTO #__eventtableedit_rows_' . $this->id .
-				 ' (created_by, ordering, ' . implode(', ', $this->heads['name']) . ')' .
-				 ' VALUES (' . $user->get('id') . ', ' . $ordering . ', ' . $newdata . ')';
 				 
 		//echo $query;
 		$this->db->setQuery($query);

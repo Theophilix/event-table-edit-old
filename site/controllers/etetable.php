@@ -55,7 +55,9 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 		$current_table_settings = $db->loadobject();
 		//Get Model and perform action
 		$model = $this->getModel('etetable');
-		$ret = $model->saveCell($rowId, $cell, $content);
+		$data = $model->saveCell($rowId, $cell, $content);
+		$ret = $data[0];
+
 		if($current_table_settings->normalorappointment == 1){
 			$user = JFactory::GetUser();
 			if(in_array('8', $user->groups)){
@@ -89,7 +91,7 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 			$ret = $ret;
 		}
 		// END if appointment text changed from appointment view then below code is efected //
-		echo $ret;
+		echo $ret . '|' . $data[1];
 		exit;
 	}
 	

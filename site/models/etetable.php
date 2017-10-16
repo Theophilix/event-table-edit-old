@@ -499,7 +499,11 @@ class EventtableeditModelEtetable extends JModelList
 				
 				$colCount++;
 			}
-			
+			//get timestamp
+            $colName = 'timestamp';
+            $ret[$rowCount][$colCount] = trim($row->$colName);
+            $ret[$rowCount][$colCount] = strtotime($this->parseCell($ret[$rowCount][$colCount], $colCount));
+
 			$rowCount++;
 	   }
 	   
@@ -657,14 +661,16 @@ class EventtableeditModelEtetable extends JModelList
 		$colInfo = $this->getColumnInfo($cell);
 		$datatype = $colInfo['datatype'];
 		$headName = $colInfo['head'];
-						
+		$currentTime = new DateTime();
+		$timestamp = $currentTime->format("Y-m-d H:i:s");
+
 		$content = $this->prepareContentForDb($content, $datatype);
 		if ($colInfo['datatype'] == 'text') {
 			$breaks = array("<br />","<br>","<br/>","<br /> ","<br> ","<br/> ");  
 			$content = str_ireplace($breaks, "<br />", $content);  
 		}
 		$query = 'UPDATE #__eventtableedit_rows_' . $this->id .
-				 ' SET ' . $headName . ' = ' . $content . ' WHERE id = ' . $rowId;
+				 ' SET ' . $headName . ' = ' . $content . ", timestamp = '" . $timestamp . "' WHERE id = " . $rowId;
 		
 		$this->db->setQuery($query);
 		$this->db->query();
@@ -675,7 +681,10 @@ class EventtableeditModelEtetable extends JModelList
 		$ret = explode("|", $this->getCell_save($rowId, $cell));
 		$ret = $this->parseCell($ret[0], $cell);
 		
-		return $ret;
+		$result[0] = $ret;
+		$result[1] = '<input type="hidden" value="'.strtotime($timestamp).'">';
+		
+		return $result;
 	}
 	
 	/**

@@ -74,3 +74,4 @@ foreach ($this->heads as $head) {
 $j++;
 }	
 ?>
+<th class="evth<?php echo $myclass; ?>" id="timestamp-head"  data-tablesaw-sortable-col="" <?php //if($j==$sortdynamic){ echo 'data-tablesaw-sortable-default-col="true"'; }  ?> data-tablesaw-priority="<?php echo $priority; ?>" scope="col">Timestamp</th>

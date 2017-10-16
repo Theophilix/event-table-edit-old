@@ -174,12 +174,12 @@ class EventtableeditViewEtetable extends JViewLegacy
 		} else {
 			require_once JPATH_COMPONENT.'/helpers/phpToJs.php';
 			$doc = JFactory::getDocument();
-			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw.js');
+			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw.js?v3');
 			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw-init.js');
 			
 			
 			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/helpers/tableAjax.js');
-			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/helpers/popup.js');
+			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/helpers/popup.js?v4');
 		//	$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/jquery.js');
 		
 		}
