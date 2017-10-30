@@ -76,7 +76,7 @@ Please post all feature requests in the issues tab.
 
 [1] Normal mode
 - enhancement: sorting by timestamp https://github.com/Theophilix/event-table-edit/issues/74
-- bugfix: pagination rows changed to 100: If appointment system is in use, 15 rows are too few and wrong time and date was in ics-File https://github.com/Theophilix/event-table-edit/issues/76
+- bugfix: changed pagination rows standard from 15 to 100: If appointment system is in use, 15 rows are too few. If there are more than 15 rows, the wrong time and date was in ics-File https://github.com/Theophilix/event-table-edit/issues/76.
 
 **For version 4.5.4:**
 
