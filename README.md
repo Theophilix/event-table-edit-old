@@ -5,7 +5,7 @@ Event Table Edit (abbrev. ETE) is a free and open source table plugin for Joomla
 You can  transform the table into an appointment booking system with confirmation emails for users and the admin, including iCal calendar files for both in the attachment. Moreover, you can use the booking system to create a volunteer table for an event, where volunteers can enter their names if they want to help for a certain time.
 As it is based on a CSS-template, the layout of the table can be changed easily. The responsive function is based on the "Column Toggle Table with Mini Map" from the tablesaw plugins (https://github.com/filamentgroup/tablesaw).
 
-Try all the functions in the demo site: https://demo.eventtableedit.com.
+Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
 Download latest version 4.6 (since 06.11.2017): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
