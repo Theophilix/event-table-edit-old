@@ -56,6 +56,7 @@ class Datatypes {
 		$ret[] = 'boolean';
 		$ret[] = 'link';
 		$ret[] = 'mail';
+		$ret[] = 'four_state';
 		
 		// Add the dropdowns
 		foreach($this->dropdowns as $dropdown) {
@@ -75,6 +76,7 @@ class Datatypes {
 		$ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_BOOLEAN');
 		$ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_LINK');
 		$ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_MAIL');
+		$ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_FOUR_STATE');
 		
 		// Add the dropdowns
 		foreach($this->dropdowns as $dropdown) {
@@ -105,6 +107,7 @@ class Datatypes {
 			case 'float': return 'FLOAT';
 			case 'date': return 'DATE';
 			case 'time': return 'TIME';
+			case 'four_state': return 'varchar(1)';
 			
 			default: return 'TEXT';
 		}

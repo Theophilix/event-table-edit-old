@@ -43,6 +43,19 @@ for($colCount = 0; $colCount < count($this->rows[0]) - 1; $colCount++) {
 		}else{
 			$atemptime = '<input type="hidden" value="2">';
 		}
+	}else if($this->heads[$colCount]->datatype == 'four_state'){
+		$pos = strpos($this->rows[$this->rowCount][$colCount],'cross.png');
+		$pos1 = strpos($this->rows[$this->rowCount][$colCount],'tick.png');
+		$pos2 = strpos($this->rows[$this->rowCount][$colCount],'question-mark.png');
+		if ($pos !== false) {
+			$atemptime = '<input type="hidden" value="0">';
+		} else if($pos1 !== false){
+			$atemptime = '<input type="hidden" value="1">';
+		}else if($pos2 !== false){
+			$atemptime = '<input type="hidden" value="2">';
+		}else{
+			$atemptime = '<input type="hidden" value="">';
+		}
 	}else if($this->heads[$colCount]->datatype == 'float'){
 			$float_val = str_replace(',','.',$this->rows[$this->rowCount][$colCount]);
 			$atemptime = '<input type="hidden" value="'.$float_val.'">';

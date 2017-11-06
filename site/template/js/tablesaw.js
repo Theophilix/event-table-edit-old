@@ -215,7 +215,7 @@ if( Tablesaw.mustard ) {
 				// TODO reduce coupling with sortable
 				$sortableButton = $t.find( ".tablesaw-sortable-btn" ),
 				html = $sortableButton.length ? $sortableButton.html() : $t.html();
-
+				
 			if( html !== "" ){
 				if( hierarchyClass ){
 					var iteration = parseInt( $( this ).attr( "colspan" ), 10 ),
@@ -841,10 +841,19 @@ if( Tablesaw.mustard ) {
 			return '0';
 		var $el = $( cell.childNodes[0] );
 		if( $el.is( 'input, select' ) ) {
-			if ($el.val().trim().length == 0)
-				return '0';
+			if ($el.val().trim().length == 0){
+				return '';
+			}
 			return $el.val();
 		} else if( $el.hasClass( 'tablesaw-cell-label' ) ) {
+			if($el.next("span").hasClass('tablesaw-cell-content')){
+				$el2 = $el.next("span");
+				if($el2.find("input") == true){ 
+					return $el2.find("input").val();
+				}else{
+					return $el2.html();
+				}
+			}
 			return;
 		}
 		if ($.trim( $el.text()).length == 0)
@@ -1024,6 +1033,7 @@ if( Tablesaw.mustard ) {
 								rowNum: i
 							});
 						});
+						
 						return cells;
 					},
 					getSortFxn = function( ascending, forceNumeric ){
@@ -1060,6 +1070,7 @@ if( Tablesaw.mustard ) {
 				cells = getCells( rows );
 				var customFn = $( col ).data( 'tablesaw-sort' );
 				fn = getSortFxn( ascending, $( col ).is( '[data-sortable-numeric]' ) && !$( col ).is( '[data-sortable-numeric="false"]' ) );
+				
 				sorted = cells.sort( fn );
 				rows = applyToRows( sorted , rows );
 				return rows;

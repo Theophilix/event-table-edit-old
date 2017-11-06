@@ -91,6 +91,22 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 			$ret = $ret;
 		}
 		// END if appointment text changed from appointment view then below code is efected //
+		if($datatype == "boolean" || $datatype == "four_state"){			
+			$pos = strpos($ret,'cross.png');
+			$pos1 = strpos($ret,'tick.png');
+			$pos2 = strpos($ret,'question-mark.png');
+			$atemptime = '';
+			if ($pos !== false) {
+				$atemptime = '<input type="hidden" value="0">';
+			} else if($pos1 !== false){
+				$atemptime = '<input type="hidden" value="1">';
+			}else if($pos2 !== false){
+				$atemptime = '<input type="hidden" value="2">';
+			}else{
+				$atemptime = '<input type="hidden" value="-1">';
+			}
+			echo $atemptime;
+		}
 		echo $ret . '|' . $data[1];
 		exit;
 	}

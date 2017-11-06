@@ -480,6 +480,7 @@ class EventtableeditModelEtetable extends JModelList
 	 	$ret = array();
 	 	
 	 	foreach ($rows as $row) {
+			
 	 		// Iterate over the columns
 	 		$colCount = 0;
 	 		$ret[$rowCount]['id'] = $row->id;
@@ -494,7 +495,8 @@ class EventtableeditModelEtetable extends JModelList
 				
 				//Insert a space character that the table doesn't collapse
 				if ($ret[$rowCount][$colCount] == '') {
-					$ret[$rowCount][$colCount] = '&nbsp;';
+					if($head->datatype != "four_state")
+						$ret[$rowCount][$colCount] = '&nbsp;';
 				}
 				
 				$colCount++;
@@ -529,6 +531,10 @@ class EventtableeditModelEtetable extends JModelList
 		//Handle Booleans
 		else if ($dt == "boolean") {
 			$cell = eteHelper::parseBoolean($cell);
+		}
+		//Handle Four State
+		else if ($dt == "four_state") {
+			$cell = eteHelper::parseFourState($cell);
 		}
 		// Handle Links
 		else if ($dt == "link") {
@@ -763,5 +769,19 @@ class EventtableeditModelEtetable extends JModelList
 				 ' WHERE id = ' . $rowId;
 		$this->db->setQuery($query);
 		return (int) $this->db->loadResult();
+	}
+	
+	public function getColumnInfoPublic($cell) {
+		$app = JFactory::getApplication('site');
+		$main  		 = $app->input;
+		$id    = $main->getInt('id', '');
+		$colQuery = 'SELECT CONCAT(\'head_\', a.id) AS head, datatype FROM #__eventtableedit_heads AS a' .
+					' WHERE a.table_id = ' . $id .
+					' ORDER BY a.ordering ASC' .
+					' LIMIT ' . $cell . ', 1';
+		//echo $colQuery;
+		$this->db->setQuery($colQuery);
+		
+		return $this->db->loadAssoc();
 	}
 }

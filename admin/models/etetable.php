@@ -429,7 +429,7 @@ class EventtableeditModelEtetable extends JModelAdmin {
 					if($checkfun == 1){
 					$checkstring = 'free';
 					}else{
-					$checkstring = '&nbsp;';
+					$checkstring = '';
 					}
 				}
 				$nbspstring .= '"'.$checkstring.'",';
@@ -507,7 +507,7 @@ class EventtableeditModelEtetable extends JModelAdmin {
 	}
 	private function updateRowsTablefromxml($cid, $newId,$id,$datatype) {
 		$db = JFactory::getDBO();
-		if($datatype == 'boolean' || $datatype == 'link' || $datatype == 'mail'){
+		if($datatype == 'boolean' || $datatype == 'link' || $datatype == 'mail' || $datatype == 'four_state'){
 			$datatype = 'text';
 		}
 		$query = 'ALTER TABLE #__eventtableedit_rows_' . $id . ' ';

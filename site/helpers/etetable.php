@@ -49,7 +49,7 @@ class eteHelper {
 		return utf8_encode(strftime( $format, strtotime( $time )));
 	}
 
-		public static function parseBoolean($cell) {
+	public static function parseBoolean($cell) {
 		if ($cell != '' && $cell != null) {
 			if ((int) $cell == 1) {
 	  			$cell = '<img src="' . JURI::root() . 'components/com_eventtableedit/template/images/cross.png">';
@@ -117,6 +117,26 @@ class eteHelper {
 		if (strlen(strip_tags($cell)) > $cellbreak && $cellbreak != 0) {
 			$cellShort = substr(strip_tags($cell), 0, $cellbreak) . '...';
 			$cell = JHTML::tooltip($cell, '', '', $cellShort);
+		}
+
+		return $cell;
+	}
+	
+	public static function parseFourState($cell) {
+		
+		if ($cell != '' && $cell != null) {
+			if ((int) $cell == 0) {
+	  			$cell = '<img src="' . JURI::root() . 'components/com_eventtableedit/template/images/tick.png">';
+			}
+			else if ((int) $cell == 1) {
+				$cell = '<img src="' . JURI::root() . 'components/com_eventtableedit/template/images/cross.png">';
+			}
+			else if ((int) $cell == 2) {
+				$cell = '<img src="' . JURI::root() . 'components/com_eventtableedit/template/images/question-mark.png">';
+			}
+			else {
+				$cell = '';
+			}
 		}
 
 		return $cell;

@@ -203,6 +203,17 @@ class EventtableeditModelChangetable extends JModelList
 			$query .= 'CHANGE head_' . $newId . ' head_' . $newId . ' ' . Datatypes::mapDatatypes($datatype);
 			$this->db->setQuery($query);
 			$this->db->query();
+			
+			if($datatype == 'four_state'){
+				$q2 = 'UPDATE #__eventtableedit_rows_' . $this->id . ' SET head_' . $newId . ' = "0"';
+				$this->db->setQuery($q2);
+				$this->db->query();
+			}else{
+				$q3 = 'UPDATE #__eventtableedit_rows_' . $this->id . ' SET head_' . $newId . ' = "&nbsp;"';
+				
+				$this->db->setQuery($q3);
+				$this->db->query();
+			}
 		} else {
 			$detailquery = "SELECT normalorappointment FROM #__eventtableedit_details WHERE id ='".$this->id."'";
 			$this->db->setQuery($detailquery);

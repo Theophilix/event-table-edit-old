@@ -42,22 +42,32 @@ BuildPopupWindow.prototype.constructNormalPopup = function(cellContent, cell, ed
 /**
  * A pseudo constructor for changing the status of boolean fields
  */
-BuildPopupWindow.prototype.constructBoolean = function(status, cell, editedCell) {
+BuildPopupWindow.prototype.constructBoolean = function(status, cell, editedCell, datatype) {
 	this.cell = cell;
 	this.editedCell = editedCell;
-	
-	// Decide what value the field has
-	if (status == 1) {
-		//status = -1;
-		status = 0;
-	} /*else if (typeof(status) == "undefined" || status == null || status == "") {
-		status = 0;	   
-	} else if (status == -1 || status == 0) {
-		status++;
-	} */else {
-		status = 1;
+	if(datatype == "four_state"){
+		if (status == '') {
+			status = 0;
+		}else if (status == 0 || status == '&') {			
+			status = 1;
+		}else if (status == 1) {
+			status = 2;		
+		}else if (status == 2) {
+			status = '';
+		}
+	}else{
+		// Decide what value the field has
+		if (status == 1) {
+			//status = -1;
+			status = 0;
+		} /*else if (typeof(status) == "undefined" || status == null || status == "") {
+			status = 0;	   
+		} else if (status == -1 || status == 0) {
+			status++;
+		} */else {
+			status = 1;
+		}
 	}
-	   
 	this.inputValue = status;
 	   
 	this.sendData();

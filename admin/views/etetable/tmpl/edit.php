@@ -391,6 +391,8 @@ JHtml::_('behavior.formvalidation');
 		<input type="hidden" name="task" value="" />
 		<?php echo JHtml::_('form.token'); ?>
 	</div>
+	<!-- added to resolve loading issue -->
+<input type="hidden" name="title" id="jform_title" value="" />
 </form>
 <div class="clr"></div>
 <?php 

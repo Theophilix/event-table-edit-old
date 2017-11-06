@@ -270,10 +270,10 @@ function openCell(rowId, cell, editedCell) {
 			var datatype	= parsed[1];
 		
 			var popup = new BuildPopupWindow(datatype, rowId);
-			if (datatype != "boolean") {
+			if (datatype != "boolean" && datatype != "four_state") {
 				popup.constructNormalPopup(cellContent, cell, editedCell);
 			} else {
-				popup.constructBoolean(cellContent, cell, editedCell);
+				popup.constructBoolean(cellContent, cell, editedCell, datatype);
 			}
 			
 			removeLoad();
