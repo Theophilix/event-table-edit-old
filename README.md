@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions in the demo site: https://demo.eventtableedit.com.
 
-Download latest version 4.5.5 (since 16.10.2017): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+Download latest version 4.6 (since 06.11.2017): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Dowload older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
