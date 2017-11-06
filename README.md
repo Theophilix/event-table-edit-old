@@ -21,7 +21,7 @@ Version history: scroll down to "II".
 - Multiple appointment booking function with confirmation email and ICAL calendar (.ics file) attachment
 - Complete rights management (Joomla ACL: add/delete rows, edit cells, rearrange rows, administer table from frontend)
 - Multilingual (currently available: DE, EN)
-- CSV and TXT import with different formats (text, date, time, integer, float, boolean, link, mail) 
+- CSV and TXT import with different formats (text, date, time, integer, float, boolean, four state, link, mail) 
   and import settings (separator, values in quotes or not)
 - CSV Export
 - XML import and export: import and export a table with all settings
