@@ -72,6 +72,14 @@ Please post all feature requests in the issues tab.
 ## II Version history
 
 
+**For version 4.6:**
+
+[1] Normal mode
+- enhancement: new four state datatype https://github.com/Theophilix/event-table-edit/issues/33
+- bugfix: stack sorting problem: https://github.com/Theophilix/event-table-edit/issues/77
+- bugfix: changing ACL settings takes a long time to be saved / made https://github.com/Theophilix/event-table-edit/issues/73
+
+
 **For version 4.5.5:**
 
 [1] Normal mode
