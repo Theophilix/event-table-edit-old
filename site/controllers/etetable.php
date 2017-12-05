@@ -91,7 +91,7 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 			$ret = $ret;
 		}
 		// END if appointment text changed from appointment view then below code is efected //
-		if($datatype == "boolean" || $datatype == "four_state"){			
+		if(isset($datatype) && ($datatype == "boolean" || $datatype == "four_state")){			
 			$pos = strpos($ret,'cross.png');
 			$pos1 = strpos($ret,'tick.png');
 			$pos2 = strpos($ret,'question-mark.png');

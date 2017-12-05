@@ -515,7 +515,7 @@ class EventtableeditModelEtetable extends JModelList
 	private function parseCell($cell, $colCount) {
 		$this->getItem();
 		$this->getHeads();
-		$dt = $this->heads[$colCount]->datatype;		
+		@$dt = $this->heads[$colCount]->datatype;		
 
 		// Translating mySQL Date
 		if ($dt == "date") {
