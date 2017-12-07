@@ -30,8 +30,6 @@ class EventtableeditController extends JControllerLegacy {
 	
 	public function display($cachable = false, $urlparams = false)
 	{
-		$cachable = true;
-
 		// Get the document object.
 		$document = JFactory::getDocument();
 
@@ -39,8 +37,6 @@ class EventtableeditController extends JControllerLegacy {
 		$main  = JFactory::getApplication()->input;
 		$vName = 	$main->get('view', '');
 		$main->get('view', $vName);
-
-		$user = JFactory::getUser();
 
 		$safeurlparams = array('id'=>'INT','cid'=>'ARRAY','limit'=>'INT','limitstart'=>'INT',
 			'filter'=>'STRING','print'=>'BOOLEAN','lang'=>'CMD', 'filterstring'=>'STRING',
