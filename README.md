@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-Download latest version 4.6 (since 06.11.2017): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+Download latest version 4.6.1 (since 08.12.2017): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Dowload older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -71,6 +71,12 @@ Please post all feature requests in the issues tab.
 
 ## II Version history
 
+
+**For version 4.6.1:**
+
+[1] Normal mode
+- bugfix: Notices: "undefined offset" and " Trying to get property of non-object" https://github.com/Theophilix/event-table-edit/issues/80
+- bugfix:  Caching interferes with edit rights https://github.com/Theophilix/event-table-edit/issues/79
 
 **For version 4.6:**
 
