@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <extension type="component" version="4.6" method="upgrade">
 	<name>com_eventtableedit</name>
-	<creationDate>06-11-17</creationDate>
+	<creationDate>08-12-17</creationDate>
 	<author>Manuel Kaspar and Theophilix</author>
 	<license>GNU/GPL</license>
-	<copyright>2007 - 2017 Manuel Kaspar and Theophilix</copyright>
+	<copyright>2007 - 2018 Manuel Kaspar and Theophilix</copyright>
 	<authorEmail>webmaster@eventtableedit.com</authorEmail>
 	<authorUrl>http://www.eventtableedit.com</authorUrl>
-	<version>4.6</version>
+	<version>4.6.1</version>
 	<description>COM_EVENTTABLEEDIT_DESCRIPTION</description>
 
 	<scriptfile>script.php</scriptfile>

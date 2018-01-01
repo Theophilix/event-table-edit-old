@@ -1,7 +1,7 @@
 <?php
 /**
  * $Id: $
- * @copyright (C) 2007 - 2017 Manuel Kaspar and Theophilix
+ * @copyright (C) 2007 - 2018 Manuel Kaspar and Theophilix
  * @license GNU/GPL
  */
  
