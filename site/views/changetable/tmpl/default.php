@@ -1,7 +1,7 @@
 <?php
 /**
  * $Id: default.php 157 2011-03-19 00:08:23Z kapsl $
- * @copyright (C) 2007 - 2018 Manuel Kaspar and Theophilix
+ * @copyright (C) 2007 - 2017 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
  *

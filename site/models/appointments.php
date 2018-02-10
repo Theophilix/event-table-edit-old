@@ -2,7 +2,7 @@
 /**
  * @version		$Id: $
  * @package		eventtableedit
- * @copyright	Copyright (C) 2007 - 2018 Manuel Kaspar and Theophilix
+ * @copyright	Copyright (C) 2007 - 2017 Manuel Kaspar and Theophilix
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -485,7 +485,7 @@ class EventtableeditModelappointments extends JModelList
 	private function parseCell($cell, $colCount) {
 		$this->getItem();
 		$this->getHeads();
-		@$dt = $this->heads[$colCount]->datatype;		
+		$dt = $this->heads[$colCount]->datatype;		
 
 		// Translating mySQL Date
 		if ($dt == "date") {

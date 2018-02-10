@@ -1,7 +1,7 @@
 <?php
 /**
  * $Id: controller.php 140 2011-01-11 08:11:30Z kapsl $
- * @copyright (C) 2007 - 2018 Manuel Kaspar and Theophilix
+ * @copyright (C) 2007 - 2017 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
  *
@@ -30,6 +30,8 @@ class EventtableeditController extends JControllerLegacy {
 	
 	public function display($cachable = false, $urlparams = false)
 	{
+		$cachable = true;
+
 		// Get the document object.
 		$document = JFactory::getDocument();
 
@@ -37,6 +39,8 @@ class EventtableeditController extends JControllerLegacy {
 		$main  = JFactory::getApplication()->input;
 		$vName = 	$main->get('view', '');
 		$main->get('view', $vName);
+
+		$user = JFactory::getUser();
 
 		$safeurlparams = array('id'=>'INT','cid'=>'ARRAY','limit'=>'INT','limitstart'=>'INT',
 			'filter'=>'STRING','print'=>'BOOLEAN','lang'=>'CMD', 'filterstring'=>'STRING',

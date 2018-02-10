@@ -105,7 +105,7 @@ JHtml::_('behavior.formvalidation');
 	}
 	Joomla.submitbutton = function(task)
 	{
-		if (task == 'etetable.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
+		if (task == 'appointmenttable.cancel' || document.formvalidator.isValid(document.id('adminForm'))) {
 			Joomla.submitform(task, document.getElementById('adminForm'));
 		}
 		else {
@@ -155,7 +155,7 @@ JHtml::_('behavior.formvalidation');
 <div class="tab-content">
 	<div  class="tab-pane active" id="general">
 	<fieldset class="adminform">
-				<legend><?php echo empty($this->item->id) ? JText::_('COM_EVENTTABLEEDIT_NEW_ETETABLE') : JText::sprintf('COM_EVENTTABLEEDIT_EDIT_ETETABLE', $this->item->id); ?></legend>
+				<legend><?php echo empty($this->item->id) ? JText::_('COM_EVENTTABLEEDIT_NEW_APPOINTMENTTABLE') : JText::sprintf('COM_EVENTTABLEEDIT_EDIT_ETETABLE', $this->item->id); ?></legend>
 				<ul class="adminformlist">
 					<li><?php echo $this->form->getLabel('name'); ?>
 					<?php echo $this->form->getInput('name'); ?></li>
@@ -176,10 +176,10 @@ JHtml::_('behavior.formvalidation');
 					
 
 						<!--<li><?php echo $this->form->getLabel('normalorappointment'); ?>
-					<?php echo $this->form->getInput('normalorappointment'); ?></li>-->
+					<?php echo $this->form->getInput('normalorappointment'); ?></li>
 
 					<li class="normalshows"><?php echo $this->form->getLabel('sorting'); ?>
-					<?php echo $this->form->getInput('sorting'); ?></li>
+					<?php echo $this->form->getInput('sorting'); ?></li>-->
 
 					<li class="normalshows"><?php echo $this->form->getLabel('switcher'); ?>
 					<?php echo $this->form->getInput('switcher'); ?></li>
@@ -283,19 +283,17 @@ JHtml::_('behavior.formvalidation');
 
 						
 
-					<li><?php echo $this->form->getLabel('show_filter'); ?>
+					<!--<li><?php echo $this->form->getLabel('show_filter'); ?>
 					<?php echo $this->form->getInput('show_filter'); ?></li>
-
+-->
 					<li><?php echo $this->form->getLabel('addtitle'); ?>
 					<?php echo $this->form->getInput('addtitle'); ?></li>
-					<li><?php echo $this->form->getLabel('rowsort'); ?>
-					<?php echo $this->form->getInput('rowsort'); ?></li>
-					<li><?php echo $this->form->getLabel('rowdelete'); ?>
-					<?php echo $this->form->getInput('rowdelete'); ?></li>
+					<!--<li><?php echo $this->form->getLabel('rowsort'); ?>
+					<?php echo $this->form->getInput('rowsort'); ?></li>-->
 					
 				<!--	<li><?php //echo $this->form->getLabel('show_pagination'); ?>
 					<?php //echo $this->form->getInput('show_pagination'); ?></li>
-				-->
+				
 					<li>
 						<label title="" class="hasTooltip" for="jform_show_pagination" id="jform_show_pagination-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_SHOW_PAGINATION_LABEL'); ?>&lt;/strong&gt;&lt;br /&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_SHOW_PAGINATION_DESC'); ?>">
 	<?php echo JText::_('COM_EVENTTABLEEDIT_SHOW_PAGINATION_LABEL'); ?></label>
@@ -311,16 +309,16 @@ JHtml::_('behavior.formvalidation');
 					
 
 					<li><?php echo $this->form->getLabel('show_first_row'); ?>
-					<?php echo $this->form->getInput('show_first_row'); ?></li>
+					<?php echo $this->form->getInput('show_first_row'); ?></li>-->
 
 					<li><?php echo $this->form->getLabel('show_print_view'); ?>
 					<?php echo $this->form->getInput('show_print_view'); ?></li>
 
-					<li><?php echo $this->form->getLabel('bbcode'); ?>
+					<!--<li><?php echo $this->form->getLabel('bbcode'); ?>
 					<?php echo $this->form->getInput('bbcode'); ?></li>
 
 					<li><?php echo $this->form->getLabel('bbcode_img'); ?>
-					<?php echo $this->form->getInput('bbcode_img'); ?></li>
+					<?php echo $this->form->getInput('bbcode_img'); ?></li>-->
 					
 					<li><?php echo $this->form->getLabel('id'); ?>
 					<?php echo $this->form->getInput('id'); ?></li>
@@ -344,7 +342,7 @@ JHtml::_('behavior.formvalidation');
 
 					<li><?php echo $this->form->getLabel('timeformat'); ?>
 					<?php echo $this->form->getInput('timeformat'); ?></li>
-
+					<!--
 					<li><?php echo $this->form->getLabel('float_separator'); ?>
 					<?php echo $this->form->getInput('float_separator'); ?></li>
 
@@ -363,7 +361,7 @@ JHtml::_('behavior.formvalidation');
 				
 
 					<li><?php echo $this->form->getLabel('cellbreak'); ?>
-					<?php echo $this->form->getInput('cellbreak'); ?></li>
+					<?php echo $this->form->getInput('cellbreak'); ?></li>-->
 
 					<li><?php echo $this->form->getLabel('link_target'); ?>
 					<?php echo $this->form->getInput('link_target'); ?></li>
@@ -389,8 +387,9 @@ JHtml::_('behavior.formvalidation');
 	</div>
 </div> 
 </div> <?php echo $this->form->getInput('temps'); ?>
+	   <?php echo $this->form->getInput('normalorappointment'); ?>
 		
-		<input type="hidden" name="normalorappointment" value="0" />
+		<!--<input type="hidden" name="jform[normalorappointment]" value="1" />-->
 		<input type="hidden" name="task" value="" />
 		<?php echo JHtml::_('form.token'); ?>
 	</div>

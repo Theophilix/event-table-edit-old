@@ -1,7 +1,7 @@
 <?php
 /**
  * $Id: $
- * @copyright (C) 2007 - 2018 Manuel Kaspar and Theophilix
+ * @copyright (C) 2007 - 2017 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
  *
@@ -23,7 +23,7 @@
 defined('_JEXEC') or die;
 jimport('joomla.application.component.modellist');
 
-class EventtableeditModelEtetables extends JModelList {
+class EventtableeditModelAppointmenttables extends JModelList {
 	/**
 	 * Method to auto-populate the model state.
 	 *
@@ -159,8 +159,8 @@ class EventtableeditModelEtetables extends JModelList {
 			$query->where('a.language = '.$db->quote($language));
 		}
 		
-		// condition to check table is normal or apppointment
-		$query->where('a.normalorappointment = 0');
+		// condition to check what table type is 
+		$query->where('a.normalorappointment = 1');
 
 		// Add the list ordering clause.
 		 $orderCol	= $this->state->get('list.ordering', '');

@@ -2,7 +2,7 @@
 /**
  * @version		$Id: $
  * @package		eventtableedit
- * @copyright	Copyright (C) 2007 - 2018 Manuel Kaspar and Theophilix
+ * @copyright	Copyright (C) 2007 - 2017 Manuel Kaspar and Theophilix
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -24,7 +24,7 @@ if ($this->item->show_first_row) :?>
 
 for($colCount = 0; $colCount < count($this->rows[0]) - 1; $colCount++) { 
 	$atemptime = '';
-	if($this->heads[$colCount]->datatype == 'date'){
+	if(@$this->heads[$colCount]->datatype == 'date'){
 
 		
 		if($this->rows[$this->rowCount][$colCount] == '&nbsp;' || $this->rows[$this->rowCount][$colCount] == '' || $this->rows[$this->rowCount][$colCount] == ' '){
@@ -33,7 +33,7 @@ for($colCount = 0; $colCount < count($this->rows[0]) - 1; $colCount++) {
 
 		//$atemptime = '<input type="hidden" value="'.strtotime($tempdates).'">';
 		}
-	}else if($this->heads[$colCount]->datatype == 'boolean'){
+	}else if(@$this->heads[$colCount]->datatype == 'boolean'){
 		$pos = strpos($this->rows[$this->rowCount][$colCount],'cross.png');
 		$pos1 = strpos($this->rows[$this->rowCount][$colCount],'tick.png');
 		if ($pos !== false) {
@@ -43,7 +43,7 @@ for($colCount = 0; $colCount < count($this->rows[0]) - 1; $colCount++) {
 		}else{
 			$atemptime = '<input type="hidden" value="2">';
 		}
-	}else if($this->heads[$colCount]->datatype == 'four_state'){
+	}else if(@$this->heads[$colCount]->datatype == 'four_state'){
 		$pos = strpos($this->rows[$this->rowCount][$colCount],'cross.png');
 		$pos1 = strpos($this->rows[$this->rowCount][$colCount],'tick.png');
 		$pos2 = strpos($this->rows[$this->rowCount][$colCount],'question-mark.png');
@@ -56,7 +56,7 @@ for($colCount = 0; $colCount < count($this->rows[0]) - 1; $colCount++) {
 		}else{
 			$atemptime = '<input type="hidden" value="">';
 		}
-	}else if($this->heads[$colCount]->datatype == 'float'){
+	}else if(@$this->heads[$colCount]->datatype == 'float'){
 			$float_val = str_replace(',','.',$this->rows[$this->rowCount][$colCount]);
 			$atemptime = '<input type="hidden" value="'.$float_val.'">';
 		

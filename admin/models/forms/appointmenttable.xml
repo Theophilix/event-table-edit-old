@@ -28,7 +28,14 @@
 			size="30"
 			default="1"
 		/>
-		<field name="alias"
+	<field name="normalorappointment" 
+			type="hidden" 
+			label="normalorappointment"
+			class="inputbox" 
+			default="1" 
+			description="COM_EVENTTABLEEDIT_FIELD_FUNCTION_DESC" />
+
+			<field name="alias"
 			type="text"
 			label="JFIELD_ALIAS_LABEL"
 			description="JFIELD_ALIAS_DESC"
@@ -104,7 +111,7 @@
 			class="inputbox"
 			size="1"
 		/>
-		
+		<!--
 		<field name="show_filter"
 			type="radio"
 			default="0"
@@ -120,7 +127,7 @@
 		<field name="sorting" type="radio" default="0" class="inputbox" label="COM_EVENTTABLEEDIT_SHOW_SORTING" description="COM_EVENTTABLEEDIT_SHOW_SORTING_DESC">
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
-		</field>
+		</field>-->
 
 		<field name="switcher" type="radio" default="0" class="inputbox" label="COM_EVENTTABLEEDIT_SHOW_SWITCHER" description="COM_EVENTTABLEEDIT_SHOW_SWITCHER_DESC">
 			<option value="1">JSHOW</option>
@@ -133,7 +140,7 @@
 				<option value="minimap">Minimap</option>
 		</field>
 -->
-		
+		<!--
 		<field name="show_first_row"
 			type="radio"
 			class="inputbox"
@@ -144,7 +151,7 @@
 				value="1">JSHOW</option>
 			<option
 				value="0">JHIDE</option>
-		</field>
+		</field>-->
 			<field name="location"
 			type="text"
 			label="COM_EVENTTABLEEDIT_FIELD_LOCATION_LABEL"
@@ -188,11 +195,7 @@
 			
 			hide="readmore,pagebreak">
 		</field>
-		<field name="normalorappointment" type="radio" class="inputbox" default="0" label="COM_EVENTTABLEEDIT_FIELD_FUNCTION_LABEL" description="COM_EVENTTABLEEDIT_FIELD_FUNCTION_DESC">
-			<option value="0" onclick="checkics(this.value);" checked="checked">COM_EVENTTABLEEDIT_FIELD_FUNCTION_NORMAL</option>
-			<option value="1" onclick="checkics(this.value);">COM_EVENTTABLEEDIT_FIELD_FUNCTION_APPOINTMENT</option>
-			
-		</field>
+		
 
 		<field name="addtitle"
 			type="radio"
@@ -217,23 +220,12 @@
 			<option
 				value="0">JHIDE</option>
 		</field>
-		<field name="rowsort"
+		<!--<field name="rowsort"
 			type="radio"
 			class="inputbox"
 			default="0"
 			label="COM_EVENTTABLEEDIT_ROWSORT_LABEL"
 			description="COM_EVENTTABLEEDIT_ROWSORT_LABEL">
-			<option
-				value="1">JSHOW</option>
-			<option
-				value="0">JHIDE</option>
-		</field>
-		<field name="rowdelete"
-			type="radio"
-			class="inputbox"
-			default="0"
-			label="COM_EVENTTABLEEDIT_ROWDELETE_LABEL"
-			description="COM_EVENTTABLEEDIT_ROWDELETE_LABEL">
 			<option
 				value="1">JSHOW</option>
 			<option
@@ -274,7 +266,7 @@
 				value="1">JYES</option>
 			<option
 				value="0">JNO</option>
-		</field>
+		</field> -->
 		
 		<field name="pretext"
 			type="editor"
@@ -391,7 +383,7 @@
 			default="%H:%M"
 		/>
 
-		<field id="float_separator"
+		<!--<field id="float_separator"
 			name="float_separator"
 			type="list"
 			label="COM_EVENTTABLEEDIT_FLOAT_SEPARATOR_LABEL"
@@ -442,7 +434,7 @@
 			label="COM_EVENTTABLEEDIT_PAGEBREAK_LABEL"
 			description="COM_EVENTTABLEEDIT_PAGEBREAK_DESC"
 			default="15"
-		/>
+		/> -->
 
 		<field name="cellbreak" 
 			type="text"

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension type="component" version="4.6.1" method="upgrade">
+<extension type="component" version="4.6" method="upgrade">
 	<name>com_eventtableedit</name>
 	<creationDate>08-12-17</creationDate>
 	<author>Manuel Kaspar and Theophilix</author>
@@ -44,6 +44,7 @@
 		<menu img="components/com_eventtableedit/template/images/menu/eventtableedit.png">COM_EVENTTABLEEDIT_MENU</menu>
 		<submenu>
 			<menu view="etetables" img="components/com_eventtableedit/template/images/menu/etetables.png">COM_EVENTTABLEEDIT_TABLES</menu>
+			<menu view="appointmenttables" img="components/com_eventtableedit/template/images/menu/etetables.png">COM_APPOINTMENTTABLEEDIT_TABLES</menu>
 			<menu view="dropdowns" img="components/com_eventtableedit/template/images/menu/dropdowns.png">COM_EVENTTABLEEDIT_DROPDOWNS</menu>
 			<menu view="csvimport" img="components/com_eventtableedit/template/images/menu/import.png">COM_EVENTTABLEEDIT_CSV_IMPORT</menu>
 			<menu view="csvexport" img="components/com_eventtableedit/template/images/menu/export.png">COM_EVENTTABLEEDIT_CSV_EXPORT</menu>

@@ -30,14 +30,14 @@ defined( '_JEXEC' ) or die;
 		
 		
 		<ul class="adminformlist">
-			<li>
+			<!--<li>
 				
 				<label><?php echo JText::_('COM_EVENTTABLEEDIT_CHECKBOX_NORMAL'); ?>: </label>
 				<select name="checkfun">
 					<option value="0"><?php echo JText::_('JNO') ?></option>
 					<option value="1"><?php echo JText::_('JYES') ?></option>
 				</select>
-			</li>
+			</li>-->
 			<li>
 				<label><?php echo JText::_('COM_EVENTTABLEEDIT_XMLFILE'); ?>: </label>
 				<input type="file" name="fupload" />

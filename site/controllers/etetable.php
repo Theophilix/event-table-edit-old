@@ -1,7 +1,7 @@
 <?php
 /**
  * @version
- * @copyright	Copyright (C) 2007 - 2018 Manuel Kaspar and Theophilix
+ * @copyright	Copyright (C) 2007 - 2017 Manuel Kaspar and Theophilix
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -91,7 +91,7 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 			$ret = $ret;
 		}
 		// END if appointment text changed from appointment view then below code is efected //
-		if(isset($datatype) && ($datatype == "boolean" || $datatype == "four_state")){			
+		if($datatype == "boolean" || $datatype == "four_state"){			
 			$pos = strpos($ret,'cross.png');
 			$pos1 = strpos($ret,'tick.png');
 			$pos2 = strpos($ret,'question-mark.png');

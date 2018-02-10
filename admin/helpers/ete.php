@@ -38,6 +38,11 @@ class eteHelper {
 			$vName == 'etetables'
 		);
 		JSubMenuHelper::addEntry(
+			JText::_('COM_EVENTTABLEEDIT_SUBMENU_APPOINTMENTTABLES'),
+			'index.php?option=com_eventtableedit&view=appointmenttables',
+			$vName == 'appointmenttables'
+		);
+		JSubMenuHelper::addEntry(
 			JText::_('COM_EVENTTABLEEDIT_SUBMENU_DROPDOWN'),
 			'index.php?option=com_eventtableedit&view=dropdowns',
 			$vName == 'dropdowns'
