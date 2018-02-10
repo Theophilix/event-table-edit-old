@@ -66,6 +66,7 @@ td.tablesaw-priority-50 a {
     color: #888;
     text-decoration: none;
 }
+.show_always{display:table-cell!important;}
 @media (min-width: 40em) {
 	td.title {
 		max-width: 12em;
@@ -108,23 +109,23 @@ if($this->item->switcher == 1){
 	<?php 
 
 	if(!$this->print) : ?>
-	 <tfoot class="limit">
-	<tr>
-			<td colspan="100%">
+	<tfoot class="limit">
+		<tr>
+			<td colspan="100%" class="show_always">
 				<div id="container">
 					<?php echo $this->pagination->getLimitBox(); ?>
 				</div>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="100%">
+			<td colspan="100%" class="show_always">
 				<div id="container">
 					<?php echo $this->pagination->getListFooter() ?>
 				</div>
 			</td>
 		</tr>
 		<tr>
-			<td colspan="100%">
+			<td colspan="100%" class="show_always">
 				<div id="container">
 					<?php echo $this->pagination->getPagesCounter(); ?>
 				</div>
@@ -157,5 +158,24 @@ if($this->item->switcher == 1){
     jQuery(document).ready(function () {
         var numCol = jQuery('#timestamp-head').parent().children().index(jQuery('#timestamp-head'));
         jQuery('#etetable-table td:nth-child('+(numCol+1)+')').hide();
-    })
+    });
+	
+	jQuery(document).ready(function(){
+		if(jQuery( window ).width()<=400){
+			jQuery('.tablesaw-modeswitch span.btn-select select').val('swipe');
+			jQuery('.tablesaw-modeswitch span.btn-select select').change();
+		}
+	});
+	
+	jQuery(window).resize(function(){
+		if(jQuery( window ).width()<=400){
+			jQuery('.tablesaw-modeswitch span.btn-select select').val('swipe');
+			jQuery('.tablesaw-modeswitch span.btn-select select').change();
+		}else{
+			jQuery('.tablesaw-modeswitch span.btn-select select').val('columntoggle');
+			jQuery('.tablesaw-modeswitch span.btn-select select').change();
+			
+		}
+		
+	})
 </script>
