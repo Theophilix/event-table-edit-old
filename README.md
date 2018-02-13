@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-Download latest version 4.6.2 (since 10.02.2018, delete column separation not done yet): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+Download latest version 4.6.2 (since 10.02.2018, has bug, see issue 88, delete column separation not done yet): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Dowload older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
