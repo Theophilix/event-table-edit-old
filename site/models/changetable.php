@@ -101,6 +101,7 @@ class EventtableeditModelChangetable extends JModelList
 
 
 		$this->createRowsTable();
+		
 		$deleteColIds = $this->deleteNotUsedCols($cid);
 		
 		// Delete not used entries in the heads table
@@ -115,6 +116,7 @@ class EventtableeditModelChangetable extends JModelList
 		$db->setQuery($updatecol);
 		$db->query();		
 		// Add the new table heads
+		
 		for ($a = 0; $a < count($name); $a++) {
 			$table = JTable::getInstance('Heads', 'EventtableeditTable');
 			
@@ -193,27 +195,55 @@ class EventtableeditModelChangetable extends JModelList
 	}
 	
 	/**
+	 * replace string between start and end string
+	 */
+	 
+	function delete_all_between($beginning, $end, $string) {
+		$beginningPos = strpos($string, $beginning);
+		$endPos = strpos($string, $end);
+		if ($beginningPos === false || $endPos === false) {
+			return $string;
+		}
+
+		$textToDelete = substr($string, $beginningPos, ($endPos + strlen($end)) - $beginningPos);
+
+		return str_replace($textToDelete, '', $string);
+	}
+
+
+	/**
 	 * Alters the _rows_$id table that it fits to the table heads
 	 */
 	private function updateRowsTable($cid, $newId, $datatype) {
+		
 		$query = 'ALTER TABLE #__eventtableedit_rows_' . $this->id . ' ';
 		
 		// If it's a existing column
 		if ($cid != 0) {
-			$query .= 'CHANGE head_' . $newId . ' head_' . $newId . ' ' . Datatypes::mapDatatypes($datatype);
-			$this->db->setQuery($query);
-			$this->db->query();
 			
-			if($datatype == 'four_state'){
-				$q2 = 'UPDATE #__eventtableedit_rows_' . $this->id . ' SET head_' . $newId . ' = "0"';
-				$this->db->setQuery($q2);
-				$this->db->query();
-			}else{
-				$q3 = 'UPDATE #__eventtableedit_rows_' . $this->id . ' SET head_' . $newId . ' = "&nbsp;"';
+			$qx = 'SELECT DATA_TYPE as datatype FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = "' . $this->db->getPrefix() . 'eventtableedit_rows_' . $this->id . '" AND COLUMN_NAME = "head_' . $newId . '"';
+			$this->db->setQuery($qx);
+			$this->db->execute();
+			$new_datatype = $this->db->loadObject()->datatype;
+			
+			$map_datatype = $new_datatype = $this->delete_all_between('(',')',strtoupper(Datatypes::mapDatatypes($datatype)));
+			if(strtoupper($new_datatype) != $map_datatype){
 				
-				$this->db->setQuery($q3);
+				$query .= 'CHANGE head_' . $newId . ' head_' . $newId . ' ' . Datatypes::mapDatatypes($datatype);
+				$this->db->setQuery($query);
 				$this->db->query();
-			}
+				
+				if($datatype == 'four_state'){
+					$q2 = 'UPDATE #__eventtableedit_rows_' . $this->id . ' SET head_' . $newId . ' = "0"';
+					$this->db->setQuery($q2);
+					$this->db->query();
+				}elseif($datatype == "boolean"){
+					$q3 = 'UPDATE #__eventtableedit_rows_' . $this->id . ' SET head_' . $newId . ' = "&nbsp;"';
+					$this->db->setQuery($q3);
+					$this->db->query();
+				}
+			}			
+			
 		} else {
 			$detailquery = "SELECT normalorappointment FROM #__eventtableedit_details WHERE id ='".$this->id."'";
 			$this->db->setQuery($detailquery);
