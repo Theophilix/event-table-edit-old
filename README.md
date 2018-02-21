@@ -9,7 +9,7 @@ Try all the functions (including backend) on the demo site: https://demo.eventta
 
 Download latest version 4.6.2 (since 10.02.2018, delete column separation not done yet): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
-Dowload older versions here: https://github.com/Theophilix/event-table-edit/releases.
+Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
 Version history: scroll down to "II".
 
