@@ -83,6 +83,7 @@ Please post all feature requests in the issues tab.
 - bugfix: Notices: "undefined offset" and " Trying to get property of non-object" https://github.com/Theophilix/event-table-edit/issues/80
 - bugfix:  Caching interferes with edit rights https://github.com/Theophilix/event-table-edit/issues/79
 - bugfix: Frontend: Administer table save buttons leads to loss of data https://github.com/Theophilix/event-table-edit/issues/88
+
 **For version 4.6.1:**
 
 [1] Normal mode
