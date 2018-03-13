@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-Download latest version 4.6.2 (since 10.02.2018, delete column separation not done yet): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+Download latest version 4.6.3 (since 13.02.2018): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Dowload older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -71,6 +71,14 @@ Please post all feature requests in the issues tab.
 
 ## II Version history
 
+
+**For version 4.6.3:**
+
+[General]
+
+- enhancement: Backend: Consequent separation of appointment and normal function tables https://github.com/Theophilix/event-table-edit/issues/59 (Delete column is working now!)
+
+
 **For version 4.6.2:**
 
 [General]
@@ -82,7 +90,7 @@ Please post all feature requests in the issues tab.
 [1] Normal mode
 - bugfix: Notices: "undefined offset" and " Trying to get property of non-object" https://github.com/Theophilix/event-table-edit/issues/80
 - bugfix:  Caching interferes with edit rights https://github.com/Theophilix/event-table-edit/issues/79
-- bugfix: Frontend: Administer table save buttons leads to loss of data https://github.com/Theophilix/event-table-edit/issues/88
+
 **For version 4.6.1:**
 
 [1] Normal mode

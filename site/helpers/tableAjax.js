@@ -34,6 +34,7 @@ function initEvents() {
 		}
 	
 		addActionRow(0, null);
+		addActionRow2(0, null);
 	}
 	
 	addNewRowEvent();
@@ -94,7 +95,7 @@ function addClickEvent(row) {
  */
 function addActionRow(row, singleOrdering) {
 	// If the user has not engough rights
-	if (!access.reorder && !access.deleteRow && !access.ownRows) {
+	if (!access.reorder && !access.ownRows) {
 		if (!tableProperties.show_pagination) {
 			return false;
 		}
@@ -127,12 +128,55 @@ function addActionRow(row, singleOrdering) {
 		
 		var elem = tempTable.rows[a].appendChild(cell);
 		
-		addDeleteButton(a);
+		//addDeleteButton(a);
 		addOrdering(a, elem, ordering[a]);
 	}
 	removeLoad();
 }
 
+/**
+ * Adds a action row and the neccessary events
+ * if a user has the rights for that
+ *
+ * @param row: The row from that the action should be started
+ */
+function addActionRow2(row, singleOrdering) {
+	
+	// If the user has not engough rights
+	if (!access.deleteRow && !access.ownRows) {
+		return false;
+	}
+	showLoad();
+	
+	// Add table head for action row if it's the first time
+	
+	var ordering = new Array();
+	if (singleOrdering == null) {
+		ordering = addActionDeleteRowFirstTime();
+	}
+	// If there's a new row to be added
+	else {
+		ordering[row] = singleOrdering; 
+	}
+	
+	// Add the column
+	var tempTable = tableProperties.myTable.tBodies[0];
+	for(var a = row; a < tempTable.rows.length; a++ ) {
+		var cell = new Element('td', {
+			'id': 'etetable-action-delete',
+			'class':"editable tablesaw-priority-10",
+			'data-tablesaw-priority':"10",
+			'data-tablesaw-sortable-col':"col"
+
+		});
+		
+		var elem = tempTable.rows[a].appendChild(cell);
+		
+		addDeleteButton(a);
+		//addOrdering(a, elem, ordering[a]);
+	}
+	removeLoad();
+}
 /**
  * Executed when the whole action column has to be added the first time
  */
@@ -171,7 +215,21 @@ function addActionRowFirstTime() {
 
 	return tableProperties.ordering;
 }
- 
+
+function addActionDeleteRowFirstTime() {
+	
+	
+	var thead2 = new Element('th', {
+		'text': lang.deletetext,
+		'class':"evth50 tablesaw-priority-60 tablesaw-sortable-head",
+			'data-tablesaw-priority':"60",
+			'data-tablesaw-sortable-col':"col"
+	});
+	
+	tableProperties.myTable.tHead.rows[0].appendChild(thead2);
+	return tableProperties.ordering;
+}
+
 /**
  * Add the Delete Event on a single row
  */
@@ -340,6 +398,7 @@ function newRow() {
 				access.createdRows.push(rowId);  
 				
 				addActionRow(nmbPageRows, rowOrder);
+				addActionRow2(nmbPageRows, rowOrder);
 				addClickEvent(nmbPageRows);
 				
 				removeLoad();

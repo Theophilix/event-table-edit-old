@@ -16,7 +16,8 @@ $listDirn	= $this->state->get('list.direction');
 function Access() {
 	this.edit 		= <?php if ($this->params->get('access-edit')) echo "1"; else echo "0"; ?>;
 	this.add 		= <?php if ($this->params->get('access-add')) echo "1"; else echo "0"; ?>;
-	this.deleteRow 	= <?php if ($this->params->get('access-delete')) echo "1"; else echo "0"; ?>;
+	/* this.deleteRow 	= <?php if ($this->params->get('access-delete')) echo "1"; else echo "0"; ?>; */
+	this.deleteRow 	= <?php if ($this->item->rowdelete) echo "1"; else echo "0"; ?>;
 	this.reorder	= <?php if ($this->params->get('access-reorder')) echo "1"; else echo "0"; ?>;
 	
 	this.ownRows 	= <?php if ($this->params->get('access-ownRows')) echo "1"; else echo "0"; ?>;
@@ -85,6 +86,7 @@ function Language() {
 	this.really_delete		  = '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_REALLY_DELETE'); ?>';
 	this.err_dropdown_deleted = '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_ERROR_DROPDOWN_DELETED'); ?>';
 	this.actions 			  = '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_ACTIONS'); ?>';
+	this.deletetext			  = '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_DELETE'); ?>';
 	this.clear				  = '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_CLEAR'); ?>';
 	this.saveOrder			  = '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_SAVE_ORDER'); ?>';
 	this.deleteRow			  = '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_DELETE_ROW'); ?>';
