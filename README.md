@@ -9,7 +9,7 @@ Try all the functions (including backend) on the demo site: https://demo.eventta
 
 Download latest version 4.6.3 (since 13.02.2018): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
-Dowload older versions here: https://github.com/Theophilix/event-table-edit/releases.
+Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
 Version history: scroll down to "II".
 
@@ -83,24 +83,28 @@ Please post all feature requests in the issues tab.
 
 [General]
 
-- bugfix: Frontend: In swipe mode, the pagination module is hidden when clicking on swipe buttons https://github.com/Theophilix/event-table-edit/issues/51
-- bugfix: Frontend: Automatically choose stack view for mobile screens https://github.com/Theophilix/event-table-edit/issues/61
-- enhancement: Backend: Consequent separation of appointment and normal function tables https://github.com/Theophilix/event-table-edit/issues/59 (Delete column is not working yet!)
+- bugfix: frontend: In swipe mode, the pagination module is hidden when clicking on swipe buttons https://github.com/Theophilix/event-table-edit/issues/51
+- bugfix: frontend: Automatically choose stack view for mobile screens https://github.com/Theophilix/event-table-edit/issues/61
+- enhancement: backend: Consequent separation of appointment and normal function tables https://github.com/Theophilix/event-table-edit/issues/59 (Delete column is not working yet!)
 
 [1] Normal mode
 - bugfix: Notices: "undefined offset" and " Trying to get property of non-object" https://github.com/Theophilix/event-table-edit/issues/80
 - bugfix:  Caching interferes with edit rights https://github.com/Theophilix/event-table-edit/issues/79
+<<<<<<< HEAD
+=======
+- bugfix: frontend: Administer table save buttons leads to loss of data https://github.com/Theophilix/event-table-edit/issues/88
+>>>>>>> origin/master
 
 **For version 4.6.1:**
 
 [1] Normal mode
-- bugfix: Notices: "undefined offset" and " Trying to get property of non-object" https://github.com/Theophilix/event-table-edit/issues/80
-- bugfix:  Caching interferes with edit rights https://github.com/Theophilix/event-table-edit/issues/79
+- bugfix: notices: "undefined offset" and " Trying to get property of non-object" https://github.com/Theophilix/event-table-edit/issues/80
+- bugfix: Caching interferes with edit rights https://github.com/Theophilix/event-table-edit/issues/79
 
 **For version 4.6:**
 
 [1] Normal mode
-- enhancement: new four state datatype https://github.com/Theophilix/event-table-edit/issues/33
+- enhancement: New four state datatype https://github.com/Theophilix/event-table-edit/issues/33
 - bugfix: stack sorting problem: https://github.com/Theophilix/event-table-edit/issues/77
 - bugfix: changing ACL settings takes a long time to be saved / made https://github.com/Theophilix/event-table-edit/issues/73
 
