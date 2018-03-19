@@ -644,7 +644,7 @@ BuildPopupWindow.prototype.updateRows = function(row) {
 	for (var a = row; a < tRows.length; a++) {
 		var tempTable = tRows[a];
 		self.updateHiddenField(tempTable, a);
-		self.updateFirstRow(tempTable, a);
+		//self.updateFirstRow(tempTable, a);
 		self.updateLineColors(tempTable, a);
 		self.updateCellId(tempTable,a);
 	}
