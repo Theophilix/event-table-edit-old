@@ -72,17 +72,20 @@ Please post all feature requests in the issues tab.
 ## II Version history
 
 **For version 4.6.4:**
+
 [0] General
+
 - bugfix: backend: XML Export: don't save any files on webspace https://github.com/Theophilix/event-table-edit/issues/84
 - bugfix: backend: csv import: imported csv in wrong category (normal instead of appointment), even if settings are correct https://github.com/Theophilix/event-table-edit/issues/90
 - bugfix: backend: xml import: Warning when trying to upload wrong file format is green https://github.com/Theophilix/event-table-edit/issues/94
 
 [1] Normal mode
+
 - bugfix: 
 backend: remove notice when admin edits name (appointment mode) oder edits cell (normal mode) https://github.com/Theophilix/event-table-edit/issues/92
 
-
 [2] Appointment mode
+
 - enhancement: backend: appointment table: add variable first_name and last_name to summary field in ics-file https://github.com/Theophilix/event-table-edit/issues/91
 
 
