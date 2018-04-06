@@ -186,6 +186,10 @@ class EventtableeditControllerappointmentform extends JControllerLegacy
 				$description = $post['comment'];
 				$tableeditpostalldata->icsfilename = str_replace('{first_name}',$post['first_name'] , $tableeditpostalldata->icsfilename);
 				$tableeditpostalldata->icsfilename = str_replace('{last_name}',$post['last_name'] , $tableeditpostalldata->icsfilename);
+				
+				$summary = str_replace('{first_name}',$post['first_name'] , $summary);
+				$summary = str_replace('{last_name}',$post['last_name'] , $summary);
+				
 				$ttemp1 = $ttemp+1;
 				$filename    = $tableeditpostalldata->icsfilename.$ttemp1.'.ics';
 

@@ -49,12 +49,12 @@ class EventtableeditControllerXmlimport extends JControllerLegacy {
 		
 		if(!$this->file['name']){
 			$msg = JTEXT::_('COM_EVENTTABLEEDIT_UPLOAD_XMLFILE_VALID');
-			$app->redirect('index.php?option=com_eventtableedit&view=xmlimport',$msg);
+			$app->redirect('index.php?option=com_eventtableedit&view=xmlimport',$msg,'error');
 			
 		}
 		if($ext != 'xml'){
 			$msg = JTEXT::_('COM_EVENTTABLEEDIT_UPLOAD_XMLFILE_VALID');
-			$app->redirect('index.php?option=com_eventtableedit&view=xmlimport',$msg);
+			$app->redirect('index.php?option=com_eventtableedit&view=xmlimport',$msg,'error');
 				
 		}		
 			

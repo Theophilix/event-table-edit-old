@@ -202,6 +202,7 @@ JHtml::_('behavior.formvalidation');
 
 
 						<li class="location"><?php echo $this->form->getLabel('summary'); ?>
+						<?php echo JText::_('COM_EVENTTABLEEDIT_USED_VARIABLE_IN_SUMMARY'); ?><br>
 					<?php echo $this->form->getInput('summary'); ?></li>
 				
 

@@ -94,7 +94,8 @@ function EventTableEditParseRoute($segments)
 		case 'appointments':
 		{
 			$vars['view'] = 'appointments';
-			$vars['id'] = $segments[1];
+			if(isset($segments[1]))
+				$vars['id'] = $segments[1];
 		} break;
 		case 'appointmentform':
 		{

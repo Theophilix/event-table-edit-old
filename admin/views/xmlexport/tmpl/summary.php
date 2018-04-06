@@ -36,7 +36,7 @@ $file = JPATH_ROOT."/components/com_eventtableedit/template/tablexml/".$name."_"
 	<fieldset class="adminform">
 		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLE') ?></legend>
 		
-		<textarea readonly="readonly" rows="20" cols="150" id="export-text"><?php  readfile($file); //echo $this->csvFile; ?></textarea>
+		<textarea readonly="readonly" rows="20" cols="150" id="export-text"><?php echo $this->orderxml; //readfile($file); //echo $this->csvFile; ?></textarea>
 		<input type="hidden" name="tableList" value="<?php echo $id; ?>" >
 	</fieldset>
 	</div>

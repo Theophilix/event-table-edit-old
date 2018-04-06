@@ -31,7 +31,11 @@ class EventtableeditModelCsvimportnewtable extends EventtableeditModelCsvimport 
 	 * Import all the csv data and create a new table
 	 */
 	public function importCsvNew($detailsModel, $name, $datatype) {
+		$input  =  JFactory::getApplication()->input;
+		$checkfun = $input->get('checkfun');
+		
 		$this->detailsModel = $detailsModel;
+		$this->checkfun 	= $checkfun;
 		$this->tableName = $name;
 		$this->heads['datatype'] = $datatype;
 		
@@ -53,6 +57,8 @@ class EventtableeditModelCsvimportnewtable extends EventtableeditModelCsvimport 
 		$data = array();
 		$data['id'] = 0;
 		$data['name'] = $this->tableName;
+		$data['normalorappointment'] = $this->checkfun;
+		
 		$data['published'] = 1;
 		if (!$this->detailsModel->save($data)) {
 			JError::raiseError( 500, JText::_('COM_EVENTTABLEEDIT_SAME_NAME'));
