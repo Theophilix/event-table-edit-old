@@ -97,6 +97,7 @@ backend: remove notice when admin edits name (appointment mode) oder edits cell 
 
 - enhancement: Backend: Consequent separation of appointment and normal function tables https://github.com/Theophilix/event-table-edit/issues/59 (Delete column is working now!)
 
+- enhancement: Frontend / Layout: give delete buttons it's own column, separate it from the change sort order column https://github.com/Theophilix/event-table-edit/issues/49
 
 **For version 4.6.2:**
 
