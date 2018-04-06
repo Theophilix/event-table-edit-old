@@ -84,6 +84,7 @@ Please post all feature requests in the issues tab.
 - bugfix: 
 backend: remove notice when admin edits name (appointment mode) oder edits cell (normal mode) https://github.com/Theophilix/event-table-edit/issues/92
 
+
 [2] Appointment mode
 
 - enhancement: backend: appointment table: add variable first_name and last_name to summary field in ics-file https://github.com/Theophilix/event-table-edit/issues/91
