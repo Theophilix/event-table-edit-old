@@ -58,12 +58,16 @@ $checkfun = $app->input->get('checkfun');
 			</li>
 			</ul>
 			<table id="datatypeTable" border="0" width="90%">
-				<?php for($a = 0; $a < count($this->headLine); $a++) :?>
+				<?php for($a = 0; $a < count($this->headLine); $a++) :
+					if($this->headLine[$a]!='timestamp'):
+					?>
 					<tr>
 						<td id="colText"><b><?php echo JText::_('COM_EVENTTABLEEDIT_DATATYPE_FOR') . ' ' . $this->headLine[$a]; ?></b></td>
 						<td><?php echo $this->listDatatypes; ?></td>
 					</tr>
-				<?php endfor; ?>
+				<?php 
+					endif;
+					endfor; ?>
 			</table>
 		</fieldset>
 	</div>

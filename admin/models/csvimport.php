@@ -21,6 +21,7 @@ class EventtableeditModelCsvimport extends JModelLegacy {
 	protected $doubleqt;
 	protected $checkfun;
 	protected $heads;
+	protected $cntr;
 	
 	function __construct() {
 		parent::__construct();
@@ -113,6 +114,7 @@ class EventtableeditModelCsvimport extends JModelLegacy {
 	 * Import all the csv data and append data to a table
 	 */
 	public function importCsvAppend() {
+		
 		if (!$this->checkCSV()) {
 			return false;
 		}
@@ -167,7 +169,8 @@ class EventtableeditModelCsvimport extends JModelLegacy {
 			
 			if (empty($row)) continue;
 
-			$data = $this->readCsvLine($row);
+			$data = $this->readCsvLineRow($row);
+			
 			$this->insertRowToDb($data, $startRow + $lineCount,$checkfun, $currentTime);
 			$lineCount++;
 		}
@@ -210,24 +213,51 @@ class EventtableeditModelCsvimport extends JModelLegacy {
 		
 		// Get the single values
 		$values = Csv::getValuesFromCsv($this->separator, $row);
-		
-		for ($h = 0; $h < count($values); $h++) {
-			$values[$h] = trim($values[$h]);
+		$this->cntr = count($values);
+		if(isset($values[$this->cntr-1]) && trim($values[$this->cntr-1]) ==	"timestamp"){
+			$this->cntr 	=	$this->cntr-1;
+		}
+		$values2	=	array();
+		for ($h = 0; $h < $this->cntr; $h++) {
+			$values2[$h] = trim($values[$h]);
 			
 			// If there were "" in it
-			if ((substr($values[$h], 0, 1) == '"') && (substr($values[$h], -1) == '"') && !$this->doubleqt) {
-				$values[$h] = str_replace('""', '"', $values[$h]);
+			if ((substr($values2[$h], 0, 1) == '"') && (substr($values2[$h], -1) == '"') && !$this->doubleqt) {
+				$values2[$h] = str_replace('""', '"', $values2[$h]);
 			}
 			
 			// Remove Spaces
 			if ($this->doubleqt) {
-				$values[$h] = trim($values[$h]);
+				$values2[$h] = trim($values2[$h]);
 			}	
-	
 			//$values[$h] = htmlentities($values[$h], ENT_COMPAT, 'UTF-8');
 		}
-
-		return $values;
+		
+		return $values2;
+	}
+	
+	protected function readCsvLineRow($row) {
+		$row = $this->processEncoding($row);
+		
+		// Get the single values
+		$values = Csv::getValuesFromCsv($this->separator, $row);
+		$values2	=	array();
+		for ($h = 0; $h < $this->cntr; $h++) {
+			$values2[$h] = trim($values[$h]);
+			
+			// If there were "" in it
+			if ((substr($values2[$h], 0, 1) == '"') && (substr($values2[$h], -1) == '"') && !$this->doubleqt) {
+				$values2[$h] = str_replace('""', '"', $values2[$h]);
+			}
+			
+			// Remove Spaces
+			if ($this->doubleqt) {
+				$values2[$h] = trim($values2[$h]);
+			}	
+			//$values[$h] = htmlentities($values[$h], ENT_COMPAT, 'UTF-8');
+		}
+		// echo "<pre>";print_r($values2);die;
+		return $values2;
 	}
 	
 	/**
@@ -237,18 +267,17 @@ class EventtableeditModelCsvimport extends JModelLegacy {
 		$user = JFactory::getUser();
 		
 		$data = $this->prepareDataForDb($data);
-
 		
 		if ($currentTime == null)
 			$currentTime = new DateTime();
 
         $newdata = '';
-
-		if (isset($this->csvHeadLine[0]) && $this->csvHeadLine[0] === 'timestamp') {
+		$cntr	=	count($this->csvHeadLine)-1;
+		if (isset($this->csvHeadLine[$cntr]) && $this->csvHeadLine[$cntr] === 'timestamp') {
 			//convert to timestamp to sql format
-            if (isset($data[0]) && $data[0] != '') {
-				$data[0] = str_replace("'", '', $data[0]);
-				$date = str_replace('.', '-', $data[0]);
+            if (isset($data[$cntr]) && $data[$cntr] != '') {
+				$data[$cntr] = str_replace("'", '', $data[$cntr]);
+				$date = str_replace('.', '-', $data[$cntr]);
 				$timestamp = date('Y-m-d H:i:s', strtotime($date));
 			} else {
 				$currentTime->modify("+1 second");
@@ -260,7 +289,7 @@ class EventtableeditModelCsvimport extends JModelLegacy {
                 $timestamp = $currentTime->format("Y-m-d H:i:s");
 			}
 			
-            $data[0] = "'" . $timestamp . "'";
+            $data[$cntr] = "'" . $timestamp . "'";
             if($checkfun == 1){
                 // NULL replace with free //
                 $newdata .= str_replace('NULL', "'free'", implode(', ', $data));
@@ -271,7 +300,7 @@ class EventtableeditModelCsvimport extends JModelLegacy {
 
 
             $query = 'INSERT INTO #__eventtableedit_rows_' . $this->id .
-                ' (created_by, ordering, timestamp, ' . implode(', ', $this->heads['name']) . ')' .
+                ' (created_by, ordering, ' . implode(', ', $this->heads['name']) . ', timestamp)' .
                 ' VALUES (' . $user->get('id') . ', ' . $ordering . ", " . $newdata . ')';
 
 		} else {
@@ -294,7 +323,7 @@ class EventtableeditModelCsvimport extends JModelLegacy {
 		}
 
 				 
-		//echo $query;
+		//echo $query;die;
 		$this->db->setQuery($query);
 		$this->db->query();
 
@@ -357,7 +386,7 @@ class EventtableeditModelCsvimport extends JModelLegacy {
 		$this->getHeads();
 		$nmbInDb = count($this->heads['name']);
 		$nmbInCsv = count($this->csvHeadLine);
-		
+	
 		if ($nmbInDb != $nmbInCsv) {
 			$app->setUserState("com_eventtableedit.csvError", true);
 			return false;

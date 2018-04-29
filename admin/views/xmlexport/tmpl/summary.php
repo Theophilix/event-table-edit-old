@@ -24,6 +24,7 @@ defined( '_JEXEC' ) or die;
 
 $app = JFactory::getApplication();
 $id = $app->input->get('tableList');
+$xmlexporttimestamp = $app->input->get('xmlexporttimestamp');
 $this->model = $this->getModel('xmlexport');
 $name = $this->model->getTabledata($id);
 $name = str_replace(' ','_',$name->name);
@@ -38,6 +39,7 @@ $file = JPATH_ROOT."/components/com_eventtableedit/template/tablexml/".$name."_"
 		
 		<textarea readonly="readonly" rows="20" cols="150" id="export-text"><?php echo $this->orderxml; //readfile($file); //echo $this->csvFile; ?></textarea>
 		<input type="hidden" name="tableList" value="<?php echo $id; ?>" >
+		<input type="hidden" name="xmlexporttimestamp" value="<?php echo $xmlexporttimestamp; ?>" >
 	</fieldset>
 	</div>
 	

@@ -71,7 +71,7 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 
 			if($cell !=0){
 				if($ret == 'free'){
-					$ret =  '<span class="buleclass">'.JText::_(strtoupper($ret)).'</span>'; // free appointment
+					$ret =  '<span class="blueclass">'.JText::_(strtoupper($ret)).'</span>'; // free appointment
 				}else{
 					if($admin == 1){
 					 			if($permisioncheck == 0){

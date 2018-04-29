@@ -115,10 +115,10 @@ $effectiveDate    = strtotime("-$hoursitem hours", strtotime($bookdats));
 			//echo '<br>';
 
 			if($currenttimestemp > $effectiveDate){  // sprintf  $hoursitem ?>
-					<span class="orangeclass"><?php echo JText::_('COM_EVENTEDITTABLE_BLOCK_APPINTMENT'); ?></span>
+					<span class="orangeclass"><?php echo JText::_('COM_EVENTEDITTABLE_BLOCK_APPOINTMENT'); ?></span>
 			<?php }else{ ?>
-				<span class="buleclass"><?php $bulefree 	 = trim($this->rows[$this->rowCount][$colCount]);  
-							echo JText::_(strtoupper($bulefree));
+				<span class="blueclass"><?php $bluefree 	 = trim($this->rows[$this->rowCount][$colCount]);  
+							echo JText::_(strtoupper($bluefree));
 					?></span>
 			<?php }
 

@@ -73,13 +73,20 @@ class EventtableeditModelCsvimportnewtable extends EventtableeditModelCsvimport 
 	
 	private function createHeadsTable() {
 		$this->getHeadLine();
-			$db = JFactory::getDBO();
-		$updatecol = "UPDATE `#__eventtableedit_details` SET col='".count($this->csvHeadLine)."' WHERE id='".$this->id."'";
+		$db = JFactory::getDBO();
+		
+		$col_count = count($this->csvHeadLine);
+		$cntr = $col_count-1;
+		if (isset($this->csvHeadLine[$cntr]) && $this->csvHeadLine[$cntr] === 'timestamp'){
+			$col_count	=	$col_count-1;
+		}
+		$updatecol = "UPDATE `#__eventtableedit_details` SET col='".$col_count."' WHERE id='".$this->id."'";
 		$db->setQuery($updatecol);
 		$db->query();
 		$len = count($this->csvHeadLine);
-		if (isset($this->csvHeadLine[0]) && $this->csvHeadLine[0] === 'timestamp')
+		if (isset($this->csvHeadLine[$cntr]) && $this->csvHeadLine[$cntr] === 'timestamp'){
 			$len = $len - 1;
+		}
 		
 		for ($a = 0; $a < $len; $a++) {
 			$table = JTable::getInstance('Heads', 'EventtableeditTable');

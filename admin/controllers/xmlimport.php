@@ -69,7 +69,7 @@ class EventtableeditControllerXmlimport extends JControllerLegacy {
 		}
 		$xml = json_encode($xml);
 		$xml = json_decode($xml, TRUE);
-
+		
 		$xml['id'] = 0;
 		if(count($xml['rowdata']['linerow']) > 0){
 			$xml['temps'] = 0;
@@ -79,25 +79,23 @@ class EventtableeditControllerXmlimport extends JControllerLegacy {
 		$xml['alias']= substr(md5(rand()), 0, 7);
 		$xml['checkfun']=$this->checkfun?$this->checkfun:'0';
 
-		
 		$model = $this->getModel('Etetable','EventtableeditModel');
-
+		
 		$tablesave = $model->saveXml($xml);
 		//exit;
 		if($tablesave > 0){
-		
+			$url = 'index.php?option=com_eventtableedit&view=etetables';
+			if($xml['normalorappointment']){
+				$url = 'index.php?option=com_eventtableedit&view=appointmenttables';
+			}
 			$msg = JTEXT::_('COM_EVENTTABLEEDIT_SUCCESSFULLY_TABLES_AND_DATA_CREATED');
 			if($currentversion != $xml['ETE_version']){
 				$msg = JTEXT::_('COM_EVENTTABLEEDIT_FILE_IMPORTED_BUT_ETE_VERSION_NOT_MATCH');
-				$app->redirect('index.php?option=com_eventtableedit&view=etetables',$msg,JTEXT::_('COM_EVENTTABLEEDIT_FILE_IMPORTED_WARNING'));
+				$app->redirect($url,$msg,JTEXT::_('COM_EVENTTABLEEDIT_FILE_IMPORTED_WARNING'));
 			}
-			$app->redirect('index.php?option=com_eventtableedit&view=etetables',$msg);
+			$app->redirect($url,$msg);
 			
 		}
-			
-		
-
-	
 		
 		parent::display();
 	}

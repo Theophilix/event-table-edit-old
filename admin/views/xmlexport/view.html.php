@@ -92,7 +92,7 @@ class EventtableeditViewxmlexport extends JViewLegacy {
 		$app = JFactory::getApplication();
 		$input  =  JFactory::getApplication()->input;
 		$postget = $input->getArray($_POST);
-
+		$this->xmlexporttimestamp  = $postget['xmlexporttimestamp'];
 		$this->id 		 = $postget['tableList'];
 		if(empty($this->id)){
 			$msg = JTEXT::_('COM_EVENTTABLEEDIT_PLEASE_SELECT_TABLE');
@@ -184,6 +184,14 @@ class EventtableeditViewxmlexport extends JViewLegacy {
 						</linehead>';
 						$a++;
 		}
+		if($this->xmlexporttimestamp){
+			$orderxml .= '<linehead>
+							<no>'.$a.'</no>
+							<headtable>timestamp</headtable>
+							<name>timestamp</name>
+							<datatype>timestamp</datatype>
+						</linehead>';
+		}
 		$orderxml .= '</headdata>';
 
 
@@ -201,9 +209,13 @@ class EventtableeditViewxmlexport extends JViewLegacy {
 								$findrowval = $heads[$h]->head;
 								$orderxml .= '<'.$findrowval.'>'.htmlspecialchars($row->$findrowval).'</'.$findrowval.'>';	
 							}
+							if($this->xmlexporttimestamp){
+								$orderxml .= '<timestamp>'.htmlspecialchars($row->timestamp).'</timestamp>';	
+							}
 						$orderxml .= '</linerow>';
 						$b++;
 		}
+		
 		$orderxml .= '</rowdata>';
 		$orderxml .= '</Event_Table_Edit_XML_file>';
 		return $orderxml;

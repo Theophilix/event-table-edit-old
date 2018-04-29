@@ -1302,20 +1302,14 @@ span.uparrow {
 }
 
 
-
-
-
-	.orangeclass {
-
+.orangeclass {
     background: orangered none repeat scroll 0 0;
-
     border-radius: 5px;
-
     color: #fff;
-
-    padding: 6px 10px;
+    padding: 6px 3px;
     display: inline-block !important;
-    
+    font-size : 12px;
+	line-height: 12px;
 
 
 
@@ -1341,7 +1335,7 @@ span.uparrow {
 	text-decoration: none;
 }
 
-.buleclass{
+.blueclass{
 
 background: #028fd6 none repeat scroll 0 0;
 
@@ -1386,7 +1380,7 @@ text-decoration: none;
 	  padding: 3px 10px;
 }
 
-.buleclass{
+.blueclass{
 	padding: 3px 10px;
 }
 

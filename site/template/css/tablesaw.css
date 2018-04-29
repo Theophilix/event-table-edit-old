@@ -992,3 +992,4 @@ table.tablesaw thead td {
   cursor: default;
   pointer-events: none;
 }
+tfoot.limit .show_always select#limit {margin-top: 8px;}

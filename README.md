@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-Download latest version 4.6.4 (since 06.04.2018): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+Download latest version 4.6.5 (since 29.04.2018): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -24,7 +24,7 @@ Version history: scroll down to "II".
 - CSV and TXT import with different formats (text, date, time, integer, float, boolean, four state, link, mail) 
   and import settings (separator, values in quotes or not)
 - CSV Export
-- XML import and export: import and export a table with all settings
+- XML import and export: import and export a table (normal or appointment) with all settings
 - Own CSS based template
 
 Frontend view options:
@@ -70,6 +70,21 @@ Please post all feature requests in the issues tab.
 
 
 ## II Version history
+**For version 4.6.5:**
+
+[0] General
+- enhancement: backend: csv/xml export - activate function to export and import hidden timestamp column https://github.com/Theophilix/event-table-edit/issues/95
+- enhancement: Backend: when importing a xml, go to the menu type of imported table https://github.com/Theophilix/event-table-edit/issues/86
+- enhancement: Backend: Show ETE version number https://github.com/Theophilix/event-table-edit/issues/83
+
+[1] Normal mode
+- Frontend: Layout: Center the pagination select box vertically https://github.com/Theophilix/event-table-edit/issues/82
+
+
+[2] Appointment mode
+- enhancement: Appointment / layout: Make "blocked (time limit)" cell as small as reserved cell and remove line spacing between words https://github.com/Theophilix/event-table-edit/issues/56
+
+
 
 **For version 4.6.4:**
 

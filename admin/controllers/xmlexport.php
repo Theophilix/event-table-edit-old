@@ -53,7 +53,13 @@ class EventtableeditControllerXmlexport extends JControllerLegacy {
 		$input->set('com_eventtableedit.layout','summary');
 		$input->set('view','xmlexport');
 		//$input->set('com_eventtableedit.id',$this->id);
- 		$this->model->setVariables($this->id, $this->separator, $this->doubleqt);
+		/* $input  =  JFactory::getApplication()->input;
+		$postget = $input->getArray($_POST);
+		$this->id 		 = $postget['tableList'];
+		$this->separator = $postget['separator'];
+		$this->doubleqt  = $postget['doubleqt'];
+		$this->csvexporttimestamp  = $postget['csvexporttimestamp'];
+ 		$this->model->setVariables($this->id, $this->separator, $this->doubleqt, $this->csvexporttimestamp); */
 		parent::display();
 	}
 
@@ -79,7 +85,7 @@ class EventtableeditControllerXmlexport extends JControllerLegacy {
 			$app = JFactory::getApplication();
 			$input  =  JFactory::getApplication()->input;
 			$postget = $input->getArray($_POST);
-
+			$this->xmlexporttimestamp  = $postget['xmlexporttimestamp'];
 			$this->id 		 = $postget['tableList'];
 			if(empty($this->id)){
 				$msg = JTEXT::_('COM_EVENTTABLEEDIT_PLEASE_SELECT_TABLE');
@@ -171,6 +177,14 @@ class EventtableeditControllerXmlexport extends JControllerLegacy {
 							</linehead>';
 							$a++;
 			}
+			if($this->xmlexporttimestamp){
+				$orderxml .= '<linehead>
+								<no>'.$a.'</no>
+								<headtable>timestamp</headtable>
+								<name>timestamp</name>
+								<datatype>timestamp</datatype>
+							</linehead>';
+			}
 			$orderxml .= '</headdata>';
 
 
@@ -187,6 +201,9 @@ class EventtableeditControllerXmlexport extends JControllerLegacy {
 								for ($h=0; $h < count($heads); $h++) { 
 									$findrowval = $heads[$h]->head;
 									$orderxml .= '<'.$findrowval.'>'.htmlspecialchars($row->$findrowval).'</'.$findrowval.'>';	
+								}
+								if($this->xmlexporttimestamp){
+									$orderxml .= '<timestamp>'.htmlspecialchars($row->timestamp).'</timestamp>';	
 								}
 							$orderxml .= '</linerow>';
 							$b++;

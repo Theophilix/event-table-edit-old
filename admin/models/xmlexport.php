@@ -30,10 +30,11 @@ class eventtableeditModelXmlexport extends JModelLegacy {
 	/**
 	 * Pseudo constructor for setting the variables
 	 */
-	public function setVariables($id, $separator, $doubleqt) {
+	public function setVariables($id, $separator, $doubleqt, $csvexporttimestamp=0) {
 		$this->id = $id;
 		$this->separator = $separator;
 		$this->doubleqt = $doubleqt;
+		$this->csvexporttimestamp = $csvexporttimestamp;
 	}
 	
 	public function export() {
@@ -115,6 +116,11 @@ class eventtableeditModelXmlexport extends JModelLegacy {
 				$split = explode(':', $row->defaultSorting);
 				$defSort[((int) ($split[0]) - 1)] = $row->head . " " . $split[1];
 			}
+		}
+		
+		if($this->csvexporttimestamp){
+			$this->csvData[0][] = 'timestamp|~|timestamp';
+			$this->heads['name'][] = 'timestamp';
 		}
 
 		if (!count($defSort) ) {

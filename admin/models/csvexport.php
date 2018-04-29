@@ -30,14 +30,16 @@ class EventtableeditModelCsvexport extends JModelLegacy {
 	/**
 	 * Pseudo constructor for setting the variables
 	 */
-	public function setVariables($id, $separator, $doubleqt) {
+	public function setVariables($id, $separator, $doubleqt,$csvexporttimestamp=0) {
 		$this->id = $id;
 		$this->separator = $separator;
 		$this->doubleqt = $doubleqt;
+		$this->csvexporttimestamp = $csvexporttimestamp;
 	}
 	
 	public function export() {
 		$this->getHeads();
+		
 		$this->getRows();
 		$arraysss = array();
 		$csvData = $this->csvData;
@@ -80,7 +82,6 @@ class EventtableeditModelCsvexport extends JModelLegacy {
 		$this->csvData = $csvData;
 		$data = Csv::generateCsv($this->separator, $this->doubleqt, $this->csvData);
 		
-
 		$input  =  JFactory::getApplication()->input;
 		$input->set('csvFile',$data);
 	
@@ -103,7 +104,7 @@ class EventtableeditModelCsvexport extends JModelLegacy {
 		
 		$this->heads = array();
 		$defSort = array();
-	
+		
 		foreach ($rows as $row) {
 			//if($row->datatype == 'date'){
 			$this->csvData[0][] = $row->name.'|~|'.$row->datatype;
@@ -115,6 +116,11 @@ class EventtableeditModelCsvexport extends JModelLegacy {
 				$split = explode(':', $row->defaultSorting);
 				$defSort[((int) ($split[0]) - 1)] = $row->head . " " . $split[1];
 			}
+		}
+		
+		if($this->csvexporttimestamp){
+			$this->csvData[0][] = 'timestamp|~|timestamp';
+			$this->heads['name'][] = 'timestamp';
 		}
 
 		if (!count($defSort) ) {

@@ -45,12 +45,13 @@ class EventtableeditControllerCsvexport extends JControllerLegacy {
 		$this->id 		 = $postget['tableList'];
 		$this->separator = $postget['separator'];
 		$this->doubleqt  = $postget['doubleqt'];
+		$this->csvexporttimestamp  = $postget['csvexporttimestamp'];
 
 		$input->set('com_eventtableedit.layout','summary');
 		$input->set('view','csvexport');
 
 		
-		$this->model->setVariables($this->id, $this->separator, $this->doubleqt);
+		$this->model->setVariables($this->id, $this->separator, $this->doubleqt,$this->csvexporttimestamp);
 		$this->model->export(); 
 		
 		parent::display();

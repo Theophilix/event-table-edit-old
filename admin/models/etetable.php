@@ -241,7 +241,7 @@ class EventtableeditModelEtetable extends JModelAdmin {
 	}
 	public function saveXml($data)
 	{
-
+		
 		$data['adminemailsubject']  = html_entity_decode($data['adminemailsubject']);
 		$data['useremailsubject']   = html_entity_decode($data['useremailsubject']);
 		$data['useremailtext'] 		= html_entity_decode($data['useremailtext']);
@@ -265,6 +265,8 @@ class EventtableeditModelEtetable extends JModelAdmin {
 			$isNew = false;
 		}
 		
+		
+		
 	
 		// Alter the title for save as copy
 		if (!$isNew && $data['id'] == 0) {
@@ -283,6 +285,7 @@ class EventtableeditModelEtetable extends JModelAdmin {
 			$this->setError($table->getError());
 			return false;
 		}
+		
 		$data['rules'] = json_decode($data['rules'],true);
 		// Bind the rules.
 		if (isset($data['rules'])) {
@@ -392,17 +395,18 @@ class EventtableeditModelEtetable extends JModelAdmin {
 
 	public function Insertrowfromxml($id,$prerow,$checkfun){
 
-			
+		
 		$db = JFactory::getDBO();
 		$select = 'SELECT id FROM #__eventtableedit_heads WHERE table_id="'.$id.'" ORDER BY id ASC';
 		$db->setQuery($select);
 		$filedsname = $db->loadColumn();
+		
 		$headdefine = '`ordering`,`created_by`,';
 
 		$beginCol = 2;
 		$haveTimestamp = false;
 		if (isset($prerow[0]) && $prerow[0]['timestamp']) {
-			$beginCol = 3;
+			$beginCol = 2;
 			$haveTimestamp = true;
 		}
 
@@ -420,9 +424,12 @@ class EventtableeditModelEtetable extends JModelAdmin {
 		for ($z=0; $z < count($prerow); $z++) { 
 			$reocrddata = array_values($prerow[$z]);
 			$nbspstring = '';
-
-
-			for ($p=$beginCol; $p < count($reocrddata); $p++) {
+				
+			$final_record = count($reocrddata);
+			if($haveTimestamp){
+				$final_record = count($reocrddata)-1;
+			}
+			for ($p=$beginCol; $p < $final_record; $p++) {
 
 				$checkstring = str_replace("'", "\'",$reocrddata[$p]);
 				if(is_array($checkstring)){
@@ -436,10 +443,11 @@ class EventtableeditModelEtetable extends JModelAdmin {
 			}
 			$nbspstring .= "'obj_timestamp_obj'";
 			$nbspstring = rtrim($nbspstring,',');
+			
 			if ($haveTimestamp === true) {
-				if (isset($reocrddata[0]) && $reocrddata[0] != '') {
-					$reocrddata[0] = str_replace("'", '', $reocrddata[0]);
-					$date = str_replace('.', '-', $reocrddata[0]);
+				if (isset($reocrddata[count($reocrddata)-1]) && $reocrddata[count($reocrddata)-1] != '') {
+					$reocrddata[count($reocrddata)-1] = str_replace("'", '', $reocrddata[count($reocrddata)-1]);
+					$date = str_replace('.', '-', $reocrddata[count($reocrddata)-1]);
 					$timestamp = date('Y-m-d H:i:s', strtotime($date));
 				} else {
 					$currentTime->modify("+1 second");
@@ -458,7 +466,6 @@ class EventtableeditModelEtetable extends JModelAdmin {
 			//$nbspstring = rtrim($nbspstring,',');
 
 			 $insert = "INSERT INTO `#__eventtableedit_rows_" . $id . "` ($headdefine) VALUES ($valueString)";
-
 			
 			$db->setQuery($insert);
 			$db->query();
