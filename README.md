@@ -76,6 +76,7 @@ Please post all feature requests in the issues tab.
 - enhancement: backend: csv/xml export - activate function to export and import hidden timestamp column https://github.com/Theophilix/event-table-edit/issues/95
 - enhancement: Backend: when importing a xml, go to the menu type of imported table https://github.com/Theophilix/event-table-edit/issues/86
 - enhancement: Backend: Show ETE version number https://github.com/Theophilix/event-table-edit/issues/83
+- bug: backend: general: name of menu is in wrong language #96
 
 [1] Normal mode
 - Frontend: Layout: Center the pagination select box vertically https://github.com/Theophilix/event-table-edit/issues/82
