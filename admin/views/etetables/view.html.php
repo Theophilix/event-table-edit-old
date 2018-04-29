@@ -56,7 +56,7 @@ class EventtableeditViewEtetables extends JViewLegacy {
 		$canDo	= eteHelper::getActions();
 		$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/eventtableedit.xml');
 		$currentversion = (string)$xml->version;
-		JToolBarHelper::title( JText::_( 'Event Table Edit (version: '.$currentversion.')' ), 'etetables' );
+		JToolBarHelper::title( JText::_( 'Event Table Edit '.$currentversion), 'etetables' );
 		
 		if ($canDo->get('core.create')) {
 			JToolBarHelper::addNew('etetable.add','JTOOLBAR_NEW');
