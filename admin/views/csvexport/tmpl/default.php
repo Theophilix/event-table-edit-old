@@ -21,9 +21,48 @@
 
 // no direct access adminForm
 defined( '_JEXEC' ) or die;
+JHtml::_('behavior.formvalidation');
+JHtml::_('behavior.formvalidator');
 ?>
-
-<form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" method="post" name="adminForm" id="adminForm">
+<script>
+Joomla.submitbutton = function(task)
+{
+	if (task == '')
+	{
+		return false;
+	}
+	else
+	{
+		var isValid=true;
+		var action = task.split('.');
+		if (action[1] != 'cancel' && action[1] != 'close')
+		{
+			var forms = jQuery('form.form-validate');
+			for (var i = 0; i < forms.length; i++)
+			{
+				if (!document.formvalidator.isValid(forms[i]))
+				{
+					isValid = false;
+					break;
+				}
+			}
+		}
+	
+		if (isValid)
+		{
+			Joomla.submitform(task);
+			return true;
+		}
+		else
+		{
+			jQuery("#system-message-container h4.alert-heading").html("Error");
+			jQuery("#system-message-container .alert").append("<p>Invalid field: Name</p>");
+			return false;
+		}
+	}
+}
+</script>
+<form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" class="form-validate" method="post" name="adminForm" id="adminForm">
 	<div class="">
 	<fieldset class="adminform">
 		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLE') ?></legend>

@@ -978,9 +978,15 @@ if( Tablesaw.mustard ) {
 								if( !hasNumericAttribute ) {
 									$t.attr( "data-sortable-numeric", isNumeric ? "" : "false" );
 								}
+								if($t.text() == "Timestamp"){
+									html.push( '<option' + ( isDefaultCol && !isDescending ? ' selected' : '' ) + ' value="' + j + '_asc">'+newest+' ' + ( isNumeric ? '&#x2191;' : '(A-Z)' ) + '</option>' );
+									html.push( '<option' + ( isDefaultCol && isDescending ? ' selected' : '' ) + ' value="' + j + '_desc">'+oldest+' ' + ( isNumeric ? '&#x2193;' : '(Z-A)' ) + '</option>' );
+								}else{
+									html.push( '<option' + ( isDefaultCol && !isDescending ? ' selected' : '' ) + ' value="' + j + '_asc">' + $t.text() + ' ' + ( isNumeric ? '&#x2191;' : '(A-Z)' ) + '</option>' );
+									html.push( '<option' + ( isDefaultCol && isDescending ? ' selected' : '' ) + ' value="' + j + '_desc">' + $t.text() + ' ' + ( isNumeric ? '&#x2193;' : '(Z-A)' ) + '</option>' );
+								}
 
-								html.push( '<option' + ( isDefaultCol && !isDescending ? ' selected' : '' ) + ' value="' + j + '_asc">' + $t.text() + ' ' + ( isNumeric ? '&#x2191;' : '(A-Z)' ) + '</option>' );
-								html.push( '<option' + ( isDefaultCol && isDescending ? ' selected' : '' ) + ' value="' + j + '_desc">' + $t.text() + ' ' + ( isNumeric ? '&#x2193;' : '(Z-A)' ) + '</option>' );
+								
 							});
 							html.push( '</select></span></label>' );
 

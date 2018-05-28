@@ -70,8 +70,28 @@ Please post all feature requests in the issues tab.
 
 
 ## II Version history
-**For version 4.6.5:**
 
+**For version 4.6.6:**
+
+[0 General]
+
+- enhancement: Backend: CSV Import: Go to menu type of imported table: https://github.com/Theophilix/event-table-edit/issues/103
+
+- bugfix: Backend: CSV Export: When leaving out table name an error appears https://github.com/Theophilix/event-table-edit/issues/100
+
+- bugfix: Backend: xml import: wrong german spelling "warnung" should be "Warnung" (capital letter): https://github.com/Theophilix/event-table-edit/issues/99
+
+- bugfix: Backend: Appointment tables overview: options not working, are linking back to normal tables menu
+https://github.com/Theophilix/event-table-edit/issues/98
+
+[1] Normal mode
+
+- enhancement: Frontend: Sorting options: Change "Timestamp" (+ arrow up/down) to "Newest"/"Oldest" https://github.com/Theophilix/event-table-edit/issues/101
+
+- bugfix: Frontend: Column Toggle Mode: When hiding a column, each click on a cell refreshes tablehttps://github.com/Theophilix/event-table-edit/issues/102
+
+
+**For version 4.6.5:**
 [0] General
 - enhancement: backend: csv/xml export - activate function to export and import hidden timestamp column https://github.com/Theophilix/event-table-edit/issues/95
 - enhancement: Backend: when importing a xml, go to the menu type of imported table https://github.com/Theophilix/event-table-edit/issues/86

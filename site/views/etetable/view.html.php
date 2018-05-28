@@ -174,6 +174,11 @@ class EventtableeditViewEtetable extends JViewLegacy
 		} else {
 			require_once JPATH_COMPONENT.'/helpers/phpToJs.php';
 			$doc = JFactory::getDocument();
+			$this->document->addScriptDeclaration('
+													var newest = "'.JText::_('COM_EVENTTABLEEDIT_NEWEST').'";
+													var oldest = "'.JText::_('COM_EVENTTABLEEDIT_OLDEST').'";
+													
+													');
 			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw.js?v3');
 			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw-init.js');
 			

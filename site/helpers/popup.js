@@ -604,7 +604,7 @@ BuildPopupWindow.prototype.sendData = function() {
 		addAnchorEvent(null, self.editedCell);
 		self.removePopup();
 		removeLoad();
-		jQuery('.tablesaw-modeswitch select').trigger('change');
+		//jQuery('.tablesaw-modeswitch select').trigger('change');
 		
 	}
 	}).send();

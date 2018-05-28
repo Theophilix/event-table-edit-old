@@ -102,12 +102,12 @@ class EventtableeditViewCsvimport extends JViewLegacy {
 		if (count($tables) == 0) return null;
 		
 		$elem = array();
-		$elem[] = JHTML::_('select.option', '', '');
+		$elem[] = JHTML::_('select.option', '', 'Please select table');
 		
 		foreach($tables as $table) {
 			$elem[] = JHTML::_('select.option', $table->id, $table->id . ' ' . $table->name);
 		}
-		return JHTML::_('select.genericlist', $elem, 'tableList', '', 'value', 'text', 0);
+		return JHTML::_('select.genericlist', $elem, 'tableList', ' required="true"', 'value', 'text', 0);
 	}
 	public function createTableSelectList1() {
 		$tables = EventtableeditModelCsvimport::getTables();

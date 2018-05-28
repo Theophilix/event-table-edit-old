@@ -176,3 +176,6 @@ $listDirn	= $this->state->get('list.direction');
 		<?php echo JHtml::_('form.token'); ?>
 	</div>
 </form>
+<style>
+#system-message-container h4.alert-heading{text-transform: capitalize;}
+</style>
