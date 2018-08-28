@@ -224,7 +224,7 @@ BuildPopupWindow.prototype.dateWindow = function() {
 	$('popupForm').appendChild(clear);
 	*/
 	
-	var calhtmls = '<div class="input-append"><input id="etetable-inputfield" name="ete-calendar" value="'+this.cellContent+'"  data-alt-value="" autocomplete="off" type="text"><button type="button" class="btn btn-secondary" id="etetable-inputfield_btn" data-inputfield="filterstring" data-dayformat="%Y-%m-%d" data-button="filterstring_btn" data-firstday="1" data-weekend="0,6" data-today-btn="1" data-week-numbers="1" data-show-time="0" data-show-others="1" data-time-24="24" data-only-months-nav="0"><span class="icon-calendar"></span></button></div>';
+	var calhtmls = '<div class="input-append"><input id="etetable-inputfield" name="ete-calendar" value="'+this.cellContent+'"  data-alt-value="'+this.cellContent+'" autocomplete="off" type="text"><button type="button" class="btn btn-secondary" id="etetable-inputfield_btn" data-inputfield="filterstring" data-dayformat="%Y-%m-%d" data-button="filterstring_btn" data-firstday="1" data-weekend="0,6" data-today-btn="1" data-week-numbers="1" data-show-time="0" data-show-others="1" data-time-24="24" data-only-months-nav="0"><span class="icon-calendar"></span></button></div>';
 	var div = new Element ('div', {
 		'class': 'field-calendar'
 	});	
@@ -245,11 +245,20 @@ BuildPopupWindow.prototype.dateWindow = function() {
 	// Reinitalize the Joomla-Calendar for the dynamically added date-picker
 	Calendar.setup({
 		inputField     :    "etetable-inputfield",
+		ifFormat       :    "%d.%m.%Y",
+		showsTime      :    false,
+		button         :    "etetable-inputfield_btn",
+		align		   :    "BR"
+	});
+	/*
+	Calendar.setup({
+		inputField     :    "etetable-inputfield",
 		ifFormat       :    "%Y-%m-%d",
 		showsTime      :    false,
 		button         :    "etetable-inputfield_btn",
 		align		   :    "BR"
 	});
+	*/
 }
  
 /**
@@ -598,7 +607,9 @@ BuildPopupWindow.prototype.sendData = function() {
 		var data = response.split("|");
 		var numCol = jQuery('#num-of-col').data('num-of-col');
 		var rowTh = self.rowId-1;
-		self.editedCell.innerHTML = data[0];
+		var tablesaw_cell_label  = jQuery('<div>').append(jQuery('#etetable-row_'+(rowTh)+'_'+(self.cell)).find("b.tablesaw-cell-label").clone()).html();
+		
+		self.editedCell.innerHTML = tablesaw_cell_label+data[0];
 		jQuery('#etetable-row_'+(rowTh)+'_'+(numCol)).html(data[1]);
 
 		addAnchorEvent(null, self.editedCell);

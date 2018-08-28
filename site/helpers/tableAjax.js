@@ -120,7 +120,7 @@ function addActionRow(row, singleOrdering) {
 	for(var a = row; a < tempTable.rows.length; a++ ) {
 		var cell = new Element('td', {
 			'id': 'etetable-action',
-			'class':"editable tablesaw-priority-50",
+			'class':"editable tablesaw-priority-50 sort_col",
 			'data-tablesaw-priority':"50",
 			'data-tablesaw-sortable-col':"col"
 
@@ -164,7 +164,7 @@ function addActionRow2(row, singleOrdering) {
 	for(var a = row; a < tempTable.rows.length; a++ ) {
 		var cell = new Element('td', {
 			'id': 'etetable-action-delete',
-			'class':"editable tablesaw-priority-10",
+			'class':"editable tablesaw-priority-50",
 			'data-tablesaw-priority':"10",
 			'data-tablesaw-sortable-col':"col"
 
@@ -183,8 +183,8 @@ function addActionRow2(row, singleOrdering) {
 function addActionRowFirstTime() {
 	var thead = new Element('th', {
 		'text': lang.actions,
-		'class':"evth50 tablesaw-priority-50 tablesaw-sortable-head",
-			'data-tablesaw-priority':"50",
+		'class':"evth50 tablesaw-priority-persist tablesaw-sortable-head sort_col",
+			'data-tablesaw-priority':"persist",
 			'data-tablesaw-sortable-col':"col"
 	});
 
@@ -218,7 +218,6 @@ function addActionRowFirstTime() {
 
 function addActionDeleteRowFirstTime() {
 	
-	
 	var thead2 = new Element('th', {
 		'text': lang.deletetext,
 		'class':"evth50 tablesaw-priority-60 tablesaw-sortable-head",
@@ -240,13 +239,19 @@ function addDeleteButton(row) {
 	if (!access.deleteRow && !checkAclOwnRow(rowId)) return false;
 
 	var insertRows = tableProperties.myTable.tBodies[0].rows[row];
-	
+	spanclass = "";
+	if(!access.deleteRowR){
+		spanclass = "disabled";
+	}
 	var span = new Element ('span', {
 		'id': 'etetable-delete',
+		'class': spanclass,
 		'events': {
 			'click': (function(rowId, rowIdentifier) {
 				return function () {
-					deleteRow(rowId, rowIdentifier);
+					if(access.deleteRowR){
+						deleteRow(rowId, rowIdentifier);
+					}
 				}
 			})(rowId, insertRows)
 		}
@@ -261,6 +266,9 @@ function addDeleteButton(row) {
 	
 	
 	var insertCell = insertRows.cells[insertRows.cells.length - 1];
+	if(!access.deleteRowR){
+		$(insertCell).addClass("disabled")
+	}
 	img.inject(span);
 	span.inject(insertCell);
 }

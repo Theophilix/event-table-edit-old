@@ -9,6 +9,7 @@
  
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
+
 ?>
 <script type="text/javascript">
 <!--
@@ -16,7 +17,7 @@ $listDirn	= $this->state->get('list.direction');
 function Access() {
 	this.edit 		= <?php if ($this->params->get('access-edit')) echo "1"; else echo "0"; ?>;
 	this.add 		= <?php if ($this->params->get('access-add')) echo "1"; else echo "0"; ?>;
-	/* this.deleteRow 	= <?php if ($this->params->get('access-delete')) echo "1"; else echo "0"; ?>; */
+	this.deleteRowR = <?php if ($this->params->get('access-delete')) echo "1"; else echo "0"; ?>;
 	this.deleteRow 	= <?php if ($this->item->rowdelete) echo "1"; else echo "0"; ?>;
 	this.reorder	= <?php if ($this->params->get('access-reorder')) echo "1"; else echo "0"; ?>;
 	

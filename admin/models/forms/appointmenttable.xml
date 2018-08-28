@@ -220,53 +220,6 @@
 			<option
 				value="0">JHIDE</option>
 		</field>
-		<!--<field name="rowsort"
-			type="radio"
-			class="inputbox"
-			default="0"
-			label="COM_EVENTTABLEEDIT_ROWSORT_LABEL"
-			description="COM_EVENTTABLEEDIT_ROWSORT_LABEL">
-			<option
-				value="1">JSHOW</option>
-			<option
-				value="0">JHIDE</option>
-		</field>
-		
-		<field name="show_pagination"
-			type="radio"
-			class="inputbox"
-			default="0"
-			label="COM_EVENTTABLEEDIT_SHOW_PAGINATION_LABEL"
-			description="COM_EVENTTABLEEDIT_SHOW_PAGINATION_DESC">
-			<option
-				value="1">JSHOW</option>
-			<option
-				value="0">JHIDE</option>
-		</field>
-		
-		<field name="bbcode"
-			type="radio" 
-			class="inputbox"
-			default="0"
-			label="COM_EVENTTABLEEDIT_BBCODE_LABEL"
-			description="COM_EVENTTABLEEDIT_BBCODE_DESC">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
-		</field>
-		
-		<field name="bbcode_img"
-			type="radio"
-			class="inputbox"
-			default="0"
-			label="COM_EVENTTABLEEDIT_BBCODE_IMG_LABEL"
-			description="COM_EVENTTABLEEDIT_BBCODE_IMG_DESC">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
-		</field> -->
 		
 		<field name="pretext"
 			type="editor"

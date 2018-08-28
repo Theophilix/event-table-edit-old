@@ -509,10 +509,14 @@ table.tablesaw thead td {
   }
 }
 
-@media (max-width: 39.9375em) {
+/* @media (max-width: 39.9375em) { */
+@media (max-width: 1450px) {
   .tablesaw-stack thead td,
   .tablesaw-stack thead th {
-    display: none;
+    display: none!important;
+  }
+  .tablesaw-stack td .tablesaw-cell-label, .tablesaw-stack th .tablesaw-cell-label {
+		display: inline-block !important;
   }
 
   .tablesaw-stack tbody td,
@@ -558,7 +562,7 @@ table.tablesaw thead td {
 
   .tablesaw-stack td .tablesaw-cell-label,
   .tablesaw-stack th .tablesaw-cell-label {
-    display: none !important;
+    /*display: none !important;*/
   }
 }
 /*

@@ -696,7 +696,7 @@ margin-bottom:0;
 	top: 50%;
 
 	left: 50%;
-
+z-index: 99999;
 }
 
  
@@ -1384,4 +1384,7 @@ text-decoration: none;
 	padding: 3px 10px;
 }
 
+}
+td.disabled, span.disabled {
+    cursor: not-allowed!important;
 }

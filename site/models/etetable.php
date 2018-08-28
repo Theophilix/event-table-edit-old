@@ -413,6 +413,7 @@ class EventtableeditModelEtetable extends JModelList
 
 		$this->filter = str_replace('*', '%', $this->filter);
 		$filter1 = str_replace('*', '%', $filter1);
+		$filter1 = date("Y-m-d",strtotime($filter1));
 		$queryAr = array();
 		$queryAr1 = array();
 		$likeQuery = 'LIKE "'. "%". $this->filter . "%". '"';
@@ -620,8 +621,10 @@ class EventtableeditModelEtetable extends JModelList
 		$query = 'SELECT ' . $colName['head'] . ' AS content FROM #__eventtableedit_rows_' . $this->id .
 				 ' WHERE id = ' . $rowId;
 		//echo $query;
+		
 		$this->db->setQuery($query);
 		$cell = $this->db->loadResult();
+		
 		if ($colName['datatype'] == 'text') {
 			$breaks = array("<br />","<br>","<br/>","<br /> ","<br> ","<br/> ");  
 			$cell = str_ireplace($breaks, "\n", $cell);  
@@ -631,7 +634,9 @@ class EventtableeditModelEtetable extends JModelList
 		if ($colName['datatype'] == 'float') {
 			$cell = eteHelper::parseFloat($cell, $this->_item->float_separator);
 		}
-		
+		if ($colName['datatype'] == 'date') {
+			$cell = eteHelper::date_mysql_to_german_to($cell, $this->_item->dateformat);
+		}
 		$ret[] = $cell;
 		$ret[] = $colName['datatype'];
 		
@@ -669,15 +674,21 @@ class EventtableeditModelEtetable extends JModelList
 		$headName = $colInfo['head'];
 		$currentTime = new DateTime();
 		$timestamp = $currentTime->format("Y-m-d H:i:s");
-
+		
+		if($datatype == "date"){
+			$content = eteHelper::date_german_to_mysql($content);
+		}
+		
 		$content = $this->prepareContentForDb($content, $datatype);
+		
 		if ($colInfo['datatype'] == 'text') {
 			$breaks = array("<br />","<br>","<br/>","<br /> ","<br> ","<br/> ");  
 			$content = str_ireplace($breaks, "<br />", $content);  
 		}
+		
 		$query = 'UPDATE #__eventtableedit_rows_' . $this->id .
 				 ' SET ' . $headName . ' = ' . $content . ", timestamp = '" . $timestamp . "' WHERE id = " . $rowId;
-		
+	
 		$this->db->setQuery($query);
 		$this->db->query();
 		

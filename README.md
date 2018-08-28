@@ -1,13 +1,13 @@
 # Event Table Edit
 
-Event Table Edit (abbrev. ETE) is a free and open source table plugin for Joomla 2.5, 3.x and above (original author: Manuel Kaspar, continuation: Theophilix). With the plugin, you can create a responsive, editable table with CSV import and export function and XML export/import for table settings. It also has a full rights management (Joomla ACL). 
+Event Table Edit (abbrev. ETE) is a free and open source table plugin for Joomla 3.x and above (original author: Manuel Kaspar, continuation: Theophilix). With the plugin, you can create a responsive, editable table with CSV import and export function and XML export/import for table settings. It also has a full rights management (Joomla ACL). 
 
 You can  transform the table into an appointment booking system with confirmation emails for users and the admin, including iCal calendar files for both in the attachment. Moreover, you can use the booking system to create a volunteer table for an event, where volunteers can enter their names if they want to help for a certain time.
 As it is based on a CSS-template, the layout of the table can be changed easily. The responsive function is based on the "Column Toggle Table with Mini Map" from the tablesaw plugins (https://github.com/filamentgroup/tablesaw).
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-Download latest version 4.6.6 (since 29.05.2018): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+Download latest version 4.7 (since 28.08.2018): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -70,6 +70,47 @@ Please post all feature requests in the issues tab.
 
 
 ## II Version history
+
+**For version 4.7:**
+
+[1] Normal Mode
+- bugfix: Frontend: Date displayed in wrong format / accept different date formats and enable search: https://github.com/Theophilix/event-table-edit/issues/118
+
+- bugfix: Frontend: Deleting column is still clickable: https://github.com/Theophilix/event-table-edit/issues/117
+
+- bugfix: Frontend: Layout: Layout problem when sorting and deleting columns are both active:
+https://github.com/Theophilix/event-table-edit/issues/115
+
+- bugfix: Frontend: Layout: Keep view (toggle, swipe/stack) also when searching a date or letters/numbers
+https://github.com/Theophilix/event-table-edit/issues/112
+
+- enhancement: Backend: CSV-Import: Remove datatype choice for appointment tables, remove menu.
+https://github.com/Theophilix/event-table-edit/issues/110
+
+- bugfix: Frontend: Layout: Normal mode: If user clicks on date, only actual date is shown.:
+https://github.com/Theophilix/event-table-edit/issues/109
+
+- bugfix: Frontend: Layout: Swipe mode: last swiping action greys out the button, no return possible:
+https://github.com/Theophilix/event-table-edit/issues/107
+
+- bugfix: Frontend: Layout: problems with stack mode: 
+https://github.com/Theophilix/event-table-edit/issues/104
+
+- bugfix: Frontend: Layout: Stack mode: Popup is transparent, sorting and layout mode is hidden / overlapped.:
+https://github.com/Theophilix/event-table-edit/issues/105
+
+- enhancement: backend: general: add new column "last changes" for normal table overwiew
+https://github.com/Theophilix/event-table-edit/issues/97
+
+- enhancement: Frontend: Enable stack view also for large screens:
+https://github.com/Theophilix/event-table-edit/issues/52
+
+[2] Appointment mode
+
+- enhancement: Backend: Appointment: Fill newly created appointment table with data
+https://github.com/Theophilix/event-table-edit/issues/85
+
+
 
 **For version 4.6.6:**
 

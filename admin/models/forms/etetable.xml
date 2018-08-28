@@ -380,7 +380,7 @@
 			class="inputbox"
 			label="COM_EVENTTABLEEDIT_DATEFORMAT_LABEL"
 			description="COM_EVENTTABLEEDIT_DATEFORMAT_DESC"
-			default="%d.%m.%Y"
+			default="%Y-%m-%d"
 		/>
 		
 		<field name="timeformat" 

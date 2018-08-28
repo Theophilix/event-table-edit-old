@@ -84,6 +84,9 @@ $listDirn	= $this->state->get('list.direction');
 				<th>
 					<?php echo JHtml::_('grid.sort',  'COM_EVENTTABLEEDIT_FIELD_COL', 'a.col', $listDirn, $listOrder); ?>
 				</th>
+				<th width="15%">
+					<?php echo JText::_('JGRID_HEADING_LAST_UPDATE'); ?>
+				</th>
 				<th width="5%">
 					<?php echo JHtml::_('grid.sort', 'JPUBLISHED', 'a.published', $listDirn, $listOrder); ?>
 				</th>
@@ -114,6 +117,7 @@ $listDirn	= $this->state->get('list.direction');
 			$canEdit	= $user->authorise('core.edit',			'com_eventtableedit');
 			$canCheckin	= $user->authorise('core.manage',		'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
 			$canChange	= $user->authorise('core.edit.state',	'com_eventtableedit') && $canCheckin;
+			$lastUpdate = $this->getLastUpdate($item->id);
 
 			?>
 			<tr class="row<?php echo $i % 2; ?>">
@@ -146,7 +150,9 @@ $listDirn	= $this->state->get('list.direction');
 				<td align="center">
 						<?php if($item->col > 0){echo $item->col;} ?>
 				</td>
-
+				<td align="center">
+					<?php echo $lastUpdate; ?>
+				</td>	
 				<td align="center">
 					<?php echo JHtml::_('jgrid.published', $item->published, $i, 'etetables.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
 				</td>
@@ -160,6 +166,7 @@ $listDirn	= $this->state->get('list.direction');
 						<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>
 					<?php endif;?>
 				</td>
+				
 				<td align="center">
 					<?php echo $item->id; ?>
 				</td>

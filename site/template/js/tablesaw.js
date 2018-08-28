@@ -549,7 +549,7 @@ if( Tablesaw.mustard ) {
 			hideBtn = 'disabled',
 			persistWidths = 'tablesaw-fix-persist',
 			$headerCells = $table.find( "thead th" ),
-			$headerCellsNoPersist = $headerCells.not( '[data-tablesaw-priority="persist"]' ),
+			$headerCellsNoPersist = $headerCells.not( '[data-tablesaw-priority="persist"]' ).not(".tablesaw-priority-50").not("#timestamp-head"),
 			headerWidths = [],
 			$head = $( document.head || 'head' ),
 			tableId = $table.attr( 'id' ),
@@ -670,7 +670,9 @@ if( Tablesaw.mustard ) {
 		}
 
 		function canAdvance( pair ){
-			return pair[ 1 ] > -1 && pair[ 1 ] < $headerCellsNoPersist.length;
+			//console.log(pair);
+			console.log($headerCellsNoPersist.length);
+			return pair[ 1 ] > -1 && pair[ 1 ] < ($headerCellsNoPersist.length);
 		}
 
 		function matchesMedia() {
@@ -731,6 +733,7 @@ if( Tablesaw.mustard ) {
 
 		function advance( fwd ){
 			var pair = nextpair( fwd );
+			console.log("Advance: "+pair)
 			if( canAdvance( pair ) ){
 				if( isNaN( pair[ 0 ] ) ){
 					if( fwd ){
@@ -798,6 +801,8 @@ if( Tablesaw.mustard ) {
 
 			})
 			.bind( "tablesawcolumns.swipetoggle", function(){
+				console.log("getPrev: "+getPrev())
+				console.log("getNext: "+getNext())
 				$prevBtn[ canAdvance( getPrev() ) ? "removeClass" : "addClass" ]( hideBtn );
 				$nextBtn[ canAdvance( getNext() ) ? "removeClass" : "addClass" ]( hideBtn );
 			})

@@ -52,9 +52,9 @@ $checkfun = $app->input->get('checkfun');
 		<fieldset class="adminform">
 		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_SET_SETTINGS'); ?></legend>
 			<ul>
-			<li>
+			<li style="display:none;">
 				<label for="tableName"><b><?php echo JText::_('COM_EVENTTABLEEDIT_TABLE_NAME'); ?>: </b></label>
-				<input type="text" id="tableName" class="inputbox required" size="30" value="" name="tableName" />
+				
 			</li>
 			</ul>
 			<table id="datatypeTable" border="0" width="90%">
@@ -71,6 +71,7 @@ $checkfun = $app->input->get('checkfun');
 			</table>
 		</fieldset>
 	</div>
+	<input type="hidden" id="tableName" class="inputbox required" size="30" value="<?php echo $_REQUEST["tableName"]?>" name="tableName" />
 	<input type="hidden" name="task" value="" />
 		<input type="hidden" name="checkfun" value="<?php echo $checkfun?$checkfun:'0'; ?>" />
 	<?php echo JHtml::_('form.token'); ?>

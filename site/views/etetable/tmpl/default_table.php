@@ -69,7 +69,7 @@ td.tablesaw-priority-50 a {
 .show_always{display:table-cell!important;}
 @media (min-width: 40em) {
 	td.title {
-		max-width: 12em;
+		/* max-width: 12em; */
 	}
 	.tablesaw-stack td a {
 		display: inline;
@@ -169,12 +169,11 @@ if($this->item->switcher == 1){
 	
 	jQuery(window).resize(function(){
 		if(jQuery( window ).width()<=400){
-			jQuery('.tablesaw-modeswitch span.btn-select select').val('swipe');
-			jQuery('.tablesaw-modeswitch span.btn-select select').change();
+			//jQuery('.tablesaw-modeswitch span.btn-select select').val('swipe');
+			//jQuery('.tablesaw-modeswitch span.btn-select select').change();
 		}else{
-			jQuery('.tablesaw-modeswitch span.btn-select select').val('columntoggle');
-			jQuery('.tablesaw-modeswitch span.btn-select select').change();
-			
+			//jQuery('.tablesaw-modeswitch span.btn-select select').val('columntoggle');
+			//jQuery('.tablesaw-modeswitch span.btn-select select').change();
 		}
 		
 	})

@@ -153,6 +153,7 @@ class EventtableeditModelAppointmenttable extends JModelAdmin {
 	 */
 	public function save($data)
 	{
+		
 		// Initialise variables;
 		$dispatcher = JDispatcher::getInstance();
 		$table		= $this->getTable();
@@ -216,8 +217,21 @@ class EventtableeditModelAppointmenttable extends JModelAdmin {
 			$this->createRowsTable($table->id);
 			if($data['col'] > 0){
 				$db = JFactory::getDBO();
-				for ($i=1; $i <= $data['col']; $i++) { 
-					$nameofhead = 'Head'.$i;
+				for ($i=0; $i <= $data['col']; $i++) { 
+					//$nameofhead = 'Head'.$i;
+					if($i == 0){
+						$nameofhead = "Time";
+					}else{
+						$temp = date('d.m.Y');
+						$next_day = $i-1;
+						if($next_day == 0){
+							$nameofhead = date('d.m.Y');
+						}else{
+							$nameofhead = date('d.m.Y', strtotime($temp . " +$next_day day"));
+						}
+						
+					}
+					
 					$ins = "INSERT INTO #__eventtableedit_heads (`id`,`table_id`,`name`,`datatype`,`ordering`) VALUES ('',".$table->id.",'".$nameofhead."','text',".$i.")";	
 					$db->setQuery($ins);
 					$db->query();
@@ -351,7 +365,7 @@ class EventtableeditModelAppointmenttable extends JModelAdmin {
 	}
 	public function Insertemptyrow($id,$emptyrow){
 		$db = JFactory::getDBO();
-		$select = 'SELECT id FROM #__eventtableedit_heads WHERE table_id="'.$id.'"';
+		$select = 'SELECT id FROM #__eventtableedit_heads WHERE table_id="'.$id.'" order by id';
 
 		$db->setQuery($select);
 		$filedsname = $db->loadColumn();
@@ -368,18 +382,33 @@ class EventtableeditModelAppointmenttable extends JModelAdmin {
 		$aemptyda = count($filedsname);
 		
 		$nbspstring = '';
-		for ($j=0; $j < $aemptyda; $j++) { 
-			$nbspstring .= "'&nbsp',";
+		/* $time = 8; */
+		for ($j=1; $j <= $aemptyda; $j++) { 
+			if($j == 1){
+				$nbspstring .= "'obj_time_obj',";
+			}else{
+				$nbspstring .= "'free',";
+			}
+			
+			/* */
 		}
 
 		$nbspstring .= "'obj_timestamp_obj'";
 		$currentTime = new DateTime();
-		
+		$time = 8;
 		for ($z=0; $z < $emptyrow; $z++) { 
 			$nbspstring = rtrim($nbspstring,',');
 			$currentTime->modify("+1 second"); 
 			$timestamp = $currentTime->format("Y-m-d H:i:s");
 			$valueString = str_replace('obj_timestamp_obj', $timestamp, $nbspstring);
+			
+			if(strlen($time) == 1){
+				$time_obj = "0$time:00";
+			}else{
+				$time_obj = "$time:00";
+			}
+			$time++; 
+			$valueString = str_replace('obj_time_obj', $time_obj, $valueString);
 
 			$insert = "INSERT INTO `#__eventtableedit_rows_" . $id . "` ($headdefine) VALUES ($valueString)";
 

@@ -22,6 +22,25 @@
 // no direct access
 defined( '_JEXEC' ) or die;
 ?>
+<script type="text/javascript">
+	Joomla.submitbutton = function(task)
+	{
+		if (task == 'csvimport.upload' && checkTableName()) {
+			Joomla.submitform(task, document.getElementById('adminForm'));
+		}
+		else {
+			alert('<?php echo $this->escape(JText::_('COM_EVENTTABLEEDIT_ERROR_ENTER_NAME'));?>');
+			jQuery('#tableName').focus();
+		}
+	}
+
+	function checkTableName() {
+		if (jQuery('#tableName').val() == '') {
+			return false;
+		}
+		return true;
+	}
+</script>
 <form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" enctype="multipart/form-data" method="post" name="adminForm" id="adminForm">
 	<div class="">
 	<fieldset class="adminform">
@@ -63,6 +82,10 @@ defined( '_JEXEC' ) or die;
 					<li>
 						<input type="radio" name="importaction" id="newTable" value="newTable" 
 							   onclick="hideSelect();" checked /> <?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_NEW_TABLE_2'); ?>
+							   <p id="tables2">
+								<label><?php echo JText::_("COM_EVENTTABLEEDIT_IMPORT_TABLES_NAME"); ?>: </label>
+								<input type="text" name="table_name" id="tableName" />
+							</p>
 					</li>
 					<li>
 						<input type="radio" name="importaction" id="overwriteTable" value="overwriteTable"
@@ -95,16 +118,19 @@ defined( '_JEXEC' ) or die;
 	function showSelect() {
 		document.getElementById('tables').style.display = 'inline';
 		document.getElementById('tables1').style.display = 'none';
+		document.getElementById('tables2').style.display = 'none';
 
 	}
 	function hideSelect() {
 		document.getElementById('tables').style.display = 'none';
 		document.getElementById('tables1').style.display = 'none';
+		document.getElementById('tables2').style.display = 'inline';
 
 	}
 		function showSelect1() {
 		document.getElementById('tables1').style.display = 'inline';
 		document.getElementById('tables').style.display = 'none';
+		document.getElementById('tables2').style.display = 'none';
 
 	}
 -->

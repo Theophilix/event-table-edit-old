@@ -88,5 +88,12 @@ class EventtableeditViewEtetables extends JViewLegacy {
 			JToolBarHelper::preferences('com_eventtableedit');
 		}
 	}
+	
+	function getLastUpdate($id){
+		$db = JFactory::getDBO();
+		$db->setQuery("SELECT max(timestamp) as mts FROM #__eventtableedit_rows_$id");
+		$result = $db->loadObject()->mts;
+		return $result;
+	}
 }
 ?>

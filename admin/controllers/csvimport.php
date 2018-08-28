@@ -65,9 +65,50 @@ class EventtableeditControllerCsvimport extends JControllerLegacy {
 		$this->checkForErrors();
 		$this->moveFile();
 		$this->model->setVariables($this->id, $this->separator, $this->doubleqt,$this->checkfun);
+		if($this->checkfun){
+			$return = $this->switchUploadTypes();
+			if($return == "newTable"){
+				$this->newTable();
+			}
+			
+			
+			switch ($this->importaction) {
+				case 'overwriteTable':
+					if (!$this->app->getUserState('com_eventtableedit.csvError', true)) :
+						$msg = JText::_('COM_EVENTTABLEEDIT_IMPORT_REPORT_OVERWRITE');
+					else:
+						$msg = JText::_('COM_EVENTTABLEEDIT_IMPORT_REPORT_OVERWRITE_FAILED');
+					endif;
+					break;
+				case 'appendTable':
+					if (!$this->app->getUserState('com_eventtableedit.csvError', true)) :
+						$msg = JText::_('COM_EVENTTABLEEDIT_IMPORT_REPORT_APPEND');
+					else:
+						$msg = JText::_('COM_EVENTTABLEEDIT_IMPORT_REPORT_APPEND_FAILED');
+					endif;
+					break;
+				case 'newTable':
+					$msg = JText::_('COM_EVENTTABLEEDIT_IMPORT_REPORT_NEW');
+					break;
+			}
+			
+			
+			
+			
+			if($this->checkfun){
+				$this->app->redirect("index.php?option=com_eventtableedit&view=appointmenttables",$msg);
+			}else{
+				$this->app->redirect("index.php?option=com_eventtableedit&view=etetables",$msg);
+			}
+		}else{
+			$input->set('tableName',$input->get("table_name"));
+			$this->switchUploadTypes();
+			parent::display();
+		}
 		
-		$this->switchUploadTypes();
-		parent::display();
+		
+		
+		//parent::display();
 	}
 	
 	/**
@@ -87,15 +128,34 @@ class EventtableeditControllerCsvimport extends JControllerLegacy {
 		$postget = $input->getArray();
 		
 		// Get Variables
-		$name = $postget['tableName']; 
-		$datatype = $postget['datatypesList'];
+
+		if($checkfun){
+			$name = $input->get('table_name');
+			$datatype = array();
+			$datatype[] = 'text';
+			$datatype[] = 'text';
+			$datatype[] = 'text';
+			$datatype[] = 'text';
+			$datatype[] = 'text';
+			$datatype[] = 'text';
+			$datatype[] = 'text';
+			$datatype[] = 'text';
+			$datatype[] = 'text';
+		}else{
+			$name = $postget['tableName'];
+			$datatype = $postget['datatypesList'];
+		}
+		
+		
+	
 		
 		$this->model = $this->getModel('csvimportnewtable');
 		$detailsModel = $this->getModel('etetable');
-		$this->model->importCsvNew($detailsModel, $name, $datatype);
-		$input->set('view','csvimport');
-		$input->set('com_eventtableedit.layout','summary');
-		parent::display();
+		if(!$this->model->importCsvNew($detailsModel, $name, $datatype)){
+			$this->setRedirect(JRoute::_('index.php?option=com_eventtableedit&view=csvimport'));
+		}
+
+		return;
 	}
 	
 	public function cancel() {
@@ -153,14 +213,17 @@ class EventtableeditControllerCsvimport extends JControllerLegacy {
 			case 'overwriteTable':
 				$this->model->importCsvOverwrite();
 				$input->set('com_eventtableedit.layout','summary');
+				return 'summary';
 				break;
 			case 'appendTable':
 				$this->model->importCsvAppend();
 				$input->set('com_eventtableedit.layout','summary');
+				return 'summary';
 				break;
 			case 'newTable':
 
 				$input->set('com_eventtableedit.layout','newTable');
+				return 'newTable';
 				break;
 		}
 	}
