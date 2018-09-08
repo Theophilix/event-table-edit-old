@@ -270,15 +270,15 @@ $datesofhead = implode(',', $datesofhead);
 			
 			if($mintplus >= 60){
 				$mintsend = $mintplus - 60;
-				
+			
 				if($mintsend > 9){
 					$mintsendadd = $mintsend;
 				}else{
 					$mintsendadd = '0'.$mintsend;
 
 				}
-
-				if($exp_etime[0] > 9){
+				
+				if($exp_etime[0] >= 9){
 					$hoursends = $exp_etime[0] + 1; 
 				}else{
 					$hoursends1 = $exp_etime[0] + 1;

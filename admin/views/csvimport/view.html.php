@@ -126,8 +126,10 @@ class EventtableeditViewCsvimport extends JViewLegacy {
 	protected function addDefaultToolbar()	{
 		$canDo		= eteHelper::getActions();
 
-		JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_MANAGER_CSVIMPORT'), 'import');
-
+		//JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_MANAGER_CSVIMPORT'), 'import');
+		$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/eventtableedit.xml');
+		$currentversion = (string)$xml->version;
+		JToolBarHelper::title( JText::_( 'Event Table Edit '.$currentversion ) . ' - ' . JText::_( 'COM_EVENTTABLEEDIT_MANAGER_CSVIMPORT' ), 'etetables' );
 		// For uploading, check the create permission.
 		if ($canDo->get('core.csv')) {
 			JToolBarHelper::custom('csvimport.upload', 'upload.png', '', 'COM_EVENTTABLEEDIT_UPLOAD', true);
@@ -140,8 +142,12 @@ class EventtableeditViewCsvimport extends JViewLegacy {
 	protected function addNewTableToolbar()	{
 		$canDo		= eteHelper::getActions();
 
-		JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_IMPORT_NEW_TABLE'), 'import');
-
+		//JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_IMPORT_NEW_TABLE'), 'import');
+		$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/eventtableedit.xml');
+		$currentversion = (string)$xml->version;
+		JToolBarHelper::title( JText::_( 'Event Table Edit '.$currentversion ) . ' - ' . JText::_( 'COM_EVENTTABLEEDIT_IMPORT_NEW_TABLE' ), 'etetables' );
+		
+		
 		// For uploading, check the create permission.
 		if ($canDo->get('core.csv')) {
 			JToolBarHelper::custom('csvimport.newTable', 'apply.png', '', 'JTOOLBAR_APPLY', false);
@@ -153,8 +159,10 @@ class EventtableeditViewCsvimport extends JViewLegacy {
 	 * The Toolbar for showing the summary of the import
 	 */
 	protected function addSummaryToolbar()	{
-		JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_IMPORT_SUMMARY'), 'import');
-
+		//JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_IMPORT_SUMMARY'), 'import');
+		$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/eventtableedit.xml');
+		$currentversion = (string)$xml->version;
+		JToolBarHelper::title( JText::_( 'Event Table Edit '.$currentversion ) . ' - ' . JText::_( 'COM_EVENTTABLEEDIT_IMPORT_SUMMARY' ), 'etetables' );
 		JToolBarHelper::custom('csvimport.cancel', 'apply.png', '', 'COM_EVENTTABLEEDIT_OK', false);
 	}
 }

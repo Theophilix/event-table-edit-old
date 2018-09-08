@@ -69,8 +69,10 @@ class EventtableeditViewxmlexport extends JViewLegacy {
 	}
 	
 	protected function addDefaultToolbar()	{
-		JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_MANAGER_XMLEXPORT'), 'export');
-
+		//JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_MANAGER_XMLEXPORT'), 'export');
+		$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/eventtableedit.xml');
+		$currentversion = (string)$xml->version;
+		JToolBarHelper::title( JText::_( 'Event Table Edit '.$currentversion ) . ' - ' . JText::_( 'COM_EVENTTABLEEDIT_MANAGER_XMLEXPORT' ), 'etetables' );
 		JToolBarHelper::custom('xmlexport.export', 'apply.png', '', 'COM_EVENTTABLEEDIT_EXPORT', false);
 	}
 	
@@ -78,8 +80,10 @@ class EventtableeditViewxmlexport extends JViewLegacy {
 	 * The Toolbar for showing the summary of the export
 	 */
 	protected function addSummaryToolbar()	{
-		JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_EXPORT_SUMMARY'), 'export');
-
+		//JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_EXPORT_SUMMARY'), 'export');
+		$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/eventtableedit.xml');
+		$currentversion = (string)$xml->version;
+		JToolBarHelper::title( JText::_( 'Event Table Edit '.$currentversion ) . ' - ' . JText::_( 'COM_EVENTTABLEEDIT_EXPORT_SUMMARY' ), 'etetables' );
 		JToolBarHelper::custom('xmlexport.cancel', 'apply.png', '', 'COM_EVENTTABLEEDIT_OK', false);
 		JToolBarHelper::custom('xmlexport.download', 'apply.png', '', 'COM_EVENTTABLEEDIT_DOWNLOAD_FILE', false);
 	}

@@ -55,7 +55,9 @@ class EventtableeditViewDropdowns extends JViewLegacy {
 		require_once JPATH_COMPONENT.'/helpers/ete.php';
 		$canDo	= eteHelper::getActions();
 		
-		JToolBarHelper::title( JText::_( 'COM_EVENTTABLEEDIT_DROPDOWNS' ), 'dropdowns' );
+		$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/eventtableedit.xml');
+		$currentversion = (string)$xml->version;
+		JToolBarHelper::title( JText::_( 'Event Table Edit '.$currentversion ) . ' - ' . JText::_( 'COM_EVENTTABLEEDIT_DROPDOWNS' ), 'etetables' );
 		
 		if ($canDo->get('core.create')) {
 			JToolBarHelper::addNew('dropdown.add','JTOOLBAR_NEW');

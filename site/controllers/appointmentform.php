@@ -145,7 +145,7 @@ class EventtableeditControllerappointmentform extends JControllerLegacy
 				}else{
 					$mintsendadd = '0'.$mintsend;
 				}
-				if($exp_etime[0] > 9){
+				if($exp_etime[0] >= 9){
 					$hoursends = $exp_etime[0] + 1; 
 				}else{
 					$hoursends1 = $exp_etime[0] + 1;

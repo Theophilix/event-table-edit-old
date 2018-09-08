@@ -57,7 +57,7 @@ class EventtableeditViewAppointmenttables extends JViewLegacy {
 		
 		$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/eventtableedit.xml');
 		$currentversion = (string)$xml->version;
-		JToolBarHelper::title( JText::_( 'Event Table Edit (version: '.$currentversion.')' ), 'etetables' );
+		JToolBarHelper::title( JText::_( 'Event Table Edit '.$currentversion ) . ' - ' . JText::_( 'COM_EVENTTABLEEDIT_SUBMENU_APPOINTMENTTABLES' ), 'etetables' );
 		
 		if ($canDo->get('core.create')) {
 			JToolBarHelper::addNew('appointmenttable.add','JTOOLBAR_NEW');

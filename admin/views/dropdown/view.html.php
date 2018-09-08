@@ -63,8 +63,10 @@ class EventtableeditViewDropdown extends JViewLegacy {
 		$checkedOut	= !($this->item->checked_out == 0 || $this->item->checked_out == $userId);
 		$canDo		= eteHelper::getActions($this->state->get('filter'));
 
-		JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_MANAGER_DROPDOWN'), 'dropdown.png');
-
+		//JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_MANAGER_DROPDOWN'), 'dropdown.png');
+		$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/eventtableedit.xml');
+		$currentversion = (string)$xml->version;
+		JToolBarHelper::title( JText::_( 'Event Table Edit '.$currentversion ) . ' - ' . JText::_( 'COM_EVENTTABLEEDIT_MANAGER_DROPDOWN' ), 'etetables' );
 		// Built the actions for new and existing records.
 		if ($isNew)  {
 			// For new records, check the create permission.

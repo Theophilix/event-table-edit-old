@@ -73,6 +73,16 @@ Please post all feature requests in the issues tab.
 
 **For version 4.7:**
 
+[0] General:
+
+- bugfix: differing page titles: https://github.com/Theophilix/event-table-edit/issues/121
+
+[2]Appointment mode
+- bugfix: Appointment tables: Bug with time / leading zero: https://github.com/Theophilix/event-table-edit/issues/120
+
+
+**For version 4.7:**
+
 [1] Normal Mode
 - bugfix: Frontend: Date displayed in wrong format / accept different date formats and enable search: https://github.com/Theophilix/event-table-edit/issues/118
 

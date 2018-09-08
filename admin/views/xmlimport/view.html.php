@@ -55,8 +55,10 @@ class EventtableeditViewXmlimport extends JViewLegacy {
 	protected function addDefaultToolbar()	{
 		$canDo		= eteHelper::getActions();
 
-		JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_MANAGER_XMLIMPORT'), 'import');
-
+		//JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_MANAGER_XMLIMPORT'), 'import');
+		$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/eventtableedit.xml');
+		$currentversion = (string)$xml->version;
+		JToolBarHelper::title( JText::_( 'Event Table Edit '.$currentversion ) . ' - ' . JText::_( 'COM_EVENTTABLEEDIT_MANAGER_XMLIMPORT' ), 'etetables' );
 		// For uploading, check the create permission.
 		if ($canDo->get('core.csv')) {
 			JToolBarHelper::custom('xmlimport.upload', 'upload.png', '', 'COM_EVENTTABLEEDIT_UPLOAD', true);
