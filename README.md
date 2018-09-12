@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-Download latest version 4.7 (since 28.08.2018): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+Download latest version 4.7.1 (since 08.09.2018): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -71,10 +71,9 @@ Please post all feature requests in the issues tab.
 
 ## II Version history
 
-**For version 4.7:**
+**For version 4.7.1:**
 
 [0] General:
-
 - bugfix: differing page titles: https://github.com/Theophilix/event-table-edit/issues/121
 
 [2]Appointment mode
