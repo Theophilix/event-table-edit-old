@@ -178,3 +178,4 @@ if($this->item->switcher == 1){
 		
 	})
 </script>
+</div>
