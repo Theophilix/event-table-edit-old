@@ -26,8 +26,8 @@ class com_eventtableeditInstallerScript
 {
         function install($parent) 
         {
-        		echo '<p>' . JText::_('COM_EVENTTABLEEDIT_POSTFLIGHT_INSTALL_TEXT') . '</p>';
-                $parent->getParent()->setRedirectURL('index.php?option=com_eventtableedit');
+			echo '<p>' . JText::_('COM_EVENTTABLEEDIT_POSTFLIGHT_INSTALL_TEXT') . '</p>';
+			$parent->getParent()->setRedirectURL('index.php?option=com_eventtableedit');
         }
  
         function uninstall($parent) 
@@ -49,7 +49,36 @@ class com_eventtableeditInstallerScript
  
         function update($parent) 
         {
-                echo '<p>' . JText::_('COM_EVENTTABLEEDIT_UPDATE_TEXT') . '</p>';
+			$db = JFactory::getDBO();
+			$query = 'SELECT id FROM #__eventtableedit_details';
+			$db->setQuery($query);
+			$rows = $db->loadColumn();
+
+			if(!empty($rows)){
+				for ($a = 0; $a < count($rows); $a++) {
+					$query = 'SELECT * FROM #__eventtableedit_rows_' . $rows[$a];
+					
+					$db->setQuery($query);
+					$data = $db->loadObject();
+					
+					if(!isset($data->timestamp)){ 
+						$query = 'ALTER TABLE `#__eventtableedit_rows_' . $rows[$a] . '` ADD `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `created_by`, COMMENT=""';
+						$db->setQuery($query);
+						$db->query();
+					}
+				}
+			}
+
+			$query = "SHOW COLUMNS FROM `#__eventtableedit_details` LIKE 'rowdelete'";
+			$db->setQuery($query);
+			$data = $db->loadObject();
+			if(empty($data)){
+				$query = 'ALTER TABLE `#__eventtableedit_details` ADD `rowdelete` tinyint(4) NOT NULL AFTER `rowsort`, COMMENT=""';
+				$db->setQuery($query);
+				$db->query(); 
+			}
+			
+            echo '<p>' . JText::_('COM_EVENTTABLEEDIT_UPDATE_TEXT') . '</p>';
         }
  
         /**
