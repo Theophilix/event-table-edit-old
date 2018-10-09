@@ -56,7 +56,6 @@
 			<filename>index.html</filename>
 			<filename>config.xml</filename>
 			<filename>access.xml</filename>
-			<filename>script.php</filename>
 			<filename>eventtableedit.php</filename>
 			<filename>controller.php</filename>
 			<folder>sql</folder>
