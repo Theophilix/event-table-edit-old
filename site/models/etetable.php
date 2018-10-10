@@ -404,16 +404,23 @@ class EventtableeditModelEtetable extends JModelList
 	  */
 	 private function filterRows() {
 	 	$main  = JFactory::getApplication()->input;
-		 $filter1 = 	$this->getState('filterstring1','');
+		$filter1 = 	$this->getState('filterstring1','');
 		$this->filter = $this->getState('filterstring', '');
-
+		$identifier = false;
+		
 		if ($this->filter == '' && $filter1 == '') {
 			return false;
 		}
+		if ($filter1 == '') {
+			$identifier = true;
+		}
+		
 
 		$this->filter = str_replace('*', '%', $this->filter);
 		$filter1 = str_replace('*', '%', $filter1);
+		
 		$filter1 = date("Y-m-d",strtotime($filter1));
+	
 		$queryAr = array();
 		$queryAr1 = array();
 		$likeQuery = 'LIKE "'. "%". $this->filter . "%". '"';
@@ -439,12 +446,12 @@ class EventtableeditModelEtetable extends JModelList
 			$query = '1=1';			
 		}
 
-		if ($filter1 == '') {
+		if ($identifier) {
 			$query1 = '1=1';			
 		}
 
 		  $query2 = $query.'~'.$query1;
-		return $query2;  
+		return $query2;   
 	 }
 
 	 /**
