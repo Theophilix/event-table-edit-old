@@ -71,6 +71,13 @@ Please post all feature requests in the issues tab.
 
 ## II Version history
 
+**For version 4.7.3:**
+
+[1] Normal Mode
+- enhancement: Frontend / Backend: Enable sorting when the browser loads the table: https://github.com/Theophilix/event-table-edit/issues/128
+- bugfix: Hide the delete icon for unauthorized users: https://github.com/Theophilix/event-table-edit/issues/129
+
+
 **For version 4.7.2:**
 
 [1] Normal Mode
