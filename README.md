@@ -50,6 +50,7 @@ a) General
 - Show or hide table title
 - Usertext before and after table
 - Show or hide column to delete or sort rows
+- Enable automatic column sorting when table is loaded
 - Use Metadata
 - Enhanced SEO
 - Support BB-Code
