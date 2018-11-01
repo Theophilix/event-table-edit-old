@@ -19,6 +19,9 @@ class EventtableeditViewEtetable extends JViewLegacy {
 		$this->form		= $this->get('Form');
 		$this->item		= $this->get('Item');
 		$this->state	= $this->get('State');
+		$this->fields	= $this->get('Fields');
+		$jinput = JFactory::getApplication()->input;
+		$this->id		= $jinput->get('id');
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {

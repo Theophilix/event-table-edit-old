@@ -149,32 +149,30 @@ function addActionRow2(row, singleOrdering) {
 	showLoad();
 	
 	// Add table head for action row if it's the first time
-	
-	var ordering = new Array();
-	if (singleOrdering == null) {
-		ordering = addActionDeleteRowFirstTime();
-	}
-	// If there's a new row to be added
-	else {
-		ordering[row] = singleOrdering; 
-	}
-	
-	// Add the column
-	var tempTable = tableProperties.myTable.tBodies[0];
-	for(var a = row; a < tempTable.rows.length; a++ ) {
-		var cell = new Element('td', {
-			'id': 'etetable-action-delete',
-			'class':"editable tablesaw-priority-50",
-			'data-tablesaw-priority':"10",
-			'data-tablesaw-sortable-col':"col"
-
-		});
-		
-		var elem = tempTable.rows[a].appendChild(cell);
-		
-		addDeleteButton(a);
-		//addOrdering(a, elem, ordering[a]);
-	}
+	//if(access.deleteRow){	
+		var ordering = new Array();
+		if (singleOrdering == null) {
+			ordering = addActionDeleteRowFirstTime();
+		}
+		// If there's a new row to be added
+		else {
+			ordering[row] = singleOrdering; 
+		}
+		// Add the column
+		var tempTable = tableProperties.myTable.tBodies[0];
+		for(var a = row; a < tempTable.rows.length; a++ ) {
+			var cell = new Element('td', {
+				'id': 'etetable-action-delete',
+				'class':"editable tablesaw-priority-50",
+				'data-tablesaw-priority':"10",
+				'data-tablesaw-sortable-col':"col"
+			});
+			
+			var elem = tempTable.rows[a].appendChild(cell);
+			addDeleteButton(a);
+			//addOrdering(a, elem, ordering[a]);
+		}				
+	//}
 	removeLoad();
 }
 /**

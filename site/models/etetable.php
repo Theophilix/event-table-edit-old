@@ -385,16 +385,23 @@ class EventtableeditModelEtetable extends JModelList
 			//$orderCol = $this->defaultSorting;
 			//$orderDirn = 'ASC';
 		}
+	
+		if ($this->_item->automate_sort) { 
+			$order_dir = explode(",",$this->_item->automate_sort_column);
+			$orderCol = $order_dir[0]; $orderDirn = $order_dir[1]; 
+		}
 		$query->order($orderCol.' '.$orderDirn);
 			
 		// Filter
 		$filter = $this->filterRows();
+		
 		if ($filter != false) {
 			$ex = explode('~', $filter);
+			
 			$query->where($ex[0]);
 			$query->where($ex[1]);
 		}
-	
+		
 		return $query;
 	 }
 	 
@@ -451,7 +458,7 @@ class EventtableeditModelEtetable extends JModelList
 		}
 
 		  $query2 = $query.'~'.$query1;
-		return $query2;   
+		return $query2;  
 	 }
 
 	 /**

@@ -610,4 +610,16 @@ class EventtableeditModelEtetable extends JModelAdmin {
 
 		return true;
 	}
+	
+	function getFields(){
+		$jinput = JFactory::getApplication()->input;
+		$id = $jinput->get('id');
+		if(!$id){
+			return array();
+		}else{
+			$db = JFactory::getDBO();
+			$query = $db->setQuery("select * from #__eventtableedit_heads where table_id = $id");
+			return $db->loadObjectList();
+		}
+	}
 }

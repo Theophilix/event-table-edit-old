@@ -10,6 +10,7 @@ defined( '_JEXEC' ) or die;
 
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
+//echo $this->form->getValue('automate_sort_column');die;
 ?>
 
 <script type="text/javascript">
@@ -180,6 +181,54 @@ JHtml::_('behavior.formvalidation');
 
 					<li class="normalshows"><?php echo $this->form->getLabel('sorting'); ?>
 					<?php echo $this->form->getInput('sorting'); ?></li>
+					
+					
+					<?php if($this->id){ ?>
+					
+					<!--<li class="automate_sort"><?php echo $this->form->getLabel('automate_sort'); ?>
+					<?php echo $this->form->getInput('automate_sort'); ?></li>-->
+					<li class="automate_sort"><label id="jform_automate_sort-lbl" for="jform_automate_sort" class="hasPopover" title="" data-content="Enable automatic sorting by default" data-original-title="Enable automatic sorting">Enable automatic sorting</label>
+						<fieldset id="jform_automate_sort" class="radio">
+							<input type="radio" id="jform_automate_sort0" name="jform[automate_sort]" value="1" <?php if($this->item->automate_sort == 1){?> checked="checked" <?php } ?> aria-invalid="false">
+								<label for="jform_automate_sort0">Yes</label>
+								
+								
+								
+								<li class="automate_sort_column" style="<?php if(!$this->form->getValue('automate_sort') || !$this->id){?>display:none;<?php } ?> list-style:none;">
+									<label id="jform_automate_sort_column-lbl" for="jform_automate_sort_column" class="hasTooltip" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_CHOOSE_COLUMN_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_CHOOSE_COLUMN_LABEL'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_CHOOSE_COLUMN_LABEL'); ?></label>
+									<fieldset id="" class="select">
+										<?php
+										
+										if(!empty($this->fields)){
+										?>
+										<select id="jform_automate_sort_column" name="jform[automate_sort_column]">
+											<?php
+											$updown = array("asc","desc");
+											$updown_html = array("asc"=>"&uarr;","desc"=>"&darr;");
+											foreach($this->fields as $re){
+												foreach($updown as $ud){
+												?>
+												<option value="head_<?php echo $re->id?>,<?php echo $ud?>" <?php if($this->form->getValue('automate_sort_column') == 'head_'.$re->id.','.$ud){ echo "selected=selected";}?>><?php echo $re->name?> <?php echo $updown_html[$ud];?></option>
+												<?php
+												}
+											}
+											?>
+											<option <?php if($this->form->getValue('automate_sort_column') == 'timestamp,asc'){ echo "selected=selected";}?> value="timestamp,asc">Timestamp &uarr;</option>
+											<option <?php if($this->form->getValue('automate_sort_column') == 'timestamp,desc'){ echo "selected=selected";}?> value="timestamp,desc">Timestamp &darr;</option>
+										</select>
+										<?php } ?>
+									</fieldset>
+								</li>
+								
+								
+								
+							<input type="radio" id="jform_automate_sort1" name="jform[automate_sort]" value="0" <?php if($this->item->automate_sort == 0){?> checked="checked" <?php } ?> aria-invalid="false">
+								<label for="jform_automate_sort1">No</label>
+						</fieldset>
+					</li>
+					
+					
+					<?php } ?>
 
 					<li class="normalshows"><?php echo $this->form->getLabel('switcher'); ?>
 					<?php echo $this->form->getInput('switcher'); ?></li>
@@ -325,6 +374,7 @@ JHtml::_('behavior.formvalidation');
 					<li><?php echo $this->form->getLabel('id'); ?>
 					<?php echo $this->form->getInput('id'); ?></li>
 					
+					
 			
 				<li>
 				<?php echo $this->form->getLabel('pretext'); ?>
@@ -411,7 +461,16 @@ if($this->item->id > 0){
 	checkics(0);
 </script>
 <?php 
-
 }
-
-	?>
+?>
+<script type="text/javascript">
+	jQuery(document).ready(function(){
+		jQuery("input[name='jform[automate_sort]']").change(function(){
+			if(jQuery(this).val()==1){
+				jQuery("li.automate_sort_column").show();
+			}else{
+				jQuery("li.automate_sort_column").hide();
+			}
+		});
+	});
+</script>

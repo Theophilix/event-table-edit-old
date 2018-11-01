@@ -369,6 +369,19 @@
 			component="com_eventtableedit"
 			section="etetable"
 		/>
+		
+		<field name="automate_sort"
+			type="radio"
+			default="0"
+			label="COM_EVENTTABLEEDIT_EDIT_ENABLE_AUTOMATIC_SORTING_LABEL"
+			description="COM_EVENTTABLEEDIT_EDIT_ENABLE_AUTOMATIC_SORTING_DESC">
+			<option
+				value="1">JYES</option>
+			<option
+				value="0">JNO</option>
+		</field>
+		<field name="automate_sort_column" type="text" ></field>
+		
 	</fieldset>
 
 	<fieldset name="style"

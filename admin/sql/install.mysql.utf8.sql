@@ -58,6 +58,11 @@ CREATE TABLE IF NOT EXISTS `#__eventtableedit_details` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
+ALTER TABLE `#__eventtableedit_details`
+ADD `automate_sort` tinyint(4) NOT NULL,
+ADD `automate_sort_column` varchar(255) NOT NULL AFTER `automate_sort`,
+COMMENT='';
+
 DROP TABLE IF EXISTS `#__eventtableedit_heads`;
 CREATE TABLE `#__eventtableedit_heads` (
 	`id` int(11) NOT NULL auto_increment,
