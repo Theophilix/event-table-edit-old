@@ -477,6 +477,28 @@
 			<option value="_blank">COM_EVENTTABLEEDIT_LINK_TARGET_NEW</option>
 			<option value="_self">COM_EVENTTABLEEDIT_LINK_TARGET_SELF</option>
 		</field>
+		
+		<field id="scroll_table"
+			name="scroll_table"
+			type="list"
+			label="COM_EVENTTABLEEDIT_SCROLL_TABLE_LABEL"
+			description="COM_EVENTTABLEEDIT_SCROLL_TABLE_DESC"
+			class="inputbox"
+			size="1"
+			default="0"
+		>
+			<option value="1">COM_EVENTTABLEEDIT_SCROLL_YES</option>
+			<option value="0">COM_EVENTTABLEEDIT_SCROLL_NO</option>
+		</field>
+		
+		<field name="scroll_table_height" 
+			type="text"
+			class="inputbox"
+			label="COM_EVENTTABLEEDIT_TABLE_HEIGHT_LABLE"
+			description="COM_EVENTTABLEEDIT_TABLE_HEIGHT_DESC"
+			default="200"
+		/>
+		
 	</fieldset>
 		
 	<fields name="metadata">

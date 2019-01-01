@@ -32,7 +32,11 @@ class EventtableeditControllerappointmentform extends JControllerLegacy
 		$app   = JFactory::getApplication();
 		$main  = JFactory::getApplication()->input;
 		$post  = $main->getArray($_POST);
-
+		$oneics = false;
+		if(isset($post['oneics']) && $post['oneics']=='yes'){
+			$oneics = true;
+		}
+		
 		
 
 		$totalappointments_row_col = explode(',', $post['rowcolmix']);
@@ -119,11 +123,38 @@ class EventtableeditControllerappointmentform extends JControllerLegacy
 				}
 				$date_array[$start] = $end;
 		}
-
-
-	
+		
+		$array	=	array();
+		foreach($date_array AS $key => $value){
+			$key = date('Y-m-d H:i:s',strtotime($key));
+			$array[$key] = $value;
+		}
+		ksort($array);
+		$date_array	=	array();
+		foreach($array AS $key => $value){
+			$key = date('d.m.Y H:i:s',strtotime($key));
+			$date_array[$key] = $value;
+		}
+		
+		
 		$arrayof_sdates = array();
 		$arrayof_times = array();
+		
+		$tableeditpostalldata->icsfilename = str_replace('{first_name}',$post['first_name'] , $tableeditpostalldata->icsfilename);
+		$tableeditpostalldata->icsfilename = str_replace('{last_name}',$post['last_name'] , $tableeditpostalldata->icsfilename);
+			
+		if($oneics){
+$ical_oneics = 'BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//bobbin v0.1//NONSGML iCal Writer//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH';
+			
+			$filename_oneics    = $tableeditpostalldata->icsfilename.'.ics';
+		}
+		
+				
+				
 		foreach ($date_array as $keyu => $valueu) {
 			
 		
@@ -184,15 +215,25 @@ class EventtableeditControllerappointmentform extends JControllerLegacy
 				$address     = $tableeditpostalldata->location;
 				$uri         = JURI::root();
 				$description = $post['comment'];
-				$tableeditpostalldata->icsfilename = str_replace('{first_name}',$post['first_name'] , $tableeditpostalldata->icsfilename);
-				$tableeditpostalldata->icsfilename = str_replace('{last_name}',$post['last_name'] , $tableeditpostalldata->icsfilename);
+				
 				
 				$summary = str_replace('{first_name}',$post['first_name'] , $summary);
 				$summary = str_replace('{last_name}',$post['last_name'] , $summary);
 				
-				$ttemp1 = $ttemp+1;
-				$filename    = $tableeditpostalldata->icsfilename.$ttemp1.'.ics';
+				if($oneics){
 
+$ical_oneics .= '
+BEGIN:VEVENT
+DTEND:'.$dateend.'
+UID:'.uniqid().'
+DTSTAMP:'.$datestart.'
+LOCATION:'.$this->escapeString($address).'
+DESCRIPTION:'.$this->escapeString($description).'
+URL;VALUE=URI:'.$this->escapeString($uri).'
+SUMMARY:'.$this->escapeString($summary).'
+DTSTART:'.$datestart.'
+END:VEVENT';
+				}else{
 $ical = 'BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//hacksw/handcal//NONSGML v1.0//EN
@@ -208,13 +249,24 @@ SUMMARY:'.$this->escapeString($summary).'
 DTSTART:'.$datestart.'
 END:VEVENT
 END:VCALENDAR';
+					$ttemp1 = $ttemp+1;
+					$filename    = $tableeditpostalldata->icsfilename.$ttemp1.'.ics';
+					file_put_contents(JPATH_BASE.'/components/com_eventtableedit/template/ics/'.$filename,$ical);
+					$addAttachment[] = JPATH_BASE.'/components/com_eventtableedit/template/ics/'.$filename;
+				}
+				
 
-				file_put_contents(JPATH_BASE.'/components/com_eventtableedit/template/ics/'.$filename,$ical);
-				$addAttachment[] = JPATH_BASE.'/components/com_eventtableedit/template/ics/'.$filename;
-			$msg = JText::_('COM_EVENTEDITTABLE_APPOINTMENT_SUCCESSFULLY_BOOKED');
-		$ttemp++;
+				
+				$ttemp++;
+		}
+		if($oneics){
+			$ical_oneics .= '
+END:VCALENDAR';
+			file_put_contents(JPATH_BASE.'/components/com_eventtableedit/template/ics/'.$filename_oneics,$ical_oneics);
+			$addAttachment[] = JPATH_BASE.'/components/com_eventtableedit/template/ics/'.$filename_oneics;
 		}
 
+		$msg = JText::_('COM_EVENTEDITTABLE_APPOINTMENT_SUCCESSFULLY_BOOKED');
 	
 /*
 		foreach ($postdateappointment as $appointmentsics) {
@@ -311,13 +363,61 @@ END:VCALENDAR';
 		// for ($b=0; $b < $arrayof_sdates; $b++) { 
 		// 	$array = 
 		// }
-
-
-
-
 			
-				$replace_onlydate = implode(' / ',$arrayof_sdates);
-				$replace_onlytime = implode(' / ',$arrayof_times);
+			$datetimelist_body = '<ul style="list-style:none;">';
+			foreach ($date_array as $keystart => $valueend) {
+				$exp_startdate	= explode(' ',$keystart);
+				$exp_sdate		= explode('-',$exp_startdate[0]);
+				$timesremovedsec = explode(':', $exp_startdate[1]);
+				$exp_stime		= explode(':',$exp_startdate[1]);
+				
+				$starttimeonly = $exp_stime[0].':'.$exp_stime[1];
+			
+				
+
+				$exp_enddate	= explode(' ',$valueend);
+				$exp_edate		= explode('-',$exp_enddate[0]);
+				
+				$exp_etime		= explode(':',$exp_enddate[1]);
+				
+				$mintplus = intval($exp_etime[1]) + intval($mintdiffrence);
+				
+				if($mintplus >= 60){
+					$mintsend = $mintplus - 60;
+				
+					if($mintsend > 9){
+						$mintsendadd = $mintsend;
+					}else{
+						$mintsendadd = '0'.$mintsend;
+
+					}
+					
+					if($exp_etime[0] >= 9){
+						$hoursends = $exp_etime[0] + 1; 
+					}else{
+						$hoursends1 = $exp_etime[0] + 1;
+						$hoursends = '0'.$hoursends1;
+					}
+					if($hoursends == 24){
+						$endtimeonly = '00:'.$mintsendadd;
+					}else{
+						$endtimeonly = $hoursends.':'.$mintsendadd;
+					}
+				}else{
+					$endtimeonly = $exp_etime[0].':'.$mintplus;
+				}
+				
+				$namesofday1 = date('l',strtotime($keystart));
+				
+				$datetimelist_body	.= '<li>'.JTEXT::_('COM_EVENTTABLEEDIT_'.strtoupper($namesofday1)).', '.date('d.m.Y',strtotime($keystart)).', '.$starttimeonly.' - '.$endtimeonly."</li>";
+			}
+			$datetimelist_body .= '</ul>';
+			
+			
+				
+			
+				//$replace_onlydate = implode(' / ',$arrayof_sdates);
+				//$replace_onlytime = implode(' / ',$arrayof_times);
 				
 			// START user email // 
 				$mailer = JFactory::getMailer();
@@ -334,9 +434,11 @@ END:VCALENDAR';
 				$subject = str_replace('{time}', $timesremovedsec[0].':'.$timesremovedsec[1], $subject);
 				$body =  $tableeditpostalldata->useremailtext;
 
+				$body = str_replace('{datetimelist}', $datetimelist_body, $body);
+				
 
-				$body = str_replace('{date}', $replace_onlydate, $body);
-				$body = str_replace('{time}',$replace_onlytime, $body);
+				//$body = str_replace('{date}', $replace_onlydate, $body);
+				//$body = str_replace('{time}',$replace_onlytime, $body);
 				//$body = $this->escapeString($description);
 				$mailer->setSender($sender);		
 				$mailer->addRecipient($post['email']);
@@ -344,6 +446,8 @@ END:VCALENDAR';
 				$mailer->isHTML(true);
 				$mailer->Encoding = 'base64';
 				$mailer->setBody($body);
+				
+				
 				// Optional file attached
 				$mailer->addAttachment($addAttachment);
 				$mailer->Send();
@@ -365,8 +469,7 @@ END:VCALENDAR';
 
 				$description_adminbody = $tableeditpostalldata->adminemailtext;
 				$description_adminbody = str_replace('{comment}',$post['comment'], $description_adminbody);
-				$description_adminbody = str_replace('{date}',$replace_onlydate, $description_adminbody);
-				$description_adminbody = str_replace('{time}',$replace_onlytime, $description_adminbody);
+				$description_adminbody = str_replace('{datetimelist}', $datetimelist_body, $description_adminbody);
 				
 				//$adminbody   = $this->escapeString($description_adminbody);
 				$adminbody   = $description_adminbody;
@@ -397,9 +500,11 @@ END:VCALENDAR';
 
 	}
 	function escapeString($string) {
-  return preg_replace('/([\,;])/','\\\$1', $string);
-}
-
+	  return preg_replace('/([\,;])/','\\\$1', $string);
+	}
+	function date_sort($a, $b) {
+		return strtotime($a) - strtotime($b);
+	}
 	
 }
 

@@ -729,7 +729,7 @@ table.tablesaw thead td {
 
 
 
-@media (min-width: 80em) {
+@media (min-width: 87em) {
   .tablesaw-columntoggle th.tablesaw-priority-7,
   .tablesaw-columntoggle td.tablesaw-priority-7 {
     display: table-cell;

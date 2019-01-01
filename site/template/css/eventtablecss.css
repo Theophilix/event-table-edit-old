@@ -188,7 +188,7 @@ text-align: center;
  #etetable-table tr td {
  	text-align: center;
  	border: 1px solid #DDDDDD;
-
+	overflow: hidden;
  }
 
  

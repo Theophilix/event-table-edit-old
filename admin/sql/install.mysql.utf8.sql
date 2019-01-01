@@ -63,6 +63,11 @@ ADD `automate_sort` tinyint(4) NOT NULL,
 ADD `automate_sort_column` varchar(255) NOT NULL AFTER `automate_sort`,
 COMMENT='';
 
+ALTER TABLE `#__eventtableedit_details`
+ADD `scroll_table` varchar(255) COLLATE 'utf8_general_ci' NOT NULL,
+ADD `scroll_table_height` varchar(255) COLLATE 'utf8_general_ci' NOT NULL AFTER `scroll_table`,
+COMMENT='';
+
 DROP TABLE IF EXISTS `#__eventtableedit_heads`;
 CREATE TABLE `#__eventtableedit_heads` (
 	`id` int(11) NOT NULL auto_increment,

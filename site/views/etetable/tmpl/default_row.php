@@ -73,16 +73,14 @@ for($colCount = 0; $colCount < count($this->rows[0]) - 1; $colCount++) {
 	 * The cell content
 	 */ ?>
 	<td class="etetable-row_<?php echo $this->rowCount . '_' . $colCount.' '.$mydyanmiclass ; ?>" 
-		id="etetable-row_<?php echo $this->rowCount . '_' . $colCount; ?>"><?php if($atemptime != ''){  echo $atemptime; } ?><?php echo trim($this->rows[$this->rowCount][$colCount]); ?>
-		<?php
+		id="etetable-row_<?php echo $this->rowCount . '_' . $colCount; ?>"><?php if($atemptime != ''){  echo $atemptime; } ?><?php echo str_replace("&nbsp;&nbsp;&nbsp;","",trim($this->rows[$this->rowCount][$colCount])); ?><?php
 		// Add the hidden field in the last row
 		if ($colCount == count($this->rows[0]) - 2) :?>
 			<input type="hidden" 
 				   id="rowId_<?php echo $this->rowCount; ?>" 
 				   name="rowId[]"
 				   value="<?php echo $this->rows[$this->rowCount]['id']; ?>" />
-		<?php endif; ?>
-	</td>
+		<?php endif; ?></td>
 <?php 
 }
 ?>

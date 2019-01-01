@@ -105,7 +105,7 @@ class eteHelper {
 	public static function parseMail($cell, $cellbreak) {
 		if ($cell != '') {
 			// Spaces at the end, that the cell can be clicked
-			$cell = '<a href="mailto:' . $cell . '">' . eteHelper::breakCell($cell, $cellbreak) . '</a>&nbsp;&nbsp;&nbsp;';
+			$cell = '<a href="mailto:' . $cell . '">' . eteHelper::breakCell($cell, $cellbreak) . '</a>';
 		}
 
 		return $cell;

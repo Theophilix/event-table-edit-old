@@ -11,6 +11,7 @@ defined( '_JEXEC' ) or die;
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
 //echo $this->form->getValue('automate_sort_column');die;
+
 ?>
 
 <script type="text/javascript">
@@ -417,6 +418,12 @@ JHtml::_('behavior.formvalidation');
 
 					<li><?php echo $this->form->getLabel('link_target'); ?>
 					<?php echo $this->form->getInput('link_target'); ?></li>
+					
+					<li><?php echo $this->form->getLabel('scroll_table'); ?>
+					<?php echo $this->form->getInput('scroll_table'); ?></li>
+					<li><?php echo $this->form->getLabel('scroll_table_height'); ?>
+					<?php echo $this->form->getInput('scroll_table_height'); ?></li>
+					
 					</ul>
 				</fieldset>	
 

@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-Download latest version 4.7.3 (since 01.11.2018): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+Download latest version 4.7.4 (since 01.01.2019): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -47,9 +47,11 @@ a) General
   + CSV Import and Export
   + Show or hide user names to user or admin
   + Set timelimit for bookings
+  + option to send two or more appoinment informations in one ics file
 - Show or hide table title
 - Usertext before and after table
 - Show or hide column to delete or sort rows
+- Enable automatic column sorting when table is loaded
 - Use Metadata
 - Enhanced SEO
 - Support BB-Code
@@ -70,6 +72,19 @@ Please post all feature requests in the issues tab.
 
 
 ## II Version history
+
+**For version 4.7.4:**
+
+[1] Normal mode
+
+- bugfix: Frontend: Layout: Layout not looking good at 1280+ pixel width if delete column is activated: https://github.com/Theophilix/event-table-edit/issues/123
+
+[2] Appointment mode
+
+- enhancement: Appointment tables: Sort ICS files / date info in email by date:  https://github.com/Theophilix/event-table-edit/issues/125
+- enhancement: Frontend / Appointment tables: Show same date information in email as after click of booking button: https://github.com/Theophilix/event-table-edit/issues/131
+- enhancement: Frontend / Appointment tables: option to send two or more appoinment informations in one ics file: https://github.com/Theophilix/event-table-edit/issues/132
+
 
 **For version 4.7.3:**
 

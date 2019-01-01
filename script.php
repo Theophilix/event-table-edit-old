@@ -78,6 +78,31 @@ class com_eventtableeditInstallerScript
 				$db->query(); 
 			}
 			
+			$app = JFactory::getApplication();
+			$prefix = $app->getCfg('dbprefix');
+			
+			$query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '".$prefix."eventtableedit_details' AND COLUMN_NAME = 'scroll_table' ";
+			$db->setQuery($query);
+			$data = $db->loadObject();
+			if(empty($data)){
+				$query = 'ALTER TABLE `#__eventtableedit_details`
+				ADD `scroll_table` varchar(255) COLLATE "utf8_general_ci" NOT NULL,
+				COMMENT=""';
+				$db->setQuery($query);
+				$db->query(); 
+			}
+			
+			$query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '".$prefix."eventtableedit_details' AND COLUMN_NAME = 'scroll_table_height'";
+			$db->setQuery($query);
+			$data = $db->loadObject();
+			if(empty($data)){
+				$query = 'ALTER TABLE `#__eventtableedit_details`
+				ADD `scroll_table_height` varchar(255) COLLATE "utf8_general_ci" NOT NULL AFTER `scroll_table`,
+				COMMENT=""';
+				$db->setQuery($query);
+				$db->query(); 
+			}
+			
             echo '<p>' . JText::_('COM_EVENTTABLEEDIT_UPDATE_TEXT') . '</p>';
         }
  

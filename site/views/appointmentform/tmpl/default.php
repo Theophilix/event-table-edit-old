@@ -145,6 +145,13 @@ $datesofhead = implode(',', $datesofhead);
 
 </div>
 
+<div class="control-group">
+
+  <label class="control-label"><?php echo JText::_('COM_EVENTTABLEEDIT_ONE_ICS'); ?></label>
+
+      <div class="controls"><input type="checkbox" value="yes" name="oneics" class=""></div>
+
+</div>
 
 <div class="control-group">
 
@@ -238,9 +245,20 @@ $datesofhead = implode(',', $datesofhead);
 				}
 				$date_array[$start] = $end;
 		}
-
-
-
+		
+		
+		$array	=	array();
+		foreach($date_array AS $key => $value){
+			$key = date('Y-m-d H:i:s',strtotime($key));
+			$array[$key] = $value;
+		}
+		ksort($array);
+		$date_array	=	array();
+		foreach($array AS $key => $value){
+			$key = date('d.m.Y H:i:s',strtotime($key));
+			$date_array[$key] = $value;
+		}
+	
 
 
 
