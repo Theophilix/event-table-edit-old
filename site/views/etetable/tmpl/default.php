@@ -251,3 +251,80 @@ if($this->item->addtitle == 1){ ?>
 
 </div>
 <div style="clear:both"></div>
+<?php
+if($this->item->scroll_table){ 
+	$scroll_table_height = ($this->item->scroll_table_height)?$this->item->scroll_table_height.'px':"160px";
+?>
+<style>
+/* table ,tr td{
+    border:1px solid red
+}
+#etetable-table tbody {
+    display:block;
+    max-height:<?php echo $scroll_table_height;?>;
+    overflow-y:scroll;
+	overflow-x:hidden;
+}
+#etetable-table thead, #etetable-table tbody tr {
+    display:table;
+    width:100%;
+    table-layout:fixed;
+}
+#etetable-table thead {
+        width: 100%;
+}
+table#etetable-table {
+       width: 100%;
+} */
+* {box-sizing: border-box} /* for th's width; display purpose */
+
+table#etetable-table {
+  width: 100%;
+}
+
+table#etetable-table, td {
+  border-collapse: collapse;
+  border: 1px solid #000;
+}
+
+#etetable-table thead {
+  display: table; /* to take the same width as tr */
+  width: calc(100% - 17px); /* - 17px because of the scrollbar width */
+}
+
+#etetable-table tbody {
+  display: block; /* to enable vertical scrolling */
+  max-height: <?php echo $scroll_table_height;?>; /* e.g. */
+  overflow-y: scroll; /* keeps the scrollbar even if it doesn't need it; display purpose */
+}
+
+#etetable-table th, #etetable-table td {
+/* to enable "word-break: break-all" */
+  padding: 5px;
+  word-break: break-all; /* 4. */
+}
+
+#etetable-table tr {
+  display: table; /* display purpose; th's border */
+  width: 100%;
+}
+
+#etetable-table td {
+  text-align: center;
+  border-bottom: none;
+  border-left: none;
+ 
+}
+#etetable-table td,#etetable-table th{
+	max-width:40px;
+	min-width:40px;
+}	
+
+#etetable-table tr td:nth-last-child(2), #etetable-table tr td:last-child, #etetable-table tr th:nth-last-child(2), #etetable-table tr th:last-child {
+	max-width:80px;
+	min-width:40px;
+	width:80px;
+}
+
+</style>
+<?php } ?>
