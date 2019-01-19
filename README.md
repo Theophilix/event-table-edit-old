@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-Download latest version 4.7.4 (since 01.01.2019): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+Download latest version 4.7.4 (since 01.01.2019, table scroll is not working well, do not use this style option!): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -67,6 +67,7 @@ Choose or select:
 - Colors of alternating rows
 - Maximum length of cell content
 - Display table in the same, or a new window
+- Activate table scroll function, define height
 
 Please post all feature requests in the issues tab.
 
@@ -78,6 +79,7 @@ Please post all feature requests in the issues tab.
 [1] Normal mode
 
 - bugfix: Frontend: Layout: Layout not looking good at 1280+ pixel width if delete column is activated: https://github.com/Theophilix/event-table-edit/issues/123
+- activate table scroll function, define height https://github.com/Theophilix/event-table-edit/issues/66 (not working well, do not use this option!)
 
 [2] Appointment mode
 
