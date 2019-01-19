@@ -1,6 +1,6 @@
 /*
  * $Id: $
- * @copyright (C) 2007 - 2010 Manuel Kaspar
+ * @copyright (C) 2007 - 2019 Manuel Kaspar and Theophilix
  * @license GNU/GPL
  */
 
