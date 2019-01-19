@@ -301,7 +301,7 @@ backend: remove notice when admin edits name (appointment mode) oder edits cell 
 - bugfix: firefox browser asks to refresh page after editing cells
 
 [2] Appointment mode
-- bugfix: admin doesn’t get email (was problem with „/“) + email does not show multiple appointments (example:  you have an appointment on 05.03.2017 / 06.03.2017 at 17:20 / 17:40)
+- bugfix: admin doesn’t get email (was problem with „/“) + email does not show multiple appointments (example:  you have an appointment on 05.03.2019 / 06.03.2019 at 17:20 / 17:40)
 
 
 **For version 4.4.3:**

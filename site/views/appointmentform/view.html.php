@@ -4,7 +4,7 @@
 
  * $Id: view.html.php 157 2011-03-19 00:08:23Z kapsl $
 
- * @copyright (C) 2007 - 2017 Manuel Kaspar and Theophilix
+ * @copyright (C) 2007 - 2019 Manuel Kaspar and Theophilix
 
  * @license GNU/GPL, see LICENSE.php in the installation package
 
@@ -348,21 +348,7 @@ class EventtableeditViewappointmentform extends JViewLegacy
 
 			$doc = JFactory::getDocument();
 
-			//$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw.js');
 
-			//$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw-init.js');
-
-			
-
-			
-
-			//$this->document->addScript($this->baseurl.'/components/com_eventtableedit/helpers/tableAjax.js');
-
-			//$this->document->addScript($this->baseurl.'/components/com_eventtableedit/helpers/popup.js');
-
-		//	$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/jquery.js');
-
-		
 
 		}
 
