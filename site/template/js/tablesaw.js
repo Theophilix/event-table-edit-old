@@ -67,6 +67,8 @@ if( Tablesaw.mustard ) {
 		var colstart = this._initCells();
 
 		this.$table.trigger( events.create, [ this, colstart ] );
+		
+		this.$table.wrap( "<div class='scroller'></div>" );
 	};
 
 	Table.prototype._initCells = function() {
@@ -1274,11 +1276,13 @@ if( Tablesaw.mustard ) {
 		onModeChange: function() {
 			var $t = $( this ),
 				$switcher = $t.closest( '.' + S.classes.main ),
-				$table = $t.closest( '.tablesaw-bar' ).nextUntil( $table ).eq( 0 ),
+				$table = $t.closest( '.tablesaw-bar' ).next().find( 'table#etetable-table' ).eq( 0 ),
 				val = $t.val();
-
+			console.log($table);
+			$table.unwrap();
 			$switcher.remove();
 			$table.data( 'table' ).destroy();
+			//$table.destroy();
 
 			$table.attr( 'data-tablesaw-mode', val );
 			$table.table();
