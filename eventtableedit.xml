@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension type="component" version="4.7.4" method="upgrade">
+<extension type="component" version="4.7.5" method="upgrade">
 	<name>com_eventtableedit</name>
 	<creationDate>01-01-2019</creationDate>
 	<author>Manuel Kaspar and Theophilix</author>
@@ -7,7 +7,7 @@
 	<copyright>2007 - 2019 Manuel Kaspar and Theophilix</copyright>
 	<authorEmail>webmaster@eventtableedit.com</authorEmail>
 	<authorUrl>http://www.eventtableedit.com</authorUrl>
-	<version>4.7.4</version>
+	<version>4.7.5</version>
 	<description>COM_EVENTTABLEEDIT_DESCRIPTION</description>
 
 	<scriptfile>script.php</scriptfile>

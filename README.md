@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-Download latest version 4.7.4 (since 01.01.2019, table scroll is not working well, do not use this style option!): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+Download latest version 4.7.5 (since 02.04.2019): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -73,6 +73,13 @@ Please post all feature requests in the issues tab.
 
 
 ## II Version history
+
+**For version 4.7.5:**
+
+[1] Normal mode
+
+- bugfix: Frontend: Keep showing first row when scrolling down in long tables https://github.com/Theophilix/event-table-edit/issues/66
+
 
 **For version 4.7.4:**
 
