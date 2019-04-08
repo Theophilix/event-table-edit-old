@@ -421,7 +421,7 @@ JHtml::_('behavior.formvalidation');
 					
 					<li><?php echo $this->form->getLabel('scroll_table'); ?>
 					<?php echo $this->form->getInput('scroll_table'); ?></li>
-					<li><?php echo $this->form->getLabel('scroll_table_height'); ?>
+					<li id="scroll_table_height"><?php echo $this->form->getLabel('scroll_table_height'); ?>
 					<?php echo $this->form->getInput('scroll_table_height'); ?></li>
 					
 					</ul>
@@ -454,6 +454,25 @@ JHtml::_('behavior.formvalidation');
 	<!-- added to resolve loading issue -->
 <input type="hidden" name="title" id="jform_title" value="" />
 </form>
+<style>
+#scroll_table_height{
+	display: none;
+}
+</style>
+<script>
+jQuery(document).ready(function(){
+	if(jQuery("#jform_scroll_table").val() == 1){
+		jQuery("#scroll_table_height").show();
+	}
+	jQuery("#jform_scroll_table").change(function(){
+		if(jQuery(this).val() == 1){
+			jQuery("#scroll_table_height").show();
+		}else{
+			jQuery("#scroll_table_height").hide();
+		}
+	})
+})
+</script>
 <div class="clr"></div>
 <?php 
 if($this->item->id > 0){
