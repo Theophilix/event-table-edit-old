@@ -48,7 +48,7 @@ a) General
   + Show or hide user names to user or admin
   + Set timelimit for bookings
   + option to send two or more appoinment informations in one ics file
-  + add global options, so admins can offer options (p. ex. different persons or services) and users can choose them from a list. In the     backend, each option corresponds to an own table.
+  + add global options, so admins can offer options (p. ex. different persons or services) and users can choose them from a list. If a       user clicks on an option, the specific table, that has been set in backend, is loaded.
 - Show or hide table title
 - Usertext before and after table
 - Show or hide column to delete or sort rows
