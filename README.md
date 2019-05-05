@@ -48,6 +48,7 @@ a) General
   + Show or hide user names to user or admin
   + Set timelimit for bookings
   + option to send two or more appoinment informations in one ics file
+  + add global options, so admins can offer options (p. ex. different persons or services) and users can choose them from a list. If a       user clicks on an option, the specific appointment table, that has been set in backend, is loaded.
 - Show or hide table title
 - Usertext before and after table
 - Show or hide column to delete or sort rows
@@ -74,14 +75,14 @@ Please post all feature requests in the issues tab.
 
 ## II Version history
 
-**For version 4.7.5:**
+**For version 4.7.6:**
 
 [2] Appointment mode
 
 - enhancement: Frontend + Backend / Appointment tables: Add dropdown list with global options https://github.com/Theophilix/event-table-edit/issues/133
 
 
-**For version 4.7.6:**
+**For version 4.7.5:**
 
 [1] Normal mode
 
