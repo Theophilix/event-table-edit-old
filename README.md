@@ -75,14 +75,14 @@ Please post all feature requests in the issues tab.
 
 ## II Version history
 
-**For version 4.7.5:**
+**For version 4.7.6:**
 
 [2] Appointment mode
 
 - enhancement: Frontend + Backend / Appointment tables: Add dropdown list with global options https://github.com/Theophilix/event-table-edit/issues/133
 
 
-**For version 4.7.6:**
+**For version 4.7.5:**
 
 [1] Normal mode
 
