@@ -77,6 +77,10 @@ Please post all feature requests in the issues tab.
 
 **For version 4.7.6:**
 
+[1] Normal mode
+
+- bugfix: Frontend: Sorting with multiple pages https://github.com/Theophilix/event-table-edit/issues/21
+
 [2] Appointment mode
 
 - enhancement: Frontend + Backend / Appointment tables: Add dropdown list with global options https://github.com/Theophilix/event-table-edit/issues/133
