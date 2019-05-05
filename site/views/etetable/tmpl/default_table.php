@@ -93,7 +93,7 @@ if(@$postget['mode']){
 }
 $sortdy = @$postget['sort']?@$postget['sort']:'0_asc';
 if($this->item->sorting == 1){
-	$sorting_enable .= 'data-tablesaw-sortable data-tablesaw-sortable-switch ';
+	//$sorting_enable .= 'data-tablesaw-sortable data-tablesaw-sortable-switch ';
 }
 if($this->item->switcher == 1){
 	$sorting_enable .= 'data-tablesaw-mode-switch';
