@@ -13,6 +13,34 @@ JHtml::_('behavior.formvalidation');
 ?>
 
 <script type="text/javascript">
+
+	jQuery(document).ready(function(){
+		jQuery("#addNew").click(function(){
+			var varHtml = '<tr><td width="40%"><input type="text" name="global_options[]" value=""/></td><td width="40%"><select name="corresponding_table[]"><?php foreach($this->appointment_tables as $appointment_tables){ ?><option value="<?php echo $appointment_tables->id?>"><?php echo $appointment_tables->name?></option><?php } ?></select></td><td><a href="javascript:void(0);" class="up"><span id="dropdown-ordering" class="uparrow"></span></a><a href="javascript:void(0);" class="down"><span id="dropdown-ordering" class="downarrow"></span></a></td><td><img src="<?php echo JURI::root(); ?>administrator/components/com_eventtableedit/template/images/cross.png" class="correspond_delete"></td></tr>';
+			jQuery("#dropdown-table tbody").append(varHtml);
+		})
+		jQuery('body').on('click','.correspond_delete',function(){
+			jQuery(this).parent().parent().remove();
+		})
+		jQuery('#jform_add_option_list input[type=radio]').change(function() {
+			if (this.value == 1) {
+				jQuery(".correspond_table").show();
+			}
+			else if (this.value == 0) {
+				jQuery(".correspond_table").hide();
+			}
+		});
+		
+		jQuery('body').on('click','.up,.down',function(){
+			var row = jQuery(this).parents("tr:first");
+			if (jQuery(this).is(".up")) {
+				row.insertBefore(row.prev());
+			} else {
+				row.insertAfter(row.next());
+			}
+		});
+		
+	})
 	function checkics(val){
 		if(val == 0){
 			jQuery('.location').hide();
@@ -128,6 +156,8 @@ JHtml::_('behavior.formvalidation');
 		float: left;
 		margin-left: 5px;
 	}
+	#dropdown-table tr:first-child td a span.uparrow{display: none;}
+	#dropdown-table tr:last-child td a span.downarrow{display: none;}
 	<?php
 	if($this->item->show_pagination == 1){ ?>
 		.pagebreak{display:block;list-style: none;}
@@ -189,6 +219,95 @@ JHtml::_('behavior.formvalidation');
 
 					<li class="location"><?php echo $this->form->getLabel('showdayname'); ?>
 					<?php echo $this->form->getInput('showdayname'); ?></li>
+					
+					
+					
+					<li class="add_option_list">
+				<?php echo $this->form->getLabel('add_option_list'); ?>
+				<?php echo $this->form->getInput('add_option_list'); ?>
+				</li>	
+				<li class="correspond_table">
+					<table class="adminlist" id="dropdown-table" style="width: 65%;">
+						<thead>
+							<tr>
+								<th width="40%"><?php echo JText::_('COM_EVENTTABLEEDIT_GLOBAL_OPTIONS'); ?></th>
+								<th width="40%"><?php echo JText::_('COM_EVENTTABLEEDIT_CORRESPONDING_TABLE'); ?></th>
+								<th><?php echo JText::_('JGRID_HEADING_ORDERING'); ?></th>
+								<th><?php echo JText::_('COM_EVENTTABLEEDIT_DELETE'); ?></th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php 
+							
+							if($this->item->corresptable!=""){
+								$corresptables = json_decode($this->item->corresptable,true);
+								
+								if(!empty($corresptables)){
+									foreach($corresptables as $global_option=>$corresptable){
+										?>
+										<tr>
+											<td width="40%"><input type="text" name="global_options[]" id="global_options" value="<?php echo $global_option;?>"/></td>
+											<td width="40%"><select name="corresponding_table[]" id="corresponding_table">
+												<?php
+												foreach($this->appointment_tables as $appointment_tables){
+													?><option <?php if($appointment_tables->id == $corresptable){ echo "selected='selected'";}?> value="<?php echo $appointment_tables->id?>"><?php echo $appointment_tables->name?></option><?php
+												}
+												?>
+											</select></td>
+											<td>
+												<a href="javascript:void(0);" class="up"><span id="dropdown-ordering" class="uparrow"></span></a>
+												<a href="javascript:void(0);" class="down"><span id="dropdown-ordering" class="downarrow"></span></a>
+											</td>
+											<td><img src="<?php echo JURI::root(); ?>administrator/components/com_eventtableedit/template/images/cross.png" class="correspond_delete"></td>
+										</tr>
+										<?php
+									}
+								}
+							}else{
+								?>
+								<tr>
+									<td width="40%"><input type="text" name="global_options[]" id="global_options" value=""/></td>
+									<td width="40%"><select name="corresponding_table[]" id="corresponding_table">
+														<?php
+														foreach($this->appointment_tables as $appointment_tables){
+															?><option value="<?php echo $appointment_tables->id?>"><?php echo $appointment_tables->name?></option><?php
+														}
+														?>
+													</select></td>
+									<td>
+										<a href="javascript:void(0);" class="up"><span id="dropdown-ordering" class="uparrow"></span></a>
+										<a href="javascript:void(0);" class="down"><span id="dropdown-ordering" class="downarrow"></span></a>
+									</td>
+									<td><img src="<?php echo JURI::root(); ?>administrator/components/com_eventtableedit/template/images/cross.png" class="correspond_delete"></td>
+								</tr>
+								<?php
+							}?>
+						</tbody>
+					</table>
+					<div id="addNew"></div>
+					
+					
+					<style>
+					<?php if($this->item->add_option_list == 0){?>
+					.correspond_table{display: none;}
+					<?php }?>
+					.correspond_table{list-style: none;}
+					.correspond_delete{background: transparent;border: none;text-decoration: underline;cursor: pointer;}
+					
+					</style>
+				</li>	
+					<li class="show_selected_option_to_user">
+				<?php echo $this->form->getLabel('show_selected_option_to_user'); ?>
+				<?php echo $this->form->getInput('show_selected_option_to_user'); ?>
+				</li>	
+					
+					<li class="show_selected_option_to_admin">
+				<?php echo $this->form->getLabel('show_selected_option_to_admin'); ?>
+				<?php echo $this->form->getInput('show_selected_option_to_admin'); ?>
+				</li>	
+					
+					
+					
 <li class="location">
 							<label title="" class="hasTooltip" for="jform_icsfilename" id="jform_icsfilename-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ICSFILENAME_LABEL'); ?>&lt;/strong&gt;&lt;br /&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ICSFILENAME_DESC'); ?>">
 	<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ICSFILENAME_LABEL'); ?><span class="star">&nbsp;*</span></label>
@@ -332,7 +451,10 @@ JHtml::_('behavior.formvalidation');
 				<li>
 				<?php echo $this->form->getLabel('aftertext'); ?>
 				<?php echo $this->form->getInput('aftertext'); ?>
-				</li>	</ul>
+				</li>	
+				
+				
+				</ul>
 			</fieldset>
 	</div> 
 	<div  id="style" class="tab-pane">

@@ -99,7 +99,6 @@ class EventtableeditModelAppointmenttable extends JModelAdmin {
 			$registry->loadString($item->metadata);
 			$item->metadata = $registry->toArray();
 		}
-
 		return $item;
 	}
 
@@ -631,5 +630,12 @@ class EventtableeditModelAppointmenttable extends JModelAdmin {
 		}
 
 		return true;
+	}
+	
+	public function getAppTables(){
+		$db = JFactory::getDBO();
+		$db->setQuery("SELECT * FROM #__eventtableedit_details WHERE normalorappointment = 1 AND published = 1");
+		$tables = $db->loadObjectList();
+		return $tables;
 	}
 }

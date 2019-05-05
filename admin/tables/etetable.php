@@ -52,6 +52,18 @@ class EventtableeditTableEtetable extends JTable {
 	 */
 	public function store($updateNulls = false)
 	{
+		$jinput = JFactory::getApplication()->input;
+		$global_options = $jinput->get('global_options', '','STRING');
+		$corresponding_table = $jinput->get('corresponding_table');
+		if(!empty($global_options)){
+			$corresptable	=	array();
+			foreach($global_options as $key=>$global_option){
+				$corresptable[$global_option]	=	$corresponding_table[$key];
+			}
+			$this->corresptable	=	json_encode($corresptable);
+		}else{
+			$this->corresptable	=	"";
+		}
 		// Transform the params field
 		if (@is_array($this->params)) {
 			$registry = new JRegistry();
@@ -68,11 +80,10 @@ class EventtableeditTableEtetable extends JTable {
 			$this->setError(JText::_('COM_EVENTTABLEEDIT_ERROR_UNIQUE_ALIAS'));
 			return false;
 		}
-		
 		// Delete # from tablecolor
 		$this->tablecolor1 = str_replace('#', '', $this->tablecolor1);
 		$this->tablecolor2 = str_replace('#', '', $this->tablecolor2);
-
+		
 		// Attempt to store the data.
 		return parent::store($updateNulls);
 	}

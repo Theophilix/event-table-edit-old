@@ -32,9 +32,18 @@ class EventtableeditModelappointments extends JModelList
 		$params = $app->getParams();
 		
 		$this->setState('params', $params);
-		$this->params = $params;
-		$main         = $app->input;
-		$this->id     = $main->getInt('id', '');
+		$this->params 		= $params;
+		$main         		= $app->input;
+		$this->id     		= $main->getInt('id', '');
+		$this->option_id	= $main->getInt('id', '');
+		$session = JFactory::getSession();
+		$corresponding_table = $session->get('corresponding_table');
+		if($corresponding_table){
+			$this->option_id     = $corresponding_table;
+		}else{
+			$this->option_id     = '';
+		}
+		
 		$this->filter = '';
 		
 		$this->setState('is_module', 0);
@@ -244,7 +253,7 @@ class EventtableeditModelappointments extends JModelList
 		
 				$query->select($this->getState('item.select', 'a.*, CONCAT(\'head_\', a.id) AS head'));
 				$query->from('#__eventtableedit_heads AS a');
-				$query->where('a.table_id = ' . $this->state->get('appointments.id'));
+				$query->where('a.table_id = ' . (($this->option_id)?$this->option_id:$this->id));
 				$query->order('a.ordering asc');
 				
 				$this->db->setQuery($query);
@@ -366,7 +375,8 @@ class EventtableeditModelappointments extends JModelList
 	 	// Add the list ordering clause.
 		  $orderCol	= $this->state->get('list.ordering');
 	 	$orderDirn	= $this->state->get('list.direction');	
- 		 $tid = $this->state->get('appointments.id');
+ 		 //$tid = $this->state->get('appointments.id');
+ 		 $tid = (($this->option_id)?$this->option_id:$this->id);
  		
 		$query = $this->db->getQuery(true);
 		$query->select($this->getState('item.select', 'a.*'));
@@ -540,7 +550,7 @@ class EventtableeditModelappointments extends JModelList
 		$uid    = $user->get('id');
 		
 		//Add new row to the database
-		$queryGetBiggestOrdering = 'SELECT (MAX(s.ordering) + 1) FROM #__eventtableedit_rows_' . $this->id .' AS s';
+		$queryGetBiggestOrdering = 'SELECT (MAX(s.ordering) + 1) FROM #__eventtableedit_rows_' . (($this->option_id)?$this->option_id:$this->id) .' AS s';
 		$this->db->setQuery($queryGetBiggestOrdering);
 		$newOrdering = $this->db->loadResult();
 
@@ -549,7 +559,7 @@ class EventtableeditModelappointments extends JModelList
 			$newOrdering = 0;
 		}
 		
-		$query = 'INSERT INTO #__eventtableedit_rows_' . $this->id .
+		$query = 'INSERT INTO #__eventtableedit_rows_' . (($this->option_id)?$this->option_id:$this->id) .
 				 ' (ordering, created_by) VALUES (' . $newOrdering . ', ' . $uid . ')';
 		//echo $query;
 		$this->db->setQuery($query);
@@ -571,7 +581,7 @@ class EventtableeditModelappointments extends JModelList
 		
 		$colName = $this->getColumnInfo($cell);
 				
-		$query = 'SELECT ' . $colName['head'] . ' AS content FROM #__eventtableedit_rows_' . $this->id .
+		$query = 'SELECT ' . $colName['head'] . ' AS content FROM #__eventtableedit_rows_' . (($this->option_id)?$this->option_id:$this->id) .
 				 ' WHERE id = ' . $rowId;
 		//echo $query;
 		$this->db->setQuery($query);
@@ -597,7 +607,7 @@ class EventtableeditModelappointments extends JModelList
 						
 		$content = $this->prepareContentForDb($content, $datatype);
 			
-		$query = 'UPDATE #__eventtableedit_rows_' . $this->id .
+		$query = 'UPDATE #__eventtableedit_rows_' . (($this->option_id)?$this->option_id:$this->id) .
 				 ' SET ' . $headName . ' = ' . $content . ' WHERE id = ' . $rowId;
 		
 		$this->db->setQuery($query);
@@ -605,7 +615,7 @@ class EventtableeditModelappointments extends JModelList
 		
 		// Get the saved cell
 		// To see if bbcode is used, the table params has to be loaded
-		$this->getItem($this->id);
+		$this->getItem((($this->option_id)?$this->option_id:$this->id));
 		$ret = explode("|", $this->getCell($rowId, $cell));
 		$ret = $this->parseCell($ret[0], $cell);
 		
@@ -637,7 +647,7 @@ class EventtableeditModelappointments extends JModelList
 	 *  Delete a row from the database
 	 */
 	public function deleteRow($rowId) {
-		$query = 'DELETE FROM #__eventtableedit_rows_' . $this->id .
+		$query = 'DELETE FROM #__eventtableedit_rows_' . (($this->option_id)?$this->option_id:$this->id) .
 				 ' WHERE id = ' . $rowId;
 		$this->db->setQuery($query);
 		$this->db->query();
@@ -650,7 +660,7 @@ class EventtableeditModelappointments extends JModelList
 	 */
 	private function getColumnInfo($cell) {
 		$colQuery = 'SELECT CONCAT(\'head_\', a.id) AS head, datatype FROM #__eventtableedit_heads AS a' .
-					' WHERE a.table_id = ' . $this->id .
+					' WHERE a.table_id = ' . (($this->option_id)?$this->option_id:$this->id) .
 					' ORDER BY a.ordering ASC' .
 					' LIMIT ' . $cell . ', 1';
 		//echo $colQuery;
@@ -661,7 +671,7 @@ class EventtableeditModelappointments extends JModelList
 	
 	public function saveOrder($rowIds, $order) {
 		for ($a = 0; $a < count($rowIds); $a++) {
-			$query = 'UPDATE #__eventtableedit_rows_' . $this->id .
+			$query = 'UPDATE #__eventtableedit_rows_' . (($this->option_id)?$this->option_id:$this->id) .
 					 ' SET ordering = ' . $order[$a] .
 					 ' WHERE id = ' . $rowIds[$a];
 			//echo $query;
@@ -676,9 +686,13 @@ class EventtableeditModelappointments extends JModelList
 	 */
 	public function checkAclOwnRow($rowId, $uid) {
 		$query = 'SELECT IF(created_by = ' . $uid . ', 1, 0)' .
-				 ' FROM #__eventtableedit_rows_' . $this->id .
+				 ' FROM #__eventtableedit_rows_' . (($this->option_id)?$this->option_id:$this->id) .
 				 ' WHERE id = ' . $rowId;
 		$this->db->setQuery($query);
 		return (int) $this->db->loadResult();
+	}
+	
+	function getOptionID(){
+		return $this->option_id;
 	}
 }

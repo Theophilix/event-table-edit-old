@@ -45,6 +45,13 @@ table#etetable-table tr td.highlighted {
 td.tdblue{
 	cursor: pointer;
 }
+.eventtableedit{position:relative;}
+#adminForm{position:relative;min-height: 100px;}
+<?php if(!$this->option_id){ 
+?>
+.etetable-outtable, input.btn.btn-primary.appointmentsbtn{display:none;}
+<?php
+}?>
 </style>
 <div class="eventtableedit<?php echo $this->params->get('pageclass_sfx')?>">
 
@@ -93,8 +100,29 @@ if($this->item->addtitle == 1){ ?>
 <div style="clear:both"></div>
 <!-- etetable-tform -->
 <form action="<?php //echo JRoute::_('index.php?option=com_eventtableedit'); ?>" name="adminForm" id="adminForm" method="post">
-	<?php // echo '<pre>';print_r($this->item);
-
+	<?php if($this->item->add_option_list) :
+		//$session = JFactory::getSession();
+		//$corresponding_table = $session->get('corresponding_table');
+	?>
+		<div class="etetable-options" style="position: absolute;top: 10px;left: 0;">
+			<?php
+			$corresptables = json_decode($this->item->corresptable,true);
+			if(!empty($corresptables)){
+				?>
+				<select name="corresponding_table" id="corresponding_table">
+					<option value=""><?php echo JText::_("COM_EVENTTABLEEDIT_CHOOSE_YOUR_OPTION")?></option>
+					<?php
+				foreach($corresptables as $global_option=>$corresptable){
+					?><option <?php if($this->option_id == $corresptable){ echo "selected=selected";}?> value="<?php echo $corresptable?>"><?php echo $global_option?></option><?php
+				}
+				?>
+				</select>
+				<?php
+			}
+			?>
+		</div>
+	<?php endif;  //etetable-tform ?>
+	<?php 
 	//If there is already a table set up
 	if ($this->heads) :?>
   		<input type="button" name="appointments" value="<?php echo JText::_('COM_EVENTTABLEEDIT_BOOK_BUTTON') ?>" style="float:right;" onclick="subappointments();" class="btn btn-primary appointmentsbtn" />
@@ -161,6 +189,16 @@ jQuery(document).ready(function() {
     });
     
 });
+
+jQuery(document).ready(function(){
+	jQuery("#corresponding_table").change(function(){
+		var val = jQuery(this).val();
+		jQuery.post( "<?php echo JURI::root()?>/index.php?option=com_eventtableedit&task=etetable.setSessionOption", {'corresponding_table':val} , function( data ) {
+			window.location.reload();
+		});
+	})
+})
+
 function subappointments(){
 	var array = [];
 	jQuery('.highlighted').each(function(){

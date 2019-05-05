@@ -41,6 +41,7 @@ class EventtableeditViewappointments extends JViewLegacy
 		$user				= JFactory::getUser();
 		$this->state		= $this->get('State');
 		$this->item			= $this->get('Item');
+		$this->option_id	= $this->get('OptionID');
 		
 		// Check for errors.
 		if (!$this->checkError()) return false;

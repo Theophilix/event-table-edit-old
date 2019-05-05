@@ -320,7 +320,20 @@ $datesofhead = implode(',', $datesofhead);
 		
 	</ul>
 	<?php } ?>
-
+	<?php
+	$session = JFactory::getSession();
+	$corresponding_table = $session->get('corresponding_table');
+	if($corresponding_table){
+		$corresptable	=	json_decode($this->item->corresptable,true);
+		$corresponding_table_name	=	'';
+		foreach($corresptable as $key => $corresptabl){
+			if($corresptabl == $corresponding_table){
+				$corresponding_table_name = $key;
+			}
+		}
+		echo "<p><b>".JTEXT::_('COM_EVENTTABLEEDIT_SELECTED_OPTION').":</b> $corresponding_table_name</p>";
+	}
+	?>
 </div>
 
 

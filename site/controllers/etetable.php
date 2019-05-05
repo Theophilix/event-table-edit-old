@@ -188,5 +188,10 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 		$model =& $this->getModel('etetable');
 		return $model->checkAclOwnRow($rowId, $uid);
 	}
+	function setSessionOption(){
+		$jinput = JFactory::getApplication()->input;
+		$session = JFactory::getSession();
+		$session->set('corresponding_table', $jinput->get('corresponding_table'));
+	}
 }
 ?>

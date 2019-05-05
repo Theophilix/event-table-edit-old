@@ -18,8 +18,8 @@ class EventtableeditViewAppointmenttable extends JViewLegacy {
 		// Initialiase variables.
 		$this->form		= $this->get('Form');
 		$this->item		= $this->get('Item');
-		$this->state	= $this->get('State');
-
+		$this->state	= $this->get('State');		
+		$this->appointment_tables	= $this->get('AppTables');
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
 			JError::raiseError(500, implode("\n", $errors));

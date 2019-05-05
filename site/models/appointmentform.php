@@ -34,13 +34,25 @@ class EventtableeditModelappointmentform extends JModelList
 		$this->setState('params', $params);
 		$this->params = $params;
 		$main         = $app->input;
-		 $this->id     = $main->getInt('id', '');
-		
+		$this->id     = $main->getInt('id', '');
+		$this->option_id	= $main->getInt('id', '');
+		$session = JFactory::getSession();
+		$corresponding_table = $session->get('corresponding_table');
+		if($corresponding_table){
+			$this->option_id     = $corresponding_table;
+		}
 		$this->filter = '';
 		
 		$this->setState('is_module', 0);
 		
 		$this->db = $this->getDbo();
+	}
+	
+	function getCorrespondingTableName($corresponding_table){
+		$db= JFactory::getDbo();
+		$db->setQuery("SELECT * FROM #__eventtableedit_details WHERE id = '".$corresponding_table."'");
+		$result = $db->loadObject();
+		return $result->name;
 	}
 	
 	protected function populateState($ordering = NULL, $direction = NULL)
@@ -245,7 +257,7 @@ class EventtableeditModelappointmentform extends JModelList
 		
 				$query->select($this->getState('item.select', 'a.*, CONCAT(\'head_\', a.id) AS head'));
 				$query->from('#__eventtableedit_heads AS a');
-				$query->where('a.table_id = ' . $this->state->get('appointments.id'));
+				$query->where('a.table_id = ' . $this->option_id);
 				$query->order('a.ordering asc');
 				
 				$this->db->setQuery($query);
@@ -367,7 +379,8 @@ class EventtableeditModelappointmentform extends JModelList
 	 	// Add the list ordering clause.
 		  $orderCol	= $this->state->get('list.ordering');
 	 	$orderDirn	= $this->state->get('list.direction');	
- 		 $tid = $this->state->get('appointments.id');
+ 		 //$tid = $this->state->get('appointments.id');
+ 		 $tid = $this->option_id;
  		
 		$query = $this->db->getQuery(true);
 		$query->select($this->getState('item.select', 'a.*'));

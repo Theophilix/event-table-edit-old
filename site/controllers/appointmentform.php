@@ -36,20 +36,41 @@ class EventtableeditControllerappointmentform extends JControllerLegacy
 		if(isset($post['oneics']) && $post['oneics']=='yes'){
 			$oneics = true;
 		}
-		
-		
-
-		$totalappointments_row_col = explode(',', $post['rowcolmix']);
-		$tableeditpost = $post['id'];
-		$Itemid 	   = $post['Itemid'];
 		$model 		   = $this->getModel ( 'appointmentform' );
+		
+		$totalappointments_row_col = explode(',', $post['rowcolmix']);
+		$tableeditpost 		= $post['id'];
+		$tableeditpost_option = $post['id'];
+		$session = JFactory::getSession();
+		$corresponding_table = $session->get('corresponding_table');
+		if($corresponding_table){
+			$tableeditpost_option =	$corresponding_table;
+		}
+		
+		
+		$Itemid 	   = $post['Itemid'];
+		
 		$cols 		   = $model->getHeads();
 		$rows          = $model->getRows();
-		$tableeditpostalldata = $model->getItem($tableeditpost);
+		$tableeditpostalldata = $model->getItem();
 		$hoursitem 			  = $tableeditpostalldata->hours;
 		$db = JFactory::GetDBO();
 		$postdateappointment = explode(',', $post['dateappointment']);
 		
+		
+		$session = JFactory::getSession();
+		$corresponding_table = $session->get('corresponding_table');
+		if($corresponding_table){
+			$corresptable	=	json_decode($tableeditpostalldata->corresptable,true);
+			$corresponding_table_name	=	'';
+			foreach($corresptable as $key => $corresptabl){
+				if($corresptabl == $corresponding_table){
+					$corresponding_table_name = $key;
+				}
+			}
+		}
+		
+	
 		
 	//	implode(glue,$user->id);
 
@@ -71,7 +92,8 @@ class EventtableeditControllerappointmentform extends JControllerLegacy
 			$rowupdates = $roweditpost +1;
 			
 
-			$selectuserd = "SELECT ".$findupdatecell." FROM #__eventtableedit_rows_".$tableeditpost." WHERE id='".$rowupdates."'";
+			$selectuserd = "SELECT ".$findupdatecell." FROM #__eventtableedit_rows_".$tableeditpost_option." WHERE id='".$rowupdates."'";
+			
 			$db->setQuery($selectuserd);
 			$getUserbooking = $db->loadResult();
 			
@@ -87,8 +109,11 @@ class EventtableeditControllerappointmentform extends JControllerLegacy
 				}
 			}
 
-
-			$Update = "UPDATE  #__eventtableedit_rows_".$tableeditpost." SET ".$findupdatecell."='".$reserved_app."' WHERE id='".$rowupdates."'";
+			if($corresponding_table && $tableeditpostalldata->show_selected_option_to_admin){
+				$reserved_app	=	$reserved_app . ' (' . $corresponding_table_name . ')';
+			}
+			$Update = "UPDATE  #__eventtableedit_rows_".$tableeditpost_option." SET ".$findupdatecell."='".$reserved_app."' WHERE id='".$rowupdates."'";
+			
 			$db->setQuery($Update);
 			$db->query();
 		}
@@ -435,6 +460,7 @@ END:VCALENDAR';
 				$body =  $tableeditpostalldata->useremailtext;
 
 				$body = str_replace('{datetimelist}', $datetimelist_body, $body);
+				$body = str_replace('{option}', $corresponding_table_name, $body);
 				
 
 				//$body = str_replace('{date}', $replace_onlydate, $body);
@@ -470,6 +496,7 @@ END:VCALENDAR';
 				$description_adminbody = $tableeditpostalldata->adminemailtext;
 				$description_adminbody = str_replace('{comment}',$post['comment'], $description_adminbody);
 				$description_adminbody = str_replace('{datetimelist}', $datetimelist_body, $description_adminbody);
+				$description_adminbody = str_replace('{option}', $corresponding_table_name, $description_adminbody);
 				
 				//$adminbody   = $this->escapeString($description_adminbody);
 				$adminbody   = $description_adminbody;
