@@ -296,15 +296,7 @@ JHtml::_('behavior.formvalidation');
 					
 					</style>
 				</li>	
-					<li class="show_selected_option_to_user">
-				<?php echo $this->form->getLabel('show_selected_option_to_user'); ?>
-				<?php echo $this->form->getInput('show_selected_option_to_user'); ?>
-				</li>	
 					
-					<li class="show_selected_option_to_admin">
-				<?php echo $this->form->getLabel('show_selected_option_to_admin'); ?>
-				<?php echo $this->form->getInput('show_selected_option_to_admin'); ?>
-				</li>	
 					
 					
 					

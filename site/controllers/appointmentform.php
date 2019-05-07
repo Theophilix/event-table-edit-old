@@ -109,7 +109,7 @@ class EventtableeditControllerappointmentform extends JControllerLegacy
 				}
 			}
 
-			if($corresponding_table && $tableeditpostalldata->show_selected_option_to_admin){
+			if($corresponding_table){
 				$reserved_app	=	$reserved_app . ' (' . $corresponding_table_name . ')';
 			}
 			$Update = "UPDATE  #__eventtableedit_rows_".$tableeditpost_option." SET ".$findupdatecell."='".$reserved_app."' WHERE id='".$rowupdates."'";

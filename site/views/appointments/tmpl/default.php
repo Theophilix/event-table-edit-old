@@ -38,6 +38,9 @@ if(isset($requests['print'])){
 }
  ?>
 <style type="text/css">
+th.evth50.tablesaw-priority-persist.tablesaw-sortable-head.sort_col {
+    display: none!important;
+}
 table#etetable-table tr td.highlighted {
   background-color:#c4c1c1;
   border: 1px solid #dddddd;
@@ -47,7 +50,7 @@ td.tdblue{
 }
 .eventtableedit{position:relative;}
 #adminForm{position:relative;min-height: 100px;}
-<?php if(!$this->option_id){ 
+<?php if(!$this->option_id && $this->item->add_option_list){ 
 ?>
 .etetable-outtable, input.btn.btn-primary.appointmentsbtn{display:none;}
 <?php

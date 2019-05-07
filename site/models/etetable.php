@@ -631,10 +631,15 @@ class EventtableeditModelEtetable extends JModelList
 		$ret = array();
 		
 		$colName = $this->getColumnInfo($cell);
-				
-		$query = 'SELECT ' . $colName['head'] . ' AS content FROM #__eventtableedit_rows_' . $this->id .
+		if($table = $this->checkAppointmentAndSession()){
+			$query = 'SELECT ' . $colName['head'] . ' AS content FROM #__eventtableedit_rows_' . $table .
 				 ' WHERE id = ' . $rowId;
-		//echo $query;
+		}else{
+			$query = 'SELECT ' . $colName['head'] . ' AS content FROM #__eventtableedit_rows_' . $this->id .
+				 ' WHERE id = ' . $rowId;
+		}
+		
+		//echo $query;die;
 		
 		$this->db->setQuery($query);
 		$cell = $this->db->loadResult();
@@ -660,9 +665,13 @@ class EventtableeditModelEtetable extends JModelList
 		$ret = array();
 		
 		$colName = $this->getColumnInfo($cell);
-				
-		$query = 'SELECT ' . $colName['head'] . ' AS content FROM #__eventtableedit_rows_' . $this->id .
+		if($table = $this->checkAppointmentAndSession()){	
+			$query = 'SELECT ' . $colName['head'] . ' AS content FROM #__eventtableedit_rows_' . $table .
+					 ' WHERE id = ' . $rowId;
+		}else{
+			$query = 'SELECT ' . $colName['head'] . ' AS content FROM #__eventtableedit_rows_' . $this->id .
 				 ' WHERE id = ' . $rowId;
+		}
 		//echo $query;
 		$this->db->setQuery($query);
 		$cell = $this->db->loadResult();
@@ -699,10 +708,15 @@ class EventtableeditModelEtetable extends JModelList
 			$breaks = array("<br />","<br>","<br/>","<br /> ","<br> ","<br/> ");  
 			$content = str_ireplace($breaks, "<br />", $content);  
 		}
-		
-		$query = 'UPDATE #__eventtableedit_rows_' . $this->id .
-				 ' SET ' . $headName . ' = ' . $content . ", timestamp = '" . $timestamp . "' WHERE id = " . $rowId;
-	
+		if($table = $this->checkAppointmentAndSession()){
+			$breaks = array("<br />","<br>","<br/>","<br /> ","<br> ","<br/> ");  
+			$content = str_ireplace($breaks, "", $content); 
+			$query = 'UPDATE #__eventtableedit_rows_' . $table .
+					 ' SET ' . $headName . ' = ' . $content . ", timestamp = '" . $timestamp . "' WHERE id = " . $rowId;
+		}else{
+			$query = 'UPDATE #__eventtableedit_rows_' . $this->id .
+					 ' SET ' . $headName . ' = ' . $content . ", timestamp = '" . $timestamp . "' WHERE id = " . $rowId;
+		}
 		$this->db->setQuery($query);
 		$this->db->query();
 		
@@ -763,10 +777,17 @@ class EventtableeditModelEtetable extends JModelList
 	 * Get information about a column
 	 */
 	private function getColumnInfo($cell) {
-		$colQuery = 'SELECT CONCAT(\'head_\', a.id) AS head, datatype FROM #__eventtableedit_heads AS a' .
+		if($table = $this->checkAppointmentAndSession()){
+			$colQuery = 'SELECT CONCAT(\'head_\', a.id) AS head, datatype FROM #__eventtableedit_heads AS a' .
+						' WHERE a.table_id = ' . $table .
+						' ORDER BY a.ordering ASC' .
+						' LIMIT ' . $cell . ', 1';
+		}else{
+			$colQuery = 'SELECT CONCAT(\'head_\', a.id) AS head, datatype FROM #__eventtableedit_heads AS a' .
 					' WHERE a.table_id = ' . $this->id .
 					' ORDER BY a.ordering ASC' .
 					' LIMIT ' . $cell . ', 1';
+		}
 		//echo $colQuery;
 		$this->db->setQuery($colQuery);
 		
@@ -808,5 +829,24 @@ class EventtableeditModelEtetable extends JModelList
 		$this->db->setQuery($colQuery);
 		
 		return $this->db->loadAssoc();
+	}
+	
+	public function checkAppointmentAndSession(){
+		$query = 'SELECT * ' .
+				 ' FROM #__eventtableedit_details' .
+				 ' WHERE id = ' . $this->id;
+		$this->db->setQuery($query);
+		$table = $this->db->loadObject();
+		if($table->normalorappointment){
+			$session = JFactory::getSession();
+			$corresponding_table = $session->get('corresponding_table');
+			if($corresponding_table){
+				return $corresponding_table;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}
 	}
 }

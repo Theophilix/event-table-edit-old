@@ -84,29 +84,6 @@
 				value="0">JNO</option>
 		</field>
 
-		<field name="show_selected_option_to_user"
-			type="radio"
-			default="1"
-			class="inputbox"
-			label="COM_EVENTTABLEEDIT_SHOW_SELECTEDOPTION_TO_USER"
-			description="COM_EVENTTABLEEDIT_SHOW_SELECTEDOPTION_TO_USER">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
-		</field>
-		<field name="show_selected_option_to_admin"
-			type="radio"
-			default="1"
-			class="inputbox"
-			label="COM_EVENTTABLEEDIT_SHOW_SELECTEDOPTION_TO_ADMIN"
-			description="COM_EVENTTABLEEDIT_SHOW_SELECTEDOPTION_TO_ADMIN">
-			<option
-				value="1">JYES</option>
-			<option
-				value="0">JNO</option>
-		</field>
-		
 		<field id="published"
 			name="published"
 			type="list"

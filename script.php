@@ -122,26 +122,6 @@ class com_eventtableeditInstallerScript
 				$db->setQuery($query);
 				$db->query(); 
 			}
-			$query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '".$prefix."eventtableedit_details' AND COLUMN_NAME = 'show_selected_option_to_user'";
-			$db->setQuery($query);
-			$data = $db->loadObject();
-			if(empty($data)){
-				$query = 'ALTER TABLE `#__eventtableedit_details`
-				ADD `show_selected_option_to_user` tinyint(1) NOT NULL AFTER `corresptable`,
-				COMMENT=""';
-				$db->setQuery($query);
-				$db->query(); 
-			}
-			$query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '".$prefix."eventtableedit_details' AND COLUMN_NAME = 'show_selected_option_to_admin'";
-			$db->setQuery($query);
-			$data = $db->loadObject();
-			if(empty($data)){
-				$query = 'ALTER TABLE `#__eventtableedit_details`
-				ADD `show_selected_option_to_admin` tinyint(1) NOT NULL AFTER `show_selected_option_to_user`,
-				COMMENT=""';
-				$db->setQuery($query);
-				$db->query(); 
-			}
 			
             echo '<p>' . JText::_('COM_EVENTTABLEEDIT_UPDATE_TEXT') . '</p>';
         }
