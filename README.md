@@ -84,7 +84,11 @@ Please post all feature requests in the issues tab.
 [2] Appointment mode
 
 - enhancement: Frontend + Backend / Appointment tables: Add dropdown list with global options https://github.com/Theophilix/event-table-edit/issues/133
+- bugfix: Frontend: Appointment function: Sort order column is visible if admin logs in https://github.com/Theophilix/event-table-edit/issues/142
 
+[3] Other
+
+- Frontend/Backend: Fix language issues for german language https://github.com/Theophilix/event-table-edit/issues/141
 
 **For version 4.7.5:**
 
