@@ -64,12 +64,25 @@ foreach ($this->heads as $head) {
 			}else{
 				$myclass = $thcount.' '.$classofdynamic;
 				}
-				
+			
+			$icon = '';
+			$dir = '';
+			if($this->item->sorting == 1)
+			{
 			// Added Sort
 			$icon = $head->head == $listOrder ? ($listDirn == 'desc' ? '&darr;' : '&uarr;') : '';
             $dir = $head->head == $listOrder ? ($listDirn == 'desc' ? 'asc' : 'desc') : 'asc';
 ?>
 	<th class="evth<?php echo $myclass; ?>" id="<?php echo $sortcalss; ?>" <?php //if($j==$sortdynamic){ echo 'data-tablesaw-sortable-default-col="true"'; }  ?> data-tablesaw-priority="<?php echo $priority; ?>" scope="col"><a data-col="<?php echo $head->head; ?>|<?php echo $dir; ?>" class="sort" href="javascript:void(0);"><?php 	echo trim($head->name). ' '. $icon;?> </a></th>
+    <?php
+			}
+			else
+			{
+			?>
+            <th class="evth<?php echo $myclass; ?>" id="<?php echo $sortcalss; ?>" data-tablesaw-priority="<?php echo $priority; ?>" scope="col"><?php 	echo trim($head->name). ' '. $icon;?></th>
+            <?php
+			}
+			?>
 	<?php
 	
 	if($j%$cont == 0){
@@ -81,17 +94,19 @@ $j++;
 <th class="evth<?php echo $myclass; ?>" id="timestamp-head" <?php //if($j==$sortdynamic){ echo 'data-tablesaw-sortable-default-col="true"'; }  ?> data-tablesaw-priority="<?php echo $priority; ?>" scope="col">Timestamp</th>
 
 <?php
+if($this->item->sorting == 1)
+{
 $options = '';
-$default = '- Select -';
+$default = JText::_('COM_EVENTTABLEEDIT_SELECT_SORT');
 foreach($this->heads as $head)
 {
    $selected1 = $head->head == $listOrder && $listDirn == 'asc' ? ' selected' && $default = $head->name.' &uarr;' : '';
    $selected2 = $head->head == $listOrder && $listDirn == 'desc' ? ' selected' && $default = $head->name. ' &darr;' : '';
-   $options   .= '<option value="'.$head->head.'|asc"'.$selected1.'>'.$head->name.' Asc</option>';
-   $options   .= '<option value="'.$head->head.'|desc"'.$selected2.'>'.$head->name.' Desc</option>';
+   $options   .= '<option value="'.$head->head.'|asc"'.$selected1.'>'.$head->name.' &uarr;</option>';
+   $options   .= '<option value="'.$head->head.'|desc"'.$selected2.'>'.$head->name.' &darr;</option>';
 }
 $select = '';
-$sort_select = '<div class="table-sorting tablesaw-toolbar"><label>Sort:<span class="btn btn-small btn-select">'.$default.'<select class="sort-select">'.$options.'</select></span></label></div>';
+$sort_select = '<div class="table-sorting tablesaw-toolbar"><label>'.JText::_('COM_EVENTTABLEEDIT_SORT').':<span class="btn btn-small btn-select">'.$default.'<select class="sort-select">'.$options.'</select></span></label></div>';
 ?>
 
 <script type="text/javascript">
@@ -113,3 +128,6 @@ jQuery(document).ready(function(){
    });
 });
 </script>
+<?php
+}
+?>

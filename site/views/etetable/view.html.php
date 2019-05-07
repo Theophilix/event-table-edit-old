@@ -76,6 +76,12 @@ class EventtableeditViewEtetable extends JViewLegacy
 			// We need to set the layout in case this is an alternative menu item (with an alternative layout)
 			$this->setLayout($active->query['layout']);
 		}
+		
+		// Added language variables.
+		JText::script('COM_EVENTTABLEEDIT_COLUMNS');
+		JText::script('COM_EVENTTABLEEDIT_STACK');
+		JText::script('COM_EVENTTABLEEDIT_SWIPE');
+		JText::script('COM_EVENTTABLEEDIT_TOGGLE');
 
 		$this->assignRef('params',		$params);
 		$this->assignRef('item', 		$this->item);

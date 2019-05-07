@@ -11,8 +11,8 @@
 if( typeof Tablesaw === "undefined" ) {
 	Tablesaw = {
 		i18n: {
-			modes: [ 'Stack', 'Swipe', 'Toggle' ],
-			columns: 'Col<span class=\"a11y-sm\">umn</span>s',
+			modes: [ Joomla.JText._('COM_EVENTTABLEEDIT_STACK'), Joomla.JText._('COM_EVENTTABLEEDIT_SWIPE'), Joomla.JText._('COM_EVENTTABLEEDIT_TOGGLE') ],
+			columns: Joomla.JText._('COM_EVENTTABLEEDIT_COLUMNS'), //Col<span class=\"a11y-sm\">umn</span>s
 			columnBtnText: 'Columns',
 			columnsDialogError: 'No eligible columns.',
 			sort: 'Sort'

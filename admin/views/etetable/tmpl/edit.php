@@ -188,7 +188,7 @@ JHtml::_('behavior.formvalidation');
 					
 					<!--<li class="automate_sort"><?php echo $this->form->getLabel('automate_sort'); ?>
 					<?php echo $this->form->getInput('automate_sort'); ?></li>-->
-					<li class="automate_sort"><label id="jform_automate_sort-lbl" for="jform_automate_sort" class="hasPopover" title="" data-content="Enable automatic sorting by default" data-original-title="Enable automatic sorting">Enable automatic sorting</label>
+					<li class="automate_sort"><label id="jform_automate_sort-lbl" for="jform_automate_sort" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_ENABLE_AUTOMATIC_SORTING_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_ENABLE_AUTOMATIC_SORTING'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_ENABLE_AUTOMATIC_SORTING_LABEL'); ?></label>
 						<fieldset id="jform_automate_sort" class="radio">
 							<input type="radio" id="jform_automate_sort0" name="jform[automate_sort]" value="1" <?php if($this->item->automate_sort == 1){?> checked="checked" <?php } ?> aria-invalid="false">
 								<label for="jform_automate_sort0">Yes</label>
