@@ -98,12 +98,41 @@ if($this->item->sorting == 1)
 {
 $options = '';
 $default = JText::_('COM_EVENTTABLEEDIT_SELECT_SORT');
-foreach($this->heads as $head)
+$heads = $this->heads;
+
+$ordering           = new stdclass;
+$ordering->datatype = '';
+$ordering->head     = 'a.timestamp';
+$ordering->name     = 'timestamp';
+
+$heads = (object) array_merge((array)$heads, (array)array($ordering));
+
+foreach($heads as $head)
 {
-   $selected1 = $head->head == $listOrder && $listDirn == 'asc' ? ' selected' && $default = $head->name.' &uarr;' : '';
-   $selected2 = $head->head == $listOrder && $listDirn == 'desc' ? ' selected' && $default = $head->name. ' &darr;' : '';
-   $options   .= '<option value="'.$head->head.'|asc"'.$selected1.'>'.$head->name.' &uarr;</option>';
-   $options   .= '<option value="'.$head->head.'|desc"'.$selected2.'>'.$head->name.' &darr;</option>';
+   $types     = array('text','link','email');
+   $name_asc  = $head->name;
+   $name_desc = $head->name;
+   $asc       = '&uarr;';
+   $desc      = '&darr;';
+
+   if($head->name == 'timestamp')
+   {
+	  $name_asc  = JText::_('COM_EVENTTABLEEDIT_NEWEST');
+      $name_desc = JText::_('COM_EVENTTABLEEDIT_OLDEST');
+   }
+   
+   if(in_array($head->datatype, $types))
+   {
+	  $asc  = '(A-Z)';
+	  $desc = '(Z-A)';
+   }
+   
+   
+   
+   $selected1 = $head->head == $listOrder && $listDirn == 'asc' ? ' selected' && $default = $name_asc.' '.$asc : '';
+   $selected2 = $head->head == $listOrder && $listDirn == 'desc' ? ' selected' && $default = $name_desc. ' '.$desc : '';
+   $options   .= '<option value="'.$head->head.'|asc"'.$selected1.'>'.$name_asc.' '.$asc.'</option>';
+   $options   .= '<option value="'.$head->head.'|desc"'.$selected2.'>'.$name_desc.' '.$desc.'</option>';
 }
 $select = '';
 $sort_select = '<div class="table-sorting tablesaw-toolbar"><label>'.JText::_('COM_EVENTTABLEEDIT_SORT').':<span class="btn btn-small btn-select">'.$default.'<select class="sort-select">'.$options.'</select></span></label></div>';
