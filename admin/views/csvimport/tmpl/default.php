@@ -35,9 +35,29 @@ defined( '_JEXEC' ) or die;
 	}
 
 	function checkTableName() {
-		if (jQuery('#tableName').val() == '') {
-			return false;
+		$val = jQuery('input[name=importaction]:checked').val();
+		
+		if($val == 'newTable')
+		{
+		   if (jQuery('#tableName').val() == '') {
+			  return false;
+		   }
 		}
+		
+		if($val == 'overwriteTable')
+		{
+		   if (jQuery('#tableList').val() == '') {
+			  return false;
+		   }
+		}
+		
+		if($val == 'appendTable')
+		{
+		   if (jQuery('#tableList1').val() == '') {
+			  return false;
+		   }
+		}
+		
 		return true;
 	}
 </script>
