@@ -123,6 +123,10 @@ class com_eventtableeditInstallerScript
 				$db->query(); 
 			}
 			
+			$query = 'ALTER TABLE `#__eventtableedit_details` ADD `standardlayout` varchar(255) NOT NULL;';
+			$db->setQuery($query);
+			$db->query(); 
+			
             echo '<p>' . JText::_('COM_EVENTTABLEEDIT_UPDATE_TEXT') . '</p>';
         }
  

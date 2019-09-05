@@ -89,8 +89,10 @@ $switcher_enable = 'columntoggle';
 if(@$postget['mode']){
 	$tmodes = $postget['mode'];
 }else{
-	$tmodes = $switcher_enable;
+	//$tmodes = $switcher_enable;
+	$tmodes = ($this->item->standardlayout) ? $this->item->standardlayout : $switcher_enable;
 }
+
 $sortdy = @$postget['sort']?@$postget['sort']:'0_asc';
 if($this->item->sorting == 1){
 	//$sorting_enable .= 'data-tablesaw-sortable data-tablesaw-sortable-switch ';

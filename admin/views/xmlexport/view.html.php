@@ -169,6 +169,7 @@ class EventtableeditViewxmlexport extends JViewLegacy {
 		<icsfilename>'.$table->icsfilename.'</icsfilename>
 		<sorting>'.$table->sorting.'</sorting>
 		<switcher>'.$table->switcher.'</switcher>
+		<standardlayout>'.$table->standardlayout.'</standardlayout>
 		<row>'.$table->row.'</row>
 		<col>'.$table->col.'</col>
 		<hours>'.$table->hours.'</hours>

@@ -11,7 +11,7 @@
 if( typeof Tablesaw === "undefined" ) {
 	Tablesaw = {
 		i18n: {
-			modes: [ Joomla.JText._('COM_EVENTTABLEEDIT_STACK'), Joomla.JText._('COM_EVENTTABLEEDIT_SWIPE'), Joomla.JText._('COM_EVENTTABLEEDIT_TOGGLE') ],
+			modes: [ Joomla.JText._('COM_EVENTTABLEEDIT_TOGGLE'), Joomla.JText._('COM_EVENTTABLEEDIT_SWIPE'), Joomla.JText._('COM_EVENTTABLEEDIT_STACK') ],
 			columns: Joomla.JText._('COM_EVENTTABLEEDIT_COLUMNS'), //Col<span class=\"a11y-sm\">umn</span>s
 			columnBtnText: 'Columns',
 			columnsDialogError: 'No eligible columns.',
@@ -1231,7 +1231,7 @@ if( Tablesaw.mustard ) {
 			main: 'tablesaw-modeswitch',
 			toolbar: 'tablesaw-toolbar'
 		},
-		modes: [ 'stack', 'swipe', 'columntoggle' ],
+		modes: [ 'columntoggle', 'swipe', 'stack' ],
 		init: function( table ) {
 			var $table = $( table ),
 				ignoreMode = $table.attr( S.attributes.excludeMode ),

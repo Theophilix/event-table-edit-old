@@ -382,6 +382,16 @@
 		</field>
 		<field name="automate_sort_column" type="text" ></field>
 		
+		<field name="standardlayout"
+			type="list"
+			default="columntoggle"
+			class="inputbox"
+			label="COM_EVENTTABLEEDIT_STANDARD_LAYOUT"
+			description="COM_EVENTTABLEEDIT_STANDARD_LAYOUT">
+			<option value="columntoggle">COM_EVENTTABLEEDIT_TOGGLE</option>
+			<option value="swipe">COM_EVENTTABLEEDIT_SWIPE</option>
+			<option value="stack">COM_EVENTTABLEEDIT_STACK</option>
+		</field>
 	</fieldset>
 
 	<fieldset name="style"

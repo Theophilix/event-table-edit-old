@@ -233,6 +233,9 @@ JHtml::_('behavior.formvalidation');
 
 					<li class="normalshows"><?php echo $this->form->getLabel('switcher'); ?>
 					<?php echo $this->form->getInput('switcher'); ?></li>
+					
+					<li><?php echo $this->form->getLabel('standardlayout'); ?>
+					<?php echo $this->form->getInput('standardlayout'); ?></li>
 
 				<li class="location"><?php echo $this->form->getLabel('hours'); ?>
 					<?php echo $this->form->getInput('hours'); ?></li>

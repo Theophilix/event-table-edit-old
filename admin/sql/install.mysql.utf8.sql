@@ -74,6 +74,9 @@ ADD `corresptable` text COLLATE 'utf8_general_ci' NOT NULL AFTER `add_option_lis
 ADD `show_selected_option_to_user` tinyint(1) NOT NULL AFTER `corresptable`,
 ADD `show_selected_option_to_admin` tinyint(1) NOT NULL AFTER `show_selected_option_to_user`;
 
+ALTER TABLE `#__eventtableedit_details`
+ADD `standardlayout` varchar(255) NOT NULL;
+
 DROP TABLE IF EXISTS `#__eventtableedit_heads`;
 CREATE TABLE `#__eventtableedit_heads` (
 	`id` int(11) NOT NULL auto_increment,
