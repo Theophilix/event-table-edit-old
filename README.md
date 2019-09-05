@@ -75,6 +75,15 @@ Please post all feature requests in the issues tab.
 
 ## II Version history
 
+
+*For version 4.7.7:**
+
+[1] Normal mode
+
+- enhancement: Frontend: Layout: Change order of layout modes in list https://github.com/Theophilix/event-table-edit/issues/144
+- enhancement: Backend: Layout option: Choose standard layout (choose from swipe, stack, toggle) https://github.com/Theophilix/event-table-edit/issues/149 
+
+
 **For version 4.7.6:**
 
 [1] Normal mode
