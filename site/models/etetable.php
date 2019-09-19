@@ -177,7 +177,7 @@ class EventtableeditModelEtetable extends JModelList
 			
 			// Settings for pagination
 			// Default Pagebreak if not set
-				$limit = $data->pagebreak;
+				/* $limit = $data->pagebreak;
 			if($data->show_pagination==1){
 				if ($limit == '') {
 					$limit = 100;
@@ -187,7 +187,7 @@ class EventtableeditModelEtetable extends JModelList
 			}else{
 				//$limit = $app->getUserStateFromRequest('com_eventtableedit.etetable.list.' . $pk . '.limit', 'limit', $limit);
 				$this->setState('list.limit', '');
-			}
+			} */
 			
 			$this->getACL($data);
 

@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-**Download latest version 4.7.6** (release date: 05.05.2019): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+**Download latest version 4.7.8** (release date: 19.09.2019): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -18,6 +18,7 @@ Version history: scroll down to "II".
 - Editable table (insert pictures, BBCode...)
 - Sorting options (A-Z, Z-A, natural sorting is used)
 - Choice of layout mode (stack, swipe, toggle) for enhanced responsiveness
+- Istant filter / search
 - Multiple appointment booking function with confirmation email and ICAL calendar (.ics file) attachment
 - Complete rights management (Joomla ACL: add/delete rows, edit cells, rearrange rows, administer table from frontend)
 - Multilingual (currently available: DE, EN)
@@ -74,6 +75,13 @@ Please post all feature requests in the issues tab.
 
 
 ## II Version history
+
+
+*For version 4.7.8:**
+
+[1] Normal mode
+
+- enhancement: Frontend: Join both filters into one instant filter again https://github.com/Theophilix/event-table-edit/issues/151
 
 
 *For version 4.7.7:**

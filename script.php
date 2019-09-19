@@ -122,11 +122,14 @@ class com_eventtableeditInstallerScript
 				$db->setQuery($query);
 				$db->query(); 
 			}
-			
-			$query = 'ALTER TABLE `#__eventtableedit_details` ADD `standardlayout` varchar(255) NOT NULL;';
+			$query = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '".$prefix."eventtableedit_details' AND COLUMN_NAME = 'standardlayout'";
 			$db->setQuery($query);
-			$db->query(); 
-			
+			$data = $db->loadObject();
+			if(empty($data)){
+				$query = 'ALTER TABLE `#__eventtableedit_details` ADD `standardlayout` varchar(255) NOT NULL;';
+				$db->setQuery($query);
+				$db->query(); 
+			}
             echo '<p>' . JText::_('COM_EVENTTABLEEDIT_UPDATE_TEXT') . '</p>';
         }
  

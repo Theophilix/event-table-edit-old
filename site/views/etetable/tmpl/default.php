@@ -83,6 +83,14 @@ function naturalSort (a, b) {
 			    
     
 	</script>
+<style>
+<?php if($this->item->show_pagination) { ?>
+#etetable-table{display: none;}
+<?php } ?>
+span.filter-head{display: none;}
+div.field-calendar{display: none;}
+div.etetable-button{display: none;}
+</style>
 <?php 
 
 foreach ($this->heads as $headSort) {
@@ -281,3 +289,122 @@ table#etetable-table th {
 
 </style>
 <?php  } ?>
+<?php if($this->item->show_pagination) { ?>
+	<div>
+		<a href="#" class="paginate" id="previous">&laquo;</a> <a href="#" class="paginate" id="next">&raquo;</a>
+	</div>
+<?php } ?>
+<style>
+
+.paginate{
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	border: solid 1px #ccc;
+	margin: 10px 5px 0 0;
+	float: left;
+	color: #000;
+	text-decoration: none;
+}
+.paginate:hover, .paginate:active, .paginate:focus{
+	text-decoration: none;
+}
+</style>
+<script type='text/javascript'>
+ 
+
+    // Selectors for future use
+    var myTable = "#etetable-table";
+    var myTableBody = myTable + " tbody";
+    var myTableRows = myTableBody + " tr";
+    var myTableColumn = myTable + " th";
+ 
+    // Starting table state
+    function initTable(size=4) {
+        jQuery(myTableBody).attr("data-pageSize", size);
+        jQuery(myTableBody).attr("data-firstRecord", 0);
+        jQuery('#previous').hide();
+        jQuery('#next').show();
+ 
+        // Increment the table width for sort icon support
+    
+ 
+        // Start the pagination
+        paginate(parseInt(jQuery(myTableBody).attr("data-firstRecord"), 10),
+                 parseInt(jQuery(myTableBody).attr("data-pageSize"), 10));
+    }
+ 
+    // Heading click
+    jQuery(myTableColumn).click(function () {
+        
+ 
+        // Start the pagination
+        paginate(parseInt(jQuery(myTableBody).attr("data-firstRecord"), 10),
+                 parseInt(jQuery(myTableBody).attr("data-pageSize"), 10));
+    });
+ 
+    // Pager click
+    jQuery("a.paginate").click(function (e) {
+        e.preventDefault();
+        var tableRows = jQuery(myTableRows);
+        var tmpRec = parseInt(jQuery(myTableBody).attr("data-firstRecord"), 10);
+        var pageSize = parseInt(jQuery(myTableBody).attr("data-pageSize"), 10);
+ 
+        // Define the new first record
+        if (jQuery(this).attr("id") == "next") {
+            tmpRec += pageSize;
+        } else {
+            tmpRec -= pageSize;
+        }
+        // The first record is < of 0 or > of total rows
+        if (tmpRec < 0 || tmpRec > tableRows.length) return
+ 
+        jQuery(myTableBody).attr("data-firstRecord", tmpRec);
+        paginate(tmpRec, pageSize);
+    });
+ 
+    // Paging function
+    var paginate = function (start, size) {
+        var tableRows = jQuery(myTableRows).not('.musthide');
+        var end = start + size;
+        // Hide all the rows
+        tableRows.hide();
+		
+        // Show a reduced set of rows using a range of indices.
+        tableRows.slice(start, end).show();
+		jQuery(myTable).show();
+        // Show the pager
+        jQuery(".paginate").show();
+		
+		jQuery('.paginate').removeAttr('disabled');
+        // If the first row is visible hide prev
+        if (tableRows.eq(0).is(":visible")) jQuery('#previous').hide();
+        // If the last row is visible hide next 
+        if (tableRows.eq(tableRows.length - 1).is(":visible")) jQuery('#next').hide();
+    }
+	
+	
+jQuery(function () { 
+   <?php if($this->item->show_pagination) { ?>
+    initTable('<?php echo $this->item->pagebreak;?>');
+   <?php } ?> 
+});
+</script>
+
+<script>
+var $rows = jQuery('#etetable-table tbody tr');
+jQuery(document).ready(function() {
+	jQuery('.filterstring').keyup(function() {
+		var val = jQuery.trim(jQuery(this).val()).replace(/ +/g, ' ').toLowerCase();
+		$rows.show().removeClass('musthide').filter(function() {
+			var text = jQuery(this).find('td:visible').text().replace(/\s+/g, ' ').toLowerCase();
+			//console.log(jQuery(this).find('td:visible').text());
+			return !~text.indexOf(val);
+		}).hide().addClass('musthide');
+		//initTable(5);
+		<?php if($this->item->show_pagination) { ?>
+		initTable('<?php echo $this->item->pagebreak;?>');
+	   <?php } ?> 
+	});
+});
+</script>

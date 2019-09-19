@@ -264,9 +264,10 @@ class EventtableeditViewEtetable extends JViewLegacy
 		}
 		
 		// If Pagination must not be shown
-		if (!$this->item->show_pagination) {
+		/* if (!$this->item->show_pagination) {
 			$style[] = ".eventtableedit .limit {display: none;}";
-		}
+		} */
+		$style[] = ".eventtableedit .limit {display: none;}";
 		if ($this->item->rowsort == 0) {
 			$style[] = ".eventtableedit .sort_col {display: none !important;}";
 			//$style[] = ".eventtableedit .tablesaw-priority-50 {display: none !important;}";
