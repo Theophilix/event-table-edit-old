@@ -77,14 +77,14 @@ Please post all feature requests in the issues tab.
 ## II Version history
 
 
-*For version 4.7.8:**
+**For version 4.7.8:**
 
 [1] Normal mode
 
 - enhancement: Frontend: Join both filters into one instant filter again https://github.com/Theophilix/event-table-edit/issues/151
 
 
-*For version 4.7.7:**
+**For version 4.7.7:**
 
 [1] Normal mode
 
