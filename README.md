@@ -77,7 +77,6 @@ Please post all feature requests in the issues tab.
 ## II Version history
 
 
-=======
 **For version 4.7.9:**
 
 [1] Normal mode
