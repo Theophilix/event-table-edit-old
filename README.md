@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-**Download latest version 4.7.8** (release date: 19.09.2019): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+**Download latest version 4.7.9** (release date: 26.09.2019): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -32,7 +32,7 @@ Frontend view options:
 - Sort columns (setting in rights management)
 - Delete rows (setting in rights management)
 - Add rows (setting in rights management)
-- Filter rows
+- Filter rows / Instant search
 - Pagination
 - Print view
 - Administer table (setting in rights management)
@@ -49,7 +49,7 @@ a) General
   + Show or hide user names to user or admin
   + Set timelimit for bookings
   + option to send two or more appoinment informations in one ics file
-  + add global options, so admins can offer options (p. ex. different persons or services) and users can choose them from a list. If a       user clicks on an option, the specific appointment table, that has been set in backend, is loaded.
+  + add global options, so admins can offer options (p. ex. different persons or services) and users can choose them from a list. If a user clicks on an option, the specific appointment table, that has been set in backend, is loaded.
 - Show or hide table title
 - Usertext before and after table
 - Show or hide column to delete or sort rows
@@ -77,14 +77,20 @@ Please post all feature requests in the issues tab.
 ## II Version history
 
 
-*For version 4.7.8:**
+**For version 4.7.9:**
+
+[1] Normal mode
+
+- bugfix: Frontend: Frontend: No calendar picker when editing date cells https://github.com/Theophilix/event-table-edit/issues/152
+
+**For version 4.7.8:**
 
 [1] Normal mode
 
 - enhancement: Frontend: Join both filters into one instant filter again https://github.com/Theophilix/event-table-edit/issues/151
 
 
-*For version 4.7.7:**
+**For version 4.7.7:**
 
 [1] Normal mode
 
