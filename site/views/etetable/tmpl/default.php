@@ -88,6 +88,7 @@ function naturalSort (a, b) {
 #etetable-table{display: none;}
 <?php } ?>
 span.filter-head{display: none;}
+div.field-calendar{display: none;}
 div.etetable-button{display: none;}
 </style>
 <?php 

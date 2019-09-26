@@ -29,7 +29,7 @@ defined('_JEXEC') or die;
 	<?php endif; ?>
 	<?php 
 	/* echo JHTML::calendar($filterstring1, 'filterstring1', 'filterstring1', '%Y-%m-%d', array ('placeholder' => JTExt::_('COM_EVENTTABLEEDIT_CALANDER_PACHEHOLDER'),'class'=>'filterstring', 'size'=>'20', 'maxlength'=>'100')); */
-	//echo JHTML::calendar($filterstring1, 'filterstring1', 'filterstring1', $this->item->dateformat, array ('placeholder' => JTExt::_('COM_EVENTTABLEEDIT_CALANDER_PACHEHOLDER'),'class'=>'filterstring', 'size'=>'20', 'maxlength'=>'100'));
+	echo JHTML::calendar($filterstring1, 'filterstring1', 'filterstring1', $this->item->dateformat, array ('placeholder' => JTExt::_('COM_EVENTTABLEEDIT_CALANDER_PACHEHOLDER'),'class'=>'filterstring', 'size'=>'20', 'maxlength'=>'100'));
 	?>
 	&nbsp;
 	<div class="input-append filterstext">
