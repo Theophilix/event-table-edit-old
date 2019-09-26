@@ -77,7 +77,6 @@ Please post all feature requests in the issues tab.
 ## II Version history
 
 
-<<<<<<< HEAD
 =======
 **For version 4.7.9:**
 
@@ -85,7 +84,6 @@ Please post all feature requests in the issues tab.
 
 - bugfix: Frontend: Frontend: No calendar picker when editing date cells https://github.com/Theophilix/event-table-edit/issues/152
 
->>>>>>> parent of ff292d5... Revert "Bugfix 4.7.9 calendar picker"
 **For version 4.7.8:**
 
 [1] Normal mode
