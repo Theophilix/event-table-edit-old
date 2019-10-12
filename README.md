@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-**Download latest version 4.7.9** (release date: 26.09.2019): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+**Download latest version 4.8** (release date: 12.10.2019): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -76,16 +76,27 @@ Please post all feature requests in the issues tab.
 
 ## II Version history
 
+**For version 4.8:**
+[1] Normal mode
 
-<<<<<<< HEAD
-=======
+- bugfix: Backend: Layout: Info that is shown on mouseover differs in layout https://github.com/Theophilix/event-table-edit/issues/150
+
+- bugfix: Frontend: Layout: Fix layout problem with stack view https://github.com/Theophilix/event-table-edit/issues/143
+
+- bugfix: Frontend: Pagination shown if a page class is set in the menu that links to the table https://github.com/Theophilix/event-table-edit/issues/134
+
+- bugfix: Frontend: Layout: Center Sorting input box vertically  https://github.com/Theophilix/event-table-edit/issues/116
+
+- bugfix: Frontend: Layout: Improve layout (buttons, fields etc.) https://github.com/Theophilix/event-table-edit/issues/111
+
+
 **For version 4.7.9:**
 
 [1] Normal mode
 
 - bugfix: Frontend: Frontend: No calendar picker when editing date cells https://github.com/Theophilix/event-table-edit/issues/152
 
->>>>>>> parent of ff292d5... Revert "Bugfix 4.7.9 calendar picker"
+
 **For version 4.7.8:**
 
 [1] Normal mode
