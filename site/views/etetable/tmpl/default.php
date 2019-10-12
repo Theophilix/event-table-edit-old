@@ -319,7 +319,10 @@ table#etetable-table th {
     var myTableColumn = myTable + " th";
  
     // Starting table state
-    function initTable(size=4) {
+    function initTable(size) {
+		if(size == ""){
+			size = 4;
+		}
         jQuery(myTableBody).attr("data-pageSize", size);
         jQuery(myTableBody).attr("data-firstRecord", 0);
         jQuery('#previous').hide();

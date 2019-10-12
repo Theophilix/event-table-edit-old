@@ -224,7 +224,7 @@ BuildPopupWindow.prototype.dateWindow = function() {
 	$('popupForm').appendChild(clear);
 	*/
 	
-	var calhtmls = '<div class="input-append"><input id="etetable-inputfield" name="ete-calendar" value="'+this.cellContent+'"  data-alt-value="'+this.cellContent+'" autocomplete="off" type="text"><button type="button" class="btn btn-secondary" id="etetable-inputfield_btn" data-inputfield="filterstring" data-dayformat="%Y-%m-%d" data-button="filterstring_btn" data-firstday="1" data-weekend="0,6" data-today-btn="1" data-week-numbers="1" data-show-time="0" data-show-others="1" data-time-24="24" data-only-months-nav="0"><span class="icon-calendar"></span></button></div>';
+	var calhtmls = '<div class="input-append"><input id="etetable-inputfield" name="ete-calendar" value="'+this.cellContent+'"  data-alt-value="'+this.cellContent+'" autocomplete="off" type="text"><button type="button" class="btn btn-secondary" id="etetable-inputfield_btn" data-inputfield="filterstring" data-dayformat="%Y-%m-%d" data-button="filterstring_btn" data-firstday="1" data-weekend="0,6" data-today-btn="1" data-week-numbers="1" data-show-time="0" data-show-others="1" data-time-24="24" data-only-months-nav="0"><img src="'+others.rootUrl+'/components/com_eventtableedit/template/images/cal.png"/></button></div>';
 	var div = new Element ('div', {
 		'class': 'field-calendar'
 	});	

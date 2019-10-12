@@ -47,9 +47,15 @@ defined('_JEXEC') or die;
 			<?php echo JText::_('COM_EVENTTABLEEDIT_RESET'); ?>
 		</a>
 	</div>
-	<input type="hidden" name="currentmode" id="currentmode" value=""/>
-	&nbsp;
-	<?php echo JHTML::tooltip(JText::_('COM_EVENTTABLEEDIT_FILTER_TOOL_TIP'), JText::_('COM_EVENTTABLEEDIT_FILTER'), 'tooltip.png', '', '', false); ?>
+	<div class="tooltip_box" style="padding: 5px;position:relative;">
+		<input type="hidden" name="currentmode" id="currentmode" value=""/>
+		<img id="tooltip_img" src='<?php echo JURI::base();?>media/system/images/tooltip.png' />
+		<div id="etetable_tooltip" class="tip tool-tip" style="display: none; background: rgb(232, 232, 232);padding: 10px;position: absolute;z-index: 999;left: 29px;top: 17px;width: 210px;"><div><div class="tip-title tool-title" style="width: 100%;font-weight: bold;margin-bottom: 10px;"><span><?php echo JText::_('COM_EVENTTABLEEDIT_FILTER');?><br></span></div><div class="tip-text tool-text"><span><?php echo JText::_('COM_EVENTTABLEEDIT_FILTER_TOOL_TIP');?></span></div></div></div>
+	</div>
+	<?php //echo JHTML::tooltip(JText::_('COM_EVENTTABLEEDIT_FILTER_TOOL_TIP'), JText::_('COM_EVENTTABLEEDIT_FILTER'), 'tooltip.png', '', '', false); 
+	//
+	//
+	?>
 </form>
 <script>
 function checkMethod(){
@@ -64,5 +70,11 @@ jQuery(document).ready(function(){
 		jQuery('.tablesaw-modeswitch span.btn-select select').change();
 		<?php
 	}?>
+});
+jQuery("#tooltip_img").mouseenter(function(){
+	jQuery('#etetable_tooltip').show();
+})
+jQuery("#tooltip_img").mouseleave(function(){
+	jQuery('#etetable_tooltip').hide();
 })
 </script>

@@ -110,7 +110,7 @@ if($this->item->switcher == 1){
 
 	<?php 
 
-	if(!$this->print) : ?>
+	if(!$this->print) : /* ?>
 	<tfoot class="limit">
 		<tr>
 			<td colspan="100%" class="show_always">
@@ -137,7 +137,7 @@ if($this->item->switcher == 1){
 		
 
 	</tfoot> 
-	<?php endif; ?>	
+	<?php */ endif; ?>	
 
 	<tbody>
 	<?php

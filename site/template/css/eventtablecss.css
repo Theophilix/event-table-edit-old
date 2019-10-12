@@ -277,10 +277,10 @@ margin-bottom:0;
 
  	height: 15px;
 
- 	margin-left: 7px;
+ 	/* margin-left: 7px; */
 
  	color: #666666;
-
+	margin: 0 auto;
  }
 
 
@@ -709,7 +709,9 @@ z-index: 99999;
 
 	padding: 15px 20px 7px 15px;
 
-	width: 250px;
+	width: 220px;
+	
+	z-index: 9999;
 
 }
 
@@ -797,17 +799,18 @@ select#etetable-inputfield {
 
 input#etetable-inputfield {
 
-	width: 178px;
-
+	width: 110px;
 	background: none repeat scroll 0 0 #FFFFFF;
-
     border: 1px solid silver;	
-
-    float: left;
+    float: left;	
+	padding: 3px;
+    margin-right: 4px;
 
 }
-
-
+#etetable-inputfield_btn {
+    background-color: #fff;
+	margin-top: -1px;
+}
 
 #popupForm #calImg {
 

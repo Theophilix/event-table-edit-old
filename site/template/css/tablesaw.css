@@ -116,8 +116,8 @@ table.tablesaw {
 
 .tablesaw-enhanced .tablesaw-bar .btn.btn-select {
   color: #4d4d4d;
-  padding-right: 2.5em;
-  min-width: 7.25em;
+  padding-right: 1em;
+  min-width: 5em;
   text-align: left;
   text-indent: 0;
 }
@@ -274,6 +274,7 @@ table.tablesaw {
 .tablesaw-toolbar {
   font-size: .875em;
   float: left;
+  margin-right: 2em;
 }
 
 .tablesaw-toolbar label {
@@ -510,7 +511,9 @@ table.tablesaw thead td {
 }
 
 /* @media (max-width: 39.9375em) { */
-@media (max-width: 1450px) {
+/* @media (max-width: 1450px) { */
+/* @media (max-width: 4000px) { */
+@media (min-width: 320px) {
   .tablesaw-stack thead td,
   .tablesaw-stack thead th {
     display: none!important;
@@ -997,3 +1000,18 @@ table.tablesaw thead td {
   pointer-events: none;
 }
 tfoot.limit .show_always select#limit {margin-top: 8px;}
+
+.calendar .button.nav {
+    display: table-cell!important;
+}
+.calendar table{
+	width: 100%;
+}
+
+.editable img {
+    display: inline-block;
+}
+#etetable-table tbody td{
+	padding-bottom: 5px;
+	padding-top: 4px;
+}

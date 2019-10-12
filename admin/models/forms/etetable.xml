@@ -222,7 +222,7 @@
 			class="inputbox"
 			default="0"
 			label="COM_EVENTTABLEEDIT_ROWSORT_LABEL"
-			description="COM_EVENTTABLEEDIT_ROWSORT_LABEL">
+			description="COM_EVENTTABLEEDIT_ROWSORT_DESC">
 			<option
 				value="1">JSHOW</option>
 			<option
@@ -233,7 +233,7 @@
 			class="inputbox"
 			default="0"
 			label="COM_EVENTTABLEEDIT_ROWDELETE_LABEL"
-			description="COM_EVENTTABLEEDIT_ROWDELETE_LABEL">
+			description="COM_EVENTTABLEEDIT_ROWDELETE_DESC">
 			<option
 				value="1">JSHOW</option>
 			<option
@@ -387,7 +387,7 @@
 			default="columntoggle"
 			class="inputbox"
 			label="COM_EVENTTABLEEDIT_STANDARD_LAYOUT"
-			description="COM_EVENTTABLEEDIT_STANDARD_LAYOUT">
+			description="COM_EVENTTABLEEDIT_STANDARD_LAYOUT_DESC">
 			<option value="columntoggle">COM_EVENTTABLEEDIT_TOGGLE</option>
 			<option value="swipe">COM_EVENTTABLEEDIT_SWIPE</option>
 			<option value="stack">COM_EVENTTABLEEDIT_STACK</option>
