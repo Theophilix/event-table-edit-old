@@ -77,6 +77,7 @@ Please post all feature requests in the issues tab.
 ## II Version history
 
 **For version 4.8.1:**
+
 [1] Normal mode
 - bugfix: Backend: Navi-Menu: No tooltips in XML / CSV Import menus https://github.com/Theophilix/event-table-edit/issues/153
 - bugfix: Frontend: Layout: Always hide deleting/sorting column if deleting/sorting is forbidden https://github.com/Theophilix/event-table-edit/issues/145
@@ -86,6 +87,7 @@ Please post all feature requests in the issues tab.
 
 
 **For version 4.8:**
+
 [1] Normal mode
 
 - bugfix: Backend: Layout: Info that is shown on mouseover differs in layout https://github.com/Theophilix/event-table-edit/issues/150
