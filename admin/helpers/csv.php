@@ -1,7 +1,7 @@
 <?php
 /**
  * $Id:$
- * @copyright (C) 2007 - 2019 Manuel Kaspar and Theophilix / Filter by unimx
+ * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix / Filter by unimx
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
  *

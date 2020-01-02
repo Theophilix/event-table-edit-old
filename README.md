@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-**Download latest version 4.8** (release date: 12.10.2019): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+**Download latest version 4.8.1** (release date: 03.01.2020): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -75,6 +75,15 @@ Please post all feature requests in the issues tab.
 
 
 ## II Version history
+
+**For version 4.8.1:**
+[1] Normal mode
+- bugfix: Backend: Navi-Menu: No tooltips in XML / CSV Import menus https://github.com/Theophilix/event-table-edit/issues/153
+- bugfix: Frontend: Layout: Always hide deleting/sorting column if deleting/sorting is forbidden https://github.com/Theophilix/event-table-edit/issues/145
+- bugfix: Backend: Check all popups, remove obsolete mouseover popups https://github.com/Theophilix/event-table-edit/issues/72
+- bugfix: Backend: ACL setting access level in backend not working https://github.com/Theophilix/event-table-edit/issues/161
+- enhancement: Update ETE to newest table saw version https://github.com/Theophilix/event-table-edit/issues/93
+
 
 **For version 4.8:**
 [1] Normal mode

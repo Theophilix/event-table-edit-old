@@ -1,7 +1,7 @@
 <?php
 /**
  * @version
- * @copyright	Copyright (C) 2007 - 2019 Manuel Kaspar and Theophilix
+ * @copyright	Copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
