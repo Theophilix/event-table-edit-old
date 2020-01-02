@@ -21,6 +21,9 @@
 
 // no direct access
 defined( '_JEXEC' ) or die;
+JHtml::_('behavior.tooltip');
+JHtml::_('bootstrap.popover');
+JHtml::_('behavior.formvalidation');
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" enctype="multipart/form-data" method="post" name="adminForm" id="adminForm">
@@ -29,7 +32,7 @@ defined( '_JEXEC' ) or die;
 		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_UPLOAD_XMLFILE') ?></legend>
 		
 		
-		<ul class="adminformlist">
+		<ul class="adminformlist" style="float: left;">
 			<!--<li>
 				
 				<label><?php echo JText::_('COM_EVENTTABLEEDIT_CHECKBOX_NORMAL'); ?>: </label>
@@ -39,7 +42,7 @@ defined( '_JEXEC' ) or die;
 				</select>
 			</li>-->
 			<li>
-				<label><?php echo JText::_('COM_EVENTTABLEEDIT_XMLFILE'); ?>: </label>
+				<label id="file-lbl" for="file" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_XMLFILE_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_XMLFILE'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_XMLFILE'); ?>: </label>
 				<input type="file" name="fupload" />
 			</li>
 			

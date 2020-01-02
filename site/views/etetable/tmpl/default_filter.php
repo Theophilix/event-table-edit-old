@@ -8,7 +8,12 @@
 
 // no direct access
 defined('_JEXEC') or die;
-
+$switcher_enable = 'columntoggle';
+if(@$postget['currentmode']){
+	$tmodes = $postget['currentmode'];
+}else{
+	$tmodes = ($this->item->standardlayout) ? $this->item->standardlayout : $switcher_enable;
+}
 ?>
 
 <form method="post" name="filterform" action="<?php echo JRoute::_('index.php?option=com_eventtableedit&view=etetable&id='.$this->item->slug); ?>" class="filterform" onsubmit="return checkMethod();">
@@ -48,7 +53,7 @@ defined('_JEXEC') or die;
 		</a>
 	</div>
 	<div class="tooltip_box" style="padding: 5px;position:relative;">
-		<input type="hidden" name="currentmode" id="currentmode" value=""/>
+		<input type="hidden" name="currentmode" id="currentmode" value="<?php echo $tmodes?>"/>
 		<img id="tooltip_img" src='<?php echo JURI::base();?>media/system/images/tooltip.png' />
 		<div id="etetable_tooltip" class="tip tool-tip" style="display: none; background: rgb(232, 232, 232);padding: 10px;position: absolute;z-index: 999;left: 29px;top: 17px;width: 210px;"><div><div class="tip-title tool-title" style="width: 100%;font-weight: bold;margin-bottom: 10px;"><span><?php echo JText::_('COM_EVENTTABLEEDIT_FILTER');?><br></span></div><div class="tip-text tool-text"><span><?php echo JText::_('COM_EVENTTABLEEDIT_FILTER_TOOL_TIP');?></span></div></div></div>
 	</div>
@@ -64,6 +69,9 @@ function checkMethod(){
 }
 
 jQuery(document).ready(function(){
+	jQuery('.tablesaw-modeswitch span.btn-select select').on("change",function(){ 
+		jQuery("#currentmode").val(jQuery(this).val()) 
+	})
 	<?php if(isset($_POST['currentmode']) && $_POST['currentmode']!=""){
 		?>
 		jQuery('.tablesaw-modeswitch span.btn-select select').val('<?php echo $_POST['currentmode'];?>');

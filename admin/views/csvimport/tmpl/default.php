@@ -21,6 +21,7 @@
 
 // no direct access
 defined( '_JEXEC' ) or die;
+JHtml::_('bootstrap.popover');
 ?>
 <script type="text/javascript">
 	Joomla.submitbutton = function(task)
@@ -68,21 +69,21 @@ defined( '_JEXEC' ) or die;
 		
 		<p><?php echo JText::sprintf('COM_EVENTTABLEEDIT_CSVIMPORT_DESC', (int) $this->maxFileSize) ?></p>
 		
-		<ul class="adminformlist">
+		<ul class="adminformlist" style="float:left;">
 			<li>
 				
-				<label><?php echo JText::_('COM_EVENTTABLEEDIT_CHECKBOX_NORMAL'); ?>: </label>
+				<label class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_CHECKBOX_NORMAL_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_CHECKBOX_NORMAL_DESC'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_CHECKBOX_NORMAL'); ?>: </label>
 				<select name="checkfun">
 					<option value="0"><?php echo JText::_('JNO') ?></option>
 					<option value="1"><?php echo JText::_('JYES') ?></option>
 				</select>
 			</li>
 			<li>
-				<label><?php echo JText::_('COM_EVENTTABLEEDIT_CSVFILE'); ?>: </label>
+				<label class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_CSVFILE_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_CSVFILE_DESC'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_CSVFILE'); ?>: </label>
 				<input type="file" name="fupload" />
 			</li>
 			<li>
-				<label><?php echo JText::_('COM_EVENTTABLEEDIT_SEPARATOR'); ?>: </label>
+				<label class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_SEPARATOR_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_SEPARATOR_DESC'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_SEPARATOR'); ?>: </label>
 				<select name="separator">
 					<option selected="selected">;</option>
 					<option>,</option>
@@ -90,36 +91,45 @@ defined( '_JEXEC' ) or die;
 				</select>
 			</li>
 			<li>
-				<label><?php echo JText::_('COM_EVENTTABLEEDIT_DOUBLEQUOTES'); ?>: </label>
+				<label class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_DOUBLEQUOTES_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_DOUBLEQUOTES_DESC'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_DOUBLEQUOTES'); ?>: </label>
 				<select name="doubleqt">
 					<option selected="selected" value="1"><?php echo JText::_('JYES'); ?></option>
 					<option value="0"><?php echo JText::_('JNO'); ?></option>
 				</select>
 			</li>
 			<li>
-				<label><b><?php echo JText::_('COM_EVENTTABLEEDIT_CSVACTIONS'); ?>: </b></label>
-				<ul class="etetable-import-actions">
+				<label class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_CSVACTIONS_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_CSVACTIONS_DESC'); ?>"><b><?php echo JText::_('COM_EVENTTABLEEDIT_CSVACTIONS'); ?>: </b></label>
+				<ul class="etetable-import-actions" style="list-style: none;margin-left: 0;">
 					<li>
-						<input type="radio" name="importaction" id="newTable" value="newTable" 
-							   onclick="hideSelect();" checked /> <?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_NEW_TABLE_2'); ?>
-							   <p id="tables2">
-								<label><?php echo JText::_("COM_EVENTTABLEEDIT_IMPORT_TABLES_NAME"); ?>: </label>
-								<input type="text" name="table_name" id="tableName" />
-							</p>
+						<fieldset class="radio">
+							<input type="radio" name="importaction" id="newTable" value="newTable" 
+								   onclick="hideSelect();" checked /> 
+								   <label class="hasPopover" for="newTable" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_NEW_TABLE_2'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_NEW_TABLE_2'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_NEW_TABLE_2'); ?></label>
+								   <p id="tables2">
+									<label class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_TABLES_SELECT_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_TABLES_SELECT_DESC'); ?>"><?php echo JText::_("COM_EVENTTABLEEDIT_IMPORT_TABLES_SELECT"); ?>: </label>
+									<input type="text" name="table_name" id="tableName" />
+								</p>
+						</fieldset>
 					</li>
 					<li>
+						<fieldset class="radio">
 						<input type="radio" name="importaction" id="overwriteTable" value="overwriteTable"
-							   onclick="showSelect();" /> <?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_OVERWRITE_TABLE'); ?>
+							   onclick="showSelect();" /> 
+							   <label class="hasPopover" for="overwriteTable" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_OVERWRITE_TABLE'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_OVERWRITE_TABLE'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_OVERWRITE_TABLE'); ?></label>
 							<p id="tables">
-								<label><?php echo JText::_("COM_EVENTTABLEEDIT_IMPORT_TABLES_DESC"); ?>: </label><?php echo $this->tables; ?>
+								<label class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_TABLES_SELECT_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_TABLES_SELECT_DESC'); ?>"><?php echo JText::_("COM_EVENTTABLEEDIT_IMPORT_TABLES_SELECT"); ?>: </label><?php echo $this->tables; ?>
 							</p>
+						</fieldset>
 					</li>
 					<li>
+						<fieldset class="radio">
 						<input type="radio" name="importaction" id="appendTable" value="appendTable"
-							   onclick="showSelect1();" /> <?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_APPEND_TABLE'); ?>
+							   onclick="showSelect1();" /> 
+							   <label class="hasPopover" for="appendTable" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_APPEND_TABLE'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_APPEND_TABLE'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_APPEND_TABLE'); ?></label>
 							   <p id="tables1">
-								<label><?php echo JText::_("COM_EVENTTABLEEDIT_IMPORT_TABLES_DESC"); ?>: </label><?php echo $this->tables1; ?>
+								<label class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_TABLES_SELECT_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_TABLES_SELECT_DESC'); ?>"><?php echo JText::_("COM_EVENTTABLEEDIT_IMPORT_TABLES_SELECT"); ?>: </label><?php echo $this->tables1; ?>
 							</p>
+						</fieldset>
 					</li>
 				</ul>
 			</li>

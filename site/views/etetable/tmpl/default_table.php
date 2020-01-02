@@ -81,15 +81,21 @@ td.tablesaw-priority-50 a {
 	}
 }
  </style>
+<script>
+TablesawConfig = {
+	swipeHorizontalThreshold: 20, // default is 15
+	swipeVerticalThreshold: 40 // default is 30
+};
+</script>
 <?php
+
 $main  = JFactory::getApplication()->input;
 $postget = $main->getArray($_REQUEST);
 $sorting_enable = 'data-tablesaw-minimap ';
 $switcher_enable = 'columntoggle';
-if(@$postget['mode']){
-	$tmodes = $postget['mode'];
+if(@$postget['currentmode']){
+	$tmodes = $postget['currentmode'];
 }else{
-	//$tmodes = $switcher_enable;
 	$tmodes = ($this->item->standardlayout) ? $this->item->standardlayout : $switcher_enable;
 }
 
@@ -101,7 +107,79 @@ if($this->item->switcher == 1){
 	$sorting_enable .= 'data-tablesaw-mode-switch';
 }
 ?>
-<table class="tablesaw" id="etetable-table" data-tablesaw-mode="<?php echo $tmodes; ?>"  <?php echo $sorting_enable; ?>>
+
+<?php
+if($this->item->sorting == 1)
+{
+$options = '';
+$default = JText::_('COM_EVENTTABLEEDIT_SELECT_SORT');
+$heads = $this->heads;
+
+$ordering           = new stdclass;
+$ordering->datatype = '';
+$ordering->head     = 'a.timestamp';
+$ordering->name     = 'timestamp';
+$listOrder	= $this->state->get('list.ordering');
+$listDirn	= $this->state->get('list.direction');
+$heads = (object) array_merge((array)$heads, (array)array($ordering));
+
+foreach($heads as $head)
+{
+   $types     = array('text','link','email');
+   $name_asc  = $head->name;
+   $name_desc = $head->name;
+   $asc       = '&uarr;';
+   $desc      = '&darr;';
+
+   if($head->name == 'timestamp')
+   {
+	  $name_asc  = JText::_('COM_EVENTTABLEEDIT_NEWEST');
+      $name_desc = JText::_('COM_EVENTTABLEEDIT_OLDEST');
+   }
+   
+   if(in_array($head->datatype, $types))
+   {
+	  $asc  = '(A-Z)';
+	  $desc = '(Z-A)';
+   }
+   
+   
+   
+   $selected1 = $head->head == $listOrder && $listDirn == 'asc' ? ' selected' && $default = $name_asc.' '.$asc : '';
+   $selected2 = $head->head == $listOrder && $listDirn == 'desc' ? ' selected' && $default = $name_desc. ' '.$desc : '';
+   $options   .= '<option value="'.$head->head.'|asc"'.$selected1.'>'.$name_asc.' '.$asc.'</option>';
+   $options   .= '<option value="'.$head->head.'|desc"'.$selected2.'>'.$name_desc.' '.$desc.'</option>';
+}
+$select = '';
+$sort_select = '<div class="table-sorting tablesaw-toolbar"><label>'.JText::_('COM_EVENTTABLEEDIT_SORT').':<span class="btn btn-small btn-select">'.$default.'<select class="sort-select">'.$options.'</select></span></label></div>';
+?>
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	jQuery(".sort").click(function(){
+		$list = jQuery(this).data("col").split("|");
+		jQuery("input[name=filter_order]").val($list[0]);
+		jQuery("input[name=filter_order_Dir]").val($list[1]);
+		jQuery(this).closest("form").submit();
+	});
+	setTimeout(function() {
+		//console.log(jQuery(".tablesaw-bar"));
+		jQuery(".tablesaw-bar").prepend('<?php echo $sort_select; ?>');
+	}, 1000);
+   
+   
+   jQuery(document).on('change', '.sort-select', function() {
+	  $list = jQuery(this).val().split("|");
+	  jQuery("input[name=filter_order]").val($list[0]);
+	  jQuery("input[name=filter_order_Dir]").val($list[1]);
+	  jQuery(this).closest("form").submit();
+   });
+});
+</script>
+<?php
+}
+?>
+<table class="tablesaw" id="etetable-table"  data-tablesaw-mode="<?php echo $tmodes; ?>" <?php echo $sorting_enable; ?>>
 	<thead class="etetable-thead">
 		<tr>
 			<?php echo $this->loadTemplate('thead'); ?>
@@ -144,18 +222,19 @@ if($this->item->switcher == 1){
 	/**
 	 * The table body
 	 */
+	 
 	if ($this->rows) {
 		for($this->rowCount = 0; $this->rowCount < count($this->rows); $this->rowCount++) { ?>
-			<tr>
+			
 				<?php echo $this->loadTemplate('row'); ?> 
-			</tr>
+			
 			
 			<?php
 		}
 	} ?>
 	</tbody>
 </table>
-<div style="display: none;" id="num-of-col" data-num-of-col="<?=isset($this->rows[0]) ? (count($this->rows[0]) - 2) : 0?>">
+<div style="display: none;" id="num-of-col" data-num-of-col="<?php echo isset($this->rows[0]) ? (count($this->rows[0]) - 2) : 0?>">
 <script>
     jQuery(document).ready(function () {
         var numCol = jQuery('#timestamp-head').parent().children().index(jQuery('#timestamp-head'));
@@ -164,20 +243,12 @@ if($this->item->switcher == 1){
 	
 	jQuery(document).ready(function(){
 		if(jQuery( window ).width()<=400){
-			jQuery('.tablesaw-modeswitch span.btn-select select').val('swipe');
-			jQuery('.tablesaw-modeswitch span.btn-select select').change();
+			setTimeout(function() {
+				$('select#change_mode').val('swipe');
+				$('select#change_mode').trigger('change');
+			}, 1000);			
 		}
 	});
-	
-	jQuery(window).resize(function(){
-		if(jQuery( window ).width()<=400){
-			//jQuery('.tablesaw-modeswitch span.btn-select select').val('swipe');
-			//jQuery('.tablesaw-modeswitch span.btn-select select').change();
-		}else{
-			//jQuery('.tablesaw-modeswitch span.btn-select select').val('columntoggle');
-			//jQuery('.tablesaw-modeswitch span.btn-select select').change();
-		}
-		
-	})
+
 </script>
 </div>

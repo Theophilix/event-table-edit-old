@@ -8,7 +8,9 @@
 
 // no direct access
 defined('_JEXEC') or die;
-
+?>
+<tr id="rowId_<?php echo $this->rowCount; ?>"  data-id="<?php echo $this->rows[$this->rowCount]['id']; ?>">
+<?php
 /**
  * Optional first row
  */
@@ -68,12 +70,17 @@ for($colCount = 0; $colCount < count($this->rows[0]) - 1; $colCount++) {
 		$colCount1 = $colCount + 1;
 		$mydyanmiclass = 'tablesaw-priority-'.$colCount;	
 	}
-
+	
 	/**
 	 * The cell content
+	 class="etetable-row_<?php echo $this->rowCount . '_' . $colCount.' '.$mydyanmiclass ; ?>" 
 	 */ ?>
-	<td class="etetable-row_<?php echo $this->rowCount . '_' . $colCount.' '.$mydyanmiclass ; ?>" 
-		id="etetable-row_<?php echo $this->rowCount . '_' . $colCount; ?>"><?php if($atemptime != ''){  echo $atemptime; } ?><?php echo str_replace("&nbsp;&nbsp;&nbsp;","",trim($this->rows[$this->rowCount][$colCount])); ?><?php
+	 <?php
+		// Add the hidden field in the last row
+		if ($colCount == count($this->rows[0]) - 2) :?>
+		<?php else:?>
+	<td 
+		id="etetable-row_<?php echo $this->rows[$this->rowCount]['id'] . '_' . $colCount; ?>"><?php if($atemptime != ''){  echo $atemptime; } ?><?php echo str_replace("&nbsp;&nbsp;&nbsp;","",trim($this->rows[$this->rowCount][$colCount])); ?><?php
 		// Add the hidden field in the last row
 		if ($colCount == count($this->rows[0]) - 2) :?>
 			<input type="hidden" 
@@ -81,6 +88,8 @@ for($colCount = 0; $colCount < count($this->rows[0]) - 1; $colCount++) {
 				   name="rowId[]"
 				   value="<?php echo $this->rows[$this->rowCount]['id']; ?>" />
 		<?php endif; ?></td>
+	<?php endif; ?>
 <?php 
 }
 ?>
+</tr>

@@ -28,7 +28,9 @@ window.addEvent('load', function() {
  */ 
 function initEvents() {
 	if (tableProperties.nmbRows != 0) {
+		
 		for (q = 0; q < tableProperties.myTable.tBodies[0].rows.length; q++) {
+			
 			addClickEvent(q);
 			addAnchorEvent(q);
 		}
@@ -40,16 +42,49 @@ function initEvents() {
 	addNewRowEvent();
 }
 
+function initClickEvent() {
+	if (tableProperties.nmbRows != 0) {
+		
+		for (q = 0; q < tableProperties.myTable.tBodies[0].rows.length; q++) {
+			
+			addActionEvent(q);
+		}
+	
+		
+	}
+}
+
+function addActionEvent(row){
+	
+	$('#etetable-table tbody tr').each(function(index, element){
+		$(this).find('#etetable-ordering').val(tableProperties.ordering[index]);
+	})
+	
+	$('#rowId_' + row).find('#etetable-saveicon').bind('click',function(){
+		document.adminForm.task.value = 'etetable.saveOrder';
+		document.adminForm.submit();
+	});
+	$('#rowId_' + row).find('#etetable-delete').bind('click',function(){
+		if(access.deleteRowR){
+			deleteRow($('#rowId_' + row).attr('data-id'), tableProperties.myTable.tBodies[0].rows[row]);
+		}
+	});
+}
+
 /**
  * Add Edit Events on a single row
  */
 function addClickEvent(row) {
+	
 	// Check ACL
 	//Get ID of the row
-	var rowId = $('rowId_' + row).value;
+	
+	var rowId = $('#rowId_' + row).attr('data-id');
+	
 	if (!access.edit && !checkAclOwnRow(rowId)) return false;
 	
 	var mycells = tableProperties.myTable.tBodies[0].rows[row].cells;
+	
 	var endCell = tableProperties.nmbCells + tableProperties.show_first_row;
 	if(endCell > 6){
 		var constt = Math.round(endCell/12);
@@ -64,7 +99,14 @@ function addClickEvent(row) {
 	var z= 0;
 	for (a = tableProperties.show_first_row, v = 0; a < endCell; a++, v++) {
 		// Add Event
-		$(mycells[a]).addEvent('click', 
+		/* $(mycells[a]).bind('click',{v: v}, 
+			function(event) {
+				var rowId = $('#rowId_' + row).val();
+				openCell(rowId, event.data.v, $(this));
+			}
+		); */
+		
+		$(mycells[a]).bind('click', 
 			(function(rowId, v, editedCell) {
 				return function () {
 					openCell(rowId, v, editedCell);
@@ -163,8 +205,8 @@ function addActionRow2(row, singleOrdering) {
 		for(var a = row; a < tempTable.rows.length; a++ ) {
 			var cell = new Element('td', {
 				'id': 'etetable-action-delete',
-				'class':"editable tablesaw-priority-50",
-				'data-tablesaw-priority':"10",
+				'class':"editable tablesaw-priority-50 del_col",
+				'data-tablesaw-priority':"50",
 				'data-tablesaw-sortable-col':"col"
 			});
 			
@@ -181,8 +223,8 @@ function addActionRow2(row, singleOrdering) {
 function addActionRowFirstTime() {
 	var thead = new Element('th', {
 		'text': lang.actions,
-		'class':"evth50 tablesaw-priority-persist tablesaw-sortable-head sort_col",
-			'data-tablesaw-priority':"persist",
+		'class':"evth50 tablesaw-priority-50 tablesaw-sortable-head sort_col",
+			'data-tablesaw-priority':"50",
 			'data-tablesaw-sortable-col':"col"
 	});
 
@@ -218,7 +260,7 @@ function addActionDeleteRowFirstTime() {
 	
 	var thead2 = new Element('th', {
 		'text': lang.deletetext,
-		'class':"evth50 tablesaw-priority-60 tablesaw-sortable-head",
+		'class':"evth50 tablesaw-priority-60 tablesaw-sortable-head del_col",
 			'data-tablesaw-priority':"60",
 			'data-tablesaw-sortable-col':"col"
 	});
@@ -233,10 +275,12 @@ function addActionDeleteRowFirstTime() {
 function addDeleteButton(row) {
 	// Check ACL
 	// Get ID of the row
-	var rowId = $('rowId_' + row).value;
+	var rowId = $('#rowId_' + row).attr('data-id');
+	
 	if (!access.deleteRow && !checkAclOwnRow(rowId)) return false;
 
 	var insertRows = tableProperties.myTable.tBodies[0].rows[row];
+	
 	spanclass = "";
 	if(!access.deleteRowR){
 		spanclass = "disabled";
@@ -247,6 +291,7 @@ function addDeleteButton(row) {
 		'events': {
 			'click': (function(rowId, rowIdentifier) {
 				return function () {
+					
 					if(access.deleteRowR){
 						deleteRow(rowId, rowIdentifier);
 					}
@@ -283,7 +328,7 @@ function addOrdering(row, cell, ordering) {
 	if ((!access.reorder || tableProperties.defaultSorting) && others.listOrder != 'a.ordering') return false;
 	
 	//Get ID of the row
-	var rowId = $('rowId_' + row).value;
+	var rowId = $('#rowId_' + row).attr('data-id');
 	
 	var disabled = true;
 	if (access.reorder && others.listOrder == 'a.ordering') {
@@ -305,7 +350,7 @@ function addNewRowEvent() {
 	// Check ACL
 	if (!access.add) return;
 	
-	$('etetable-add').addEvent('click', function() {
+	$('#etetable-add').bind('click', function() {
 		newRow();
 	});
 
@@ -319,7 +364,7 @@ function openCell(rowId, cell, editedCell) {
 	//Check that only one instance of the window is opened
 	if (!others.doOpen()) return;
 	showLoad();
-		
+	
 	var url = 'index.php?option=com_eventtableedit' +
 			  '&task=etetable.ajaxGetCell' +
 			  '&id=' + tableProperties.id +
@@ -336,6 +381,7 @@ function openCell(rowId, cell, editedCell) {
 			var datatype	= parsed[1];
 		
 			var popup = new BuildPopupWindow(datatype, rowId);
+			
 			if (datatype != "boolean" && datatype != "four_state") {
 				popup.constructNormalPopup(cellContent, cell, editedCell);
 			} else {
@@ -362,7 +408,8 @@ function showLoad() {
 }
 
 function removeLoad() {
-	$('loadDiv').dispose();
+	//$('#loadDiv').dispose();
+	$('#loadDiv').remove();
 }
 
 /**
@@ -416,7 +463,10 @@ function newRow() {
 function addCells(nmbPageRows, rowId) {
 	// Insert Row at the end and define linecolor
 	var tempTable = tableProperties.myTable.tBodies[0];
-	tempTable.appendChild(document.createElement('tr'));
+	var tr = document.createElement('tr');
+	tr.setAttribute('id', 'rowId_' + nmbPageRows);
+	tr.setAttribute('data-id', rowId);
+	tempTable.appendChild(tr);
 	tableProperties.nmbRows++;
 	tempTable.rows[nmbPageRows].className = 'etetable-linecolor' + (nmbPageRows % 2);		
 	
@@ -426,6 +476,7 @@ function addCells(nmbPageRows, rowId) {
 	for (a = 0; a < totNmbCells; a++) {
 		tempTable.rows[nmbPageRows].insertCell(-1);
 	}
+	
 	
 	// Optional first row
 	if (tableProperties.show_first_row) {
@@ -446,22 +497,23 @@ function addCells(nmbPageRows, rowId) {
 	}
 	
 	// Normal cells
-	for (a = tableProperties.show_first_row, b = 0; a < tableProperties.nmbCells; a++, b++) {
+	for (a = tableProperties.show_first_row, b = 0; a <= tableProperties.nmbCells; a++, b++) {
 		var cell = tempTable.rows[nmbPageRows].cells[a];
-		cell.setAttribute('id', 'etetable-row_' + nmbPageRows + '_' + b);
+		cell.setAttribute('id', 'etetable-row_' + rowId + '_' + b);
 		cell.setAttribute('class', 'etetable-row_' + nmbPageRows + '_' + b);
-		cell.innerHTML = '&nbsp;';			
+		cell.innerHTML = '&nbsp;';	
+		console.log(a + " - " + b);		
 	}
 	
 	// Hidden field
-	var hiddenField = new Element('input', {
+	/* var hiddenField = new Element('input', {
 		'type'	: 'hidden',
 		'id'	: 'rowId_' + nmbPageRows,
 		'name'	: 'rowId[]',
 		'value'	: rowId
 	});
 	var lastCell = tempTable.rows[nmbPageRows].cells;
-	hiddenField.inject(lastCell[lastCell.length - 1]);
+	hiddenField.inject(lastCell[lastCell.length - 1]); */
 }
 
 /**
@@ -484,7 +536,6 @@ function addAnchorEvent(row, cell) {
 	if (row != null) {
 		var mycells = tableProperties.myTable.tBodies[0].rows[row].cells;
 		var endCell = tableProperties.nmbCells + tableProperties.show_first_row;
-	
 		for (var a = tableProperties.show_first_row, v = 0; a < endCell; a++, v++) {
 			addAnchorEventsExe(mycells[a]);
 		}
@@ -495,12 +546,22 @@ function addAnchorEvent(row, cell) {
 }
 
 function addAnchorEventsExe(elem) {
-	var anchors = $(elem).getElements('a');
+	
+	if($(elem).find('a')){
+		
+		$(elem).find('a').each(function(){
+			$($(this)[0]).bind('click', function(event) {
+				event.stopPropagation();
+			});
+		})
+		
+		/* var anchors = $(elem).getElements('a');
 
-	for (var b = 0; b < anchors.length; b++) {
-		// Add Event
-		anchors[b].addEvent('click', function(event) {
-			event.stopPropagation();
-		});
+		for (var b = 0; b < anchors.length; b++) {
+			// Add Event
+			$(anchors[b]).bind('click', function(event) {
+				event.stopPropagation();
+			});
+		} */
 	}
 }

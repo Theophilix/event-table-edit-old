@@ -211,6 +211,7 @@ table.tablesaw {
   background-position: 50% 50%;
   margin-left: .5em;
   position: relative;
+  text-indent: -999px;
 }
 
 .tablesaw-bar .tablesaw-advance a.tablesaw-nav-btn.left:before,
@@ -1015,3 +1016,149 @@ tfoot.limit .show_always select#limit {margin-top: 8px;}
 	padding-bottom: 5px;
 	padding-top: 4px;
 }
+
+
+
+
+
+
+
+/*added new*/
+
+/* Table Toolbar */
+
+.tablesaw-bar {
+  clear: both;
+}
+
+.tablesaw-bar * {
+  box-sizing: border-box;
+}
+
+.tablesaw-bar-section {
+  float: left;
+}
+
+.tablesaw-bar-section label {
+  font-size: .975em;
+  padding: .5em 0;
+  clear: both;
+  display: block;
+  color: #888;
+  margin-right: .5em;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+.tablesaw-btn,
+.tablesaw-enhanced .tablesaw-btn {
+  margin-top: .5em;
+  margin-bottom: .5em;
+}
+
+.tablesaw-btn-select,
+.tablesaw-enhanced .tablesaw-btn-select {
+  margin-bottom: 0;
+}
+
+
+.tablesaw-bar .tablesaw-bar-section .tablesaw-btn {
+  margin-left: .4em;
+  margin-top: 0;
+  text-transform: uppercase;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  font-size: 1em;
+  padding-left: .3em;
+}
+
+.tablesaw-bar .tablesaw-bar-section .btn-select {
+  min-width: 0;
+}
+
+.tablesaw-bar .tablesaw-bar-section .btn-select:after {
+  padding-top: .9em;
+}
+
+.tablesaw-bar .tablesaw-bar-section select {
+  color: #888;
+  text-transform: none;
+  background: transparent;
+}
+
+.tablesaw-bar-section ~ table {
+  clear: both;
+}
+
+.tablesaw-bar-section .abbreviated {
+  display: inline;
+}
+
+.tablesaw-bar-section .longform {
+  display: none;
+}
+
+@media (min-width: 24em) {
+  .tablesaw-bar-section .abbreviated {
+    display: none;
+  }
+
+  .tablesaw-bar-section .longform {
+    display: inline;
+  }
+}
+span.btn.tablesaw-btn.btn-select.tablesaw-btn-select {
+    display: inline;
+}
+
+
+@media only all {
+  /* Unchecked manually: Always hide */
+
+  .tablesaw-swipe th.tablesaw-swipe-cellhidden,
+  .tablesaw-swipe td.tablesaw-swipe-cellhidden {
+    display: none;
+  }
+}
+
+.tablesaw-swipe .tablesaw-swipe-cellpersist {
+  border-right: 2px solid #e4e1de;
+}
+
+.tablesaw-swipe-shadow .tablesaw-swipe-cellpersist {
+  border-right-width: 1px;
+}
+
+.tablesaw-swipe-shadow .tablesaw-swipe-cellpersist {
+  box-shadow: 3px 0 4px -1px #e4e1de;
+}
+
+@media only all {
+  /* Unchecked manually: Always hide */
+
+  .tablesaw-columntoggle th.tablesaw-toggle-cellhidden,
+  .tablesaw-columntoggle td.tablesaw-toggle-cellhidden {
+    display: none;
+  }
+
+  /* Checked manually: Always show */
+
+  .tablesaw-columntoggle th.tablesaw-toggle-cellvisible,
+  .tablesaw-columntoggle td.tablesaw-toggle-cellvisible {
+    display: table-cell;
+  }
+}
+
+/* #etetable-table.tablesaw-swipe .sort_col {
+    width: auto!important;
+} */
+
+
+
+
+
+/***********************************************/
+
+
+

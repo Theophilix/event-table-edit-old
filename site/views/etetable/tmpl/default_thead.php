@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
  * Optional first row
  */
 if ($this->item->show_first_row) :?>
-	<th class="etetable-first_row tablesaw-priority-50">#</th>
+	<th class="etetable-first_row tablesaw-priority-50" data-tablesaw-priority="persist">#</th>
 <?php endif; ?>
 
 <?php
@@ -69,94 +69,26 @@ foreach ($this->heads as $head) {
 			$dir = '';
 			if($this->item->sorting == 1)
 			{
-			// Added Sort
-			$icon = $head->head == $listOrder ? ($listDirn == 'desc' ? '&darr;' : '&uarr;') : '';
-            $dir = $head->head == $listOrder ? ($listDirn == 'desc' ? 'asc' : 'desc') : 'asc';
-?>
-	<th class="evth<?php echo $myclass; ?>" id="<?php echo $sortcalss; ?>" <?php //if($j==$sortdynamic){ echo 'data-tablesaw-sortable-default-col="true"'; }  ?> data-tablesaw-priority="<?php echo $priority; ?>" scope="col"><a data-col="<?php echo $head->head; ?>|<?php echo $dir; ?>" class="sort" href="javascript:void(0);"><?php 	echo trim($head->name). ' '. $icon;?> </a></th>
-    <?php
+				// Added Sort
+				$icon = $head->head == $listOrder ? ($listDirn == 'desc' ? '&darr;' : '&uarr;') : '';
+				$dir = $head->head == $listOrder ? ($listDirn == 'desc' ? 'asc' : 'desc') : 'asc';
+			?>
+					<th class="evth<?php echo $myclass; ?>" id="<?php echo $sortcalss; ?>" <?php //if($j==$sortdynamic){ echo 'data-tablesaw-sortable-default-col="true"'; }  ?> data-tablesaw-priority="<?php echo $priority; ?>" scope="col"><a data-col="<?php echo $head->head; ?>|<?php echo $dir; ?>" class="sort" href="javascript:void(0);"><?php 	echo trim($head->name). ' '. $icon;?> </a></th>
+			<?php
 			}
 			else
 			{
 			?>
-            <th class="evth<?php echo $myclass; ?>" id="<?php echo $sortcalss; ?>" data-tablesaw-priority="<?php echo $priority; ?>" scope="col"><?php 	echo trim($head->name). ' '. $icon;?></th>
+				<th class="evth<?php echo $myclass; ?>" id="<?php echo $sortcalss; ?>" data-tablesaw-priority="<?php echo $priority; ?>" scope="col"><?php 	echo trim($head->name). ' '. $icon;?></th>
             <?php
 			}
 			?>
 	<?php
 	
 	if($j%$cont == 0){
-	$thcount++;
+		$thcount++;
 	}
 $j++;
-}	
-?>
-<th class="evth<?php echo $myclass; ?>" id="timestamp-head" <?php //if($j==$sortdynamic){ echo 'data-tablesaw-sortable-default-col="true"'; }  ?> data-tablesaw-priority="<?php echo $priority; ?>" scope="col">Timestamp</th>
-
-<?php
-if($this->item->sorting == 1)
-{
-$options = '';
-$default = JText::_('COM_EVENTTABLEEDIT_SELECT_SORT');
-$heads = $this->heads;
-
-$ordering           = new stdclass;
-$ordering->datatype = '';
-$ordering->head     = 'a.timestamp';
-$ordering->name     = 'timestamp';
-
-$heads = (object) array_merge((array)$heads, (array)array($ordering));
-
-foreach($heads as $head)
-{
-   $types     = array('text','link','email');
-   $name_asc  = $head->name;
-   $name_desc = $head->name;
-   $asc       = '&uarr;';
-   $desc      = '&darr;';
-
-   if($head->name == 'timestamp')
-   {
-	  $name_asc  = JText::_('COM_EVENTTABLEEDIT_NEWEST');
-      $name_desc = JText::_('COM_EVENTTABLEEDIT_OLDEST');
-   }
-   
-   if(in_array($head->datatype, $types))
-   {
-	  $asc  = '(A-Z)';
-	  $desc = '(Z-A)';
-   }
-   
-   
-   
-   $selected1 = $head->head == $listOrder && $listDirn == 'asc' ? ' selected' && $default = $name_asc.' '.$asc : '';
-   $selected2 = $head->head == $listOrder && $listDirn == 'desc' ? ' selected' && $default = $name_desc. ' '.$desc : '';
-   $options   .= '<option value="'.$head->head.'|asc"'.$selected1.'>'.$name_asc.' '.$asc.'</option>';
-   $options   .= '<option value="'.$head->head.'|desc"'.$selected2.'>'.$name_desc.' '.$desc.'</option>';
-}
-$select = '';
-$sort_select = '<div class="table-sorting tablesaw-toolbar"><label>'.JText::_('COM_EVENTTABLEEDIT_SORT').':<span class="btn btn-small btn-select">'.$default.'<select class="sort-select">'.$options.'</select></span></label></div>';
-?>
-
-<script type="text/javascript">
-jQuery(document).ready(function(){
-   jQuery(".sort").click(function(){
-      $list = jQuery(this).data("col").split("|");
-	  jQuery("input[name=filter_order]").val($list[0]);
-	  jQuery("input[name=filter_order_Dir]").val($list[1]);
-	  jQuery(this).closest("form").submit();
-  });
-   
-   jQuery(".tablesaw-modeswitch").parent().prepend('<?php echo $sort_select; ?>');
-   
-   jQuery(document).on('change', '.sort-select', function() {
-	  $list = jQuery(this).val().split("|");
-	  jQuery("input[name=filter_order]").val($list[0]);
-	  jQuery("input[name=filter_order_Dir]").val($list[1]);
-	  jQuery(this).closest("form").submit();
-   });
-});
-</script>
-<?php
 }
 ?>
+

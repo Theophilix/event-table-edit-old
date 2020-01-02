@@ -140,7 +140,7 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 		
 		
 		//Get Model and perform action
-		$model =& $this->getModel('etetable');
+		$model = $this->getModel('etetable');
 		$model->deleteRow($rowId);
 		
 		exit;

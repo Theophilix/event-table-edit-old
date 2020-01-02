@@ -199,8 +199,8 @@ if($this->item->show_pagination == 1){ ?>
 							<div class="field">
 								<fieldset id="jform_automate_sort" class="radio">
 									<input type="radio" id="jform_automate_sort0" name="jform[automate_sort]" value="1" <?php if($this->item->automate_sort == 1){?> checked="checked" <?php } ?> aria-invalid="false">
-									<label for="jform_automate_sort0">Yes</label>
-									<li class="automate_sort_column" style="<?php if(!$this->form->getValue('automate_sort') || !$this->id){?>display:none;<?php } ?> list-style:none;">
+									<label for="jform_automate_sort0"><?php echo JText::_('JYES');?></label>
+									<li class="automate_sort_column" style="<?php if(!$this->form->getValue('automate_sort') || !$this->id){?>display:none;<?php } ?> list-style:none; width:50%;">
 										<label id="jform_automate_sort_column-lbl" for="jform_automate_sort_column" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_CHOOSE_COLUMN_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_CHOOSE_COLUMN_LABEL'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_CHOOSE_COLUMN_LABEL'); ?></label>
 										<fieldset id="" class="select">
 											<?php
@@ -223,8 +223,9 @@ if($this->item->show_pagination == 1){ ?>
 											<?php } ?>
 										</fieldset>
 									</li>
+									<div style="clear:both;"></div>
 									<input type="radio" id="jform_automate_sort1" name="jform[automate_sort]" value="0" <?php if($this->item->automate_sort == 0){?> checked="checked" <?php } ?> aria-invalid="false">
-									<label for="jform_automate_sort1">No</label>
+									<label for="jform_automate_sort1"><?php echo JText::_('JNO');?></label>
 								</fieldset>
 							</div>
 						</li>
@@ -365,8 +366,8 @@ if($this->item->show_pagination == 1){ ?>
 							<?php echo JText::_('COM_EVENTTABLEEDIT_SHOW_PAGINATION_LABEL'); ?></label>
 							</div>
 							<div class="field">
-								<fieldset class="inputbox radio" id="jform_show_pagination">
-									<ul class="adminformlist">
+								<fieldset class="inputbox radio" id="jform_show_pagination" style="padding-left: 0px;">
+									<ul class="adminformlist" style="list-style: none;float: left;margin-left: 20px;">
 										<li>
 											<input type="radio" value="1" name="jform[show_pagination]" id="jform_show_pagination0" <?php if($this->item->show_pagination == 1){?> checked="checked" <?php } ?> onclick="jQuery('.pagebreak').show();">
 											<label for="jform_show_pagination0"><?php echo JText::_('JSHOW'); ?></label>

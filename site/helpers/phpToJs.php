@@ -9,7 +9,6 @@
  
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
-
 ?>
 <script type="text/javascript">
 <!--
@@ -40,7 +39,8 @@ function TableProperties() {
 	var orderTemp 	= '<?php echo $this->additional['ordering']; ?>';
 	this.ordering	= orderTemp.split('|');
 	
-	this.myTable 	= $('etetable-table');
+	this.table 		= $('#etetable-table');
+	this.myTable 	= this.table[0];
 }
 
 function Language() {

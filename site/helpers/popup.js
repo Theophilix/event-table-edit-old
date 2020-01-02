@@ -22,7 +22,6 @@ function BuildPopupWindow(datatype, rowId) {
 	if (dataParts.length > 1) {
 		this.dropdownId = dataParts[1];
 	}
-		
 	this.rowId = rowId;
 }
 
@@ -90,7 +89,7 @@ BuildPopupWindow.prototype.addDefaultElements = function() {
 	var outerDiv = new Element ('div', {
 		'id': 'etetable-outerPopupDiv'
 	});
-	 
+	
 	// Detect datatype
 	var popupDivId = 'etetable-popupNormal';
 	if (this.datatype == 'text') {
@@ -102,9 +101,10 @@ BuildPopupWindow.prototype.addDefaultElements = function() {
 		'class' : 'popupDiv'
 	});
 	
-	popupDiv.inject(outerDiv);
-	outerDiv.inject($('adminForm'));
-	
+	//popupDiv.inject(outerDiv);
+	//outerDiv.inject($('adminForm'));
+	$(outerDiv).append(popupDiv);
+	$('#adminForm').append(outerDiv);
 	// Add drag
 	addDrag(popupDiv);
 	
@@ -113,7 +113,8 @@ BuildPopupWindow.prototype.addDefaultElements = function() {
 		'name': 'popupForm',
 		'onsubmit': 'return false'
 	});
-	popupForm.inject(popupDiv);
+	//popupForm.inject(popupDiv);
+	$(popupDiv).append(popupForm);
 	
 	if (!this.switchSpecifiedWindows()) {
 		return false;
@@ -126,7 +127,7 @@ BuildPopupWindow.prototype.addDefaultElements = function() {
 	
 	// At the delete popup there's no inputfield
 	try {
-		$('etetable-inputfield').focus();
+		$('#etetable-inputfield').focus();
 	} catch(e) {}
 
 	// Add Keyboard controls if type is not text
@@ -150,8 +151,8 @@ function addDrag(popupDiv) {
 		var winW = document.body.clientWidth;
 		var winH = document.body.clientHeight;
 	}
-	$(popupDiv).setStyle('left', (winW / 2) + 'px');
-	$(popupDiv).setStyle('top', (winH / 2) + 'px');
+	$(popupDiv).css('left', (winW / 2) + 'px');
+	$(popupDiv).css('top', (winH / 2) + 'px');
 	
 	var dragHandle = new Element ('div', {'id': 'dragHandle'});
 	dragHandle.inject(popupDiv);
@@ -195,7 +196,7 @@ BuildPopupWindow.prototype.textWindow = function() {
 		'cols': '48'
 	});	
 	textArea.innerHTML = this.cellContent;
-	$('popupForm').appendChild(textArea);
+	$('#popupForm').append(textArea);
 }
 
 /**
@@ -219,9 +220,9 @@ BuildPopupWindow.prototype.dateWindow = function() {
 	});
 	
 	
-	$('popupForm').appendChild(calInput);
-	$('popupForm').appendChild(calImg);
-	$('popupForm').appendChild(clear);
+	$('popupForm').append(calInput);
+	$('popupForm').append(calImg);
+	$('popupForm').append(clear);
 	*/
 	
 	var calhtmls = '<div class="input-append"><input id="etetable-inputfield" name="ete-calendar" value="'+this.cellContent+'"  data-alt-value="'+this.cellContent+'" autocomplete="off" type="text"><button type="button" class="btn btn-secondary" id="etetable-inputfield_btn" data-inputfield="filterstring" data-dayformat="%Y-%m-%d" data-button="filterstring_btn" data-firstday="1" data-weekend="0,6" data-today-btn="1" data-week-numbers="1" data-show-time="0" data-show-others="1" data-time-24="24" data-only-months-nav="0"><img src="'+others.rootUrl+'/components/com_eventtableedit/template/images/cal.png"/></button></div>';
@@ -235,12 +236,12 @@ BuildPopupWindow.prototype.dateWindow = function() {
 		'text'	: lang.clear,
 		'events': {
 			'click': function () {
-				$('etetable-inputfield').value = '';
+				$('#etetable-inputfield').val('');
 			}
 		}
 	});
-	$('popupForm').appendChild(div);
-	$('popupForm').appendChild(clear);
+	$('#popupForm').append(div);
+	$('#popupForm').append(clear);
 
 	// Reinitalize the Joomla-Calendar for the dynamically added date-picker
 	Calendar.setup({
@@ -290,7 +291,7 @@ BuildPopupWindow.prototype.dropDownWindow = function() {
 	
 	//Insert empty first option
 	option[0] = new Element('option');
-	select.appendChild(option[0]);
+	select.append(option[0]);
 	
 	// Insert the options
 	for (a = 0; a < drop.elements.length; a++) {
@@ -302,11 +303,11 @@ BuildPopupWindow.prototype.dropDownWindow = function() {
 	  option[a+1] = new Element('option', {
 		  'text': drop.elements[a]
 	  });
-	  select.appendChild(option[a+1]);
+	  select.append(option[a+1]);
 	}
 	
-	$('popupForm').appendChild(select);
-	$('popupForm').etetableDropdown.options[selectedIndex].selected = true;
+	$('#popupForm').append(select);
+	$('#popupForm').etetableDropdown.options[selectedIndex].selected = true;
 
 	return true;
 }
@@ -317,7 +318,7 @@ BuildPopupWindow.prototype.deleteRow = function() {
 		'text': lang.really_delete
 	})
 	
-	$('etetable-popupNormal').appendChild(text);
+	$('#etetable-popupNormal').append(text);
 }
  
 BuildPopupWindow.prototype.standardWindow = function() {
@@ -328,7 +329,7 @@ BuildPopupWindow.prototype.standardWindow = function() {
 		'name': 'etetable-inputfield'
 	});
 	
-	$('popupForm').appendChild(inputfield);
+	$('#popupForm').append(inputfield);
 }
 
 /**
@@ -375,18 +376,24 @@ BuildPopupWindow.prototype.addToolTip = function() {
 	var textSpan = new Element ('span');
 	textSpan.innerHTML = langTip["desc"];
 	
-	$('popupForm').appendChild(newTip);
-	$('popupForm').appendChild(toolDiv).appendChild(innerDiv).
-			appendChild(toolTitle).appendChild(headSpan).parentNode.
-			parentNode.appendChild(textDiv).appendChild(textSpan);
+	$('#popupForm').append(newTip);
+	/* $('#popupForm').append(toolDiv).append(innerDiv).
+			append(toolTitle).append(headSpan).append(textDiv).append(textSpan); */
+	
+	$(textDiv).append(textSpan);
+	$(toolTitle).append(headSpan);
+	$(innerDiv).append(textDiv);
+	$(innerDiv).append(toolTitle);
+	$(toolDiv).append(innerDiv);
+	$('#popupForm').append(toolDiv);
 }
  
 BuildPopupWindow.prototype.showTip = function(myEvent) {
-	$('etetable-tipDiv').style.visibility = 'visible'; 
+	$('#etetable-tipDiv').css('visibility','visible'); 
 }
 							
 BuildPopupWindow.prototype.hideTip = function(event) {
-	$('etetable-tipDiv').style.visibility = 'hidden';
+	$('#etetable-tipDiv').css('visibility','hidden');
 }
  
 /**
@@ -421,9 +428,12 @@ BuildPopupWindow.prototype.hideTip = function(event) {
 		}
 	});	
 	
-	cancelButton.inject(containerDiv);
+	/* cancelButton.inject(containerDiv);
 	okButton.inject(containerDiv);
-	containerDiv.inject(cssId);
+	containerDiv.inject(cssId); */
+	$(containerDiv).append(cancelButton);
+	$(containerDiv).append(okButton);
+	$("#"+cssId).append(containerDiv);
 }
  
 /**
@@ -450,6 +460,7 @@ BuildPopupWindow.prototype.addKeyboard = function() {
  */
 BuildPopupWindow.prototype.processData = function() {
 	if (self.checkData()) {
+		
 		try {
 			keydown.deactivate();
 		} catch(e) {}
@@ -462,7 +473,7 @@ BuildPopupWindow.prototype.removePopup = function() {
 		keydown.deactivate();
 	} catch(e) {}
 	try {
-		$('etetable-outerPopupDiv').dispose();
+		$('#etetable-outerPopupDiv').remove();
 	} catch(e) {}
 	
 	others.doClose();
@@ -472,7 +483,7 @@ BuildPopupWindow.prototype.removePopup = function() {
  * Checks if the data is valid
  */
 BuildPopupWindow.prototype.checkData = function() {
-	this.inputValue = $('etetable-inputfield').value;
+	this.inputValue = $('#etetable-inputfield').val();
 	
 	// If there's nothing in it's ok
 	if (this.inputValue == "") return true;
@@ -500,7 +511,7 @@ BuildPopupWindow.prototype.checkInt = function() {
 	var parsed = this.inputValue;
 	
 	if (isNaN(parsed)) {
-		$('etetable-inputfield').value = lang.err_no_int;
+		$('#etetable-inputfield').val(lang.err_no_int);
 		return false;
 	}
 	this.inputValue = parsed;
@@ -512,7 +523,7 @@ BuildPopupWindow.prototype.checkFloat = function() {
 	parsed = parseFloat(parsed);
 	
 	if (isNaN(parsed)) {
-		$('etetable-inputfield').value = lang.err_no_float;
+		$('#etetable-inputfield').val(lang.err_no_float);
 		return false;
 	}
 	this.inputValue = parsed;
@@ -538,7 +549,7 @@ BuildPopupWindow.prototype.checkTime = function() {
 	}			
 								
 	if (!isTime) {
-		$('etetable-inputfield').value = lang.err_no_time;
+		$('#etetable-inputfield').val(lang.err_no_time);
 		return false;
 	}
 	return true;
@@ -549,7 +560,7 @@ BuildPopupWindow.prototype.checkMail = function() {
 	//var filter  = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
 	var filter = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/igm;
 	if (!filter.test(email)) {
-		$('etetable-inputfield').value = lang.err_no_mail;
+		$('#etetable-inputfield').val(lang.err_no_mail);
 		return false;
 	}
 	return true;
@@ -561,7 +572,7 @@ BuildPopupWindow.prototype.checkLink = function() {
 	var parsed = this.inputValue;
 	var validurl = isURL(parsed);
 	if (!validurl) {
-		$('etetable-inputfield').value = lang.err_no_Link;
+		$('#etetable-inputfield').val(lang.err_no_Link);
 		return false;
 	}
 	this.inputValue = parsed;
@@ -589,7 +600,7 @@ BuildPopupWindow.prototype.sendData = function() {
 	
 	// Handle dropdowns
 	if (self.datatype == "dropdown") {
-		self.inputValue = $('etetable-inputfield').options[$('etetable-inputfield').selectedIndex].text;
+		self.inputValue = $('#etetable-inputfield').options[$('etetable-inputfield').selectedIndex].text;
 	}
 	
 	var url = 'index.php?option=com_eventtableedit' +
@@ -606,11 +617,21 @@ BuildPopupWindow.prototype.sendData = function() {
 	onComplete: function (response) {
 		var data = response.split("|");
 		var numCol = jQuery('#num-of-col').data('num-of-col');
-		var rowTh = self.rowId-1;
-		var tablesaw_cell_label  = jQuery('<div>').append(jQuery('#etetable-row_'+(rowTh)+'_'+(self.cell)).find("b.tablesaw-cell-label").clone()).html();
+		/* var rowTh = self.rowId-1; */
+		var rowTh = self.rowId;
 		
-		self.editedCell.innerHTML = tablesaw_cell_label+data[0];
-		jQuery('#etetable-row_'+(rowTh)+'_'+(numCol)).html(data[1]);
+		
+		var tablesaw_cell_label  = jQuery('<div>').append(jQuery('#etetable-row_'+(rowTh)+'_'+(self.cell)).find("b.tablesaw-cell-label").clone()).html();
+		var tablesaw_cell_val_label  = jQuery('#etetable-row_'+(rowTh)+'_'+(self.cell)).find("span.tablesaw-cell-content").clone();
+		
+		if(tablesaw_cell_val_label){
+			var newVal = '<span class="tablesaw-cell-content">'+data[0]+'</span>';
+		}else{
+			var newVal = data[0];
+		}
+		//self.editedCell.innerHTML = tablesaw_cell_label+data[0];
+		//jQuery('#etetable-row_'+(rowTh)+'_'+(numCol)).html(data[1]);
+		jQuery('#etetable-row_'+(rowTh)+'_'+(self.cell)).html(tablesaw_cell_label+newVal);
 
 		addAnchorEvent(null, self.editedCell);
 		self.removePopup();
@@ -638,7 +659,7 @@ BuildPopupWindow.prototype.executeDeleteRow = function() {
 		onComplete: function () {
 			// Delete the row
 			var row = self.detectRow(self.rowIdentifier);
-			$(self.rowIdentifier).dispose();
+			$(self.rowIdentifier).remove();
 
 			// Update fields
 			self.updateRows(row);
@@ -654,7 +675,7 @@ BuildPopupWindow.prototype.updateRows = function(row) {
 
 	for (var a = row; a < tRows.length; a++) {
 		var tempTable = tRows[a];
-		self.updateHiddenField(tempTable, a);
+		//self.updateHiddenField(tempTable, a);
 		//self.updateFirstRow(tempTable, a);
 		self.updateLineColors(tempTable, a);
 		self.updateCellId(tempTable,a);

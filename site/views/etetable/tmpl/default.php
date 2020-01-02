@@ -23,7 +23,6 @@
 defined( '_JEXEC' ) or die;
 
 JHtml::addIncludePath(JPATH_COMPONENT.DS.'helpers');
-
 $main  = JFactory::getApplication()->input;
 $Itemid = 	$main->getInt('Itemid', '');
 
@@ -108,7 +107,7 @@ foreach ($this->heads as $headSort) {
 						
 						var a = a.cell;
 						var b = b.cell;
-						console.log(a);
+						//console.log(a);
 						var re = /(^([+\-]?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?(?=\D|\s|$))|^0x[\da-fA-F]+$|\d+)/g,
 					        sre = /^\s+|\s+$/g,   // trim pre-post whitespace
 					        snre = /\s+/g,        // normalize all whitespace to single ' ' character

@@ -372,10 +372,12 @@ class EventtableeditModelEtetable extends JModelList
 	  */
 	 protected function getRowsQuery() {
 	 	// Add the list ordering clause.
-		  $orderCol	= $this->state->get('list.ordering');
+		$orderCol	= $this->state->get('list.ordering');
 	 	$orderDirn	= $this->state->get('list.direction');	
- 		 $tid = (int) $this->state->get('etetable.id');
+ 		$tid = (int) $this->state->get('etetable.id');
  		
+		
+		
 		$query = $this->db->getQuery(true);
 		$query->select($this->getState('item.select', 'a.*'));
 		$query->from('#__eventtableedit_rows_' . $tid . ' AS a');
@@ -387,9 +389,10 @@ class EventtableeditModelEtetable extends JModelList
 		}
 	
 		if ($this->_item->automate_sort) { 
-			$order_dir = explode(",",$this->_item->automate_sort_column);
-			$orderCol = $order_dir[0]; $orderDirn = $order_dir[1]; 
+			//$order_dir = explode(",",$this->_item->automate_sort_column);
+			//$orderCol = $order_dir[0]; $orderDirn = $order_dir[1]; 
 		}
+		
 		$query->order($orderCol.' '.$orderDirn);
 			
 		// Filter

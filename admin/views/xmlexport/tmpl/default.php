@@ -21,6 +21,9 @@
 
 // no direct access adminForm
 defined( '_JEXEC' ) or die;
+JHtml::_('behavior.tooltip');
+JHtml::_('bootstrap.popover');
+JHtml::_('behavior.formvalidation');
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" method="post" name="adminForm" id="adminForm">
@@ -29,13 +32,13 @@ defined( '_JEXEC' ) or die;
 		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLE') ?></legend>
 		
 		
-		<ul class="adminformlist">
+		<ul class="adminformlist" style="float: left;">
 			<li id="tableList">
-				<label><?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLES_DESC'); ?>: </label>
+				<label id="file-lbl" for="file" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLES_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLES_DESC'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLES_DESC'); ?>: </label>
 				<?php echo $this->tables; ?>
 			</li>
 			<li>
-				<label><?php echo JText::_('COM_EVENTTABLEEDIT_XMLEXPORT_TIMESTAMP'); ?>: </label>
+				<label id="file-lbl" for="file" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_XMLEXPORT_TIMESTAMP'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_XMLEXPORT_TIMESTAMP'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_XMLEXPORT_TIMESTAMP'); ?>: </label>
 				<select name="xmlexporttimestamp">
 					<option selected="selected" value="1"><?php echo JText::_('JYES'); ?></option>
 					<option value="0"><?php echo JText::_('JNO'); ?></option>

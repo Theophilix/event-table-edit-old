@@ -93,6 +93,9 @@ class EventtableeditViewEtetable extends JViewLegacy
 		$this->assignRef('print',   $this->print);
 
 		$this->_prepareDocument();
+		
+		if (!$this->checkAccess()) return false;
+		
 		parent::display($tpl);
 	}
 	
@@ -104,6 +107,24 @@ class EventtableeditViewEtetable extends JViewLegacy
 		return true;
 	}
 
+	/**
+	 * Prepares the document
+	 */
+	protected function checkAccess()
+	{
+		$user = JFactory::getUser();
+		
+		$userAccess = $user->getAuthorisedViewLevels();
+		
+		if(in_array($this->item->access, $userAccess)){
+			return true;
+		}else{
+			JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+			return false;
+		}
+		
+			
+	}
 	/**
 	 * Prepares the document
 	 */
@@ -268,9 +289,18 @@ class EventtableeditViewEtetable extends JViewLegacy
 			$style[] = ".eventtableedit .limit {display: none;}";
 		} */
 		$style[] = ".eventtableedit .limit {display: none;}";
-		if ($this->item->rowsort == 0) {
+		
+		if ($this->item->rowsort == 0){
 			$style[] = ".eventtableedit .sort_col {display: none !important;}";
 			//$style[] = ".eventtableedit .tablesaw-priority-50 {display: none !important;}";
+		}
+		
+		if (!$this->params->get('access-reorder')){
+			$style[] = ".eventtableedit .sort_col {display: none !important;}";
+		}
+		
+		if (!$this->params->get('access-delete')){
+			$style[] = ".eventtableedit .del_col {display: none !important;}";
 		}
 
 		return implode("\n", $style);
