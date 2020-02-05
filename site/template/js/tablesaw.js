@@ -1731,16 +1731,16 @@ document.addEventListener("DOMContentLoaded", function() {
 var Tablesaw = {
 	i18n: {
 		/* modeStack: "Stack", */
-		modeStack:  Joomla.JText._('COM_EVENTTABLEEDIT_STACK'),
+		modeStack:  Joomla.JText._('COM_EVENTTABLEEDIT_LAYOUT_STACK'),
 		/* modeSwipe: "Swipe", */
-		modeSwipe:  Joomla.JText._('COM_EVENTTABLEEDIT_SWIPE'),
+		modeSwipe:  Joomla.JText._('COM_EVENTTABLEEDIT_LAYOUT_SWIPE'),
 		/* modeToggle: "Toggle", */
-		modeToggle:  Joomla.JText._('COM_EVENTTABLEEDIT_TOGGLE'),
+		modeToggle:  Joomla.JText._('COM_EVENTTABLEEDIT_LAYOUT_TOGGLE'),
 		modeSwitchColumnsAbbreviated: "Cols",
 		/* modeSwitchColumns: "Columns", */
-		modeSwitchColumns: Joomla.JText._('COM_EVENTTABLEEDIT_COLUMNS'),
+		modeSwitchColumns: Joomla.JText._('COM_EVENTTABLEEDIT_LAYOUT_LAYOUTMODE'),
 		/* columnToggleButton: "Columns", */
-		columnToggleButton: Joomla.JText._('COM_EVENTTABLEEDIT_COLUMNS'),
+		columnToggleButton: Joomla.JText._('COM_EVENTTABLEEDIT_LAYOUT_LAYOUTMODE'),
 		columnToggleError: "No eligible columns.",
 		sort: "Sort",
 		swipePreviousColumn: "Previous column",

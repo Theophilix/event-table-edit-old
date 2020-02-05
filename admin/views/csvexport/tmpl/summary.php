@@ -41,7 +41,7 @@ $this->csvFile = str_replace('csvcsv','<br />',$this->csvFile);
 <form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="">
 	<fieldset class="adminform">
-		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLE') ?></legend>
+		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_CSVEXPORT_TITLE') ?></legend>
 		
 		<textarea readonly="readonly" rows="20" cols="150" id="export-text"><?php echo $this->csvFile; ?></textarea>
 				<input type="hidden" name="tableList" value="<?php echo $id; ?>" >

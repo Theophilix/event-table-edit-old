@@ -388,9 +388,9 @@
 			class="inputbox"
 			label="COM_EVENTTABLEEDIT_STANDARD_LAYOUT"
 			description="COM_EVENTTABLEEDIT_STANDARD_LAYOUT_DESC">
-			<option value="columntoggle">COM_EVENTTABLEEDIT_TOGGLE</option>
-			<option value="swipe">COM_EVENTTABLEEDIT_SWIPE</option>
-			<option value="stack">COM_EVENTTABLEEDIT_STACK</option>
+			<option value="columntoggle">COM_EVENTTABLEEDIT_LAYOUT_TOGGLE</option>
+			<option value="swipe">COM_EVENTTABLEEDIT_LAYOUT_SWIPE</option>
+			<option value="stack">COM_EVENTTABLEEDIT_LAYOUT_STACK</option>
 		</field>
 	</fieldset>
 

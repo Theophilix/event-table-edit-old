@@ -78,10 +78,10 @@ class EventtableeditViewEtetable extends JViewLegacy
 		}
 		
 		// Added language variables.
-		JText::script('COM_EVENTTABLEEDIT_COLUMNS');
-		JText::script('COM_EVENTTABLEEDIT_STACK');
-		JText::script('COM_EVENTTABLEEDIT_SWIPE');
-		JText::script('COM_EVENTTABLEEDIT_TOGGLE');
+		JText::script('COM_EVENTTABLEEDIT_LAYOUT_LAYOUTMODE');
+		JText::script('COM_EVENTTABLEEDIT_LAYOUT_STACK');
+		JText::script('COM_EVENTTABLEEDIT_LAYOUT_SWIPE');
+		JText::script('COM_EVENTTABLEEDIT_LAYOUT_TOGGLE');
 
 		$this->assignRef('params',		$params);
 		$this->assignRef('item', 		$this->item);

@@ -67,13 +67,13 @@ Joomla.submitbutton = function(task)
 <form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" class="form-validate" method="post" name="adminForm" id="adminForm">
 	<div class="">
 	<fieldset class="adminform">
-		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLE') ?></legend>
+		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_CSVEXPORT_TITLE') ?></legend>
 		
-		<p><?php echo JText::_('COM_EVENTTABLEEDIT_CSVEXPORT_DESC') ?></p>
+		<p><?php echo JText::_('COM_EVENTTABLEEDIT_CSVEXPORT_TITLE_INFO') ?></p>
 		
 		<ul class="adminformlist" style="float: left;">
 			<li id="tableList">
-				<label id="file-lbl" for="file" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLES_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLES_DESC'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLES_DESC'); ?>: </label>
+				<label id="file-lbl" for="file" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLE_CHOICE'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLE_CHOICE'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_EXPORT_TABLE_CHOICE'); ?>: </label>
 				<?php echo $this->tables; ?>
 			</li>
 			<li>
