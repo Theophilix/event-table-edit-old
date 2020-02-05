@@ -110,95 +110,7 @@ $datesofhead = implode(',', $datesofhead);
 	</h2>
 
 
-
-
-<form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" name="adminForm" id="adminForm" method="post" class="form-validate span6">
-
-	<?php // echo '<pre>';print_r($this->item);
-
-
-	//If there is already a table set up
-
-	?>
-
-	<div class="control-group">
-
-  <label class="control-label"><?php echo JText::_('COM_EVENTTABLEEDIT_FIRSTNAME'); ?>*</label>
-
-      <div class="controls"><input type="text" value="" name="first_name" class="required"></div>
-
-</div>
-
-<div class="control-group">
-
-  <label class="control-label"><?php echo JText::_('COM_EVENTTABLEEDIT_LASTNAME'); ?>*</label>
-
-      <div class="controls"><input type="text" value="" name="last_name" class="required"></div>
-
-</div>
-
-<div class="control-group">
-
-  <label class="control-label"><?php echo JText::_('COM_EVENTTABLEEDIT_EMAIL'); ?>*</label>
-
-      <div class="controls"><input type="text" value="" name="email" class="required validate-email"></div>
-
-</div>
-
-<div class="control-group">
-
-  <label class="control-label"><?php echo JText::_('COM_EVENTTABLEEDIT_ONE_ICS'); ?></label>
-
-      <div class="controls"><input type="checkbox" value="yes" name="oneics" class=""></div>
-
-</div>
-
-<div class="control-group">
-
-  <label class="control-label"><?php echo JText::_('COM_EVENTTABLEEDIT_COMMENT'); ?></label>
-
-      <div class="controls"><textarea name="comment" id="comment" cols="10" rows="5"></textarea></div>
-
-</div>
-<p>* <?php echo JText::_('COM_EVENTTABLEEDIT_STAR'); ?></p>
-<br>
-
-
-
-
-	<input type="hidden" name="filter_order" value="<?php echo $this->state->get('list.ordering') ?>" />
-
-	<input type="hidden" name="filter_order_Dir" value="<?php echo $this->state->get('list.direction') ?>" />
-
-	<input type="hidden" name="filterstring" value="<?php echo $this->params->get('filterstring') ?>" />
-
-	<input type="hidden" name="option" value="com_eventtableedit" />
-
-	<input type="hidden" name="view" value="appointmentform" />
-
-	<input type="submit" name="submit" class="btn" value="<?php echo JText::_('COM_EVENTTABLEEDIT_FINAL_RESERVATION'); ?>">
-<br>
-	<input type="button" class="btn goback" value="<?php echo JText::_('COM_EVENTTABLEEDIT_GO_BACK'); ?>" name="goback" onclick="goback1();">
-
-	<input type="hidden" name="task" value="appointmentform.save" />
-
-	<input type="hidden" name="id" value="<?php echo $this->item->id; ?>" />
-
-	<input type="hidden" name="rowcolmix" value="<?php echo $postget['rowcolmix']; ?>" />
-
-	<!--<input type="hidden" name="col" value="<?php //echo $postget['col']; ?>" />
-	-->
-	<input type="hidden" name="Itemid" value="<?php echo $Itemid; ?>" />
-
-	<input type="hidden" name="dateappointment" value="<?php echo implode(',', $appointmentsdate) ; ?>" />
-
-	
-
-	<?php echo JHtml::_('form.token'); ?>
-
-</form>
-
-<div class="span6">
+<div class="span6" style="float: right;">
 	<?php 
 	$model 		   = $this->getModel ( 'appointmentform' );
 		$cols 		   = $model->getHeads();
@@ -335,6 +247,91 @@ $datesofhead = implode(',', $datesofhead);
 	}
 	?>
 </div>
+
+
+
+<form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" name="adminForm" id="adminForm" method="post" class="form-validate span6 appointmentform" style="float:left;">
+
+	<?php // echo '<pre>';print_r($this->item);
+
+
+	//If there is already a table set up
+
+	?>
+
+	<div class="control-group">
+
+  <label class="control-label"><?php echo JText::_('COM_EVENTTABLEEDIT_FIRSTNAME'); ?>*</label>
+
+      <div class="controls"><input type="text" value="" name="first_name" class="required"></div>
+
+</div>
+
+<div class="control-group">
+
+  <label class="control-label"><?php echo JText::_('COM_EVENTTABLEEDIT_LASTNAME'); ?>*</label>
+
+      <div class="controls"><input type="text" value="" name="last_name" class="required"></div>
+
+</div>
+
+<div class="control-group">
+
+  <label class="control-label"><?php echo JText::_('COM_EVENTTABLEEDIT_EMAIL'); ?>*</label>
+
+      <div class="controls"><input type="text" value="" name="email" class="required validate-email"></div>
+
+</div>
+
+<div class="control-group">
+	<div class="controls" style="width:16px;float: left;margin-top: -3px;"><input type="checkbox" value="yes" name="oneics" id="oneics" class=""></div>
+	<label class="control-label" for="oneics"><?php echo JText::_('COM_EVENTTABLEEDIT_ONE_ICS'); ?></label>
+</div>
+
+<div class="control-group">
+
+  <label class="control-label"><?php echo JText::_('COM_EVENTTABLEEDIT_COMMENT'); ?></label>
+
+      <div class="controls"><textarea name="comment" id="comment" cols="10" rows="5"></textarea></div>
+
+</div>
+<p>* <?php echo JText::_('COM_EVENTTABLEEDIT_STAR'); ?></p>
+<br>
+
+
+
+
+	<input type="hidden" name="filter_order" value="<?php echo $this->state->get('list.ordering') ?>" />
+
+	<input type="hidden" name="filter_order_Dir" value="<?php echo $this->state->get('list.direction') ?>" />
+
+	<input type="hidden" name="filterstring" value="<?php echo $this->params->get('filterstring') ?>" />
+
+	<input type="hidden" name="option" value="com_eventtableedit" />
+
+	<input type="hidden" name="view" value="appointmentform" />
+
+	<input type="submit" name="submit" class="btn" value="<?php echo JText::_('COM_EVENTTABLEEDIT_FINAL_RESERVATION'); ?>">
+<br>
+	<input type="button" class="btn goback" value="<?php echo JText::_('COM_EVENTTABLEEDIT_GO_BACK'); ?>" name="goback" onclick="goback1();">
+
+	<input type="hidden" name="task" value="appointmentform.save" />
+
+	<input type="hidden" name="id" value="<?php echo $this->item->id; ?>" />
+
+	<input type="hidden" name="rowcolmix" value="<?php echo $postget['rowcolmix']; ?>" />
+
+	<!--<input type="hidden" name="col" value="<?php //echo $postget['col']; ?>" />
+	-->
+	<input type="hidden" name="Itemid" value="<?php echo $Itemid; ?>" />
+
+	<input type="hidden" name="dateappointment" value="<?php echo implode(',', $appointmentsdate) ; ?>" />
+
+	
+
+	<?php echo JHtml::_('form.token'); ?>
+
+</form>
 
 
 

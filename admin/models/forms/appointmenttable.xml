@@ -53,7 +53,7 @@
 			default="0"
 			class="inputbox"
 			label="COM_EVENTTABLEEDIT_SHOW_SHOWUSERNAMETOADMIN"
-			description="COM_EVENTTABLEEDIT_SHOW_SHOWUSERNAMETOADMIN">
+			description="COM_EVENTTABLEEDIT_SHOW_SHOWUSERNAMETOADMIN_DESC">
 			<option
 				value="1">JYES</option>
 			<option
@@ -64,7 +64,7 @@
 			default="0"
 			class="inputbox"
 			label="COM_EVENTTABLEEDIT_SHOW_SHOWUSERNAMETOUSER"
-			description="COM_EVENTTABLEEDIT_SHOW_SHOWUSERNAMETOUSER">
+			description="COM_EVENTTABLEEDIT_SHOW_SHOWUSERNAMETOUSER_DESC">
 			<option
 				value="1">JYES</option>
 			<option
@@ -77,7 +77,7 @@
 			default="0"
 			class="inputbox"
 			label="COM_EVENTTABLEEDIT_SHOW_SHOWDAYNAME"
-			description="COM_EVENTTABLEEDIT_SHOW_SHOWDAYNAME">
+			description="COM_EVENTTABLEEDIT_SHOW_SHOWDAYNAME_DESC">
 			<option
 				value="1">JYES</option>
 			<option
@@ -250,7 +250,7 @@
 			class="inputbox"
 			default="0"
 			label="COM_EVENTTABLEEDIT_ADD_OPTION_LIST"
-			description="COM_EVENTTABLEEDIT_ADD_OPTION_LIST">
+			description="COM_EVENTTABLEEDIT_ADD_OPTION_LIST_DESC">
 			<option
 				value="1">JYES</option>
 			<option

@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-**Download latest version 4.8.1** (release date: 03.01.2020): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+**Download latest version 4.8.2** (release date: 05.02.2020): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -75,6 +75,22 @@ Please post all feature requests in the issues tab.
 
 
 ## II Version history
+
+
+**For version 4.8.2:**
+
+[1] Normal mode
+
+- bugfix: Backend: CSV Import: English language instead of german https://github.com/Theophilix/event-table-edit/issues/148
+- bugfix: Frontend: Normal table: Layout broken when adding new line in stack or swipe mode https://github.com/Theophilix/event-table-edit/issues/159
+- bugfix: Frontend: Normal table: edit sort order column disappears if table is sorted by another column https://github.com/Theophilix/event-table-edit/issues/157
+
+
+[2] Appointment mode
+
+- bugfix: Backend: Appointment table: Fix incorrect layout of all mouse-over tool tips https://github.com/Theophilix/event-table-edit/issues/154
+- bugfix: Frontend: Appointment table: layout problems in booking window https://github.com/Theophilix/event-table-edit/issues/155
+
 
 **For version 4.8.1:**
 

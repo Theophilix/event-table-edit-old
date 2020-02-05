@@ -102,7 +102,7 @@ class EventtableeditViewCsvimport extends JViewLegacy {
 		if (count($tables) == 0) return null;
 		
 		$elem = array();
-		$elem[] = JHTML::_('select.option', '', 'Please select table');
+		$elem[] = JHTML::_('select.option', '', JText::_('COM_EVENTTABLEEDIT_PLEASE_SELECT_TABLE'));
 		
 		foreach($tables as $table) {
 			$elem[] = JHTML::_('select.option', $table->id, $table->id . ' ' . $table->name);

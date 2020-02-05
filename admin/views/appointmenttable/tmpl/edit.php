@@ -8,8 +8,8 @@
 // no direct access
 defined( '_JEXEC' ) or die;
 
-JHtml::_('behavior.tooltip');
-JHtml::_('behavior.formvalidation');
+//JHtml::_('behavior.tooltip');
+//JHtml::_('behavior.formvalidation');
 ?>
 
 <script type="text/javascript">
@@ -301,7 +301,7 @@ JHtml::_('behavior.formvalidation');
 					
 					
 <li class="location">
-							<label title="" class="hasTooltip" for="jform_icsfilename" id="jform_icsfilename-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ICSFILENAME_LABEL'); ?>&lt;/strong&gt;&lt;br /&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ICSFILENAME_DESC'); ?>">
+							<label title="" class="hasPopover" for="jform_icsfilename" id="jform_icsfilename-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ICSFILENAME_LABEL'); ?>" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ICSFILENAME_DESC'); ?>">
 	<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ICSFILENAME_LABEL'); ?><span class="star">&nbsp;*</span></label>
 							<?php echo JText::_('COM_EVENTTABLEEDIT_USED_VARIABLE_IN_ICS_SUBJECT'); ?>
 							<br>
@@ -319,13 +319,13 @@ JHtml::_('behavior.formvalidation');
 
 
 <li class="location">
-							<label title="" class="hasTooltip" for="jform_displayname" id="jform_displayname-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_DISPLAYNAME_LABEL'); ?>&lt;/strong&gt;&lt;br /&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_DISPLAYNAME_DESC'); ?>">
+							<label title="" class="hasPopover" for="jform_displayname" id="jform_displayname-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_DISPLAYNAME_LABEL'); ?>" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_DISPLAYNAME_DESC'); ?>">
 	<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_DISPLAYNAME_LABEL'); ?><span class="star">&nbsp;*</span></label>
 						<!--<?php echo $this->form->getLabel('displayname'); ?>-->
 					<?php echo $this->form->getInput('displayname'); ?></li>
 
 						<li class="location">
-							<label title="" class="hasTooltip" for="jform_email" id="jform_email-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_EMAIL_LABEL'); ?>&lt;/strong&gt;&lt;br /&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_EMAIL_DESC'); ?>">
+							<label title="" class="hasPopover" for="jform_email" id="jform_email-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_EMAIL_LABEL'); ?>" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_EMAIL_DESC'); ?>">
 	<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_EMAIL_LABEL'); ?><span class="star">&nbsp;*</span></label>
 						<!--<?php echo $this->form->getLabel('email'); ?>-->
 					<?php echo $this->form->getInput('email'); ?></li>
@@ -333,7 +333,7 @@ JHtml::_('behavior.formvalidation');
 
 						
 					<li class="location" >
-<label title="" class="hasTooltip" for="jform_adminemailsubject" id="jform_adminemailsubject-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ADMINEMAIL_LABEL'); ?>&lt;/strong&gt;&lt;br /&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ADMINEMAIL_DESC'); ?>">
+<label title="" class="hasPopover" for="jform_adminemailsubject" id="jform_adminemailsubject-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ADMINEMAIL_LABEL'); ?>" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ADMINEMAIL_DESC'); ?>">
 	<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ADMINEMAIL_LABEL'); ?><span class="star">&nbsp;*</span></label>
 					<!--<?php echo $this->form->getLabel('adminemailsubject'); ?>-->
 						<?php echo JText::_('COM_EVENTTABLEEDIT_USED_VARIABLE_IN_ADMIN_EMAIL_SUBJECT'); ?>
@@ -343,7 +343,7 @@ JHtml::_('behavior.formvalidation');
 					</li>
 
 					<li class="location" >
-						<label title="" class="hasTooltip" for="jform_useremailsubject" id="jform_useremailsubject-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_USEREMAIL_SUBJECT_LABEL'); ?>&lt;/strong&gt;&lt;br /&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_USEREMAIL_SUBJECT_DESC'); ?>">
+						<label title="" class="hasPopover" for="jform_useremailsubject" id="jform_useremailsubject-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_USEREMAIL_SUBJECT_LABEL'); ?>" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_USEREMAIL_SUBJECT_DESC'); ?>">
 	<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_USEREMAIL_SUBJECT_LABEL'); ?><span class="star">&nbsp;*</span></label>
 					<!--<?php echo $this->form->getLabel('useremailsubject'); ?>-->
 					<?php echo JText::_('COM_EVENTTABLEEDIT_USED_VARIABLE_IN_USED_EMAIL_SUBJECT'); ?>
@@ -353,7 +353,7 @@ JHtml::_('behavior.formvalidation');
 
 
 					<li class="location" >	
-					<label title="" class="hasTooltip" for="jform_useremailtext" id="jform_useremailtext-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_USEREMAIL_TEXT'); ?>&lt;/strong&gt;">
+					<label title="" class="hasPopover" for="jform_useremailtext" id="jform_useremailtext-lbl" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_USEREMAIL_TEXT'); ?>" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_USEREMAIL_TEXT_DESC'); ?>">
 	<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_USEREMAIL_TEXT'); ?><span class="star">&nbsp;*</span></label>
 
 					<!--<?php echo $this->form->getLabel('useremailtext'); ?>-->
@@ -364,7 +364,7 @@ JHtml::_('behavior.formvalidation');
 					
 
 					<li class="location" >	
-					<label title="" class="hasTooltip" for="jform_adminemailtext" id="jform_adminemailtext-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ADMINEMAILTEXT_LABEL'); ?>&lt;/strong&gt;">
+					<label title="" class="hasPopover" for="jform_adminemailtext" id="jform_adminemailtext-lbl" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ADMINEMAILTEXT_LABEL'); ?>" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ADMINEMAILTEXT_LABEL_DESC'); ?>">
 	<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_ADMINEMAILTEXT_LABEL'); ?><span class="star">&nbsp;*</span></label>
 
 					<!--<?php echo $this->form->getLabel('adminemailtext'); ?>-->
@@ -407,7 +407,7 @@ JHtml::_('behavior.formvalidation');
 					<?php //echo $this->form->getInput('show_pagination'); ?></li>
 				
 					<li>
-						<label title="" class="hasTooltip" for="jform_show_pagination" id="jform_show_pagination-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_SHOW_PAGINATION_LABEL'); ?>&lt;/strong&gt;&lt;br /&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_SHOW_PAGINATION_DESC'); ?>">
+						<label title="" class="hasPopover" for="jform_show_pagination" id="jform_show_pagination-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_SHOW_PAGINATION_LABEL'); ?>&lt;/strong&gt;&lt;br /&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_SHOW_PAGINATION_DESC'); ?>">
 	<?php echo JText::_('COM_EVENTTABLEEDIT_SHOW_PAGINATION_LABEL'); ?></label>
 						<fieldset class="inputbox radio" id="jform_show_pagination">
 							<input type="radio" value="1" name="jform[show_pagination]" id="jform_show_pagination0" <?php if($this->item->show_pagination == 1){?> checked="checked" <?php } ?> onclick="jQuery('.pagebreak').show();">	

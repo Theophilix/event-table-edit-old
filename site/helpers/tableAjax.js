@@ -285,6 +285,8 @@ function addDeleteButton(row) {
 	if(!access.deleteRowR){
 		spanclass = "disabled";
 	}
+	
+	
 	var span = new Element ('span', {
 		'id': 'etetable-delete',
 		'class': spanclass,
@@ -309,11 +311,36 @@ function addDeleteButton(row) {
 	
 	
 	var insertCell = insertRows.cells[insertRows.cells.length - 1];
+	
 	if(!access.deleteRowR){
 		$(insertCell).addClass("disabled")
 	}
-	img.inject(span);
-	span.inject(insertCell);
+	
+	
+	var isStack = (jQuery('#change_mode').val() == 'stack') ? true : false;
+	
+	if(isStack){
+		var tempTable = tableProperties.myTable.tBodies[0];
+		var labelHtml = $(tempTable.rows[0]).find('.del_col').find('.tablesaw-cell-label').html()
+
+		var chtml = '<b class="tablesaw-cell-label">'+labelHtml+'</b><span class="tablesaw-cell-content"></span>';
+		
+		img.inject(span);
+		
+		$(insertCell).html(chtml);
+		$(insertCell).find('.tablesaw-cell-content').html(span);
+		
+		$(insertCell).find('.tablesaw-cell-content').find('#etetable-delete').bind('click',function(){
+			if(access.deleteRowR){
+				deleteRow($('#rowId_' + row).attr('data-id'), tableProperties.myTable.tBodies[0].rows[row]);
+			}
+		});
+	}else{
+		img.inject(span);
+		span.inject(insertCell);	
+		
+	}
+	
 }
  
 /**
@@ -335,14 +362,48 @@ function addOrdering(row, cell, ordering) {
 		disabled = false;
 	}
 	
-	var orderInput = new Element('input', {
-		'type'		:	'text',
-		'id'		: 	'etetable-ordering',
-		'name'		: 'order[]',
-		'value'		: ordering,
-		'disabled'	: disabled
-	});
-	orderInput.inject(cell);
+	var isStack = (jQuery('#change_mode').val() == 'stack') ? true : false;
+	
+	if(isStack){
+		var tempTable = tableProperties.myTable.tBodies[0];
+		var labelHtml = $(tempTable.rows[0]).find('.sort_col').find('.tablesaw-cell-label').html()
+
+		var chtml = '<b class="tablesaw-cell-label">'+labelHtml+'</b><span class="tablesaw-cell-content"></span>';
+		var orderInput = new Element('input', {
+			'type'		:	'text',
+			'id'		: 	'etetable-ordering',
+			'name'		: 'order[]',
+			'value'		: ordering,
+			'disabled'	: disabled
+		});
+		var hiddenInput = new Element('input', {
+			'type'		:	'hidden',
+			'id'		: 	'etetable-ordering',
+			'name'		: 'rowId[]',
+			'value'		: rowId
+		});
+		$(cell).html(chtml);
+		$(cell).find('.tablesaw-cell-content').html(orderInput + hiddenInput);
+		$(cell).find('#etetable-ordering').val(ordering)
+		console.log(ordering);
+	}else{
+		var orderInput = new Element('input', {
+			'type'		:	'text',
+			'id'		: 	'etetable-ordering',
+			'name'		: 'order[]',
+			'value'		: ordering,
+			'disabled'	: disabled
+		});
+		var hiddenInput = new Element('input', {
+			'type'		:	'hidden',
+			'id'		: 	'etetable-ordering',
+			'name'		: 'rowId[]',
+			'value'		: rowId
+		});
+		orderInput.inject(cell);
+		hiddenInput.inject(cell);
+	}
+	
 }
 
 //Ads the click Event to the new row button
@@ -456,6 +517,17 @@ function newRow() {
 				
 				removeLoad();
 				others.doClose();
+				
+				var isSwipe = (jQuery('#change_mode').val() == 'swipe') ? true : false;
+				
+				setTimeout(function() {
+					if(isSwipe){
+						console.log("isSwipe" + isSwipe);
+						$('select#change_mode').val('swipe');
+						$('select#change_mode').trigger('change');
+					}
+					$('tr#rowId_' + nmbPageRows).css('display', 'table-row');
+				}, 10);
 			}
 	}).send();
 }
@@ -466,9 +538,13 @@ function addCells(nmbPageRows, rowId) {
 	var tr = document.createElement('tr');
 	tr.setAttribute('id', 'rowId_' + nmbPageRows);
 	tr.setAttribute('data-id', rowId);
+	tr.style.display = 'none';
 	tempTable.appendChild(tr);
 	tableProperties.nmbRows++;
 	tempTable.rows[nmbPageRows].className = 'etetable-linecolor' + (nmbPageRows % 2);		
+	
+	var isStack = (jQuery('#change_mode').val() == 'stack') ? true : false;
+	
 	
 	// Insert Cells
 	var totNmbCells = tableProperties.nmbCells + tableProperties.show_first_row 
@@ -490,7 +566,14 @@ function addCells(nmbPageRows, rowId) {
 		 * If it is the first row use list start
 		 */
 		if (nmbPageRows > 0) {
-			firstRow.innerHTML = parseInt(tempTable.rows[nmbPageRows - 1].cells[0].innerHTML) + 1;
+			if(isStack){
+				var frow = $(tempTable.rows[nmbPageRows - 1].cells[0]).find('.tablesaw-cell-content').html();
+				frow = frow.trim();
+				frow = '<b class="tablesaw-cell-label">#</b><span class="tablesaw-cell-content">' + ( parseInt(frow) + 1 ) + '</span>';
+			}else{
+				var frow = parseInt(tempTable.rows[nmbPageRows - 1].cells[0].innerHTML) + 1;
+			}
+			firstRow.innerHTML = frow;
 		} else {
 			firstRow.innerHTML = tableProperties.limitstart + 1;
 		}
@@ -501,8 +584,15 @@ function addCells(nmbPageRows, rowId) {
 		var cell = tempTable.rows[nmbPageRows].cells[a];
 		cell.setAttribute('id', 'etetable-row_' + rowId + '_' + b);
 		cell.setAttribute('class', 'etetable-row_' + nmbPageRows + '_' + b);
-		cell.innerHTML = '&nbsp;';	
-		console.log(a + " - " + b);		
+		if(isStack){
+			var preCell = $(tempTable.rows[nmbPageRows - 1].cells[a]).find('.tablesaw-cell-label').html();
+			var chtml = '<b class="tablesaw-cell-label">'+preCell+'</b><span class="tablesaw-cell-content">&nbsp;</span>';
+		}else{
+			var chtml = '&nbsp;';
+		}
+		
+		cell.innerHTML = chtml;	
+		//console.log(a + " - " + b);		
 	}
 	
 	// Hidden field
