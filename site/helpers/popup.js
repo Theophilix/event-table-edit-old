@@ -624,7 +624,7 @@ BuildPopupWindow.prototype.sendData = function() {
 		var tablesaw_cell_label  = jQuery('<div>').append(jQuery('#etetable-row_'+(rowTh)+'_'+(self.cell)).find("b.tablesaw-cell-label").clone()).html();
 		var tablesaw_cell_val_label  = jQuery('#etetable-row_'+(rowTh)+'_'+(self.cell)).find("span.tablesaw-cell-content").clone();
 		
-		if(tablesaw_cell_val_label){
+		if(tablesaw_cell_val_label.length){
 			var newVal = '<span class="tablesaw-cell-content">'+data[0]+'</span>';
 		}else{
 			var newVal = data[0];

@@ -369,7 +369,7 @@ function addOrdering(row, cell, ordering) {
 		var labelHtml = $(tempTable.rows[0]).find('.sort_col').find('.tablesaw-cell-label').html()
 
 		var chtml = '<b class="tablesaw-cell-label">'+labelHtml+'</b><span class="tablesaw-cell-content"></span>';
-		var orderInput = new Element('input', {
+		/* var orderInput = new Element('input', {
 			'type'		:	'text',
 			'id'		: 	'etetable-ordering',
 			'name'		: 'order[]',
@@ -385,7 +385,27 @@ function addOrdering(row, cell, ordering) {
 		$(cell).html(chtml);
 		$(cell).find('.tablesaw-cell-content').html(orderInput + hiddenInput);
 		$(cell).find('#etetable-ordering').val(ordering)
-		console.log(ordering);
+		console.log(ordering); */
+		var orderInput = document.createElement("input");
+		orderInput.setAttribute("type", "text");
+		orderInput.setAttribute("id", "etetable-ordering");
+		orderInput.setAttribute("name", "order[]");
+		orderInput.setAttribute("value", ordering);
+		if(disabled){
+			orderInput.setAttribute("disabled", "disabled");
+		}
+		var hiddenInput = document.createElement("input");
+		hiddenInput.setAttribute("type", "hidden");
+		hiddenInput.setAttribute("id", "etetable-hidden");
+		hiddenInput.setAttribute("name", "rowId[]");
+		hiddenInput.setAttribute("value", rowId);
+		
+		
+		$(cell).html(chtml);
+		$(cell).find('.tablesaw-cell-content').append(orderInput);
+		$(cell).find('.tablesaw-cell-content').append(hiddenInput);
+		$(cell).find('#etetable-ordering').val(ordering)
+		//console.log(ordering);
 	}else{
 		var orderInput = new Element('input', {
 			'type'		:	'text',
