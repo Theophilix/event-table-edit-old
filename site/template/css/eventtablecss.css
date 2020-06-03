@@ -1432,3 +1432,27 @@ td.disabled, span.disabled {
 		width: 93%;
 	}
 }
+
+
+.tablesaw-btn-group input {
+    display: inline-flex;
+    float: left;
+    margin-right: 5px!important;
+}
+.tablesaw-btn-group label {
+    overflow-wrap: break-word;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 60px;
+}
+.tablesaw-btn-group div {
+    width: 6em;
+}
+
+.tablesaw-columntoggle tbody td, .tablesaw-swipe tbody td {
+   white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80px;
+}

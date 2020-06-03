@@ -2525,7 +2525,8 @@ if (Tablesaw.mustard) {
 
 		var cfg = this.tablesaw.getConfig({
 			getColumnToggleLabelTemplate: function(text) {
-				return "<label><input type='checkbox' checked>" + text + "</label>";
+				/* return "<label><input type='checkbox' checked>" + text + "</label>"; */
+				return "<div><input type='checkbox' checked><label>" + text + "</label></div>";
 			}
 		});
 

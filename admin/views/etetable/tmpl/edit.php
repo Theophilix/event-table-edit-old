@@ -10,8 +10,8 @@ defined( '_JEXEC' ) or die;
 
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
-//echo $this->form->getValue('automate_sort_column');die;
 
+JHTML::_('behavior.modal');
 ?>
 
 <script type="text/javascript">
@@ -19,11 +19,7 @@ function checkics(val){
 if(val == 0){
 jQuery('.location').hide();
 jQuery('.normalshows').show();
-// jQuery('#jform_location').removeClass('required');
-// jQuery('#jform_location').removeAttr( "required" );
 
-// jQuery('#jform_summary').removeClass('required');
-// jQuery('#jform_summary').removeAttr( "required" );
 
 
 
@@ -64,11 +60,7 @@ jQuery('#jform_hours').removeAttr( "required" );
 }else{
 jQuery('.location').show();
 jQuery('.normalshows').hide();
-// jQuery('#jform_location').addClass('required');
-// jQuery('#jform_location').attr( "required","required" );
 
-// jQuery('#jform_summary').addClass('required');
-// jQuery('#jform_summary').attr( "required","required" );
 
 
 
@@ -175,23 +167,11 @@ if($this->item->show_pagination == 1){ ?>
 							<div class="fieldlabel"><?php echo $this->form->getLabel('language'); ?></div>
 							<div class="field"><?php echo $this->form->getInput('language'); ?></div>
 						</li>
-						<!--
-						<li>
-							<div class="fieldlabel"><?php echo $this->form->getLabel('normalorappointment'); ?></div>
-							<div class="field"><?php echo $this->form->getInput('normalorappointment'); ?></div>
-						</li>
-						-->
 						<li class="normalshows">
 							<div class="fieldlabel"><?php echo $this->form->getLabel('sorting'); ?></div>
 							<div class="field"><?php echo $this->form->getInput('sorting'); ?></div>
 						</li>
 						<?php if($this->id){ ?>
-						<!--
-						<li class="automate_sort">
-							<div class="fieldlabel"><?php echo $this->form->getLabel('automate_sort'); ?></div>
-							<div class="field"><?php echo $this->form->getInput('automate_sort'); ?></div>
-						</li>
-						-->
 						<li class="automate_sort">
 							<div class="fieldlabel">
 								<label id="jform_automate_sort-lbl" for="jform_automate_sort" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_ENABLE_AUTOMATIC_SORTING_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_ENABLE_AUTOMATIC_SORTING_LABEL'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_ENABLE_AUTOMATIC_SORTING_LABEL'); ?></label>
@@ -354,12 +334,6 @@ if($this->item->show_pagination == 1){ ?>
 							<div class="fieldlabel"><?php echo $this->form->getLabel('rowdelete'); ?></div>
 							<div class="field"><?php echo $this->form->getInput('rowdelete'); ?></div>
 						</li>
-						<!--
-						<li>
-							<div class="fieldlabel"><?php //echo $this->form->getLabel('show_pagination'); ?></div>
-							<div class="field"><?php //echo $this->form->getInput('show_pagination'); ?></div>
-						</li>
-						-->
 						<li>
 							<div class="fieldlabel">
 								<label title="" class="hasPopover" for="jform_show_pagination" id="jform_show_pagination-lbl" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_SHOW_PAGINATION_LABEL'); ?>" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_SHOW_PAGINATION_DESC'); ?>">
@@ -418,14 +392,65 @@ if($this->item->show_pagination == 1){ ?>
 			<div  id="style" class="tab-pane">
 				<fieldset class="panelform">
 					<ul class="adminformlist">
+						
 						<li>
-							<div class="fieldlabel"><?php echo $this->form->getLabel('dateformat'); ?></div>
-							<div class="field"><?php echo $this->form->getInput('dateformat'); ?></div>
+							<div class="fieldlabel">
+								<label id="jform_dateformat-lbl" for="jform_dateformat" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_DATEFORMAT_DESC');?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_DATEFORMAT_LABEL')?>"><?php echo JText::_('COM_EVENTTABLEEDIT_DATEFORMAT_LABEL')?></label>
+							</div>
+							<div class="field">
+							
+								<span class="input-append" style="float: left;">
+									<input type="text" name="jform[dateformat]" readonly="readonly" id="jform_dateformat" value="<?php echo $this->item->dateformat?>" class="inputbox"  aria-invalid="false">
+									<button data-target="#jform_dateformat_modal" class="btn" data-toggle="modal" value="Change"><span class="icon-edit icon-white" aria-hidden="true"></span></button>
+								</span>
+								<div id="date_format" style='border: solid 1px transparent;padding: 3px;float: left;margin-left: 5px;'><?php echo strftime($this->item->dateformat,strtotime("12/24/2018 12:00:00"));;?></div><div style="float: left;border: solid 1px transparent;padding: 3px;">(<?php echo JText::_('COM_EVENTTABLEEDIT_STANDARD_VALUE')?>: %d.%m.%Y)</div>
+							</div>
+							<div id="jform_dateformat_modal" tabindex="-1" class="modal fade" aria-hidden="false">
+								<div class="modal-header">
+									<button type="button" class="close novalidate" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+									<h3>Change Value</h3>
+								</div>
+								<div class="modal-body jviewport-height70" style="padding: 20px;text-align: center;">
+									<label for="dateformat_popup"><?php echo JText::_('COM_EVENTTABLEEDIT_DATEFORMAT_LABEL')?></label>
+									<input type="text" id="dateformat_popup" value="" />
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn save" >Save</button>
+									<button type="button" class="btn" data-dismiss="modal">Close</button>
+								</div>
+							</div>
 						</li>
 						<li>
-							<div class="fieldlabel"><?php echo $this->form->getLabel('timeformat'); ?></div>
-							<div class="field"><?php echo $this->form->getInput('timeformat'); ?></div>
+							<div class="fieldlabel"> 
+								<label id="jform_timeformat-lbl" for="jform_timeformat" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_TIMEFORMAT_DESC');?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_TIMEFORMAT_LABEL')?>"><?php echo JText::_('COM_EVENTTABLEEDIT_TIMEFORMAT_LABEL')?></label>
+							</div>
+							<div class="field">
+								<span class="input-append" style="float: left;">
+									<input type="text" name="jform[timeformat]" readonly="readonly" id="jform_timeformat" value="<?php echo $this->item->timeformat?>" class="inputbox"  aria-invalid="false">
+									<button data-target="#jform_timeformat_modal" class="btn" data-toggle="modal" value="Change"><span class="icon-edit icon-white" aria-hidden="true"></span></button>
+								</span>
+								<div id="time_format" style='border: solid 1px transparent;padding: 3px;float: left;margin-left: 5px;'><?php echo strftime($this->item->timeformat,strtotime("12/24/2018 12:00:00"));;?></div><div style="float: left;border: solid 1px transparent;padding: 3px;">(<?php echo JText::_('COM_EVENTTABLEEDIT_STANDARD_VALUE')?>: %H:%M)</div>
+							</div>
+							<div id="jform_timeformat_modal" tabindex="-1" class="modal fade" aria-hidden="false">
+								<div class="modal-header">
+									<button type="button" class="close novalidate" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">×</span>
+									</button>
+									<h3>Change Value</h3>
+								</div>
+								<div class="modal-body jviewport-height70" style="padding: 20px;text-align: center;">
+									<label for="timeformat_popup"><?php echo JText::_('COM_EVENTTABLEEDIT_TIMEFORMAT_LABEL')?></label>
+									<input type="text" id="timeformat_popup" value="" />
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn save" >Save</button>
+									<button type="button" class="btn" data-dismiss="modal">Close</button>
+								</div>
+							</div>
 						</li>
+						
 						<li>
 							<div class="fieldlabel"><?php echo $this->form->getLabel('float_separator'); ?></div>
 							<div class="field"><?php echo $this->form->getInput('float_separator'); ?></div>
@@ -439,12 +464,20 @@ if($this->item->show_pagination == 1){ ?>
 							<div class="field"><?php echo $this->form->getInput('cellpadding'); ?></div>
 						</li>
 						<li>
-							<div class="fieldlabel"><?php echo $this->form->getLabel('tablecolor1'); ?></div>
-							<div class="field"><?php echo $this->form->getInput('tablecolor1'); ?></div>
+							<div class="fieldlabel">
+								<label id="jform_tablecolor1-lbl" for="jform_tablecolor1" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR1_DESC');?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR1_LABEL');?>"><?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR1_LABEL');?></label>
+							</div>
+							<div class="field">
+								<?php echo $this->form->getInput('tablecolor1'); ?><div id="tablecolor1" style='cursor: text;border-radius: 3px;border: 1px solid rgb(204, 204, 204);padding: 3px;width: 100px;float: left;margin-left: 5px;background-color:#<?php echo $this->item->tablecolor1;?>'><?php echo JText::_('COM_EVENTTABLEEDIT_DATATYPE_TEXT');?></div><div style="margin-left: 5px;float: left;">(<?php echo JText::_('COM_EVENTTABLEEDIT_STANDARD_VALUE')?>: #CCCCCC)</div>
+							</div>
 						</li>
 						<li>
-							<div class="fieldlabel"><?php echo $this->form->getLabel('tablecolor2'); ?></div>
-							<div class="field"><?php echo $this->form->getInput('tablecolor2'); ?></div>
+							<div class="fieldlabel">
+								<label id="jform_tablecolor2-lbl" for="jform_tablecolor2" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR2_DESC');?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR2_LABEL');?>"><?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR2_LABEL');?></label>
+							</div>
+							<div class="field">
+								<?php echo $this->form->getInput('tablecolor2'); ?><div id="tablecolor2" style='cursor: text;border-radius: 3px;border: 1px solid rgb(204, 204, 204);padding: 3px;width: 100px;float: left;margin-left: 5px;background-color:#<?php echo $this->item->tablecolor2;?>'><?php echo JText::_('COM_EVENTTABLEEDIT_DATATYPE_TEXT');?></div><div style="margin-left: 5px;float: left;">(<?php echo JText::_('COM_EVENTTABLEEDIT_STANDARD_VALUE')?>: #FFFFFF)</div>
+							</div>
 						</li>
 						<li>
 							<div class="fieldlabel"><?php echo $this->form->getLabel('cellbreak'); ?></div>
@@ -516,19 +549,79 @@ display: none;
 /* margin-left: 10px;
 left: 800px!important; */
 }
+
+#jform_tablecolor2, #jform_tablecolor1, #jform_dateformat, #jform_timeformat{
+	    width: 90px;
+    float: left;
+}
+.minicolors{
+	float:left;
+}
+
+.modal{
+	width: 50%!important;
+	left: 0!important;
+	right: 0!important;
+	margin: 0 auto!important;
+	top: 20%!important;
+	display: none;
+}
 </style>
+<div id="popup_overlay"></div>
 <script>
 jQuery(document).ready(function(){
-if(jQuery("#jform_scroll_table").val() == 1){
-jQuery("#scroll_table_height").show();
-}
-jQuery("#jform_scroll_table").change(function(){
-if(jQuery(this).val() == 1){
-jQuery("#scroll_table_height").show();
-}else{
-jQuery("#scroll_table_height").hide();
-}
-})
+	if(jQuery("#jform_scroll_table").val() == 1){
+	jQuery("#scroll_table_height").show();
+	}
+	jQuery("#jform_scroll_table").change(function(){
+	if(jQuery(this).val() == 1){
+	jQuery("#scroll_table_height").show();
+	}else{
+	jQuery("#scroll_table_height").hide();
+	}
+	})
+	
+	jQuery("#jform_tablecolor1").on('focusout',function(){
+		
+		var d = jQuery(this).val();
+		
+		jQuery("#tablecolor1").css("background-color",d);
+	});
+	jQuery("#jform_tablecolor2").on('focusout',function(){
+		
+		var d = jQuery(this).val();
+		
+		jQuery("#tablecolor2").css("background-color",d);
+	});
+	
+	jQuery( "#jform_dateformat_modal" ).on('shown.bs.modal', function(){
+		jQuery( "#jform_dateformat_modal" ).find('.modal-body input').val(jQuery("#jform_dateformat").val());
+	});
+	jQuery("#jform_dateformat_modal .modal-footer button.btn.save").on('click',function(){
+		jQuery("#jform_dateformat").val(jQuery("#dateformat_popup").val());
+		
+		var d = new Date('2018-12-24T12:00');
+		var format = jQuery("#dateformat_popup").val();
+		var format = format.replace("%Y", d.getFullYear());
+		var format = format.replace("%m", (d.getMonth()+1));
+		var format = format.replace("%d", d.getDate());
+		jQuery("#date_format").html(format);
+		jQuery('#jform_dateformat_modal').modal('hide')
+	})
+	jQuery( "#jform_timeformat_modal" ).on('shown.bs.modal', function(){
+		jQuery( "#jform_timeformat_modal" ).find('.modal-body input').val(jQuery("#jform_timeformat").val());
+	});
+	jQuery("#jform_timeformat_modal .modal-footer button.btn.save").on('click',function(){
+		jQuery("#jform_timeformat").val(jQuery("#timeformat_popup").val());
+		
+		var d = new Date('2018-12-24T12:00');
+		var format = jQuery("#timeformat_popup").val();
+		var format = format.replace("%H", d.getHours());
+		var format = format.replace("%M", (d.getMinutes()<10?'0':'') + d.getMinutes());
+		jQuery("#time_format").html(format)
+		jQuery('#jform_timeformat_modal').modal('hide')
+	})
+	
 })
 </script>
 <div class="clr"></div>

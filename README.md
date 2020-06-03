@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-**Download latest version 4.8.2** (release date: 05.02.2020): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+**Download latest version 4.8.3** (release date: 03.06.2020): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -75,6 +75,14 @@ Please post all feature requests in the issues tab.
 
 
 ## II Version history
+**For version 4.8.3:**
+
+[1] Normal mode
+- enhancement: Backend: Style tab: show example result for date format and time format and colors on mouseover https://github.com/Theophilix/event-table-edit/issues/57
+- enhancement: Frontend: Shorten long text in cells with css overflow: hidden and text-overflow: ellipsis https://github.com/Theophilix/event-table-edit/issues/137
+- bugfix: Frontend: Frontend: Layout: Layout problems with checkbox list in column toggle mode https://github.com/Theophilix/event-table-edit/issues/163
+- bugfix: Frontend: Dropdowns don't work https://github.com/Theophilix/event-table-edit/issues/166
+- bugfix: Frontend: UX: Put the typing focus on popup, so user can type directly https://github.com/Theophilix/event-table-edit/issues/167
 
 
 **For version 4.8.2:**

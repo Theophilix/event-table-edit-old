@@ -444,7 +444,7 @@
 		/>
 		
 		<field name="tablecolor1" 
-			type="text"
+			type="color"
 			class="inputbox"
 			label="COM_EVENTTABLEEDIT_TABLECOLOR1_LABEL"
 			description="COM_EVENTTABLEEDIT_TABLECOLOR1_DESC"
@@ -452,7 +452,7 @@
 		/>
 		
 		<field name="tablecolor2" 
-			type="text"
+			type="color"
 			class="inputbox"
 			label="COM_EVENTTABLEEDIT_TABLECOLOR2_LABEL"
 			description="COM_EVENTTABLEEDIT_TABLECOLOR2_DESC"

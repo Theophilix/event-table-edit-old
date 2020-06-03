@@ -41,6 +41,7 @@ class EventtableeditViewEtetable extends JViewLegacy
 		$user				= JFactory::getUser();
 		$this->state		= $this->get('State');
 		$this->item			= $this->get('Item');
+			
 		
 		// Check for errors.
 		if (!$this->checkError()) return false;

@@ -124,10 +124,11 @@ BuildPopupWindow.prototype.addDefaultElements = function() {
 		this.addToolTip();
 	}
 	this.addButtons(popupDivId);
-	
+	document.getElementById("etetable-inputfield").focus();
 	// At the delete popup there's no inputfield
 	try {
 		$('#etetable-inputfield').focus();
+		document.getElementById("etetable-inputfield").focus();
 	} catch(e) {}
 
 	// Add Keyboard controls if type is not text
@@ -266,8 +267,10 @@ BuildPopupWindow.prototype.dateWindow = function() {
  * Window for managing dropdown fields
  */
 BuildPopupWindow.prototype.dropDownWindow = function() {
+	
 	// Get the dropdown
 	var drop = dropdowns.getDropdownById(this.dropdownId);
+	
 	var option = [];
 	var selectedIndex = 0;
 	
@@ -282,15 +285,18 @@ BuildPopupWindow.prototype.dropDownWindow = function() {
 		'id'	: 'etetable-dropdownName',
 		'text'	: drop.name 
 	});
-	name.inject($('popupForm'));
 	
+	//name.inject($('popupForm'));
+	$('popupForm').append(name)
 	var select = new Element('select', {
 		'id'	: 'etetable-inputfield',
 		'name'	: 'etetableDropdown'
 	});
 	
 	//Insert empty first option
-	option[0] = new Element('option');
+	option[0] = new Element('option', {
+		  'text': lang.dropdownOption
+	  });
 	select.append(option[0]);
 	
 	// Insert the options
@@ -306,9 +312,11 @@ BuildPopupWindow.prototype.dropDownWindow = function() {
 	  select.append(option[a+1]);
 	}
 	
+	
 	$('#popupForm').append(select);
-	$('#popupForm').etetableDropdown.options[selectedIndex].selected = true;
 
+	//$('#popupForm').etetableDropdown.options[selectedIndex].selected = true;
+	$($('select[name=etetableDropdown] option')[selectedIndex]).attr('selected', 'selected');
 	return true;
 }
  
@@ -499,6 +507,8 @@ BuildPopupWindow.prototype.checkData = function() {
 			return this.checkMail();
 		case 'link':
 			return this.checkLink();
+		case 'dropdown':
+			return this.checkDropdown();
 	}
 	
 	return true;
@@ -579,6 +589,15 @@ BuildPopupWindow.prototype.checkLink = function() {
 	return true;
 }
 
+BuildPopupWindow.prototype.checkDropdown = function() {
+	var parsed = this.inputValue;
+	if (parsed == "" || parsed == lang.dropdownOption) {
+		return false;
+	}
+	this.inputValue = parsed;
+	return true;
+}
+
 
 
 function isURL(str) {
@@ -600,7 +619,8 @@ BuildPopupWindow.prototype.sendData = function() {
 	
 	// Handle dropdowns
 	if (self.datatype == "dropdown") {
-		self.inputValue = $('#etetable-inputfield').options[$('etetable-inputfield').selectedIndex].text;
+		//self.inputValue = $('#etetable-inputfield').options[$('etetable-inputfield').selectedIndex].text;
+		self.inputValue = $('select[name=etetableDropdown]').val();
 	}
 	
 	var url = 'index.php?option=com_eventtableedit' +

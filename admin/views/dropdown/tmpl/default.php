@@ -28,9 +28,12 @@ JHtml::_('behavior.tooltip');
 	<div class="">
 		<fieldset class="adminform">
 			<legend><?php echo empty($this->item->id) ? JText::_('COM_EVENTTABLEEDIT_NEW_DROPDOWN') : JText::sprintf('COM_EVENTTABLEEDIT_EDIT_DROPDOWN', $this->item->id); ?></legend>
-				<ul class="adminformlist">
-				<li><?php echo $this->form->getLabel('name'); ?>
-				<?php echo $this->form->getInput('name'); ?></li>
+				<ul class="adminformlist" style="width: 50%;">
+				<!--<li><?php echo $this->form->getLabel('name'); ?>
+				<?php echo $this->form->getInput('name'); ?></li>-->
+				<li><label id="jform_name-lbl" for="jform_name" class="hasPopover required" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_NAME_DESC');?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_NAME_LABEL');?>"><?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_NAME_LABEL');?><span class="star">&nbsp;*</span></label>
+								<input type="text" name="jform[name]" id="jform_name" value="<?php echo str_replace("dpd_","",$this->item->name);?>" class="inputbox required" size="30" required="" aria-required="true">
+				</li>
 				
 				<li><?php echo $this->form->getLabel('published'); ?>
 				<?php echo $this->form->getInput('published'); ?></li>

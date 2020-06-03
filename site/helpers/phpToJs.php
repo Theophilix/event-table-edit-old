@@ -39,6 +39,7 @@ function TableProperties() {
 	var orderTemp 	= '<?php echo $this->additional['ordering']; ?>';
 	this.ordering	= orderTemp.split('|');
 	
+	
 	this.table 		= $('#etetable-table');
 	this.myTable 	= this.table[0];
 }
@@ -91,6 +92,7 @@ function Language() {
 	this.clear				  = '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_CLEAR'); ?>';
 	this.saveOrder			  = '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_SAVE_ORDER'); ?>';
 	this.deleteRow			  = '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_DELETE_ROW'); ?>';
+	this.dropdownOption			= '<?php echo JText::_("COM_EVENTTABLEEDIT_DROPDOWN_INFOTEXT");?>';
 }
 
 Language.prototype.getToolTip = function(datatype) {

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<extension type="component" version="4.8.2" method="upgrade">
+<extension type="component" version="4.8.3" method="upgrade">
 	<name>com_eventtableedit</name>
-	<creationDate>05-02-2020</creationDate>
+	<creationDate>03-06-2020</creationDate>
 	<author>Manuel Kaspar and Theophilix</author>
 	<license>GNU/GPL</license>
 	<copyright>2007 - 2020 Manuel Kaspar and Theophilix</copyright>
 	<authorEmail>webmaster@eventtableedit.com</authorEmail>
 	<authorUrl>http://www.eventtableedit.com</authorUrl>
-	<version>4.8.2</version>
+	<version>4.8.3</version>
 	<description>COM_EVENTTABLEEDIT_DESCRIPTION</description>
 
 	<scriptfile>script.php</scriptfile>

@@ -183,6 +183,8 @@ class EventtableeditModelDropdown extends JModelAdmin {
 		$pk			= (!empty($data['id'])) ? $data['id'] : (int)$this->getState($this->getName().'.id');
 		$isNew		= true;
 		
+		$data['name']	=	'dpd_' . $data['name'];
+		
 		// Include the content plugins for the on save events.
 		JPluginHelper::importPlugin('content');
 

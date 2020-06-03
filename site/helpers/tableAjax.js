@@ -15,7 +15,6 @@ window.addEvent('load', function() {
 	tableProperties = new TableProperties();
 	others = new Others();
 	lang = new Language();
-
 	// Add the linecolors
 	if (tableProperties.nmbCells != 0) {
 		BuildPopupWindow.prototype.updateAllLineColors();

@@ -226,10 +226,12 @@ class EventtableeditModelChangetable extends JModelList
 			$this->db->execute();
 			$new_datatype = $this->db->loadObject()->datatype;
 			
-			$map_datatype = $new_datatype = $this->delete_all_between('(',')',strtoupper(Datatypes::mapDatatypes($datatype)));
+			$map_datatype = $this->delete_all_between('(',')',strtoupper(Datatypes::mapDatatypes($datatype)));
+
 			if(strtoupper($new_datatype) != $map_datatype){
 				
 				$query .= 'CHANGE head_' . $newId . ' head_' . $newId . ' ' . Datatypes::mapDatatypes($datatype);
+				echo $query . '<br>';
 				$this->db->setQuery($query);
 				$this->db->query();
 				
