@@ -129,81 +129,10 @@
 
  
 
- #etetable-table {
-
- 	width: 100%;
-
- 	font-size: 12px;
-
- 	border-collapse: collapse;
-
- }
 
  
 
- #etetable-table td {
-
- 	padding: 2px;
-
- }
-
- 
-
- #etetable-table td:hover {
-
- 	background-color: #F4F4F4;
-
- }
-
- 
-
- #etetable-table th {
-
- 	font-weight: bold;
-text-align: center;
- 	padding-left: 3px !important;
-
- 	padding-right: 3px !important;
-
- }
-
- 
-
- #etetable-table thead tr {
-
- 	border: none;
-
- }
-
- 
-
- #etetable-table th a {
-
- 	font-weight: bold;
-
- }
-
- 
-
- #etetable-table tr td {
- 	text-align: center;
- 	border: 1px solid #DDDDDD;
-	overflow: hidden;
- }
-
- 
-
- #etetable-table #first_row {
-
- 	font-weight: bold;
-
- 	width: 8px;
-
- }
-
- 
-
- #etetable-add,#etetable-add1 {
+.etetable-add, #etetable-add,#etetable-add1 {
 
  	float: left;
 
@@ -351,13 +280,6 @@ margin-bottom:0;
 
  
 
- #etetable-table th a, #etetable-table th a:link, #etetable-table th a:visited {
-
- 	color: #444444 !important;
-
- 	text-decoration: none;
-
- }
 
  
 
@@ -417,25 +339,6 @@ margin-bottom:0;
 
  /* Table footer */
 
- #etetable-table tfoot td {
-
- 	text-align: center;
-
- 	background-color: #F4F4F4;
-
- 	font-size: 0.9em;
-
- }
-
- 
-
- #etetable-table #container {
-
- 	clear: both;
-
- 	text-align: center;
-
- }
 
  
 
@@ -451,153 +354,6 @@ margin-bottom:0;
 
  
 
- #etetable-table .pagination-start, #etetable-table .pagination-prev {
-
- 	background: url("../images/pagination/j_button2_right.png") no-repeat scroll 100% 0 transparent;
-
-    float: left;
-
-    margin-left: 5px;
-
-    margin-right: 10px;
-
- }
-
- 
-
- #etetable-table .pagination-end, #etetable-table .pagination-next {
-
- 	background: url("../images/pagination/j_button2_left.png") no-repeat scroll 0 0 transparent;
-
-    float: left;
-
-    margin-left: 5px;
-
-    margin-right: 10px;
-
- }
-
- 
-
- #etetable-table .pagination-prev .pagenav, #etetable-table .pagination-start .pagenav {
-
- 	  padding: 0 6px 0 24px;
-
- 	  display: block;
-
- 	  height: 22px;
-
- 	  line-height: 22px;
-
- }
-
- 
-
- #etetable-table a.pagenav {
-
- 	text-decoration: none;
-
- }
-
- 
-
- #etetable-table .pagination {
-
- 	/*float: left;*/
-
- 	padding-top: 3px;
-
- }
-
- 
-
- #etetable-table .pagination-prev {
-
- 	margin-right: 5px;
-
- }
-
- 
-
- #etetable-table .pagination-next .pagenav, #etetable-table .pagination-end .pagenav {
-
- 	padding: 0 24px 0 6px;
-
- 	text-decoration: none;
-
-	display: block;
-
-	height: 22px;
-
-	line-height: 22px;
-
-	float: left;
-
- }
-
- 
-
- #etetable-table .pagination-start .pagenav {
-
- 	background: url("../images/pagination/j_button2_first_off.png") no-repeat scroll 0 0 transparent;
-
- }
-
- 
-
- #etetable-table .pagination-prev .pagenav {
-
- 	background: url("../images/pagination/j_button2_prev_off.png") no-repeat scroll 0 0 transparent;
-
- }
-
- 
-
- #etetable-table .pagination-start a.pagenav {
-
- 	background: url("../images/pagination/j_button2_first.png") no-repeat scroll 0 0 transparent;
-
- }
-
- 
-
- #etetable-table .pagination-prev a.pagenav {
-
- 	background: url("../images/pagination/j_button2_prev.png") no-repeat scroll 0 0 transparent;
-
- }
-
- 
-
- #etetable-table .pagination-next .pagenav {
-
- 	background: url("../images/pagination/j_button2_next_off.png") no-repeat scroll 100% 0 transparent;
-
- }
-
- 
-
- #etetable-table .pagination-end .pagenav {
-
- 	background: url("../images/pagination/j_button2_last_off.png") no-repeat scroll 100% 0 transparent;
-
- }
-
- 
-
- #etetable-table .pagination-next a.pagenav {
-
- 	background: url("../images/pagination/j_button2_next.png") no-repeat scroll 100% 0 transparent;
-
- }
-
- 
-
- #etetable-table .pagination-end a.pagenav {
-
- 	background: url("../images/pagination/j_button2_last.png") no-repeat scroll 100% 0 transparent;
-
- }
 
  
 
@@ -1356,9 +1112,7 @@ text-decoration: none;
 	list-style: none;
 	margin: 0;
 }
-#etetable-table tbody td{
-	font-size: 9pt !important;
-}
+
 
 .input-append.filterstext {
     margin-left: 4px;
@@ -1456,3 +1210,31 @@ td.disabled, span.disabled {
     text-overflow: ellipsis;
     max-width: 80px;
 }
+
+#etetable-table {width: 100%;font-size: 12px;border-collapse: collapse;}
+#etetable-table td {padding: 2px;}
+#etetable-table td:hover {background-color: #F4F4F4;}
+#etetable-table th {font-weight: bold;text-align: center;padding-left: 3px !important;padding-right: 3px !important;}
+#etetable-table thead tr {border: none;}
+#etetable-table th a {font-weight: bold;}
+#etetable-table tr td {text-align: center;border: 1px solid #DDDDDD;overflow: hidden;}
+#etetable-table #first_row {font-weight: bold;width: 8px;}
+#etetable-table th a, #etetable-table th a:link, #etetable-table th a:visited {color: #444444 !important;text-decoration: none;}
+#etetable-table tfoot td {text-align: center;background-color: #F4F4F4;font-size: 0.9em;}
+#etetable-table #container {clear: both;text-align: center;}
+#etetable-table .pagination-start, #etetable-table .pagination-prev {background: url("../images/pagination/j_button2_right.png") no-repeat scroll 100% 0 transparent;float: left;margin-left: 5px;margin-right: 10px;}
+#etetable-table .pagination-end, #etetable-table .pagination-next {background: url("../images/pagination/j_button2_left.png") no-repeat scroll 0 0 transparent;float: left;margin-left: 5px;margin-right: 10px;}
+#etetable-table .pagination-prev .pagenav, #etetable-table .pagination-start .pagenav {padding: 0 6px 0 24px;display: block;height: 22px;line-height: 22px;}
+#etetable-table a.pagenav {text-decoration: none;}
+#etetable-table .pagination {/*float: left;*/padding-top: 3px;}
+#etetable-table .pagination-prev {margin-right: 5px;}
+#etetable-table .pagination-next .pagenav, #etetable-table .pagination-end .pagenav {padding: 0 24px 0 6px;text-decoration: none;display: block;height: 22px;line-height: 22px;float: left;}
+#etetable-table .pagination-start .pagenav {background: url("../images/pagination/j_button2_first_off.png") no-repeat scroll 0 0 transparent;}
+#etetable-table .pagination-prev .pagenav {background: url("../images/pagination/j_button2_prev_off.png") no-repeat scroll 0 0 transparent;}
+#etetable-table .pagination-start a.pagenav {background: url("../images/pagination/j_button2_first.png") no-repeat scroll 0 0 transparent;}
+#etetable-table .pagination-prev a.pagenav {background: url("../images/pagination/j_button2_prev.png") no-repeat scroll 0 0 transparent;}
+#etetable-table .pagination-next .pagenav {background: url("../images/pagination/j_button2_next_off.png") no-repeat scroll 100% 0 transparent;}
+#etetable-table .pagination-end .pagenav {background: url("../images/pagination/j_button2_last_off.png") no-repeat scroll 100% 0 transparent;}
+#etetable-table .pagination-next a.pagenav {background: url("../images/pagination/j_button2_next.png") no-repeat scroll 100% 0 transparent;}
+#etetable-table .pagination-end a.pagenav {background: url("../images/pagination/j_button2_last.png") no-repeat scroll 100% 0 transparent;}
+#etetable-table tbody td{font-size: 9pt !important;}

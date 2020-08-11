@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-**Download latest version 4.8.3** (release date: 03.06.2020): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+**Download latest version 4.8.4** (release date: 12.08.2020): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -27,6 +27,7 @@ Version history: scroll down to "II".
 - CSV Export
 - XML import and export: import and export a table (normal or appointment) with all settings
 - Own CSS based template
+- Display two or more tables in an article (since 4.8.4)
 
 Frontend view options:
 - Sort columns (setting in rights management)
@@ -56,7 +57,7 @@ a) General
 - Enable automatic column sorting when table is loaded
 - Use Metadata
 - Enhanced SEO
-- Support BB-Code
+- Support for BB-Code (including emoticons and option to censor offensive words, more info: https://github.com/milesj/decoda)
 
 b) Layout / Style
 
@@ -75,6 +76,15 @@ Please post all feature requests in the issues tab.
 
 
 ## II Version history
+**For version 4.8.4:**
+
+[1] Normal mode
+- enhancement: Frontend: Update bbcode parser https://github.com/Theophilix/event-table-edit/issues/136
+- enhancement: Frontend: Add multiple ETE tables to a Joomla page (perhaps with squared brackets [ETE_Tablename]?)https://github.com/Theophilix/event-table-edit/issues/160
+- bugfix: Frontend: Keep chosen layout when sorting columns https://github.com/Theophilix/event-table-edit/issues/164
+- bugfix: Frontend: Cursor not at the end of popup value in cells with text or date https://github.com/Theophilix/event-table-edit/issues/169
+- bugfix: Backend: Layout: Improve layout https://github.com/Theophilix/event-table-edit/issues/168
+
 **For version 4.8.3:**
 
 [1] Normal mode

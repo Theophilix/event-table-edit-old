@@ -34,8 +34,12 @@ class EventtableeditModelEtetable extends JModelList
 		$this->setState('params', $params);
 		$this->params = $params;
 		$main  		 = $app->input;
-		$this->id    = $main->getInt('id', '');
-
+		if($main->getInt('table_id', '')){
+			$pk    = $main->getInt('table_id', '');
+		}else{
+			$pk    = $main->getInt('id', '');
+		}
+		
 		$this->filter = '';
 		
 		$this->setState('is_module', 0);
@@ -49,7 +53,11 @@ class EventtableeditModelEtetable extends JModelList
 
 		$app   = JFactory::getApplication('site');
 		$main  = $app->input;
-		$pk    = $main->getInt('id', '');
+		if($main->getInt('table_id', '')){
+			$pk    = $main->getInt('table_id', '');
+		}else{
+			$pk    = $main->getInt('id', '');
+		}
 
 		if ($pk == '') {
 			$pk = $this->id;
@@ -57,14 +65,15 @@ class EventtableeditModelEtetable extends JModelList
 		$this->setState('etetable.id', $pk);
 		
 		// filter.order
-		$this->setState('list.ordering', $app->getUserStateFromRequest($pk . '.filter_order', 'filter_order', 'a.ordering', 'string'));
-		$this->setState('list.direction', $app->getUserStateFromRequest($pk . '.filter_order_Dir',	'filter_order_Dir', 'asc', 'cmd'));
+		$this->setState($pk . 'list.ordering', $app->getUserStateFromRequest($pk . '.filter_order', 'filter_order', 'a.ordering', 'string'));
+		$this->setState($pk . 'list.direction', $app->getUserStateFromRequest($pk . '.filter_order_Dir',	'filter_order_Dir', 'asc', 'cmd'));
 
 
-		$this->setState('filterstring', $app->getUserStateFromRequest($pk . '.filterstring', 'filterstring', '', 'string'));
-		$this->setState('filterstring1', $app->getUserStateFromRequest($pk . '.filterstring1', 'filterstring1', '', 'string'));
+		$this->setState($pk . 'filterstring', $app->getUserStateFromRequest($pk . '.filterstring', 'filterstring', '', 'string'));
+		$this->setState($pk . 'filterstring1', $app->getUserStateFromRequest($pk . '.filterstring1', 'filterstring1', '', 'string'));
 
-		$this->setState('list.start',$main->getInt('limitstart', '0'));
+		//$this->setState('list.start',$main->getInt('limitstart', '0'));
+		$this->setState($pk . 'list.start',$app->getUserStateFromRequest($pk . '.limitstart', 'limitstart', '', 'string'));
 	}
 	
 	/**
@@ -275,10 +284,11 @@ class EventtableeditModelEtetable extends JModelList
 				if (count($defSort)) {
 					$this->defaultSorting = implode(', ', $defSort);
 				}
-
+				
 				return $this->heads;
 			}
 			catch (JException $e) {
+				
 				$this->setError($e);
 				return false;
 			}
@@ -344,9 +354,10 @@ class EventtableeditModelEtetable extends JModelList
 	 public function getRows() {
 	 	try {
 			$data = array();
-			
+			$tid = (int) $this->state->get('etetable.id');
 	 		$query = $this->getRowsQuery();
-	 		$data['rows'] = $this->_getList( $query, $this->getState('list.start'), $this->getState('list.limit') );
+			
+	 		$data['rows'] = $this->_getList( $query, $this->getState($tid . 'list.start'), $this->getState($tid . 'list.limit') );
 			
 			if (empty($data['rows'])) {
 				$data['rows'] = null;
@@ -362,6 +373,7 @@ class EventtableeditModelEtetable extends JModelList
 			return $data;
 		}
 		catch (JException $e) {
+			
 			$this->setError($e);
 			return false;
 		}
@@ -372,9 +384,10 @@ class EventtableeditModelEtetable extends JModelList
 	  */
 	 protected function getRowsQuery() {
 	 	// Add the list ordering clause.
-		$orderCol	= $this->state->get('list.ordering');
-	 	$orderDirn	= $this->state->get('list.direction');	
- 		$tid = (int) $this->state->get('etetable.id');
+		$tid = (int) $this->state->get('etetable.id');
+		$orderCol	= $this->state->get($tid . 'list.ordering');
+	 	$orderDirn	= $this->state->get($tid . 'list.direction');	
+ 		
  		
 		
 		
@@ -392,8 +405,8 @@ class EventtableeditModelEtetable extends JModelList
 			//$order_dir = explode(",",$this->_item->automate_sort_column);
 			//$orderCol = $order_dir[0]; $orderDirn = $order_dir[1]; 
 		}
-		
-		$query->order($orderCol.' '.$orderDirn);
+		if($orderCol && $orderDirn)
+			$query->order($orderCol.' '.$orderDirn);
 			
 		// Filter
 		$filter = $this->filterRows();
@@ -404,7 +417,7 @@ class EventtableeditModelEtetable extends JModelList
 			$query->where($ex[0]);
 			$query->where($ex[1]);
 		}
-		
+		//echo $query."<br>";//die;
 		return $query;
 	 }
 	 
@@ -589,7 +602,8 @@ class EventtableeditModelEtetable extends JModelList
 	/**
 	 * Creates a new row through an Ajax-Request
 	 */
-	public function newRow() {
+	public function newRow($tableId=0) {
+		$this->id = $tableId;
 		//Get userid to store, who saved the row
 		$user   = JFactory::getUser();
 		$uid    = $user->get('id');
@@ -630,9 +644,9 @@ class EventtableeditModelEtetable extends JModelList
 	 * @param int $rowId The id of the row
 	 * @param int $cell The number of the edited cell 
 	 */
-	public function getCell($rowId, $cell) {
+	public function getCell($tableId=0, $rowId, $cell) {
 		$ret = array();
-		
+		$this->id = $tableId;
 		$colName = $this->getColumnInfo($cell);
 		if($table = $this->checkAppointmentAndSession()){
 			$query = 'SELECT ' . $colName['head'] . ' AS content FROM #__eventtableedit_rows_' . $table .
@@ -675,7 +689,7 @@ class EventtableeditModelEtetable extends JModelList
 			$query = 'SELECT ' . $colName['head'] . ' AS content FROM #__eventtableedit_rows_' . $this->id .
 				 ' WHERE id = ' . $rowId;
 		}
-		//echo $query;
+		//echo $query;die;
 		$this->db->setQuery($query);
 		$cell = $this->db->loadResult();
 		//$breaks = array("<br />","<br>","<br/>");  
@@ -693,7 +707,8 @@ class EventtableeditModelEtetable extends JModelList
 		return implode('|', $ret);
 	}
 	
-	public function saveCell($rowId, $cell, $content) {
+	public function saveCell($rowId, $cell, $content, $tableId=0) {
+		$this->id = $tableId;
 		// Get datatype and column name
 		$colInfo = $this->getColumnInfo($cell);
 		$datatype = $colInfo['datatype'];
@@ -759,7 +774,8 @@ class EventtableeditModelEtetable extends JModelList
 	/**
 	 *  Delete a row from the database
 	 */
-	public function deleteRow($rowId) {
+	public function deleteRow($rowId, $tableId=0) {
+		$this->id = $tableId;
 		$query = 'DELETE FROM #__eventtableedit_rows_' . $this->id .
 				 ' WHERE id = ' . $rowId;
 		$this->db->setQuery($query);
@@ -791,18 +807,21 @@ class EventtableeditModelEtetable extends JModelList
 					' ORDER BY a.ordering ASC' .
 					' LIMIT ' . $cell . ', 1';
 		}
-		//echo $colQuery;
+		//echo $colQuery;die;
 		$this->db->setQuery($colQuery);
 		
 		return $this->db->loadAssoc();
 	}
 	
-	public function saveOrder($rowIds, $order) {
+	public function saveOrder($rowIds, $order, $id = null) {
+		if($id){
+			$this->id = $id;
+		}
 		for ($a = 0; $a < count($rowIds); $a++) {
 			$query = 'UPDATE #__eventtableedit_rows_' . $this->id .
 					 ' SET ordering = ' . $order[$a] .
 					 ' WHERE id = ' . $rowIds[$a];
-			//echo $query;
+			
 			$this->db->setQuery($query);
 			$this->db->query();		 
 		}
@@ -838,6 +857,7 @@ class EventtableeditModelEtetable extends JModelList
 		$query = 'SELECT * ' .
 				 ' FROM #__eventtableedit_details' .
 				 ' WHERE id = ' . $this->id;
+		
 		$this->db->setQuery($query);
 		$table = $this->db->loadObject();
 		if($table->normalorappointment){

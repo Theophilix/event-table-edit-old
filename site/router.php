@@ -75,7 +75,7 @@ function EventTableEditParseRoute($segments)
 	$app	= JFactory::getApplication();
 	$menu	= $app->getMenu();
 	$item	= $menu->getActive();
-
+	
 	//Handle View and Identifier
 	switch($segments[0])
 	{
@@ -84,12 +84,14 @@ function EventTableEditParseRoute($segments)
 			$vars['view'] = 'changetable';
 			
 			$val = explode(':', $segments[1]);
-				$vars['id'] = $val[0];
+			$vars['id'] = $val[0];
 		} break;
 		case 'etetable':
 		case 'eventtableedit':
 		{
 			$vars['view'] = 'etetable';
+			if(isset($segments[1]))
+				$vars['id'] = $segments[1];
 		} break;
 		case 'appointments':
 		{

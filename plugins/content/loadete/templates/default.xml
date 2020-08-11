@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+  <layout title="COM_EVENTTABLEEDIT_ETETABLE_VIEW_DEFAULT_TITLE">
+    <message>
+      <![CDATA[COM_EVENTTABLEEDIT_ETETABLE_VIEW_DEFAULT_DESC]]>
+    </message>
+  </layout>
+  
+  <fields name="request">
+  	<fieldset name="request"
+			addfieldpath="/administrator/components/com_eventtableedit/models/fields"
+	>
+		<field
+            name="id"
+            type="tablenumber"
+           	label="COM_EVENTTABLEEDIT_TABLE_NUMBER_LABEL"
+			description="COM_EVENTTABLEEDIT_TABLE_NUMBER_DESC"
+      required="true"
+        />
+	</fieldset>
+  </fields>
+</metadata>

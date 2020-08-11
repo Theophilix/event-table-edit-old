@@ -41,7 +41,7 @@ class EventtableeditViewEtetable extends JViewLegacy
 		$user				= JFactory::getUser();
 		$this->state		= $this->get('State');
 		$this->item			= $this->get('Item');
-			
+		$this->unique = "ETE_" . $this->item->alias . "_" . rand(0,999);
 		
 		// Check for errors.
 		if (!$this->checkError()) return false;
@@ -200,7 +200,7 @@ class EventtableeditViewEtetable extends JViewLegacy
 		if ($this->print) {
 			$this->preparePrintView();
 		} else {
-			require_once JPATH_COMPONENT.'/helpers/phpToJs.php';
+			/* require_once JPATH_COMPONENT.'/helpers/phpToJs.php';
 			$doc = JFactory::getDocument();
 			$this->document->addScriptDeclaration('
 													var newest = "'.JText::_('COM_EVENTTABLEEDIT_NEWEST').'";
@@ -212,8 +212,28 @@ class EventtableeditViewEtetable extends JViewLegacy
 			
 			
 			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/helpers/tableAjax.js');
-			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/helpers/popup.js?v4');
+			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/helpers/popup.js?v4'); */
 		//	$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/jquery.js');
+		
+			$script = "function initClickEvent(){";
+			$script .= "initClickEvent_" . $this->unique . "();";
+			$script .= "}";
+			$this->document->addScriptDeclaration($script);
+			
+			
+			require JPATH_SITE.'/plugins/content/loadete/phpToJs.php';
+			$doc = JFactory::getDocument();
+			$this->document->addScriptDeclaration('
+													var newest = "'.JText::_('COM_EVENTTABLEEDIT_NEWEST').'";
+													var oldest = "'.JText::_('COM_EVENTTABLEEDIT_OLDEST').'";
+													var unique = "'.$this->unique.'";
+													
+													');
+			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw.js?v3');
+			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw-init.js');
+			
+			require JPATH_SITE.'/plugins/content/loadete/tableAjax.php';
+			require_once JPATH_SITE.'/plugins/content/loadete/popup.php';
 		
 		}
 	}

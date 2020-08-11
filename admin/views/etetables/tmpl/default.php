@@ -84,6 +84,9 @@ $listDirn	= $this->state->get('list.direction');
 				<th>
 					<?php echo JHtml::_('grid.sort',  'COM_EVENTTABLEEDIT_FIELD_COL', 'a.col', $listDirn, $listOrder); ?>
 				</th>
+				<th>
+					<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_SHORTCODE'); ?>
+				</th>
 				<th width="15%">
 					<?php echo JText::_('JGRID_HEADING_LAST_UPDATE'); ?>
 				</th>
@@ -130,12 +133,11 @@ $listDirn	= $this->state->get('list.direction');
 					<?php endif; ?>
 					<?php if ($canEdit) : ?>
 						<a href="<?php echo JRoute::_('index.php?option=com_eventtableedit&task=etetable.edit&id='.(int) $item->id); ?>">
-							<?php echo $this->escape($item->name); ?></a>
+							<?php echo $this->escape($item->name); ?></a> <?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
 					<?php else : ?>
-						<?php echo $this->escape($item->name); ?>
+						<?php echo $this->escape($item->name); ?> <?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
 					<?php endif; ?>
-					<p class="smallsub">
-						<?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?></p>
+					
 				</td>
 				<td align="center">
 					<?php  if($item->normalorappointment == 0){
@@ -150,6 +152,9 @@ $listDirn	= $this->state->get('list.direction');
 				<td align="center">
 						<?php if($item->col > 0){echo $item->col;} ?>
 				</td>
+				<td align="center">
+					{ETE <?php echo $item->alias; ?>}
+				</td>	
 				<td align="center">
 					<?php echo $lastUpdate; ?>
 				</td>	
@@ -185,4 +190,8 @@ $listDirn	= $this->state->get('list.direction');
 </form>
 <style>
 #system-message-container h4.alert-heading{text-transform: capitalize;}
+table .center input[type="checkbox"]{
+	margin-top: 1px;
+    vertical-align: top;
+}
 </style>

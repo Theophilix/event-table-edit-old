@@ -13,6 +13,7 @@ window.addEvent('load', function() {
 	// Initate objects
 	access = new Access();
 	tableProperties = new TableProperties();
+	//console.log(tableProperties);
 	others = new Others();
 	lang = new Language();
 	// Add the linecolors
@@ -541,7 +542,7 @@ function newRow() {
 				
 				setTimeout(function() {
 					if(isSwipe){
-						console.log("isSwipe" + isSwipe);
+						//console.log("isSwipe" + isSwipe);
 						$('select#change_mode').val('swipe');
 						$('select#change_mode').trigger('change');
 					}

@@ -9,7 +9,12 @@
  
 $listOrder	= $this->state->get('list.ordering');
 $listDirn	= $this->state->get('list.direction');
+
+
+
+
 ?>
+
 <script type="text/javascript">
 <!--
 
@@ -40,7 +45,7 @@ function TableProperties() {
 	this.ordering	= orderTemp.split('|');
 	
 	
-	this.table 		= $('#etetable-table');
+	this.table 		= $('#etetable-table<?php echo (isset($this->unique)? "_" . $this->unique:"");?>');
 	this.myTable 	= this.table[0];
 }
 

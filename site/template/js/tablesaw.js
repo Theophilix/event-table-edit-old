@@ -3657,7 +3657,7 @@ if (Tablesaw.mustard) {
 		},
 		modes: ["stack", "swipe", "columntoggle"],
 		init: function(table) {
-			console.log(table);
+			//console.log(table);
 			var $table = $(table);
 			var tblsaw = $table.data("tablesaw");
 			var ignoreMode = $table.attr(S.attributes.excludeMode);

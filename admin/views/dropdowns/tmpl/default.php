@@ -160,3 +160,10 @@ $saveOrder	= $listOrder == 'a.ordering';
 		<?php echo JHtml::_('form.token'); ?>
 	</div>
 </form>
+
+<style>
+table .center input[type="checkbox"]{
+	margin-top: 1px;
+    vertical-align: top;
+}
+<style>

@@ -19,6 +19,7 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 
 		$main  = JFactory::getApplication()->input;
 		$rowId = 	$main->getInt('rowId', '-1');
+		$tableId = 	$main->getInt('id', '-1');
 		if (!$this->aclCheck('edit') && !$this->checkAclOwnRow($rowId)) {
 			return false;
 		}
@@ -27,8 +28,9 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 		$cell    = $postget['cell'];
 		
 		//Get Model and perform action
+		
 		$model = $this->getModel('etetable');
-		$ret = $model->getCell($rowId, $cell);
+		$ret = $model->getCell($tableId, $rowId, $cell);
 		
 		echo $ret;
 		exit;
@@ -40,6 +42,7 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 	function ajaxSaveCell() {
 		$main  = JFactory::getApplication()->input;
 		$rowId = 	$main->getInt('rowId', '-1');
+		$tableId = 	$main->getInt('id', '-1');
 		if (!$this->aclCheck('edit') && !$this->checkAclOwnRow($rowId)) {
 			return false;
 		}
@@ -55,7 +58,7 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 		$current_table_settings = $db->loadobject();
 		//Get Model and perform action
 		$model = $this->getModel('etetable');
-		$data = $model->saveCell($rowId, $cell, $content);
+		$data = $model->saveCell($rowId, $cell, $content , $tableId);
 		$ret = $data[0];
 
 		if($current_table_settings->normalorappointment == 1){
@@ -118,10 +121,11 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 		if (!$this->aclCheck('add')) {
 			return false;
 		}
-		
+		$main  = JFactory::getApplication()->input;
+		$tableId = 	$main->getInt('id', '-1');
 		//Get Model and perform action
 		$model = $this->getModel('etetable');
-		$ret = $model->newRow();
+		$ret = $model->newRow($tableId);
 		
 		echo $ret;
 		exit;
@@ -132,6 +136,7 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 	 */
 	function ajaxDeleteRow() {
 		$main  = JFactory::getApplication()->input;
+		$tableId = 	$main->getInt('id', '-1');
 		$rowId = 	$main->getInt('rowId', '-1');
 
 		if (!$this->aclCheck('delete') && !$this->checkAclOwnRow($rowId)) {
@@ -141,7 +146,7 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 		
 		//Get Model and perform action
 		$model = $this->getModel('etetable');
-		$model->deleteRow($rowId);
+		$model->deleteRow($rowId, $tableId);
 		
 		exit;
 	}
@@ -152,6 +157,7 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 		}
 		$main    = JFactory::getApplication()->input;
 		$postget = $main->getArray($_POST);
+		
 		$rowIds  = $postget['rowId'];
 		$order   = $postget['order'];
 		$Itemid  = $postget['Itemid'];
@@ -162,6 +168,27 @@ class EventtableeditControllerEtetable extends JControllerLegacy
 
 		$this->setRedirect(JRoute::_('index.php?option=com_eventtableedit&view=etetable&id='.$id.'&Itemid='.$Itemid,false), 
 						   JText::_('COM_EVENTTABLEEDIT_SUCCESSFUL_REORDER'));
+	}
+	
+	
+	function ajaxSaveOrder() {
+		
+		if (!$this->aclCheck('reorder')) {
+			echo false;exit;
+		}
+		$main    = JFactory::getApplication()->input;
+		$postget = $main->getArray($_POST);
+		
+		$rowIds  = explode(',',$postget['rowId']);
+		$order   = explode(',',$postget['order']);
+		//$Itemid  = $postget['Itemid'];
+		$id      = $postget['id'];
+		
+		$model = $this->getModel('etetable');
+		
+		$model->saveOrder($rowIds, $order, $id);
+
+		echo true;exit;
 	}
 	
 	private function aclCheck($object) {

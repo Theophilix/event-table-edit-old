@@ -113,14 +113,27 @@ class eteHelper {
 
 	public static function parseText($cell, $bbcode, $bbcode_img, $link_target_p, $cellbreak) {
 		if ($bbcode) {
-			global $link_target;
-			require_once JPATH_ROOT.'/components/com_eventtableedit/helpers/bbcode.php';
-	
-			$link_target = $link_target_p;
-			$bbcode = new eteBBCode();
-			$bbcode->addbbcode($bbcode_img);
+			require JPATH_ROOT . '/components/com_eventtableedit/helpers/bb_code/vendor/autoload.php';
+			$code = new \Decoda\Decoda();
+			$code->addFilter(new \Decoda\Filter\DefaultFilter());
+			$code->addHook(new \Decoda\Hook\CensorHook());
+			$code->addFilter(new \Decoda\Filter\BlockFilter());
+			$code->addFilter(new \Decoda\Filter\EmailFilter());
+			$code->addFilter(new \Decoda\Filter\UrlFilter());
+			$code->addHook(new \Decoda\Hook\ClickableHook());
+			$code->addFilter(new \Decoda\Filter\CodeFilter());
+			$code->addHook(new \Decoda\Hook\EmoticonHook(array('path' => JURI::base() . '/components/com_eventtableedit/helpers/bb_code/emoticons/')));
 			
-			$cell = $bbcode->parsebbcode->parse($cell);
+			if($bbcode_img)
+				$code->addFilter(new \Decoda\Filter\ImageFilter());
+			
+			$code->addFilter(new \Decoda\Filter\ListFilter());
+			$code->addFilter(new \Decoda\Filter\QuoteFilter());
+			$code->addFilter(new \Decoda\Filter\TextFilter());
+			$code->addFilter(new \Decoda\Filter\VideoFilter());
+			
+			$code->reset($cell);
+			$cell	=	 $code->parse();
 		}
 		$cell = eteHelper::breakCell($cell, $cellbreak);
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="content" method="upgrade">
+	<name>plg_content_loadete</name>
+	<author>Manuel Kaspar and Theophilix</author>
+	<creationDate>15-06-2020</creationDate>
+	<copyright>2007 - 2020 Manuel Kaspar and Theophilix</copyright>
+	<license>GNU/GPL</license>
+	<authorEmail>webmaster@eventtableedit.com</authorEmail>
+	<authorUrl>http://www.eventtableedit.com</authorUrl>
+	<version>1.0.0</version>
+	<description>PLG_LOADETE_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="loadete">loadete.php</filename>
+		<filename>phpToJs.php</filename>
+		<filename>popup.php</filename>
+		<filename>tableAjax.php</filename>
+		<folder>templates</folder>
+	</files>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_content_loadete.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_content_loadete.sys.ini</language>
+		<language tag="de-DE">de-DE/de-DE.plg_content_loadete.ini</language>
+		<language tag="de-DE">de-DE/de-DE.plg_content_loadete.sys.ini</language>
+	</languages>
+	<config>
+	</config>
+</extension>
