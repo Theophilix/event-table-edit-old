@@ -20,9 +20,6 @@ class EventtableeditModelappointments extends JModelList
 	protected $db;
 	protected $id;
 
-	// Holds the filterstring standard ''
-	protected $filter;
-	protected $defaultSorting;
 	
 	public function __construct() {
 		parent::__construct();
@@ -43,9 +40,7 @@ class EventtableeditModelappointments extends JModelList
 		}else{
 			$this->option_id     = '';
 		}
-		
-		$this->filter = '';
-		
+	
 		$this->setState('is_module', 0);
 		
 		$this->db = $this->getDbo();
@@ -63,33 +58,8 @@ class EventtableeditModelappointments extends JModelList
 		}
 		$this->setState('appointments.id', $pk);
 		
-		// filter.order
-		$this->setState('list.ordering', $app->getUserStateFromRequest($pk . '.filter_order', 'filter_order', 'a.ordering', 'string'));
-		$this->setState('list.direction', $app->getUserStateFromRequest($pk . '.filter_order_Dir',	'filter_order_Dir', 'asc', 'cmd'));
-
+		
 		$this->setState('list.start', $main->getInt('limitstart', '0'));
-	}
-	
-	/**
-	 * Build the orderby for the query
-	 *
-	 * @return	string	$orderby portion of query
-	 * @since	1.5
-	 */
-	protected function _buildContentOrderBy()
-	{
-		$app	= JFactory::getApplication('site');
-		$params	= $this->state->params;
-		$itemid	= $this->getState('appointments.id');
-		$filter_order = $app->getUserStateFromRequest('com_eventtableedit.appointments.list.' . $itemid . '.filter_order', 'filter_order', '', 'string');
-		$filter_order_Dir = $app->getUserStateFromRequest('com_eventtableedit.appointments.list.' . $itemid . '.filter_order_Dir', 'filter_order_Dir', '', 'cmd');
-		$orderby = ' ';
-
-		if ($filter_order && $filter_order_Dir) {
-			$orderby .= $filter_order . ' ' . $filter_order_Dir . ', ';
-		}
-
-		return $orderby;
 	}
 	
 	/**
@@ -105,30 +75,6 @@ class EventtableeditModelappointments extends JModelList
 		}
 
 		return $this->_total;
-	}
-	
-	/**
-	 * Method to get a pagination object
-	 *
-	 * @access public
-	 * @return integer
-	 */
-	function getPagination()
-	{
-		jimport('joomla.html.pagination');
-		
-		// Load only if there are heads
-		if (!count($this->heads)) {
-			return new JPagination(0, 0, 0);
-		}
-		
-		// Lets load the content if it doesn't already exist
-		if (empty($this->_pagination))
-		{
-			$this->_pagination = new JPagination( $this->getTotal(), $this->getState('list.start'), $this->getState('list.limit') );
-		}
-
-		return $this->_pagination;
 	}
 
 	/**
@@ -177,18 +123,6 @@ class EventtableeditModelappointments extends JModelList
 			$registry = new JRegistry;
 			$registry->loadString($data->metadata);
 			$data->metadata = $registry;
-			
-			// Settings for pagination
-			// Default Pagebreak if not set
-
-			$limit = 200;
-			
-			if ($limit == '') {
-				$limit = 200;
-			}
-			
-			$limit = $app->getUserStateFromRequest('com_eventtableedit.appointments.list.' . $pk . '.limit', 'limit', $limit);
-			$this->setState('list.limit', $limit);
 			
 			$this->getACL($data);
 
@@ -263,19 +197,7 @@ class EventtableeditModelappointments extends JModelList
 					return null;
 				}
 
-				// Prepare Default Sorting
-				$defSort = array();
-				foreach ($this->heads as $row) {
-					// Prepare Default Sorting
-					if ($row->defaultSorting != '' && $row->defaultSorting != ':') {
-						$split = explode(':', $row->defaultSorting);
-						$defSort[((int) ($split[0]) - 1)] = "a." . $row->head . " " . $split[1];
-					}
-				}
-
-				if (count($defSort)) {
-					$this->defaultSorting = implode(', ', $defSort);
-				}
+				
 
 				return $this->heads;
 			}
@@ -284,59 +206,6 @@ class EventtableeditModelappointments extends JModelList
 				return false;
 			}
 		}
-	}
-	
-	/**
-	 * Get the dropdown fields used in the table
-	 */
-	public function getDropdowns() {
-		if ($this->heads === null) {
-			$this->getHeads();
-		}
-		
-		if (count($this->heads) == 0) {
-			return null;
-		}
-		
-		$ret = array();
-		$a = 0;
-		foreach($this->heads as $head) {
-			$temp = explode('.', $head->datatype);
-			
-			if ($temp[0] == 'dropdown') {
-				// Load Dropdown
-				$ret[$a]['name'] = $this->loadDropdownName($temp[1]);
-
-				// If the dropdown was deleted
-				if (!count($ret[$a]['name'])) continue;
-
-				$ret[$a]['items'] = $this->loadDropdown($temp[1]);
-				$a++;
-			}
-		}
-		
-		return $ret;
-	}
-	
-	private function loadDropdownName($id) {
-		$query = $this->db->getQuery(true);
-		$query->select('a.id, a.name');
-		$query->from('#__eventtableedit_dropdowns AS a');
-		$query->where('a.id = ' . $id);
-		
-		$this->db->setQuery($query);
-		return $this->db->loadAssoc();
-	}
-	
-	private function loadDropdown($id) {
-		$query = $this->db->getQuery(true);
-		$query->select('a.*');
-		$query->from('#__eventtableedit_dropdown AS a');
-		$query->where('a.dropdown_id = ' . $id);
-		$query->order('a.id asc');
-		
-		$this->db->setQuery($query);
-		return $this->db->loadObjectList();
 	}
 	
 	/**
@@ -373,64 +242,19 @@ class EventtableeditModelappointments extends JModelList
 	  */
 	 protected function getRowsQuery() {
 	 	// Add the list ordering clause.
-		  $orderCol	= $this->state->get('list.ordering');
-	 	$orderDirn	= $this->state->get('list.direction');	
- 		 //$tid = $this->state->get('appointments.id');
+		 //$tid = $this->state->get('appointments.id');
  		 $tid = (($this->option_id)?$this->option_id:$this->id);
  		
 		$query = $this->db->getQuery(true);
 		$query->select($this->getState('item.select', 'a.*'));
 		$query->from('#__eventtableedit_rows_' . $tid . ' AS a');
 
-		// Use default sorting, if no manual sorting is used
-		if ($orderCol == 'a.ordering' && $this->defaultSorting != null) {
-			//$orderCol = $this->defaultSorting;
-			//$orderDirn = 'ASC';
-		}
-		$query->order($orderCol.' '.$orderDirn);
-			
-		// Filter
-		$filter = $this->filterRows();
-		if ($filter != false) {
-			$query->where($filter);
-		}
+		
+	
 		return $query;
 	 }
 	 
-	 /**
-	  * Filters the rows if there is a filter set in the frontend
-	  * Thanks to unimx who mostly coded the filter
-	  */
-	 private function filterRows() {
-	 	$main  		  = JFactory::getApplication()->input;
-		$this->filter = $main->get('filterstring');
-		
-		if ($this->filter == '') {
-			return false;
-		}
-
-		$this->filter = str_replace('*', '%', $this->filter);
-	
-		$queryAr = array();
-		$likeQuery = 'LIKE "'. "%". htmlentities($this->filter, ENT_QUOTES, 'utf-8') . "%". '"';
-	
-		// Get Heads
-		if (!isset($this->heads)) {
-			$this->getHeads();
-		}
-		if (count($this->heads) == 0) {
-			return false;
-		}
-		
-		foreach($this->heads as $head) {
-			$queryAr[] = 'head_' . $head->id . ' ' . $likeQuery;
-		}
-	
-		$query = implode(' OR ', $queryAr);
-		//echo $query;
-
-		return $query;  
-	 }
+	 
 
 	 /**
 	  * Get Ordering and Creator

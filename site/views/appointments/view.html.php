@@ -29,10 +29,7 @@ class EventtableeditViewappointments extends JViewLegacy
 	protected $state;
 	protected $item;
 	protected $heads;
-	protected $dropdowns;
 	protected $rows;
-	protected $pagination;
-	protected $print;
 
 	function display($tpl = null)
 	{
@@ -47,12 +44,8 @@ class EventtableeditViewappointments extends JViewLegacy
 		if (!$this->checkError()) return false;
 		
 		$this->heads		= $this->get('Heads');
-		$this->dropdowns	= $this->get('Dropdowns');
 		$this->rows			= $this->get('Rows');
-		$this->pagination	= $this->get('Pagination');
 		$main  				= $app->input;
-		$this->print 		= 	$main->get('print');
-		$filterstring 		= 	$main->get('filterstring');
 		
 		// Check for errors.
 		if (!$this->checkError()) return false;
@@ -60,7 +53,6 @@ class EventtableeditViewappointments extends JViewLegacy
 		// Get the parameters of the active menu item
 		$params	= $app->getParams();
 		$params->merge($this->item->params);
-		$params->set('filterstring', $filterstring);
 		
 		// check if access is not public
 		$groups	= $user->getAuthorisedViewLevels();
@@ -68,10 +60,6 @@ class EventtableeditViewappointments extends JViewLegacy
 		
 		
 		$rows = $this->rows['rows'];
-		$additional = $this->rows['additional'];
-		$additional['defaultSorting'] = $this->isDefaultSorted();
-		$additional['dropdowns'] = $this->buildDropdownJsArray();
-		$additional['containsDate'] = $this->containsDate();
 		
 		if (isset($active->query['layout'])) {
 			// We need to set the layout in case this is an alternative menu item (with an alternative layout)
@@ -82,10 +70,8 @@ class EventtableeditViewappointments extends JViewLegacy
 		$this->assignRef('item', 		$this->item);
 		$this->assignRef('heads', 		$this->heads);
 		$this->assignRef('rows', 		$rows);
-		$this->assignRef('additional', 	$additional);
 		$this->assignRef('state', 		$this->state);
-		$this->assignRef('pagination',   $this->pagination);
-		$this->assignRef('print',   $this->print);
+		$this->assignRef('print',  		$this->print);
 
 		$this->_prepareDocument();
 		parent::display($tpl);
@@ -169,86 +155,14 @@ class EventtableeditViewappointments extends JViewLegacy
 			}
 		}
 		
-		// Handle Printview
-		if ($this->print) {
-			$this->preparePrintView();
-		} else {
-			require_once JPATH_COMPONENT.'/helpers/phpToJs.php';
+			//require JPATH_SITE.'/components/com_eventtableedit/helpers/phpToJs.php';
+			
 			$doc = JFactory::getDocument();
 			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw.js');
 			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw-init.js');
-			
-			
-			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/helpers/tableAjax.js');
-			// Start appintment edit popup install // 
-			$user = JFactory::GetUser();
-			if(in_array(8,$user->groups)){
-				$this->document->addScript($this->baseurl.'/components/com_eventtableedit/helpers/popup.js');
-				$style = '.etetable-linecolor0{background-color:#fff;}';
-				$this->document->addStyleDeclaration( $style );
-				
-			}
-			if ($this->item->rowsort == 0) {
-			$this->document->addStyleDeclaration(".eventtableedit .tablesaw-priority-50 {display: none !important;}");;
-			}
-			// END appintment edit popup install // 
-		//	$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/jquery.js');
 		
-		}
-	}
-	
-	/**
-	 * See if any column is defaultSorted
-	 */
-	private function isDefaultSorted() {
-		if (!count($this->heads)) {
-			return 0;
-		}
-
-		foreach ($this->heads as $head) {
-			if ($head->defaultSorting != '' && $head->defaultSorting != ':') {
-				return 1;
-			}
-		}
-		return 0;
-	}
-	
-	/**
-	 * Create a String that can be parsed easily into a javascript array
-	 */
-	private function buildDropdownJsArray() {
-		$ret = array();
-		
-		for($a = 0; $a < count($this->dropdowns); $a++) {
-			// If Dropdown was deleted
-			if ($this->dropdowns[$a]['name'] == null) {
-				$ret[$a]['meta']['name'] = '';
-				$ret[$a]['meta']['id'] = -1;
-				continue;
-			}
-
-			$ret[$a]['meta']['name'] = $this->dropdowns[$a]['name']['name'];
-			$ret[$a]['meta']['id'] = $this->dropdowns[$a]['name']['id'];
-			
-			if (!count($this->dropdowns[$a]['items'])) continue;
-
-			foreach ($this->dropdowns[$a]['items'] as $item) {
-				$ret[$a]['items'][] = $item->name;
-			}
-		}
-		
-		return $ret;		
 	}
 
-	/**
-	 * Change the settings for printview
-	 */
-	private function preparePrintView() {
-		$this->document->setMetaData('robots', 'noindex, nofollow');
-		$this->params->set('access-add', 0);
-		$this->params->set('access-create_admin', 0);
-		$this->item->show_filter = 0;
-	}
 
 	private function getVariableStyles($cellspacing, $cellpadding, $linecolor0, $linecolor1) {
 		$style = array();
@@ -258,11 +172,6 @@ class EventtableeditViewappointments extends JViewLegacy
 
 		if ((int) $cellspacing != 0) {
 			$style[] = "#etetable-table {border-collapse: separate !important;}";
-		}
-		
-		// If Pagination must not be shown
-		if (!$this->item->show_pagination) {
-			$style[] = ".eventtableedit .limit {display: none;}";
 		}
 
 		return implode("\n", $style);
@@ -283,17 +192,7 @@ class EventtableeditViewappointments extends JViewLegacy
 		return $ie;
 	}
 
-	/**
-	 * Show a date picker, if at least one column is a date
-	 */
-	private function containsDate() {
-		if (!count($this->heads)) return false;
-
-		foreach($this->heads as $row) {
-			if($row->datatype == 'date') return true;
-		}
-		return false;
-	}
+	
 }
 
 ?>

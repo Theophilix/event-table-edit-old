@@ -60,13 +60,7 @@ class EventtableeditViewappointmentform extends JViewLegacy
 
 	protected $heads;
 
-	protected $dropdowns;
-
 	protected $rows;
-
-	protected $pagination;
-
-	protected $print;
 
 
 
@@ -94,16 +88,9 @@ class EventtableeditViewappointmentform extends JViewLegacy
 
 		$this->heads		= $this->get('Heads');
 		
-		$this->dropdowns	= $this->get('Dropdowns');
-
 		$this->rows			= $this->get('Rows');
 
-		$this->pagination	= $this->get('Pagination');
-
 		$main  				= $app->input;
-		$this->print 		= 	$main->get('print');
-		$filterstring 		= 	$main->get('filterstring');
-
 		
 
 		// Check for errors.
@@ -117,9 +104,6 @@ class EventtableeditViewappointmentform extends JViewLegacy
 		$params	= $app->getParams();
 
 		$params->merge($this->item->params);
-
-		$params->set('filterstring', $filterstring);
-
 		
 
 		// check if access is not public
@@ -134,15 +118,6 @@ class EventtableeditViewappointmentform extends JViewLegacy
 
 		$rows = $this->rows['rows'];
 
-		$additional = $this->rows['additional'];
-
-		$additional['defaultSorting'] = $this->isDefaultSorted();
-
-		$additional['dropdowns'] = $this->buildDropdownJsArray();
-
-		$additional['containsDate'] = $this->containsDate();
-
-		
 
 		if (isset($active->query['layout'])) {
 
@@ -153,7 +128,6 @@ class EventtableeditViewappointmentform extends JViewLegacy
 		}
 
 
-
 		$this->assignRef('params',		$params);
 
 		$this->assignRef('item', 		$this->item);
@@ -161,14 +135,6 @@ class EventtableeditViewappointmentform extends JViewLegacy
 		$this->assignRef('heads', 		$this->heads);
 
 		$this->assignRef('rows', 		$rows);
-
-		$this->assignRef('additional', 	$additional);
-
-		$this->assignRef('state', 		$this->state);
-
-		$this->assignRef('pagination',   $this->pagination);
-
-		$this->assignRef('print',   $this->print);
 
 
 
@@ -336,130 +302,8 @@ class EventtableeditViewappointmentform extends JViewLegacy
 
 		
 
-		// Handle Printview
-
-		if ($this->print) {
-
-			$this->preparePrintView();
-
-		} else {
-
-			require_once JPATH_COMPONENT.'/helpers/phpToJs.php';
-
-			$doc = JFactory::getDocument();
-
-
-
-		}
 
 	}
-
-	
-
-	/**
-
-	 * See if any column is defaultSorted
-
-	 */
-
-	private function isDefaultSorted() {
-
-		if (!count($this->heads)) {
-
-			return 0;
-
-		}
-
-
-
-		foreach ($this->heads as $head) {
-
-			if ($head->defaultSorting != '' && $head->defaultSorting != ':') {
-
-				return 1;
-
-			}
-
-		}
-
-		return 0;
-
-	}
-
-	
-
-	/**
-
-	 * Create a String that can be parsed easily into a javascript array
-
-	 */
-
-	private function buildDropdownJsArray() {
-
-		$ret = array();
-
-		
-
-		for($a = 0; $a < count($this->dropdowns); $a++) {
-
-			// If Dropdown was deleted
-
-			if ($this->dropdowns[$a]['name'] == null) {
-
-				$ret[$a]['meta']['name'] = '';
-
-				$ret[$a]['meta']['id'] = -1;
-
-				continue;
-
-			}
-
-
-
-			$ret[$a]['meta']['name'] = $this->dropdowns[$a]['name']['name'];
-
-			$ret[$a]['meta']['id'] = $this->dropdowns[$a]['name']['id'];
-
-			
-
-			if (!count($this->dropdowns[$a]['items'])) continue;
-
-
-
-			foreach ($this->dropdowns[$a]['items'] as $item) {
-
-				$ret[$a]['items'][] = $item->name;
-
-			}
-
-		}
-
-		
-
-		return $ret;		
-
-	}
-
-
-
-	/**
-
-	 * Change the settings for printview
-
-	 */
-
-	private function preparePrintView() {
-
-		$this->document->setMetaData('robots', 'noindex, nofollow');
-
-		$this->params->set('access-add', 0);
-
-		$this->params->set('access-create_admin', 0);
-
-		$this->item->show_filter = 0;
-
-	}
-
 
 
 	private function getVariableStyles($cellspacing, $cellpadding, $linecolor0, $linecolor1) {
@@ -479,18 +323,6 @@ class EventtableeditViewappointmentform extends JViewLegacy
 			$style[] = "#etetable-table {border-collapse: separate !important;}";
 
 		}
-
-		
-
-		// If Pagination must not be shown
-
-		if (!$this->item->show_pagination) {
-
-			$style[] = ".eventtableedit .limit {display: none;}";
-
-		}
-
-
 
 		return implode("\n", $style);
 
@@ -528,27 +360,6 @@ class EventtableeditViewappointmentform extends JViewLegacy
 
 
 
-	/**
-
-	 * Show a date picker, if at least one column is a date
-
-	 */
-
-	private function containsDate() {
-
-		if (!count($this->heads)) return false;
-
-
-
-		foreach($this->heads as $row) {
-
-			if($row->datatype == 'date') return true;
-
-		}
-
-		return false;
-
-	}
 
 }
 

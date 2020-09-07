@@ -31,19 +31,6 @@ defined('_JEXEC') or die;
 		</tr>
 	</thead>
 
-	<?php 
-	if(!$this->print) : ?>
-	<!--<tfoot>
-		<tr>
-			<td colspan="100%">
-				<div id="container">
-					<?php echo $this->pagination->getListFooter() ?>
-				</div>
-			</td>
-		</tr>
-	</tfoot>-->
-	<?php endif; ?>	
-
 	<tbody>
 	<?php
 	/**

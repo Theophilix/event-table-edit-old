@@ -21,8 +21,7 @@ if ($this->item->show_first_row) :?>
  * The table heads
  */
 $thcount = 0;
-$listOrder	= $this->state->get('list.ordering');
-$listDirn	= $this->state->get('list.direction');
+
 if(count($this->heads) > 6){
 $cont = round(count($this->heads)/12);
 }else if(count($this->heads) > 3 && count($this->heads) < 6){

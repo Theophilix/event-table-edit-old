@@ -251,14 +251,6 @@ $datesofhead = implode(',', $datesofhead);
 
 
 <form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" name="adminForm" id="adminForm" method="post" class="form-validate span6 appointmentform" style="float:left;">
-
-	<?php // echo '<pre>';print_r($this->item);
-
-
-	//If there is already a table set up
-
-	?>
-
 	<div class="control-group">
 
   <label class="control-label"><?php echo JText::_('COM_EVENTTABLEEDIT_FIRSTNAME'); ?>*</label>
@@ -298,14 +290,6 @@ $datesofhead = implode(',', $datesofhead);
 <p>* <?php echo JText::_('COM_EVENTTABLEEDIT_STAR'); ?></p>
 <br>
 
-
-
-
-	<input type="hidden" name="filter_order" value="<?php echo $this->state->get('list.ordering') ?>" />
-
-	<input type="hidden" name="filter_order_Dir" value="<?php echo $this->state->get('list.direction') ?>" />
-
-	<input type="hidden" name="filterstring" value="<?php echo $this->params->get('filterstring') ?>" />
 
 	<input type="hidden" name="option" value="com_eventtableedit" />
 

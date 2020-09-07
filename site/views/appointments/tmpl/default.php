@@ -95,11 +95,6 @@ if($this->item->addtitle == 1){ ?>
 	</div>
 <?php endif; ?>
 
-<?php if($this->item->show_filter && count($this->heads) > 0) :?>
-	<div class="etetable-filter">
-		<?php echo $this->loadTemplate('filter'); ?>
-	</div>
-<?php endif;  //etetable-tform ?>
 <div style="clear:both"></div>
 <!-- etetable-tform -->
 <form action="<?php //echo JRoute::_('index.php?option=com_eventtableedit'); ?>" name="adminForm" id="adminForm" method="post">
@@ -135,10 +130,6 @@ if($this->item->addtitle == 1){ ?>
 			<?php echo $this->loadTemplate('table'); ?>
 		</div>
 	<?php endif; ?>
-	
-	<input type="hidden" name="filter_order" value="<?php echo $this->state->get('list.ordering') ?>" />
-	<input type="hidden" name="filter_order_Dir" value="<?php echo $this->state->get('list.direction') ?>" />
-	<input type="hidden" name="filterstring" value="<?php echo $this->params->get('filterstring') ?>" />
 	<input type="hidden" name="option" value="com_eventtableedit" />
 	<input type="hidden" name="view" value="appointmentform" />
 	<input type="hidden" name="task" value="" />
