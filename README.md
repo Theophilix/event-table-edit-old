@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-**Download latest version 4.8.4** (release date: 12.08.2020): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+**Download latest version 4.8.5** (release date: 19.10.2020): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -76,6 +76,14 @@ Please post all feature requests in the issues tab.
 
 
 ## II Version history
+
+**For version 4.8.5:**
+
+[x] Code improvement
+- enhancement: Improve and secure ETE-code: Check all ETE .php / .js / .html files or pages with good checking software https://github.com/Theophilix/event-table-edit/issues/170
+
+- enhancement: Code: Remove all redundant "normal table" code (filter, datatypes...) in files related to appointment booking system https://github.com/Theophilix/event-table-edit/issues/53
+
 **For version 4.8.4:**
 
 [1] Normal mode
