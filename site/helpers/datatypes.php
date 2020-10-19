@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id:$
+ * $Id:$.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,98 +21,103 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 
-class Datatypes {
-	private $dropdowns;
-	
-	function __construct() {
-		$this->dropdowns = $this->getDropdowns();
-	}
-	
-	/**
-	 * Get the possible dropdowns
-	 */
-	private function getDropdowns() {
-		$db = JFactory::getDBO();
-		$query = $db->getQuery(true);
+class Datatypes
+{
+    private $dropdowns;
 
-		$query->select('a.id, a.name');
-		$query->from('#__eventtableedit_dropdowns AS a');
-		$query->where('a.published = 1');
-		$query->order('a.ordering', 'asc');
-		$db->setQuery($query);
-		
-		$ret = $db->loadObjectList();
-		return $ret;
-	}
-	
-	public function getDatatypes() {
-		$ret = array();
-		$ret[] = 'text';
-		$ret[] = 'date';
-		$ret[] = 'time';
-		$ret[] = 'int';
-		$ret[] = 'float';
-		$ret[] = 'boolean';
-		$ret[] = 'link';
-		$ret[] = 'mail';
-		$ret[] = 'four_state';
-		
-		// Add the dropdowns
-		foreach($this->dropdowns as $dropdown) {
-			$ret[] = 'dropdown.' . $dropdown->id;
-		}
-		
-		return $ret;
-	}
-	
-	public function getDatatypesDesc() {
-		$ret = array();
-		$ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_TEXT');
-		$ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_DATE');
-		$ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_TIME');
-		$ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_INT');
-		$ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_FLOAT');
-		$ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_BOOLEAN');
-		$ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_LINK');
-		$ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_MAIL');
-		$ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_FOUR_STATE');
-		
-		// Add the dropdowns
-		foreach($this->dropdowns as $dropdown) {
-			$ret[] = $dropdown->name;
-		}
-		
-		return $ret;
-	}
-	
-	public function createSelectList() {
-		$values = $this->getDatatypes();
-		$text = $this->getDatatypesDesc();
-		$elem = array();
-		
-		for($a = 0; $a < count($values); $a++) {
-			$elem[] = JHTML::_('select.option', $values[$a], $text[$a]);
-		}
-		
-		return JHTML::_('select.genericlist', $elem, 'datatypesList[]', '', 'value', 'text', 0);
-	}
-	
-	/**
-	 * Maps the datatypes
-	 */
-	public static function mapDatatypes($datatype) {
-		switch ($datatype) {
-			case 'int': return 'INT(11)';
-			case 'float': return 'FLOAT';
-			case 'date': return 'DATE';
-			case 'time': return 'TIME';
-			case 'four_state': return 'varchar(1)';
-			
-			default: return 'TEXT';
-		}
-	}
+    public function __construct()
+    {
+        $this->dropdowns = $this->getDropdowns();
+    }
+
+    /**
+     * Get the possible dropdowns.
+     */
+    private function getDropdowns()
+    {
+        $db = JFactory::getDBO();
+        $query = $db->getQuery(true);
+
+        $query->select('a.id, a.name');
+        $query->from('#__eventtableedit_dropdowns AS a');
+        $query->where('a.published = 1');
+        $query->order('a.ordering', 'asc');
+        $db->setQuery($query);
+
+        $ret = $db->loadObjectList();
+        return $ret;
+    }
+
+    public function getDatatypes()
+    {
+        $ret = [];
+        $ret[] = 'text';
+        $ret[] = 'date';
+        $ret[] = 'time';
+        $ret[] = 'int';
+        $ret[] = 'float';
+        $ret[] = 'boolean';
+        $ret[] = 'link';
+        $ret[] = 'mail';
+        $ret[] = 'four_state';
+
+        // Add the dropdowns
+        foreach ($this->dropdowns as $dropdown) {
+            $ret[] = 'dropdown.'.$dropdown->id;
+        }
+
+        return $ret;
+    }
+
+    public function getDatatypesDesc()
+    {
+        $ret = [];
+        $ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_TEXT');
+        $ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_DATE');
+        $ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_TIME');
+        $ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_INT');
+        $ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_FLOAT');
+        $ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_BOOLEAN');
+        $ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_LINK');
+        $ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_MAIL');
+        $ret[] = JTEXT::_('COM_EVENTTABLEEDIT_DATATYPE_FOUR_STATE');
+
+        // Add the dropdowns
+        foreach ($this->dropdowns as $dropdown) {
+            $ret[] = $dropdown->name;
+        }
+
+        return $ret;
+    }
+
+    public function createSelectList()
+    {
+        $values = $this->getDatatypes();
+        $text = $this->getDatatypesDesc();
+        $elem = [];
+
+        for ($a = 0; $a < count($values); ++$a) {
+            $elem[] = JHTML::_('select.option', $values[$a], $text[$a]);
+        }
+
+        return JHTML::_('select.genericlist', $elem, 'datatypesList[]', '', 'value', 'text', 0);
+    }
+
+    /**
+     * Maps the datatypes.
+     */
+    public static function mapDatatypes($datatype)
+    {
+        switch ($datatype) {
+            case 'int': return 'INT(11)';
+            case 'float': return 'FLOAT';
+            case 'date': return 'DATE';
+            case 'time': return 'TIME';
+            case 'four_state': return 'varchar(1)';
+
+            default: return 'TEXT';
+        }
+    }
 }
-
-?>

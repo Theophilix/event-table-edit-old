@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id:$
+ * $Id:$.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,27 +21,27 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 $app = JFactory::getApplication();
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="">
 		<fieldset class="adminform">
-			<?php 
-			switch ($app->getUserState('com_eventtableedit.importAction', 'newTable')) {
-				case 'newTable':
-					echo $this->loadTemplate('newtable');
-					break;
-				case 'overwriteTable':
-					echo $this->loadTemplate('overwritetable');
-					break;
-				case 'appendTable':
-					echo $this->loadTemplate('appendtable');
-					break;
-			}
-			
-			if (!$app->getUserState('com_eventtableedit.csvError', true)) : ?>
+			<?php
+            switch ($app->getUserState('com_eventtableedit.importAction', 'newTable')) {
+                case 'newTable':
+                    echo $this->loadTemplate('newtable');
+                    break;
+                case 'overwriteTable':
+                    echo $this->loadTemplate('overwritetable');
+                    break;
+                case 'appendTable':
+                    echo $this->loadTemplate('appendtable');
+                    break;
+            }
+
+            if (!$app->getUserState('com_eventtableedit.csvError', true)) : ?>
 			
 			<p id="gotoTable">
 				<?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_GOTO_CONFIG_DESC'); ?>

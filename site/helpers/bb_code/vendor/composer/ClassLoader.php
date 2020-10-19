@@ -1,5 +1,10 @@
 <?php
+/**
+ * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ */
 
+
+defined('_JEXEC') or die;
 /*
  * This file is part of Composer.
  *
@@ -408,7 +413,7 @@ class ClassLoader
 
         if (isset($this->prefixesPsr0[$first])) {
             foreach ($this->prefixesPsr0[$first] as $prefix => $dirs) {
-                if (0 === strpos($class, $prefix)) {
+                if (0 === (int)strpos($class, $prefix)) {
                     foreach ($dirs as $dir) {
                         if (file_exists($file = $dir . DIRECTORY_SEPARATOR . $logicalPathPsr0)) {
                             return $file;

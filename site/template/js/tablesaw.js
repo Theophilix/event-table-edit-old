@@ -1857,6 +1857,8 @@ if (Tablesaw.mustard) {
 		this.$table.data(pluginName, this);
 
 		this.$table.trigger(events.create, [this]);
+		
+		jQuery(this.$table[0]).wrap( "<div class='scroller'></div>" );
 	};
 
 	Table.prototype.getConfig = function(pluginSpecificConfig) {

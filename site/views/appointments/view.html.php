@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: view.html.php 157 2011-03-19 00:08:23Z kapsl $
+ * $Id: view.html.php 157 2011-03-19 00:08:23Z kapsl $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,179 +21,177 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
-jimport( 'joomla.application.component.view');
+defined('_JEXEC') or die;
+jimport('joomla.application.component.view');
 require_once JPATH_COMPONENT.'/models/appointments.php';
 
 class EventtableeditViewappointments extends JViewLegacy
 {
-	protected $state;
-	protected $item;
-	protected $heads;
-	protected $rows;
+    protected $state;
+    protected $item;
+    protected $heads;
+    protected $rows;
 
-	function display($tpl = null)
-	{
-		// Initialise variables.
-		$app				= JFactory::getApplication();
-		$user				= JFactory::getUser();
-		$this->state		= $this->get('State');
-		$this->item			= $this->get('Item');
-		$this->option_id	= $this->get('OptionID');
-		
-		// Check for errors.
-		if (!$this->checkError()) return false;
-		
-		$this->heads		= $this->get('Heads');
-		$this->rows			= $this->get('Rows');
-		$main  				= $app->input;
-		
-		// Check for errors.
-		if (!$this->checkError()) return false;
-		
-		// Get the parameters of the active menu item
-		$params	= $app->getParams();
-		$params->merge($this->item->params);
-		
-		// check if access is not public
-		$groups	= $user->getAuthorisedViewLevels();
-		
-		
-		
-		$rows = $this->rows['rows'];
-		
-		if (isset($active->query['layout'])) {
-			// We need to set the layout in case this is an alternative menu item (with an alternative layout)
-			$this->setLayout($active->query['layout']);
-		}
+    public function display($tpl = null)
+    {
+        // Initialise variables.
+        $app = JFactory::getApplication();
+        $user = JFactory::getUser();
+        $this->state = $this->get('State');
+        $this->item = $this->get('Item');
+        $this->option_id = $this->get('OptionID');
 
-		$this->assignRef('params',		$params);
-		$this->assignRef('item', 		$this->item);
-		$this->assignRef('heads', 		$this->heads);
-		$this->assignRef('rows', 		$rows);
-		$this->assignRef('state', 		$this->state);
-		$this->assignRef('print',  		$this->print);
+        // Check for errors.
+        if (!$this->checkError()) {
+            return false;
+        }
 
-		$this->_prepareDocument();
-		parent::display($tpl);
-	}
-	
-	private function checkError() {
-		if (count($errors = $this->get('Errors'))) {
-			JError::raiseWarning(500, implode("\n", $errors));
-			return false;
-		}
-		return true;
-	}
+        $this->heads = $this->get('Heads');
+        $this->rows = $this->get('Rows');
+        $main = $app->input;
 
-	/**
-	 * Prepares the document
-	 */
-	protected function _prepareDocument()
-	{
-		$app		= JFactory::getApplication();
-		$menus		= $app->getMenu();
-		$pathway	= $app->getPathway();
-		$title 		= null;
-		
-		JHTML::_('behavior.tooltip');
-		JHTML::_('behavior.calendar');
-		JHtml::_('behavior.framework');
+        // Check for errors.
+        if (!$this->checkError()) {
+            return false;
+        }
 
-		// Because the application sets a default page title,
-		// we need to get it from the menu item itself
-		$menu = $menus->getActive();
+        // Get the parameters of the active menu item
+        $params = $app->getParams();
+        $params->merge($this->item->params);
 
-		if ($menu) {
-			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
-		}
-		else {
-			$this->params->def('page_heading', JText::_('COM_EVENTTABLEEDIT_DEFAULT_PAGE_TITLE'));
-		}
+        // check if access is not public
+        $groups = $user->getAuthorisedViewLevels();
 
-		$id = (int) @$menu->query['id'];
+        $rows = $this->rows['rows'];
 
-		$title = $this->params->get('page_title', '');
+        if (isset($active->query['layout'])) {
+            // We need to set the layout in case this is an alternative menu item (with an alternative layout)
+            $this->setLayout($active->query['layout']);
+        }
 
-		if (empty($title)) {
-			$title = htmlspecialchars_decode($app->getCfg('sitename'));
-		}
-		elseif ($app->getCfg('sitename_pagetitles', 0)) {
-			$title = JText::sprintf('JPAGETITLE', htmlspecialchars_decode($app->getCfg('sitename')), $title);
-		}
-		
-		// Add css
-		$this->document->addStyleSheet($this->baseurl.'/components/com_eventtableedit/template/css/tablesaw.css');
-		$this->document->addStyleSheet($this->baseurl.'/components/com_eventtableedit/template/css/eventtablecss.css');
-		$this->document->addStyleDeclaration($this->getVariableStyles($this->item->cellspacing, $this->item->cellpadding, $this->item->tablecolor1, $this->item->tablecolor2));
-		$this->document->addCustomTag($this->getBrowserStyles());
+        $this->assignRef('params', $params);
+        $this->assignRef('item', $this->item);
+        $this->assignRef('heads', $this->heads);
+        $this->assignRef('rows', $rows);
+        $this->assignRef('state', $this->state);
+        $this->assignRef('print', $this->print);
 
-		$this->document->setTitle($title);
+        $this->_prepareDocument();
+        parent::display($tpl);
+    }
 
-		if (empty($title)) {
-			$title = $this->item->title;
-			$this->document->setTitle($title);
-		}
+    private function checkError()
+    {
+        if (count($errors = $this->get('Errors'))) {
+            foreach ($errors as $error) {
+                JFactory::getApplication()->enqueueMessage($error, 'warning');
+            }
+            return false;
+        }
+        return true;
+    }
 
-		if ($this->item->metadesc) {
-			$this->document->setDescription($this->item->metadesc);
-		}
+    /**
+     * Prepares the document.
+     */
+    protected function _prepareDocument()
+    {
+        $app = JFactory::getApplication();
+        $menus = $app->getMenu();
+        $pathway = $app->getPathway();
+        $title = null;
 
-		if ($this->item->metakey) {
-			$this->document->setMetadata('keywords', $this->item->metakey);
-		}
+        JHTML::_('behavior.tooltip');
+        JHTML::_('behavior.calendar');
+        JHtml::_('behavior.framework');
 
-		if ($app->getCfg('MetaTitle') == '1') {
-			$this->document->setMetaData('title', $this->item->name);
-		}
+        // Because the application sets a default page title,
+        // we need to get it from the menu item itself
+        $menu = $menus->getActive();
 
-		$mdata = $this->item->metadata->toArray();
+        if ($menu) {
+            $this->params->def('page_heading', $this->params->get('page_title', $menu->title));
+        } else {
+            $this->params->def('page_heading', JText::_('COM_EVENTTABLEEDIT_DEFAULT_PAGE_TITLE'));
+        }
 
-		foreach ($mdata as $k => $v)
-		{
-			if ($v) {
-				$this->document->setMetadata($k, $v);
-			}
-		}
-		
-			//require JPATH_SITE.'/components/com_eventtableedit/helpers/phpToJs.php';
-			
-			$doc = JFactory::getDocument();
-			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw.js');
-			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw-init.js');
-		
-	}
+        $id = (int) @$menu->query['id'];
 
+        $title = $this->params->get('page_title', '');
 
-	private function getVariableStyles($cellspacing, $cellpadding, $linecolor0, $linecolor1) {
-		$style = array();
-		$style[] = "#etetable-table td {padding: " . $cellpadding . "px;}";
-		$style[] = ".etetable-linecolor0 {background-color: #" . $linecolor0 . ";}";
-		$style[] = ".etetable-linecolor1 {background-color: #" . $linecolor1 . ";}";
+        if (empty($title)) {
+            $title = htmlspecialchars_decode($app->getCfg('sitename'));
+        } elseif ($app->getCfg('sitename_pagetitles', 0)) {
+            $title = JText::sprintf('JPAGETITLE', htmlspecialchars_decode($app->getCfg('sitename')), $title);
+        }
 
-		if ((int) $cellspacing != 0) {
-			$style[] = "#etetable-table {border-collapse: separate !important;}";
-		}
+        // Add css
+        $this->document->addStyleSheet($this->baseurl.'/components/com_eventtableedit/template/css/tablesaw.css');
+        $this->document->addStyleSheet($this->baseurl.'/components/com_eventtableedit/template/css/eventtablecss.css');
+        $this->document->addStyleDeclaration($this->getVariableStyles($this->item->cellspacing, $this->item->cellpadding, $this->item->tablecolor1, $this->item->tablecolor2));
+        $this->document->addCustomTag($this->getBrowserStyles());
 
-		return implode("\n", $style);
-	}
-	
-	/**
-	 * Especially for IE that the calendar is on the right position
-	 */
-	private function getBrowserStyles() {
-		$ie  = '<!--[if IE]>' ."\n";
-		$ie .= '<link rel="stylesheet" href="' . $this->baseurl.'/components/com_eventtableedit/template/css/ie.css" />' ."\n";
-		$ie .= '<![endif]-->' ."\n";
-		
-		$ie .= '<!--[if lte IE 7]>' ."\n";
-		$ie .= '<link rel="stylesheet" href="' . $this->baseurl.'/components/com_eventtableedit/template/css/ie7.css" />' ."\n";
-		$ie .= '<![endif]-->' ."\n";
-		
-		return $ie;
-	}
+        $this->document->setTitle($title);
 
-	
+        if (empty($title)) {
+            $title = $this->item->title;
+            $this->document->setTitle($title);
+        }
+
+        if ($this->item->metadesc) {
+            $this->document->setDescription($this->item->metadesc);
+        }
+
+        if ($this->item->metakey) {
+            $this->document->setMetadata('keywords', $this->item->metakey);
+        }
+
+        if ('1' === $app->getCfg('MetaTitle')) {
+            $this->document->setMetaData('title', $this->item->name);
+        }
+
+        $mdata = $this->item->metadata->toArray();
+
+        foreach ($mdata as $k => $v) {
+            if ($v) {
+                $this->document->setMetadata($k, $v);
+            }
+        }
+
+        //require JPATH_SITE.'/components/com_eventtableedit/helpers/phpToJs.php';
+
+        $doc = JFactory::getDocument();
+        $this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw.js');
+        $this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw-init.js');
+    }
+
+    private function getVariableStyles($cellspacing, $cellpadding, $linecolor0, $linecolor1)
+    {
+        $style = [];
+        $style[] = '#etetable-table td {padding: '.$cellpadding.'px;}';
+        //$style[] = '.etetable-linecolor0 {background-color: #'.($linecolor0)?$linecolor0:'cccccc'.';}';
+        //$style[] = '.etetable-linecolor1 {background-color: #'.($linecolor1)?$linecolor1:'#ffffff'.';}';
+
+        if (0 !== (int) $cellspacing) {
+            $style[] = '#etetable-table {border-collapse: separate !important;}';
+        }
+
+        return implode("\n", $style);
+    }
+
+    /**
+     * Especially for IE that the calendar is on the right position.
+     */
+    private function getBrowserStyles()
+    {
+        $ie = '<!--[if IE]>'."\n";
+        $ie .= '<link rel="stylesheet" href="'.$this->baseurl.'/components/com_eventtableedit/template/css/ie.css" />'."\n";
+        $ie .= '<![endif]-->'."\n";
+
+        $ie .= '<!--[if lte IE 7]>'."\n";
+        $ie .= '<link rel="stylesheet" href="'.$this->baseurl.'/components/com_eventtableedit/template/css/ie7.css" />'."\n";
+        $ie .= '<![endif]-->'."\n";
+
+        return $ie;
+    }
 }
-
-?>

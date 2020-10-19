@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id:$
+ * $Id:$.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,28 +21,26 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
-
+defined('_JEXEC') or die;
 
 $app = JFactory::getApplication();
 $id = $app->input->get('tableList');
-$file = "csv_".$id.".csv";
+$file = 'csv_'.$id.'.csv';
 
-$this->csvFile = str_replace('csvcsv','<br />',$this->csvFile);
- $pf = fopen (JPATH_ROOT.'/components/com_eventtableedit/template/tablexml/'.$file, "w");
- if (!$pf)
- {
- 	echo "Cannot create $file!" . NL;
- 	return;
+$this->csvFile = str_replace('csvcsv', '<br />', $this->csvFile);
+ $pf = fopen(JPATH_ROOT.'/components/com_eventtableedit/template/tablexml/'.$file, 'w');
+ if (!$pf) {
+     echo "Cannot create $file!".NL;
+     return;
  }
- fwrite ($pf, $this->csvFile);
- fclose ($pf);
+ fwrite($pf, $this->csvFile);
+ fclose($pf);
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="">
 	<fieldset class="adminform">
-		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_CSVEXPORT_TITLE') ?></legend>
+		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_CSVEXPORT_TITLE'); ?></legend>
 		
 		<textarea readonly="readonly" rows="20" cols="150" id="export-text"><?php echo $this->csvFile; ?></textarea>
 				<input type="hidden" name="tableList" value="<?php echo $id; ?>" >

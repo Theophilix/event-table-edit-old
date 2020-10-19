@@ -1,9 +1,10 @@
 <?php
 /**
- * $Id: $
+ * $Id: $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL
- * 
+ *
  * Translates PHP Values to JS Variables
  */
 /*
@@ -11,9 +12,9 @@
 _<?php echo $this->unique?>
 
 */
-
+defined('_JEXEC') or die;
 ?>
-<script type='text/javascript'>
+<script>
 // Using as this-context, elseway context is lost at events
 var self = null;
 

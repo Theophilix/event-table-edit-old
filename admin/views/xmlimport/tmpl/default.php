@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: default.php 140 2011-01-11 08:11:30Z kapsl $
+ * $Id: default.php 140 2011-01-11 08:11:30Z kapsl $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,7 +21,7 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 JHtml::_('behavior.tooltip');
 JHtml::_('bootstrap.popover');
 JHtml::_('behavior.formvalidation');
@@ -29,7 +30,7 @@ JHtml::_('behavior.formvalidation');
 <form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" enctype="multipart/form-data" method="post" name="adminForm" id="adminForm">
 	<div class="">
 	<fieldset class="adminform">
-		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_UPLOAD_XMLFILE') ?></legend>
+		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_UPLOAD_XMLFILE'); ?></legend>
 		
 		
 		<ul class="adminformlist" style="float: left;">
@@ -37,8 +38,8 @@ JHtml::_('behavior.formvalidation');
 				
 				<label><?php echo JText::_('COM_EVENTTABLEEDIT_CHECKBOX_NORMAL'); ?>: </label>
 				<select name="checkfun">
-					<option value="0"><?php echo JText::_('JNO') ?></option>
-					<option value="1"><?php echo JText::_('JYES') ?></option>
+					<option value="0"><?php echo JText::_('JNO'); ?></option>
+					<option value="1"><?php echo JText::_('JYES'); ?></option>
 				</select>
 			</li>-->
 			<li>

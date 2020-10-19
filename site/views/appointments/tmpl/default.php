@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: default.php 144 2011-01-13 08:17:03Z kapsl $
+ * $Id: default.php 144 2011-01-13 08:17:03Z kapsl $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,76 +21,61 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 
-JHtml::addIncludePath(JPATH_COMPONENT.DS.'helpers');
-$main  = JFactory::getApplication()->input;
-		$requests  = $main->getArray($_REQUEST);
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+$main = JFactory::getApplication()->input;
+$postget = $main->getArray();
 ?>
 <?php
-if(isset($requests['print'])){
-?>
-<style type="text/css">
-
-.appointmentsbtn{display: none;}
-
-</style>
-<?php 
+if (isset($requests['print'])) {
+	$document = JFactory::getDocument();
+	$style = '.appointmentsbtn{display: none;}';
+	$document->addStyleDeclaration( $style );
 }
  ?>
-<style type="text/css">
-th.evth50.tablesaw-priority-persist.tablesaw-sortable-head.sort_col {
-    display: none!important;
-}
-table#etetable-table tr td.highlighted {
-  background-color:#c4c1c1;
-  border: 1px solid #dddddd;
-}
-td.tdblue{
-	cursor: pointer;
-}
-.eventtableedit{position:relative;}
-#adminForm{position:relative;min-height: 100px;}
-<?php if(!$this->option_id && $this->item->add_option_list){ 
-?>
-.etetable-outtable, input.btn.btn-primary.appointmentsbtn{display:none;}
-<?php
-}?>
-</style>
-<div class="eventtableedit<?php echo $this->params->get('pageclass_sfx')?>">
+
+<?php if (!$this->option_id && $this->item->add_option_list) {
+	$document = JFactory::getDocument();
+	$style = '.etetable-outtable, input.btn.btn-primary.appointmentsbtn{display:none;}';
+	$document->addStyleDeclaration( $style );
+    
+ }?>
+
+<div class="eventtableedit<?php echo $this->params->get('pageclass_sfx'); ?>">
 
 <ul class="actions">
-	<?php if($this->item->show_print_view) :?>
+	<?php if ($this->item->show_print_view) :?>
 	<li class="print-icon">
 		<?php if (!$this->print) : ?>
-			<?php echo str_replace('view=etetable', 'view=appointments',JHtml::_('icon.print_popup',  $this->item, $this->params)); ?>
-			<?php //echo JHtml::_('icon.print_popup',  $this->item, $this->params); ?>
+			<?php echo str_replace('view=etetable', 'view=appointments', JHtml::_('icon.print_popup', $this->item, $this->params)); ?>
+			<?php //echo JHtml::_('icon.print_popup',  $this->item, $this->params);?>
 		<?php else : ?>
-			<?php echo JHtml::_('icon.print_screen',  $this->item, $this->params); ?>
+			<?php echo JHtml::_('icon.print_screen', $this->item, $this->params); ?>
 		<?php endif; ?>
 	</li>
 	<?php endif; ?>
 
-	<?php if($this->params->get('access-create_admin')) :?>
+	<?php if ($this->params->get('access-create_admin')) :?>
 	<li class="admin-icon">
 		<?php if ($this->heads) :?>
-			<?php echo JHtml::_('icon.adminTable',  $this->item, JText::_('COM_EVENTTABLEEDIT_ETETABLE_ADMIN')); ?>
+			<?php echo JHtml::_('icon.adminTable', $this->item, JText::_('COM_EVENTTABLEEDIT_ETETABLE_ADMIN')); ?>
 		<?php else: ?>
-			<?php echo JHtml::_('icon.adminTable',  $this->item, JText::_('COM_EVENTTABLEEDIT_ETETABLE_CREATE')); ?>
+			<?php echo JHtml::_('icon.adminTable', $this->item, JText::_('COM_EVENTTABLEEDIT_ETETABLE_CREATE')); ?>
 		<?php endif; ?>
 	</li>
 	<?php endif; ?>
 </ul>
 
 
-<?php 
-if($this->item->addtitle == 1){ ?>
+<?php
+if (1 === (int)$this->item->addtitle) { ?>
 <h2 class="etetable-title">
 	<?php echo $this->item->name; ?>
 </h2>
 <?php } ?>
 
-<?php if($this->item->pretext != '') :?>
+<?php if ('' !== $this->item->pretext) :?>
 	<div class="etetable-pretext">
 		<?php echo $this->item->pretext; ?>
 	</div>
@@ -97,33 +83,34 @@ if($this->item->addtitle == 1){ ?>
 
 <div style="clear:both"></div>
 <!-- etetable-tform -->
-<form action="<?php //echo JRoute::_('index.php?option=com_eventtableedit'); ?>" name="adminForm" id="adminForm" method="post">
-	<?php if($this->item->add_option_list) :
-		//$session = JFactory::getSession();
-		//$corresponding_table = $session->get('corresponding_table');
-	?>
+<form name="adminForm" id="adminForm" method="post">
+	<?php if ($this->item->add_option_list) :
+        //$session = JFactory::getSession();
+        //$corresponding_table = $session->get('corresponding_table');
+    ?>
 		<div class="etetable-options" style="position: absolute;top: 10px;left: 0;">
 			<?php
-			$corresptables = json_decode($this->item->corresptable,true);
-			if(!empty($corresptables)){
-				?>
+            $corresptables = json_decode($this->item->corresptable, true);
+            if (!empty($corresptables)) {
+                ?>
 				<select name="corresponding_table" id="corresponding_table">
-					<option value=""><?php echo JText::_("COM_EVENTTABLEEDIT_CHOOSE_YOUR_OPTION")?></option>
+					<option value=""><?php echo JText::_('COM_EVENTTABLEEDIT_CHOOSE_YOUR_OPTION'); ?></option>
 					<?php
-				foreach($corresptables as $global_option=>$corresptable){
-					?><option <?php if($this->option_id == $corresptable){ echo "selected=selected";}?> value="<?php echo $corresptable?>"><?php echo $global_option?></option><?php
-				}
-				?>
+                foreach ($corresptables as $global_option => $corresptable) {
+                    ?><option <?php if ($this->option_id === $corresptable) {
+                        echo 'selected=selected';
+                    } ?> value="<?php echo $corresptable; ?>"><?php echo $global_option; ?></option><?php
+                } ?>
 				</select>
 				<?php
-			}
-			?>
+            }
+            ?>
 		</div>
-	<?php endif;  //etetable-tform ?>
-	<?php 
-	//If there is already a table set up
-	if ($this->heads) :?>
-  		<input type="button" name="appointments" value="<?php echo JText::_('COM_EVENTTABLEEDIT_BOOK_BUTTON') ?>" style="float:right;" onclick="subappointments();" class="btn btn-primary appointmentsbtn" />
+	<?php endif;  //etetable-tform?>
+	<?php
+    //If there is already a table set up
+    if ($this->heads) :?>
+  		<input type="button" name="appointments" value="<?php echo JText::_('COM_EVENTTABLEEDIT_BOOK_BUTTON'); ?>" style="float:right;" onclick="subappointments();" class="btn btn-primary appointmentsbtn" />
 		<div class="etetable-outtable">
 
 
@@ -140,15 +127,15 @@ if($this->item->addtitle == 1){ ?>
 
 <?php
 /**
- * Adding a new row
+ * Adding a new row.
  */
 ?>
-<?php if($this->params->get('access-add') && $this->heads) : ?>
+<?php if ($this->params->get('access-add') && $this->heads) : ?>
 	<!--<div id="etetable-add" title="<?php echo JText::_('COM_EVENTTABLEEDIT_NEW_ROW'); ?>"></div>
 -->
 <?php endif; ?>
 
-<?php if($this->item->aftertext != '') :?>
+<?php if ('' !== $this->item->aftertext) :?>
 	<div class="etetable-aftertext">
 		<?php echo $this->item->aftertext; ?>
 	</div>
@@ -157,7 +144,7 @@ if($this->item->addtitle == 1){ ?>
 </div>
 <div style="clear:both"></div>
 
-<script type="text/javascript">
+<script >
 jQuery(document).ready(function() {
     
   	var isMouseDown = false,
@@ -187,7 +174,7 @@ jQuery(document).ready(function() {
 jQuery(document).ready(function(){
 	jQuery("#corresponding_table").change(function(){
 		var val = jQuery(this).val();
-		jQuery.post( "<?php echo JURI::root()?>/index.php?option=com_eventtableedit&task=etetable.setSessionOption", {'corresponding_table':val} , function( data ) {
+		jQuery.post( "<?php echo JURI::root(); ?>/index.php?option=com_eventtableedit&task=etetable.setSessionOption", {'corresponding_table':val} , function( data ) {
 			window.location.reload();
 		});
 	})

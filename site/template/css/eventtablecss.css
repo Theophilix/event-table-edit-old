@@ -1238,3 +1238,90 @@ td.disabled, span.disabled {
 #etetable-table .pagination-next a.pagenav {background: url("../images/pagination/j_button2_next.png") no-repeat scroll 100% 0 transparent;}
 #etetable-table .pagination-end a.pagenav {background: url("../images/pagination/j_button2_last.png") no-repeat scroll 100% 0 transparent;}
 #etetable-table tbody td{font-size: 9pt !important;}
+
+
+/*added on 8 oct*/
+.active.btn-success {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: medium none;
+    color: #000;
+}
+ #timestamp-head {
+     display: none;
+ }
+.tablesaw-sortable th.tablesaw-sortable-head button {
+    font-weight: bold;
+    padding-bottom: 0.7em !important;
+    padding-left: 3px !important;
+    padding-right: 3px !important;
+    padding-top: 0.9em !important;
+    text-align: center;
+}
+
+/* Customized Demo CSS for our Demo Tables */
+.tablesaw-columntoggle td.title a,
+.tablesaw-swipe td.title a {
+	display: inline;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 10em;
+}
+.tablesaw-swipe td a,.tablesaw-columntoggle td a {
+		display: inline;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 10em;
+		max-width: 10em;
+	}
+
+.tablesaw-stack td a{
+		display: inline;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 10em;
+		max-width: 10em;
+
+}
+
+
+.tablesaw-stack td{padding:0.3em 0.5em !important;}
+
+td.tablesaw-priority-50 a {
+    color: #888;
+    text-decoration: none;
+}
+.show_always{display:table-cell!important;}
+@media (min-width: 40em) {
+	td.title {
+		/* max-width: 12em; */
+	}
+	.tablesaw-stack td a {
+		display: inline;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		max-width: 10em;
+		max-width: 10em;
+	}
+}
+
+
+
+th.evth50.tablesaw-priority-persist.tablesaw-sortable-head.sort_col {
+    display: none!important;
+}
+table#etetable-table tr td.highlighted {
+  background-color:#c4c1c1;
+  border: 1px solid #dddddd;
+}
+td.tdblue{
+	cursor: pointer;
+}
+.eventtableedit{position:relative;}
+#adminForm{position:relative;min-height: 100px;}
+
+span.filter-head{display: none;}
+div.etetable-button{display: none;}

@@ -1,12 +1,13 @@
 <?php
 /**
- * $Id: edit.php 140 2011-01-11 08:11:30Z kapsl $
+ * $Id: edit.php 140 2011-01-11 08:11:30Z kapsl $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 
 //JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
@@ -16,7 +17,7 @@ JHtml::_('behavior.formvalidation');
 
 	jQuery(document).ready(function(){
 		jQuery("#addNew").click(function(){
-			var varHtml = '<tr><td width="40%"><input type="text" name="global_options[]" value=""/></td><td width="40%"><select name="corresponding_table[]"><?php foreach($this->appointment_tables as $appointment_tables){ ?><option value="<?php echo $appointment_tables->id?>"><?php echo $appointment_tables->name?></option><?php } ?></select></td><td><a href="javascript:void(0);" class="up"><span id="dropdown-ordering" class="uparrow"></span></a><a href="javascript:void(0);" class="down"><span id="dropdown-ordering" class="downarrow"></span></a></td><td><img src="<?php echo JURI::root(); ?>administrator/components/com_eventtableedit/template/images/cross.png" class="correspond_delete"></td></tr>';
+			var varHtml = '<tr><td width="40%"><input type="text" name="global_options[]" value=""/></td><td width="40%"><select name="corresponding_table[]"><?php foreach ($this->appointment_tables as $appointment_tables) { ?><option value="<?php echo $appointment_tables->id; ?>"><?php echo $appointment_tables->name; ?></option><?php } ?></select></td><td><a href="javascript:void(0);" class="up"><span id="dropdown-ordering" class="uparrow"></span></a><a href="javascript:void(0);" class="down"><span id="dropdown-ordering" class="downarrow"></span></a></td><td><img src="<?php echo JURI::root(); ?>administrator/components/com_eventtableedit/template/images/cross.png" class="correspond_delete"></td></tr>';
 			jQuery("#dropdown-table tbody").append(varHtml);
 		})
 		jQuery('body').on('click','.correspond_delete',function(){
@@ -137,7 +138,7 @@ JHtml::_('behavior.formvalidation');
 			Joomla.submitform(task, document.getElementById('adminForm'));
 		}
 		else {
-			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
+			alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED')); ?>');
 		}
 	}
 </script>
@@ -159,12 +160,12 @@ JHtml::_('behavior.formvalidation');
 	#dropdown-table tr:first-child td a span.uparrow{display: none;}
 	#dropdown-table tr:last-child td a span.downarrow{display: none;}
 	<?php
-	if($this->item->show_pagination == 1){ ?>
+    if (1 === (int)$this->item->show_pagination) { ?>
 		.pagebreak{display:block;list-style: none;}
-	<?php }else{ ?>
+	<?php } else { ?>
 		.pagebreak{display:none;list-style: none;}
 	<?php }
-	 ?>
+     ?>
 	}
 </style>
 
@@ -176,10 +177,10 @@ JHtml::_('behavior.formvalidation');
 <div class="span10 form-horizontal">
 <ul class="nav nav-tabs">
 <li class="active"><a href="#general" data-toggle="tab"><?php echo empty($this->item->id) ? JText::_('COM_EVENTTABLEEDIT_NEW_ETETABLE') : JText::sprintf('COM_EVENTTABLEEDIT_EDIT_ETETABLE', $this->item->id); ?></a></li>
-<li><a href="#style" data-toggle="tab"><?php echo JText::_('COM_EVENTTABLEEDIT_STYLE');?></a></li>
-<li><a href="#meta" data-toggle="tab"><?php echo JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS');?></a></li>
+<li><a href="#style" data-toggle="tab"><?php echo JText::_('COM_EVENTTABLEEDIT_STYLE'); ?></a></li>
+<li><a href="#meta" data-toggle="tab"><?php echo JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS'); ?></a></li>
 
-<li><a href="#rules" data-toggle="tab"><?php echo JText::_('COM_EVENTTABLEEDIT_FIELDSET_RULES');?></a></li>
+<li><a href="#rules" data-toggle="tab"><?php echo JText::_('COM_EVENTTABLEEDIT_FIELDSET_RULES'); ?></a></li>
 
 </ul>
 <div class="tab-content">
@@ -237,22 +238,23 @@ JHtml::_('behavior.formvalidation');
 							</tr>
 						</thead>
 						<tbody>
-							<?php 
-							
-							if($this->item->corresptable!=""){
-								$corresptables = json_decode($this->item->corresptable,true);
-								
-								if(!empty($corresptables)){
-									foreach($corresptables as $global_option=>$corresptable){
-										?>
+							<?php
+
+                            if ('' !== $this->item->corresptable) {
+                                $corresptables = json_decode($this->item->corresptable, true);
+
+                                if (!empty($corresptables)) {
+                                    foreach ($corresptables as $global_option => $corresptable) {
+                                        ?>
 										<tr>
-											<td width="40%"><input type="text" name="global_options[]" id="global_options" value="<?php echo $global_option;?>"/></td>
+											<td width="40%"><input type="text" name="global_options[]" id="global_options" value="<?php echo $global_option; ?>"/></td>
 											<td width="40%"><select name="corresponding_table[]" id="corresponding_table">
 												<?php
-												foreach($this->appointment_tables as $appointment_tables){
-													?><option <?php if($appointment_tables->id == $corresptable){ echo "selected='selected'";}?> value="<?php echo $appointment_tables->id?>"><?php echo $appointment_tables->name?></option><?php
-												}
-												?>
+                                                foreach ($this->appointment_tables as $appointment_tables) {
+                                                    ?><option <?php if ($appointment_tables->id === $corresptable) {
+                                                        echo "selected='selected'";
+                                                    } ?> value="<?php echo $appointment_tables->id; ?>"><?php echo $appointment_tables->name; ?></option><?php
+                                                } ?>
 											</select></td>
 											<td>
 												<a href="javascript:void(0);" class="up"><span id="dropdown-ordering" class="uparrow"></span></a>
@@ -261,18 +263,17 @@ JHtml::_('behavior.formvalidation');
 											<td><img src="<?php echo JURI::root(); ?>administrator/components/com_eventtableedit/template/images/cross.png" class="correspond_delete"></td>
 										</tr>
 										<?php
-									}
-								}
-							}else{
-								?>
+                                    }
+                                }
+                            } else {
+                                ?>
 								<tr>
 									<td width="40%"><input type="text" name="global_options[]" id="global_options" value=""/></td>
 									<td width="40%"><select name="corresponding_table[]" id="corresponding_table">
 														<?php
-														foreach($this->appointment_tables as $appointment_tables){
-															?><option value="<?php echo $appointment_tables->id?>"><?php echo $appointment_tables->name?></option><?php
-														}
-														?>
+                                                        foreach ($this->appointment_tables as $appointment_tables) {
+                                                            ?><option value="<?php echo $appointment_tables->id; ?>"><?php echo $appointment_tables->name; ?></option><?php
+                                                        } ?>
 													</select></td>
 									<td>
 										<a href="javascript:void(0);" class="up"><span id="dropdown-ordering" class="uparrow"></span></a>
@@ -281,14 +282,14 @@ JHtml::_('behavior.formvalidation');
 									<td><img src="<?php echo JURI::root(); ?>administrator/components/com_eventtableedit/template/images/cross.png" class="correspond_delete"></td>
 								</tr>
 								<?php
-							}?>
+                            }?>
 						</tbody>
 					</table>
 					<div id="addNew"></div>
 					
 					
 					<style>
-					<?php if($this->item->add_option_list == 0){?>
+					<?php if (0 === (int)$this->item->add_option_list) {?>
 					.correspond_table{display: none;}
 					<?php }?>
 					.correspond_table{list-style: none;}
@@ -381,13 +382,13 @@ JHtml::_('behavior.formvalidation');
 					<?php echo $this->form->getInput('showusernametouser'); ?></li>
 				
 
-					<?php if($this->item->id == ''){ ?>
+					<?php if ('' === $this->item->id) { ?>
 						<li><?php echo $this->form->getLabel('row'); ?>
 						<?php echo $this->form->getInput('row'); ?></li>
 
 						<li><?php echo $this->form->getLabel('col'); ?>
 						<?php echo $this->form->getInput('col'); ?></li>
-					<?php }else{ ?>
+					<?php } else { ?>
 						<input type="hidden" aria-required="true" required="required" step="1" size="30" class="inputbox required" value="<?php echo $this->item->row; ?>" id="jform_row" name="jform[row]"></li>
 						<input type="hidden" aria-required="true" required="required" step="1" size="30" class="inputbox required" value="<?php echo $this->item->col; ?>" id="jform_col" name="jform[col]"></li>
 
@@ -403,18 +404,18 @@ JHtml::_('behavior.formvalidation');
 					<!--<li><?php echo $this->form->getLabel('rowsort'); ?>
 					<?php echo $this->form->getInput('rowsort'); ?></li>-->
 					
-				<!--	<li><?php //echo $this->form->getLabel('show_pagination'); ?>
-					<?php //echo $this->form->getInput('show_pagination'); ?></li>
+				<!--	<li><?php //echo $this->form->getLabel('show_pagination');?>
+					<?php //echo $this->form->getInput('show_pagination');?></li>
 				
 					<li>
 						<label title="" class="hasPopover" for="jform_show_pagination" id="jform_show_pagination-lbl" data-original-title="&lt;strong&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_SHOW_PAGINATION_LABEL'); ?>&lt;/strong&gt;&lt;br /&gt;<?php echo JText::_('COM_EVENTTABLEEDIT_SHOW_PAGINATION_DESC'); ?>">
 	<?php echo JText::_('COM_EVENTTABLEEDIT_SHOW_PAGINATION_LABEL'); ?></label>
 						<fieldset class="inputbox radio" id="jform_show_pagination">
-							<input type="radio" value="1" name="jform[show_pagination]" id="jform_show_pagination0" <?php if($this->item->show_pagination == 1){?> checked="checked" <?php } ?> onclick="jQuery('.pagebreak').show();">	
+							<input type="radio" value="1" name="jform[show_pagination]" id="jform_show_pagination0" <?php if (1 === (int)$this->item->show_pagination) {?> checked="checked" <?php } ?> onclick="jQuery('.pagebreak').show();">	
 							<label for="jform_show_pagination0"><?php echo JText::_('JSHOW'); ?></label>
 								<li class="pagebreak"><?php echo $this->form->getLabel('pagebreak'); ?>
 					<?php echo $this->form->getInput('pagebreak'); ?></li>
-							<input type="radio" value="0" name="jform[show_pagination]" id="jform_show_pagination1" <?php if($this->item->show_pagination == 0){?> checked="checked" <?php } ?> onclick="jQuery('.pagebreak').hide();">
+							<input type="radio" value="0" name="jform[show_pagination]" id="jform_show_pagination1" <?php if (0 === (int)$this->item->show_pagination) {?> checked="checked" <?php } ?> onclick="jQuery('.pagebreak').hide();">
 							<label for="jform_show_pagination1"><?php echo JText::_('JHIDE'); ?></label>
 						</fieldset>
 					</li>
@@ -512,20 +513,19 @@ JHtml::_('behavior.formvalidation');
 <input type="hidden" name="title" id="jform_title" value="" />
 </form>
 <div class="clr"></div>
-<?php 
-if($this->item->id > 0){
-?>
+<?php
+if ($this->item->id > 0) {
+                                ?>
 <script type="text/javascript">
-	checkics(<?php echo $this->item->normalorappointment ?>);
+	checkics(<?php echo $this->item->normalorappointment; ?>);
 </script>
-<?php 
-}else{
-?>
+<?php
+                            } else {
+                                ?>
 <script type="text/javascript">
 	checkics(0);
 </script>
-<?php 
+<?php
+                            }
 
-}
-
-	?>
+    ?>

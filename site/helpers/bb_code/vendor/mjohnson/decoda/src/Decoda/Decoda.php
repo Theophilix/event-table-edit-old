@@ -1,10 +1,9 @@
 <?php
 /**
- * @copyright   2006-2014, Miles Johnson - http://milesj.me
- * @license     https://github.com/milesj/decoda/blob/master/license.md
- * @link        http://milesj.me/code/php/decoda
+ * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+defined('_JEXEC') or die;
 namespace Decoda;
 
 use Decoda\Exception\MissingFilterException;
@@ -1420,7 +1419,7 @@ class Decoda {
                     $nextOpenPos = $strLength;
                 }
 
-                $possibleLiteral = ($openPos + 1 === $nextOpenPos);
+                $possibleLiteral = ($openPos + 1 === (int)$nextOpenPos);
             }
 
             // Find closing tag

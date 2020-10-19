@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: $
+ * $Id: $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -22,79 +23,81 @@
 // No direct access
 defined('_JEXEC') or die;
 
-class eteHelper {
-	/**
-	 * Configure the Linkbar.
-	 *
-	 * @param	string	$vName	The name of the active view.
-	 *
-	 * @return	void
-	 * @since	1.6
-	 */
-	public static function addSubmenu($vName) {
-		JSubMenuHelper::addEntry(
-			JText::_('COM_EVENTTABLEEDIT_SUBMENU_ETETABLES'),
-			'index.php?option=com_eventtableedit&view=etetables',
-			$vName == 'etetables'
-		);
-		JSubMenuHelper::addEntry(
-			JText::_('COM_EVENTTABLEEDIT_SUBMENU_APPOINTMENTTABLES'),
-			'index.php?option=com_eventtableedit&view=appointmenttables',
-			$vName == 'appointmenttables'
-		);
-		JSubMenuHelper::addEntry(
-			JText::_('COM_EVENTTABLEEDIT_SUBMENU_DROPDOWN'),
-			'index.php?option=com_eventtableedit&view=dropdowns',
-			$vName == 'dropdowns'
-		);
+class eteHelper
+{
+    /**
+     * Configure the Linkbar.
+     *
+     * @param string $vName the name of the active view
+     *
+     * @return void
+     *
+     * @since	1.6
+     */
+    public static function addSubmenu($vName)
+    {
+        JSubMenuHelper::addEntry(
+            JText::_('COM_EVENTTABLEEDIT_SUBMENU_ETETABLES'),
+            'index.php?option=com_eventtableedit&view=etetables',
+            'etetables' === $vName
+        );
+        JSubMenuHelper::addEntry(
+            JText::_('COM_EVENTTABLEEDIT_SUBMENU_APPOINTMENTTABLES'),
+            'index.php?option=com_eventtableedit&view=appointmenttables',
+            'appointmenttables' === $vName
+        );
+        JSubMenuHelper::addEntry(
+            JText::_('COM_EVENTTABLEEDIT_SUBMENU_DROPDOWN'),
+            'index.php?option=com_eventtableedit&view=dropdowns',
+            'dropdowns' === $vName
+        );
 
-		// Add only if user has sufficient rights
-		$user = JFactory::getUser();
-		if ($user->authorise('core.csv', 'com_eventtableedit')) {
-			JSubMenuHelper::addEntry(
-				JText::_('COM_EVENTTABLEEDIT_SUBMENU_CSVIMPORT'),
-				'index.php?option=com_eventtableedit&view=csvimport',
-				$vName == 'csvimport'
-			);
-			JSubMenuHelper::addEntry(
-				JText::_('COM_EVENTTABLEEDIT_SUBMENU_CSVEXPORT'),
-				'index.php?option=com_eventtableedit&view=csvexport',
-				$vName == 'csvexport'
-			);
-			JSubMenuHelper::addEntry(
-				JText::_('COM_EVENTTABLEEDIT_SUBMENU_XMLIMPORT'),
-				'index.php?option=com_eventtableedit&view=xmlimport',
-				$vName == 'xmlimport'
-			);
-			JSubMenuHelper::addEntry(
-				JText::_('COM_EVENTTABLEEDIT_SUBMENU_XMLEXPORT'),
-				'index.php?option=com_eventtableedit&view=xmlexport',
-				$vName == 'xmlexport'
-			);
-		
-		}
-	}
-	
-	/**
-	 * Gets a list of the actions that can be performed.
-	 *
-	 * @return	JObject
-	 */
-	public static function getActions()
-	{
-		$user	= JFactory::getUser();
-		$result	= new JObject;
+        // Add only if user has sufficient rights
+        $user = JFactory::getUser();
+        if ($user->authorise('core.csv', 'com_eventtableedit')) {
+            JSubMenuHelper::addEntry(
+                JText::_('COM_EVENTTABLEEDIT_SUBMENU_CSVIMPORT'),
+                'index.php?option=com_eventtableedit&view=csvimport',
+                'csvimport' === $vName
+            );
+            JSubMenuHelper::addEntry(
+                JText::_('COM_EVENTTABLEEDIT_SUBMENU_CSVEXPORT'),
+                'index.php?option=com_eventtableedit&view=csvexport',
+                'csvexport' === $vName
+            );
+            JSubMenuHelper::addEntry(
+                JText::_('COM_EVENTTABLEEDIT_SUBMENU_XMLIMPORT'),
+                'index.php?option=com_eventtableedit&view=xmlimport',
+                'xmlimport' === $vName
+            );
+            JSubMenuHelper::addEntry(
+                JText::_('COM_EVENTTABLEEDIT_SUBMENU_XMLEXPORT'),
+                'index.php?option=com_eventtableedit&view=xmlexport',
+                'xmlexport' === $vName
+            );
+        }
+    }
 
-		$assetName = 'com_eventtableedit';
+    /**
+     * Gets a list of the actions that can be performed.
+     *
+     * @return JObject
+     */
+    public static function getActions()
+    {
+        $user = JFactory::getUser();
+        $result = new JObject();
 
-		$actions = array(
-			'core.admin', 'core.manage', 'core.create', 'core.edit', 'core.edit.state', 'core.delete', 'core.csv'
-		);
+        $assetName = 'com_eventtableedit';
 
-		foreach ($actions as $action) {
-			$result->set($action,	$user->authorise($action, $assetName));
-		}
+        $actions = [
+            'core.admin', 'core.manage', 'core.create', 'core.edit', 'core.edit.state', 'core.delete', 'core.csv',
+        ];
 
-		return $result;
-	}
+        foreach ($actions as $action) {
+            $result->set($action, $user->authorise($action, $assetName));
+        }
+
+        return $result;
+    }
 }

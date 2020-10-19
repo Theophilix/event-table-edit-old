@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id:$
+ * $Id:$.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,7 +21,7 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 ?>
 
 <script type="text/javascript">
@@ -30,7 +31,7 @@ defined( '_JEXEC' ) or die;
 			Joomla.submitform(task, document.getElementById('adminForm'));
 		}
 		else {
-			alert('<?php echo $this->escape(JText::_('COM_EVENTTABLEEDIT_ERROR_ENTER_NAME'));?>');
+			alert('<?php echo $this->escape(JText::_('COM_EVENTTABLEEDIT_ERROR_ENTER_NAME')); ?>');
 		}
 	}
 
@@ -53,9 +54,9 @@ defined( '_JEXEC' ) or die;
 			</li>
 			</ul>
 			<table id="datatypeTable" border="0" width="90%">
-				<?php for($a = 0; $a < count($this->headLine); $a++) :?>
+				<?php for ($a = 0; $a < count($this->headLine); ++$a) :?>
 					<tr>
-						<td id="colText"><b><?php echo JText::_('COM_EVENTTABLEEDIT_DATATYPE_FOR') . ' ' . $this->headLine[$a]; ?></b></td>
+						<td id="colText"><b><?php echo JText::_('COM_EVENTTABLEEDIT_DATATYPE_FOR').' '.$this->headLine[$a]; ?></b></td>
 						<td><?php echo $this->listDatatypes; ?></td>
 					</tr>
 				<?php endfor; ?>

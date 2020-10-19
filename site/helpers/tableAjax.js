@@ -306,6 +306,7 @@ function addDeleteButton(row) {
 	var img = new Element ('img', {
 		'src'	: others.rootUrl + 'administrator/components/com_eventtableedit/template/images/cross.png',
 		'id'	: 'etetable-delete-img',
+		'alt'	: 'cross',
 		'title'	: lang.deleteRow
 	});
 	

@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: eventtableedit.php 140 2011-01-11 08:11:30Z kapsl $
+ * $Id: eventtableedit.php 140 2011-01-11 08:11:30Z kapsl $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,18 +21,19 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
-if(!defined('DS')) define('DS', DIRECTORY_SEPARATOR);
+defined('_JEXEC') or die;
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
 // Access check.
 if (!JFactory::getUser()->authorise('core.manage', 'com_eventtableedit')) {
-	return JError::raiseWarning(404, JText::_('JERROR_ALERTNOAUTHOR'));
+    return JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
 }
 
 // Include dependancies
 jimport('joomla.application.component.controller');
-$input  =  JFactory::getApplication()->input;
-		
-$controller	= JControllerLegacy::getInstance('eventtableedit');
+$input = JFactory::getApplication()->input;
+
+$controller = JControllerLegacy::getInstance('eventtableedit');
 $controller->execute($input->get('task'));
 $controller->redirect();
-?>

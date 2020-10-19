@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id:$
+ * $Id:$.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,10 +21,10 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 ?>
 
-<legend><?php echo JText::_('COM_EVENTTABLEEDIT_NEW_TABLE') ?></legend>
+<legend><?php echo JText::_('COM_EVENTTABLEEDIT_NEW_TABLE'); ?></legend>
 
 <div id="summaryHead"><?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_REPORT_SUCCESS'); ?></div>
 <p><?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_REPORT_NEW'); ?></p>

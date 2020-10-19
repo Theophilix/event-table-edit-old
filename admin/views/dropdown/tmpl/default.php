@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: default.php 118 2010-10-04 08:43:45Z kapsl $
+ * $Id: default.php 118 2010-10-04 08:43:45Z kapsl $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,7 +21,7 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 JHtml::_('behavior.tooltip');
 ?>
 
@@ -31,8 +32,8 @@ JHtml::_('behavior.tooltip');
 				<ul class="adminformlist" style="width: 50%;">
 				<!--<li><?php echo $this->form->getLabel('name'); ?>
 				<?php echo $this->form->getInput('name'); ?></li>-->
-				<li><label id="jform_name-lbl" for="jform_name" class="hasPopover required" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_NAME_DESC');?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_NAME_LABEL');?>"><?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_NAME_LABEL');?><span class="star">&nbsp;*</span></label>
-								<input type="text" name="jform[name]" id="jform_name" value="<?php echo str_replace("dpd_","",$this->item->name);?>" class="inputbox required" size="30" required="" aria-required="true">
+				<li><label id="jform_name-lbl" for="jform_name" class="hasPopover required" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_NAME_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_NAME_LABEL'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_NAME_LABEL'); ?><span class="star">&nbsp;*</span></label>
+								<input type="text" name="jform[name]" id="jform_name" value="<?php echo str_replace('dpd_', '', $this->item->name); ?>" class="inputbox required" size="30" required="" aria-required="true">
 				</li>
 				
 				<li><?php echo $this->form->getLabel('published'); ?>

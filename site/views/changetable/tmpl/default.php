@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: default.php 157 2011-03-19 00:08:23Z kapsl $
+ * $Id: default.php 157 2011-03-19 00:08:23Z kapsl $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,19 +21,19 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined('_JEXEC') or die('Restricted access');
 $app = JFactory::getApplication();
 
 $params = $app->getParams();
-$main  = JFactory::getApplication()->input;
-		$tablenumber = 	$main->getInt('id', '');
+$main = JFactory::getApplication()->input;
+        $tablenumber = $main->getInt('id', '');
 
 ?>
 
-<div class="eventtableedit<?php echo $this->params->get('pageclass_sfx')?>">
+<div class="eventtableedit<?php echo $this->params->get('pageclass_sfx'); ?>">
 
 <h2 class="etetable-title">
-	<?php echo JText::_('COM_EVENTTABLEEDIT_ETETABLE_ADMIN') . ' ' . $this->info['tablename']; ?>
+	<?php echo JText::_('COM_EVENTTABLEEDIT_ETETABLE_ADMIN').' '.$this->info['tablename']; ?>
 </h2>
 
 <div id="changetable-toolbar">
@@ -68,7 +69,7 @@ $main  = JFactory::getApplication()->input;
 					<?php echo JText::_('COM_EVENTTABLEEDIT_ORDERING'); ?>
 				</th>
 				<!--<th width="15%">
-					<?php //echo JText::_('COM_EVENTTABLEEDIT_AUTOSORT'); ?>
+					<?php //echo JText::_('COM_EVENTTABLEEDIT_AUTOSORT');?>
 				</th>-->
 				<th width="5%">
 					<?php echo JText::_('COM_EVENTTABLEEDIT_DELETE'); ?>

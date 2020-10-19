@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id:$
+ * $Id:$.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Matthias  Gruhn
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,11 +21,10 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 
 $app = JFactory::Getapplication();
 $checkfun = $app->input->get('checkfun');
-
 
 ?>
 
@@ -35,7 +35,7 @@ $checkfun = $app->input->get('checkfun');
 			Joomla.submitform(task, document.getElementById('adminForm'));
 		}
 		else {
-			alert('<?php echo $this->escape(JText::_('COM_EVENTTABLEEDIT_ERROR_ENTER_NAME'));?>');
+			alert('<?php echo $this->escape(JText::_('COM_EVENTTABLEEDIT_ERROR_ENTER_NAME')); ?>');
 		}
 	}
 
@@ -58,21 +58,21 @@ $checkfun = $app->input->get('checkfun');
 			</li>
 			</ul>
 			<table id="datatypeTable" border="0" width="90%">
-				<?php for($a = 0; $a < count($this->headLine); $a++) :
-					if($this->headLine[$a]!='timestamp'):
-					?>
+				<?php for ($a = 0; $a < count($this->headLine); ++$a) :
+                    if ('timestamp' !== $this->headLine[$a]):
+                    ?>
 					<tr>
-						<td id="colText"><b><?php echo JText::_('COM_EVENTTABLEEDIT_DATATYPE_FOR') . ' ' . $this->headLine[$a]; ?></b></td>
+						<td id="colText"><b><?php echo JText::_('COM_EVENTTABLEEDIT_DATATYPE_FOR').' '.$this->headLine[$a]; ?></b></td>
 						<td><?php echo $this->listDatatypes; ?></td>
 					</tr>
-				<?php 
-					endif;
-					endfor; ?>
+				<?php
+                    endif;
+                    endfor; ?>
 			</table>
 		</fieldset>
 	</div>
-	<input type="hidden" id="tableName" class="inputbox required" size="30" value="<?php echo $_REQUEST["tableName"]?>" name="tableName" />
+	<input type="hidden" id="tableName" class="inputbox required" size="30" value="<?php echo $_REQUEST['tableName']; ?>" name="tableName" />
 	<input type="hidden" name="task" value="" />
-		<input type="hidden" name="checkfun" value="<?php echo $checkfun?$checkfun:'0'; ?>" />
+		<input type="hidden" name="checkfun" value="<?php echo $checkfun ? $checkfun : '0'; ?>" />
 	<?php echo JHtml::_('form.token'); ?>
 </form>

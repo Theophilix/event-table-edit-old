@@ -1,9 +1,8 @@
 <?php
 
 /**
-
- * $Id: default.php 144 2011-01-13 08:17:03Z kapsl $
-
+ * $Id: default.php 144 2011-01-13 08:17:03Z kapsl $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
 
  * @license GNU/GPL, see LICENSE.php in the installation package
@@ -35,16 +34,11 @@
  * You should have received a copy of the GNU General Public License
 
  * along with Event Table Edit. If not, see <http://www.gnu.org/licenses/>.
-
  */
-
-
 
 // no direct access
 
-defined( '_JEXEC' ) or die;
-
-
+defined('_JEXEC') or die;
 
 JHtml::_('behavior.tooltip');
 
@@ -52,43 +46,41 @@ JHtml::_('behavior.formvalidation');
 
 $app = JFactory::getApplication();
 
-$main      = $app->input;
-$Itemid   = $main->getInt('Itemid', '');
+$main = $app->input;
+$Itemid = $main->getInt('Itemid', '');
 
-$id        = $main->getInt('id', '');
-$postget   = $main->getArray($_POST);
+$id = $main->getInt('id', '');
+$postget = $main->getArray();
 $totalappointments_row_col = explode(',', $postget['rowcolmix']);
-$datesofhead = array();
+$datesofhead = [];
 
-$appointmentsdate = array();
+$appointmentsdate = [];
 foreach ($totalappointments_row_col as $rowcol) {
-	
-	$temps = explode('_', $rowcol);
-	 $rops = $temps[0];
-	
-	$cops = $temps[1];
-	$cols = $this->heads[$cops];
-	$rows = $this->rows[$rops];
-	$details  = $rows[$cops];
+    $temps = explode('_', $rowcol);
+    $rops = $temps[0];
 
-	//if($details == 'free'){
-	 // add weekday in first row (head) //
-		if($this->item->showdayname == 1){
-			$namesofday = strtoupper(date('l',strtotime(str_replace('.', '-', trim($cols->name)))));
-			 $datesofhead[] = JTEXT::_('COM_EVENTTABLEEDIT_'.strtoupper($namesofday)).' '.$cols->name.' '.JText::_('COM_EVENTTABLEEDIT_UM').' '.$rows['0'];
-		}else{
-			 $datesofhead[] = $cols->name.JText::_('COM_EVENTTABLEEDIT_UM').$rows['0'];
-		}
-		$appointmentsdate[] = str_replace('.', '-', $cols->name).' '.$rows['0'].':00';
-		
-	//}
+    $cops = $temps[1];
+    $cols = $this->heads[$cops];
+    $rows = $this->rows[$rops];
+    $details = $rows[$cops];
+
+    //if($details == 'free'){
+    // add weekday in first row (head) //
+    if (1 === (int)$this->item->showdayname) {
+        $namesofday = strtoupper(date('l', strtotime(str_replace('.', '-', trim($cols->name)))));
+        $datesofhead[] = JTEXT::_('COM_EVENTTABLEEDIT_'.strtoupper($namesofday)).' '.$cols->name.' '.JText::_('COM_EVENTTABLEEDIT_UM').' '.$rows['0'];
+    } else {
+        $datesofhead[] = $cols->name.JText::_('COM_EVENTTABLEEDIT_UM').$rows['0'];
+    }
+    $appointmentsdate[] = str_replace('.', '-', $cols->name).' '.$rows['0'].':00';
+
+    //}
  // END add weekday in first row (head) //
-
 }
 $datesofhead = implode(',', $datesofhead);
 ?>
 <!--
-<p><?php echo JText::sprintf('COM_EVENTTABLEEDIT_BOOK_BEGIN',$datesofhead); ?></p>
+<p><?php echo JText::sprintf('COM_EVENTTABLEEDIT_BOOK_BEGIN', $datesofhead); ?></p>
 <p>
 <?php echo JText::_('COM_EVENTTABLEEDIT_BUTTON_GO_BACKTEXT'); ?>
 </p>-->
@@ -96,7 +88,7 @@ $datesofhead = implode(',', $datesofhead);
 <script>
 	function goback1(){
 		
-		window.location = "<?php echo JRoute::_('index.php?option=com_eventtableedit&view=appointments&id='.$id.'&Itemid='.$Itemid,false) ?>";
+		window.location = "<?php echo JRoute::_('index.php?option=com_eventtableedit&view=appointments&id='.$id.'&Itemid='.$Itemid, false); ?>";
 	}
 </script>
 <div class="appointmentforms">
@@ -111,141 +103,129 @@ $datesofhead = implode(',', $datesofhead);
 
 
 <div class="span6" style="float: right;">
-	<?php 
-	$model 		   = $this->getModel ( 'appointmentform' );
-		$cols 		   = $model->getHeads();
-		$rows          = $model->getRows();
-	$totalappointments_row_col = explode(',', $postget['rowcolmix']);
-	foreach ($totalappointments_row_col as $rowcol) {
-			$temps = explode('_', $rowcol);
-			$rops = $temps[0];
-			$cops = $temps[1];
-			$roweditpost   = $rops;
-			$coleditpost   = $cops;
+	<?php
+    $model = $this->getModel('appointmentform');
+        $cols = $model->getHeads();
+        $rows = $model->getRows();
+    $totalappointments_row_col = explode(',', $postget['rowcolmix']);
+    foreach ($totalappointments_row_col as $rowcol) {
+        $temps = explode('_', $rowcol);
+        $rops = $temps[0];
+        $cops = $temps[1];
+        $roweditpost = $rops;
+        $coleditpost = $cops;
 
-			$to_time = strtotime($rows['rows'][0][0]);
-			$from_time = strtotime($rows['rows'][1][0]);
-			$mintdiffrence =  round(abs($from_time - $to_time) / 60,2);
-		}
+        $to_time = strtotime($rows['rows'][0][0]);
+        $from_time = strtotime($rows['rows'][1][0]);
+        $mintdiffrence = round(abs($from_time - $to_time) / 60, 2);
+    }
 
+                $postdateappointment = $appointmentsdate;
 
+    if (count($appointmentsdate) > 0) {
+        $timeArr = $postdateappointment;
+        sort($timeArr);
 
-				$postdateappointment = $appointmentsdate;
+        $date_array = [];
+        $start = '';
+        $ref_start = &$start;
+        $end = '';
+        $ref_end = &$end;
+        foreach ($timeArr as $time) {
+            $date = date('Y-m-d', strtotime($time));
+            if ('' === $start || strtotime($time) < strtotime($start)) {
+                $ref_start = $time;
+            }
+            if (strtotime($time) > strtotime($end) && strtotime($time) <= strtotime('+ '.$mintdiffrence.' minutes', strtotime($end))) {
+                $ref_end = $time;
+            } else {
+                $ref_start = $time;
+                $ref_end = $time;
+                $date_array[$time] = $time;
+            }
+            $date_array[$start] = $end;
+        }
 
-	if(count($appointmentsdate) > 0){ 
-
-
-		$timeArr = $postdateappointment;
-		sort($timeArr);
-
-		$date_array = array();
-		$start = '';
-		$ref_start = &$start;
-		$end = '';
-		$ref_end = &$end;
-		foreach ($timeArr as $time) {
-				$date = date("Y-m-d", strtotime($time));
-				if($start == '' || strtotime($time) < strtotime($start)){
-					$ref_start = $time;
-				}
-				if (strtotime($time) > strtotime($end) && strtotime($time) <= strtotime('+ '.$mintdiffrence.' minutes',strtotime($end))){
-					$ref_end = $time;
-				} else {
-					$ref_start = $time;
-					$ref_end = $time;
-					$date_array[$time] = $time;
-				}
-				$date_array[$start] = $end;
-		}
-		
-		
-		$array	=	array();
-		foreach($date_array AS $key => $value){
-			$key = date('Y-m-d H:i:s',strtotime($key));
-			$array[$key] = $value;
-		}
-		ksort($array);
-		$date_array	=	array();
-		foreach($array AS $key => $value){
-			$key = date('d.m.Y H:i:s',strtotime($key));
-			$date_array[$key] = $value;
-		}
-	
-
-
-
-		?>
+        $array = [];
+        foreach ($date_array as $key => $value) {
+            $key = date('Y-m-d H:i:s', strtotime($key));
+            $array[$key] = $value;
+        }
+        ksort($array);
+        $date_array = [];
+        foreach ($array as $key => $value) {
+            $key = date('d.m.Y H:i:s', strtotime($key));
+            $date_array[$key] = $value;
+        } ?>
 	<h3><?php echo JText::_('COM_EVENTTABLEEDIT_TABLE_BOOKING'); ?></h3>
 	<ul class="appintments_list">
-		<?php 
+		<?php
 
-		foreach ($date_array as $keystart => $valueend) {
-		?>
+        foreach ($date_array as $keystart => $valueend) {
+            ?>
 		<li>
-			<?php  $exp_startdate	= explode(' ',$keystart);
-			$exp_sdate		= explode('-',$exp_startdate[0]);
-			$timesremovedsec = explode(':', $exp_startdate[1]);
-			$exp_stime		= explode(':',$exp_startdate[1]);
-			
-			 $starttimeonly = $exp_stime[0].':'.$exp_stime[1];
-		
-			
+			<?php  $exp_startdate = explode(' ', $keystart);
+            $exp_sdate = explode('-', $exp_startdate[0]);
+            $timesremovedsec = explode(':', $exp_startdate[1]);
+            $exp_stime = explode(':', $exp_startdate[1]);
 
-			$exp_enddate	= explode(' ',$valueend);
-			 $exp_edate		= explode('-',$exp_enddate[0]);
-			
-			$exp_etime		= explode(':',$exp_enddate[1]);
-			
-			$mintplus = intval($exp_etime[1]) + intval($mintdiffrence);
-			
-			if($mintplus >= 60){
-				$mintsend = $mintplus - 60;
-			
-				if($mintsend > 9){
-					$mintsendadd = $mintsend;
-				}else{
-					$mintsendadd = '0'.$mintsend;
+            $starttimeonly = $exp_stime[0].':'.$exp_stime[1];
 
-				}
-				
-				if($exp_etime[0] >= 9){
-					$hoursends = $exp_etime[0] + 1; 
-				}else{
-					$hoursends1 = $exp_etime[0] + 1;
-					$hoursends = '0'.$hoursends1;
-				}
-				if($hoursends == 24){
-					$endtimeonly = '00:'.$mintsendadd;
-				}else{
-					$endtimeonly = $hoursends.':'.$mintsendadd;
-				}
-			}else{
-				$endtimeonly = $exp_etime[0].':'.$mintplus;
-			}
-			
-			$namesofday1 = date('l',strtotime($keystart));
-			
-			echo JTEXT::_('COM_EVENTTABLEEDIT_'.strtoupper($namesofday1)).', '.date('d.m.Y',strtotime($keystart)).', '.$starttimeonly.' - '.$endtimeonly;
-			?>
+            $exp_enddate = explode(' ', $valueend);
+            $exp_edate = explode('-', $exp_enddate[0]);
+
+            $exp_etime = explode(':', $exp_enddate[1]);
+
+            $mintplus = intval($exp_etime[1]) + intval($mintdiffrence);
+
+            if ($mintplus >= 60) {
+                $mintsend = $mintplus - 60;
+
+                if ($mintsend > 9) {
+                    $mintsendadd = $mintsend;
+                } else {
+                    $mintsendadd = '0'.$mintsend;
+                }
+
+                if ($exp_etime[0] >= 9) {
+                    $hoursends = $exp_etime[0] + 1;
+                } else {
+                    $hoursends1 = $exp_etime[0] + 1;
+                    $hoursends = '0'.$hoursends1;
+                }
+                if (24 === $hoursends) {
+                    $endtimeonly = '00:'.$mintsendadd;
+                } else {
+                    $endtimeonly = $hoursends.':'.$mintsendadd;
+                }
+            } else {
+                $endtimeonly = $exp_etime[0].':'.$mintplus;
+            }
+
+            $namesofday1 = date('l', strtotime($keystart));
+
+            echo JTEXT::_('COM_EVENTTABLEEDIT_'.strtoupper($namesofday1)).', '.date('d.m.Y', strtotime($keystart)).', '.$starttimeonly.' - '.$endtimeonly; ?>
 		</li>
-		<?php } ?>
+		<?php
+        } ?>
 		
 	</ul>
-	<?php } ?>
 	<?php
-	$session = JFactory::getSession();
-	$corresponding_table = $session->get('corresponding_table');
-	if($corresponding_table){
-		$corresptable	=	json_decode($this->item->corresptable,true);
-		$corresponding_table_name	=	'';
-		foreach($corresptable as $key => $corresptabl){
-			if($corresptabl == $corresponding_table){
-				$corresponding_table_name = $key;
-			}
-		}
-		echo "<p><b>".JTEXT::_('COM_EVENTTABLEEDIT_SELECTED_OPTION').":</b> $corresponding_table_name</p>";
-	}
-	?>
+    } ?>
+	<?php
+    $session = JFactory::getSession();
+    $corresponding_table = $session->get('corresponding_table');
+    if ($corresponding_table) {
+        $corresptable = json_decode($this->item->corresptable, true);
+        $corresponding_table_name = '';
+        foreach ($corresptable as $key => $corresptabl) {
+            if ($corresptabl === $corresponding_table) {
+                $corresponding_table_name = $key;
+            }
+        }
+        echo '<p><b>'.JTEXT::_('COM_EVENTTABLEEDIT_SELECTED_OPTION').":</b> $corresponding_table_name</p>";
+    }
+    ?>
 </div>
 
 
@@ -305,11 +285,11 @@ $datesofhead = implode(',', $datesofhead);
 
 	<input type="hidden" name="rowcolmix" value="<?php echo $postget['rowcolmix']; ?>" />
 
-	<!--<input type="hidden" name="col" value="<?php //echo $postget['col']; ?>" />
+	<!--<input type="hidden" name="col" value="<?php //echo $postget['col'];?>" />
 	-->
 	<input type="hidden" name="Itemid" value="<?php echo $Itemid; ?>" />
 
-	<input type="hidden" name="dateappointment" value="<?php echo implode(',', $appointmentsdate) ; ?>" />
+	<input type="hidden" name="dateappointment" value="<?php echo implode(',', $appointmentsdate); ?>" />
 
 	
 

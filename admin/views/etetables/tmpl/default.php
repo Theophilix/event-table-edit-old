@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: default.php 140 2011-01-11 08:11:30Z kapsl $
+ * $Id: default.php 140 2011-01-11 08:11:30Z kapsl $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,13 +21,13 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 JHtml::_('behavior.tooltip');
 
-$user		= JFactory::getUser();
-$userId		= $user->get('id');
-$listOrder	= $this->state->get('list.ordering');
-$listDirn	= $this->state->get('list.direction');
+$user = JFactory::getUser();
+$userId = $user->get('id');
+$listOrder = $this->state->get('list.ordering');
+$listDirn = $this->state->get('list.direction');
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" method="post" name="adminForm" id="adminForm">
@@ -48,18 +49,18 @@ $listDirn	= $this->state->get('list.direction');
 		</div>
 		<div class="filter-select fltrt">
 			<select name="filter_published" class="inputbox" onchange="this.form.submit()">
-				<option value=""><?php echo JText::_('JOPTION_SELECT_PUBLISHED');?></option>
-				<?php echo JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true);?>
+				<option value=""><?php echo JText::_('JOPTION_SELECT_PUBLISHED'); ?></option>
+				<?php echo JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true); ?>
 			</select>
 
             <select name="filter_access" class="inputbox" onchange="this.form.submit()">
-				<option value=""><?php echo JText::_('JOPTION_SELECT_ACCESS');?></option>
-				<?php echo JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text', $this->state->get('filter.access'));?>
+				<option value=""><?php echo JText::_('JOPTION_SELECT_ACCESS'); ?></option>
+				<?php echo JHtml::_('select.options', JHtml::_('access.assetgroups'), 'value', 'text', $this->state->get('filter.access')); ?>
 			</select>
 
 			<select name="filter_language" class="inputbox" onchange="this.form.submit()">
-				<option value=""><?php echo JText::_('JOPTION_SELECT_LANGUAGE');?></option>
-				<?php echo JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language'));?>
+				<option value=""><?php echo JText::_('JOPTION_SELECT_LANGUAGE'); ?></option>
+				<?php echo JHtml::_('select.options', JHtml::_('contentlanguage.existing', true, true), 'value', 'text', $this->state->get('filter.language')); ?>
 			</select>
 		</div>
 	<!--</fieldset>-->
@@ -73,16 +74,16 @@ $listDirn	= $this->state->get('list.direction');
 					<input type="checkbox" name="checkall-toggle" value="" onclick="Joomla.checkAll(this)" />
 				</th>
 				<th>
-					<?php echo JHtml::_('grid.sort',  'JGLOBAL_TITLE', 'a.name', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'a.name', $listDirn, $listOrder); ?>
 				</th>
 					<th>
-					<?php echo JHtml::_('grid.sort',  'COM_EVENTTABLEEDIT_FIELD_FUNCTION_LABEL', 'a.normalorappointment', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort', 'COM_EVENTTABLEEDIT_FIELD_FUNCTION_LABEL', 'a.normalorappointment', $listDirn, $listOrder); ?>
 				</th>
 				<th>
-					<?php echo JHtml::_('grid.sort',  'COM_EVENTTABLEEDIT_FIELD_ROW', 'a.row', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort', 'COM_EVENTTABLEEDIT_FIELD_ROW', 'a.row', $listDirn, $listOrder); ?>
 				</th>
 				<th>
-					<?php echo JHtml::_('grid.sort',  'COM_EVENTTABLEEDIT_FIELD_COL', 'a.col', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort', 'COM_EVENTTABLEEDIT_FIELD_COL', 'a.col', $listDirn, $listOrder); ?>
 				</th>
 				<th>
 					<?php echo JText::_('COM_EVENTTABLEEDIT_FIELD_SHORTCODE'); ?>
@@ -113,16 +114,16 @@ $listDirn	= $this->state->get('list.direction');
 		</tfoot>
 		<tbody>
 		<?php
-		$n = count($this->items);
-		
-		foreach ($this->items as $i => $item) :
-			$canCreate	= $user->authorise('core.create',		'com_eventtableedit');
-			$canEdit	= $user->authorise('core.edit',			'com_eventtableedit');
-			$canCheckin	= $user->authorise('core.manage',		'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
-			$canChange	= $user->authorise('core.edit.state',	'com_eventtableedit') && $canCheckin;
-			$lastUpdate = $this->getLastUpdate($item->id);
+        $n = count($this->items);
 
-			?>
+        foreach ($this->items as $i => $item) :
+            $canCreate = $user->authorise('core.create', 'com_eventtableedit');
+            $canEdit = $user->authorise('core.edit', 'com_eventtableedit');
+            $canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out === $userId || 0 === (int)$item->checked_out;
+            $canChange = $user->authorise('core.edit.state', 'com_eventtableedit') && $canCheckin;
+            $lastUpdate = $this->getLastUpdate($item->id);
+
+            ?>
 			<tr class="row<?php echo $i % 2; ?>">
 				<td class="center">
 					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
@@ -133,24 +134,28 @@ $listDirn	= $this->state->get('list.direction');
 					<?php endif; ?>
 					<?php if ($canEdit) : ?>
 						<a href="<?php echo JRoute::_('index.php?option=com_eventtableedit&task=etetable.edit&id='.(int) $item->id); ?>">
-							<?php echo $this->escape($item->name); ?></a> <?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
+							<?php echo $this->escape($item->name); ?></a> <?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
 					<?php else : ?>
-						<?php echo $this->escape($item->name); ?> <?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias));?>
+						<?php echo $this->escape($item->name); ?> <?php echo JText::sprintf('JGLOBAL_LIST_ALIAS', $this->escape($item->alias)); ?>
 					<?php endif; ?>
 					
 				</td>
 				<td align="center">
-					<?php  if($item->normalorappointment == 0){
-								echo JText::_('COM_EVENTTABLEEDIT_FIELD_FUNCTION_NORMAL');
-							}else{
-							 	echo JText::_('COM_EVENTTABLEEDIT_FIELD_FUNCTION_APPOINTMENT');
-							} ?>
+					<?php  if (0 === (int)$item->normalorappointment) {
+                echo JText::_('COM_EVENTTABLEEDIT_FIELD_FUNCTION_NORMAL');
+            } else {
+                echo JText::_('COM_EVENTTABLEEDIT_FIELD_FUNCTION_APPOINTMENT');
+            } ?>
 				</td>
 				<td align="center">
-					<?php if($item->row > 0){echo $item->row;}; ?>
+					<?php if ($item->row > 0) {
+                echo $item->row;
+            } ?>
 				</td>
 				<td align="center">
-						<?php if($item->col > 0){echo $item->col;} ?>
+						<?php if ($item->col > 0) {
+                echo $item->col;
+            } ?>
 				</td>
 				<td align="center">
 					{ETE <?php echo $item->alias; ?>}
@@ -165,11 +170,11 @@ $listDirn	= $this->state->get('list.direction');
 					<?php echo $item->access_level; ?>
 				</td>
 				<td class="center">
-					<?php if ($item->language=='*'):?>
-						<?php echo JText::alt('JALL','language'); ?>
+					<?php if ('*' === $item->language):?>
+						<?php echo JText::alt('JALL', 'language'); ?>
 					<?php else:?>
 						<?php echo $item->language_title ? $this->escape($item->language_title) : JText::_('JUNDEFINED'); ?>
-					<?php endif;?>
+					<?php endif; ?>
 				</td>
 				
 				<td align="center">

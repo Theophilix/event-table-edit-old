@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id:$
+ * $Id:$.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,24 +21,24 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 
 $app = JFactory::getApplication();
 $id = $app->input->get('tableList');
 $xmlexporttimestamp = $app->input->get('xmlexporttimestamp');
 $this->model = $this->getModel('xmlexport');
 $name = $this->model->getTabledata($id);
-$name = str_replace(' ','_',$name->name);
-$file = JPATH_ROOT."/components/com_eventtableedit/template/tablexml/".$name."_".$id.".xml";
+$name = str_replace(' ', '_', $name->name);
+$file = JPATH_ROOT.'/components/com_eventtableedit/template/tablexml/'.$name.'_'.$id.'.xml';
 
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="">
 	<fieldset class="adminform">
-		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_XMLEXPORT_TITLE') ?></legend>
+		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_XMLEXPORT_TITLE'); ?></legend>
 		
-		<textarea readonly="readonly" rows="20" cols="150" id="export-text"><?php echo $this->orderxml; //readfile($file); //echo $this->csvFile; ?></textarea>
+		<textarea readonly="readonly" rows="20" cols="150" id="export-text"><?php echo $this->orderxml; //readfile($file); //echo $this->csvFile;?></textarea>
 		<input type="hidden" name="tableList" value="<?php echo $id; ?>" >
 		<input type="hidden" name="xmlexporttimestamp" value="<?php echo $xmlexporttimestamp; ?>" >
 	</fieldset>

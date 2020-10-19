@@ -1,10 +1,16 @@
+<?php 
+/**
+ * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ */
+
+defined('_JEXEC') or die; ?>
 <?php
 $counter = rand();
 $filter = $this->getFilter();
 $show = $filter->message('spoiler') . ' (' . $filter->message('show') . ')';
 $hide = $filter->message('spoiler') . ' (' . $filter->message('hide') . ')'; ?>
 
-<script type="text/javascript">
+<script >
   if (typeof decodaToggleSpoiler !== 'function') {
     function decodaToggleSpoiler(button, id) {
       var details = document.getElementById('spoiler-content-' + id);

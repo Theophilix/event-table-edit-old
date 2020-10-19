@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: default.php 140 2011-01-11 08:11:30Z kapsl $
+ * $Id: default.php 140 2011-01-11 08:11:30Z kapsl $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,7 +21,7 @@
  */
 
 // no direct access adminForm
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.formvalidator');
 JHtml::_('behavior.tooltip');
@@ -67,9 +68,9 @@ Joomla.submitbutton = function(task)
 <form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" class="form-validate" method="post" name="adminForm" id="adminForm">
 	<div class="">
 	<fieldset class="adminform">
-		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_CSVEXPORT_TITLE') ?></legend>
+		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_CSVEXPORT_TITLE'); ?></legend>
 		
-		<p><?php echo JText::_('COM_EVENTTABLEEDIT_CSVEXPORT_TITLE_INFO') ?></p>
+		<p><?php echo JText::_('COM_EVENTTABLEEDIT_CSVEXPORT_TITLE_INFO'); ?></p>
 		
 		<ul class="adminformlist" style="float: left;">
 			<li id="tableList">

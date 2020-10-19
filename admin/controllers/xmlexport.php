@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		$Id: $
- * @package		eventtableedit
+ *
  * @copyright	Copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -10,103 +10,84 @@
 defined('_JEXEC') or die;
 jimport('joomla.application.component.controller');
 
-class EventtableeditControllerXmlexport extends JControllerLegacy {
-	protected $text_prefix = 'COM_EVENTTABLEEDIT_XMLEXPORT';
-	protected $app;
-	
-	protected $id;
-	protected $separator;
-	protected $doubleqt;
-	protected $model;
-	
-	function __construct() {
-		parent::__construct();
-		$this->app = JFactory::getApplication();
-	}
-	
-	/**
-	 * Task that is called when exporting a table
-	 */
-	public function export() {
-		// ACL Check
-		$user = JFactory::getUser();
-		if (!$user->authorise('core.csv', 'com_eventtableedit')) {
-			JError::raiseWarning(403, JText::_('JERROR_ALERTNOAUTHOR'));
-			$this->setRedirect(JRoute('index.php?option=com_eventtableedit'));
-			return false;
-		}
-		
-		
-		
-		/* $file = str_replace(' ','_',$table->name)."_".$this->id.".xml";
-		$pf = fopen (JPATH_ROOT.'/components/com_eventtableedit/template/tablexml/'.$file, "w");
-		if (!$pf)
-		{
-			echo "Cannot create $file!" . NL;
-			return;
-		}
-		fwrite ($pf, $orderxml);
-		fclose ($pf); */
-		
-		$this->model = $this->getModel('xmlexport');
-		$input  =  JFactory::getApplication()->input;
-		$input->set('com_eventtableedit.layout','summary');
-		$input->set('view','xmlexport');
-		//$input->set('com_eventtableedit.id',$this->id);
-		/* $input  =  JFactory::getApplication()->input;
-		$postget = $input->getArray($_POST);
-		$this->id 		 = $postget['tableList'];
-		$this->separator = $postget['separator'];
-		$this->doubleqt  = $postget['doubleqt'];
-		$this->csvexporttimestamp  = $postget['csvexporttimestamp'];
- 		$this->model->setVariables($this->id, $this->separator, $this->doubleqt, $this->csvexporttimestamp); */
-		parent::display();
-	}
+class EventtableeditControllerXmlexport extends JControllerLegacy
+{
+    protected $text_prefix = 'COM_EVENTTABLEEDIT_XMLEXPORT';
+    protected $app;
 
-	public function cancel() {
-		$this->setRedirect(JRoute::_('index.php?option=com_eventtableedit'));
-		return false;
-	}
+    protected $id;
+    protected $separator;
+    protected $doubleqt;
+    protected $model;
 
-	public function download(){
-			$app = JFactory::getApplication();
-			$id = $app->input->get('tableList');
-			$this->model = $this->getModel('xmlexport');
-			$name = $this->model->getTabledata($id);
-			$name = str_replace(' ','_',$name->name);
-			$file = $name."_".$id.".xml";
-			
-			
-			
-			$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/eventtableedit.xml');
-			$version = (string)$xml->version;
-			
-			$this->model = $this->getModel('xmlexport');
-			$app = JFactory::getApplication();
-			$input  =  JFactory::getApplication()->input;
-			$postget = $input->getArray($_POST);
-			$this->xmlexporttimestamp  = $postget['xmlexporttimestamp'];
-			$this->id 		 = $postget['tableList'];
-			if(empty($this->id)){
-				$msg = JTEXT::_('COM_EVENTTABLEEDIT_PLEASE_SELECT_TABLE');
-				$app->redirect('index.php?option=com_eventtableedit&view=xmlexport',$msg);
-					
-			}	
-			$table = $this->model->getTabledata($this->id);
-				
+    public function __construct()
+    {
+        parent::__construct();
+        $this->app = JFactory::getApplication();
+    }
 
-			$db = JFactory::GetDBO();
-			$query = 'SELECT CONCAT(\'head_\', a.id) AS head, a.name,a.datatype, a.defaultSorting FROM #__eventtableedit_heads AS a' .
-						' WHERE a.table_id = ' . $this->id .
-						' ORDER BY a.ordering ASC';
-			$db->setQuery($query);
-			$heads = $db->loadObjectList();
-		
-			$query = 'SELECT * FROM #__eventtableedit_rows_' . $this->id;
-			$db->setQuery($query);
-			$rows = $db->loadObjectList();
+    /**
+     * Task that is called when exporting a table.
+     */
+    public function export()
+    {
+        // ACL Check
+        $user = JFactory::getUser();
+        if (!$user->authorise('core.csv', 'com_eventtableedit')) {
+            JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+            $this->setRedirect(JRoute('index.php?option=com_eventtableedit'));
+            return false;
+        }
 
-			$orderxml = '<?xml version="1.0" encoding="utf-8"?> 
+        $this->model = $this->getModel('xmlexport');
+        $input = JFactory::getApplication()->input;
+        $input->set('com_eventtableedit.layout', 'summary');
+        $input->set('view', 'xmlexport');
+        parent::display();
+    }
+
+    public function cancel()
+    {
+        $this->setRedirect(JRoute::_('index.php?option=com_eventtableedit'));
+        return false;
+    }
+
+    public function download()
+    {
+        $app = JFactory::getApplication();
+        $id = $app->input->get('tableList');
+        $this->model = $this->getModel('xmlexport');
+        $name = $this->model->getTabledata($id);
+        $name = str_replace(' ', '_', $name->name);
+        $file = $name.'_'.$id.'.xml';
+
+        $xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR.'/eventtableedit.xml');
+        $version = (string) $xml->version;
+
+        $this->model = $this->getModel('xmlexport');
+        $app = JFactory::getApplication();
+        $input = JFactory::getApplication()->input;
+        $postget = $input->getArray();
+        $this->xmlexporttimestamp = $postget['xmlexporttimestamp'];
+        $this->id = $postget['tableList'];
+        if (empty($this->id)) {
+            $msg = JTEXT::_('COM_EVENTTABLEEDIT_PLEASE_SELECT_TABLE');
+            $app->redirect('index.php?option=com_eventtableedit&view=xmlexport', $msg);
+        }
+        $table = $this->model->getTabledata($this->id);
+
+        $db = JFactory::GetDBO();
+        $query = 'SELECT CONCAT(\'head_\', a.id) AS head, a.name,a.datatype, a.defaultSorting FROM #__eventtableedit_heads AS a'.
+                        ' WHERE a.table_id = '.$this->id.
+                        ' ORDER BY a.ordering ASC';
+        $db->setQuery($query);
+        $heads = $db->loadObjectList();
+
+        $query = 'SELECT * FROM #__eventtableedit_rows_'.$this->id;
+        $db->setQuery($query);
+        $rows = $db->loadObjectList();
+
+        $orderxml = '<?xml version="1.0" encoding="utf-8"?> 
 			<Event_Table_Edit_XML_file>
 			<ETE_version>'.$version.'</ETE_version>
 			<id>'.$table->id.'</id>
@@ -125,8 +106,8 @@ class EventtableeditControllerXmlexport extends JControllerLegacy {
 			<show_pagination>'.$table->show_pagination.'</show_pagination>
 			<bbcode>'.$table->bbcode.'</bbcode>
 			<bbcode_img>'.$table->bbcode_img.'</bbcode_img>
-			<pretext>'.str_replace('&','&amp;',htmlentities($table->pretext)).'</pretext>
-			<aftertext>'.str_replace('&','&amp;',htmlentities($table->aftertext)).'</aftertext>
+			<pretext>'.str_replace('&', '&amp;', htmlentities($table->pretext)).'</pretext>
+			<aftertext>'.str_replace('&', '&amp;', htmlentities($table->aftertext)).'</aftertext>
 			<metakey>'.$table->metakey.'</metakey>
 			<metadesc>'.$table->metadesc.'</metadesc>
 			<metadata>'.$table->metadata.'</metadata>
@@ -150,10 +131,10 @@ class EventtableeditControllerXmlexport extends JControllerLegacy {
 			<location>'.$table->location.'</location>
 			<summary>'.$table->summary.'</summary>
 			<email>'.$table->email.'</email>
-			<adminemailsubject>'.str_replace('&','&amp;',htmlentities($table->adminemailsubject)).'</adminemailsubject>
-			<useremailsubject>'.str_replace('&','&amp;',htmlentities($table->useremailsubject)).'</useremailsubject>
-			<useremailtext>'.str_replace('&','&amp;',htmlentities($table->useremailtext)).'</useremailtext>
-			<adminemailtext>'.str_replace('&','&amp;',htmlentities($table->adminemailtext)).'</adminemailtext>
+			<adminemailsubject>'.str_replace('&', '&amp;', htmlentities($table->adminemailsubject)).'</adminemailsubject>
+			<useremailsubject>'.str_replace('&', '&amp;', htmlentities($table->useremailsubject)).'</useremailsubject>
+			<useremailtext>'.str_replace('&', '&amp;', htmlentities($table->useremailtext)).'</useremailtext>
+			<adminemailtext>'.str_replace('&', '&amp;', htmlentities($table->adminemailtext)).'</adminemailtext>
 			<displayname>'.$table->displayname.'</displayname>
 			<icsfilename>'.$table->icsfilename.'</icsfilename>
 			<sorting>'.$table->sorting.'</sorting>
@@ -167,84 +148,77 @@ class EventtableeditControllerXmlexport extends JControllerLegacy {
 			<showusernametouser>'.$table->showusernametouser.'</showusernametouser>
 			<rules>'.$table->rules.'</rules>';
 
-			$orderxml .= '<headdata>';
-			$a=1;
-			foreach ($heads as $value) {
-				$orderxml .= '<linehead>
+        $orderxml .= '<headdata>';
+        $a = 1;
+        foreach ($heads as $value) {
+            $orderxml .= '<linehead>
 								<no>'.$a.'</no>
 								<headtable>'.$value->head.'</headtable>
 								<name>'.$value->name.'</name>
 								<datatype>'.$value->datatype.'</datatype>
 							</linehead>';
-							$a++;
-			}
-			if($this->xmlexporttimestamp){
-				$orderxml .= '<linehead>
+            ++$a;
+        }
+        if ($this->xmlexporttimestamp) {
+            $orderxml .= '<linehead>
 								<no>'.$a.'</no>
 								<headtable>timestamp</headtable>
 								<name>timestamp</name>
 								<datatype>timestamp</datatype>
 							</linehead>';
-			}
-			$orderxml .= '</headdata>';
+        }
+        $orderxml .= '</headdata>';
 
+        $orderxml .= '<rowdata>';
+        $b = 1;
 
-
-			$orderxml .= '<rowdata>';
-			$b=1;
-
-			foreach ($rows as $row) {
-				$orderxml .= '<linerow>
+        foreach ($rows as $row) {
+            $orderxml .= '<linerow>
 								<no>'.$b.'</no>
 								<id>'.$row->id.'</id>
 								<ordering>'.$row->ordering.'</ordering>
 								<created_by>'.$row->created_by.'</created_by>';
-								for ($h=0; $h < count($heads); $h++) { 
-									$findrowval = $heads[$h]->head;
-									$orderxml .= '<'.$findrowval.'>'.htmlspecialchars($row->$findrowval).'</'.$findrowval.'>';	
-								}
-								if($this->xmlexporttimestamp){
-									$orderxml .= '<timestamp>'.htmlspecialchars($row->timestamp).'</timestamp>';	
-								}
-							$orderxml .= '</linerow>';
-							$b++;
-			}
-			$orderxml .= '</rowdata>';
-			$orderxml .= '</Event_Table_Edit_XML_file>';
-			
-			
-			
-			
-			
-			/* header('Content-Description: File Transfer');
-			header('Content-Type: application/xml');
-			header('Content-Disposition: attachment; filename="'.basename($file).'"');
-			header('Expires: 0');
-			header('Cache-Control: must-revalidate');
-			header('Pragma: public');
-			header('Content-Length: ' . filesize($file));
-			 */
-			header('Content-type: text/xml');
-			header('Content-Disposition: attachment; filename="'.basename($file).'"');
-			echo $orderxml;
-			exit;
-			
-			
-			/* $app = JFactory::getApplication();
-			$id = $app->input->get('tableList');
-			$this->model = $this->getModel('xmlexport');
-			$name = $this->model->getTabledata($id);
-			$name = str_replace(' ','_',$name->name);
-			$file = JPATH_ROOT."/components/com_eventtableedit/template/tablexml/".$name."_".$id.".xml";
-			
-			header('Content-Description: File Transfer');
-			header('Content-Type: application/xml');
-			header('Content-Disposition: attachment; filename="'.basename($file).'"');
-			header('Expires: 0');
-			header('Cache-Control: must-revalidate');
-			header('Pragma: public');
-			header('Content-Length: ' . filesize($file));
-			readfile($file);
-			exit; */
-	}
+            for ($h = 0; $h < count($heads); ++$h) {
+                $findrowval = $heads[$h]->head;
+                $orderxml .= '<'.$findrowval.'>'.htmlspecialchars($row->$findrowval).'</'.$findrowval.'>';
+            }
+            if ($this->xmlexporttimestamp) {
+                $orderxml .= '<timestamp>'.htmlspecialchars($row->timestamp).'</timestamp>';
+            }
+            $orderxml .= '</linerow>';
+            ++$b;
+        }
+        $orderxml .= '</rowdata>';
+        $orderxml .= '</Event_Table_Edit_XML_file>';
+
+        /* header('Content-Description: File Transfer');
+        header('Content-Type: application/xml');
+        header('Content-Disposition: attachment; filename="'.basename($file).'"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($file));
+         */
+        header('Content-type: text/xml');
+        header('Content-Disposition: attachment; filename="'.basename($file).'"');
+        echo $orderxml;
+        exit;
+
+        /* $app = JFactory::getApplication();
+        $id = $app->input->get('tableList');
+        $this->model = $this->getModel('xmlexport');
+        $name = $this->model->getTabledata($id);
+        $name = str_replace(' ','_',$name->name);
+        $file = JPATH_ROOT."/components/com_eventtableedit/template/tablexml/".$name."_".$id.".xml";
+
+        header('Content-Description: File Transfer');
+        header('Content-Type: application/xml');
+        header('Content-Disposition: attachment; filename="'.basename($file).'"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Pragma: public');
+        header('Content-Length: ' . filesize($file));
+        readfile($file);
+        exit; */
+    }
 }

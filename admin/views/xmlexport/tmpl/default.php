@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: default.php 140 2011-01-11 08:11:30Z kapsl $
+ * $Id: default.php 140 2011-01-11 08:11:30Z kapsl $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,7 +21,7 @@
  */
 
 // no direct access adminForm
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 JHtml::_('behavior.tooltip');
 JHtml::_('bootstrap.popover');
 JHtml::_('behavior.formvalidation');
@@ -29,7 +30,7 @@ JHtml::_('behavior.formvalidation');
 <form action="<?php echo JRoute::_('index.php?option=com_eventtableedit'); ?>" method="post" name="adminForm" id="adminForm">
 	<div class="">
 	<fieldset class="adminform">
-		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_XMLEXPORT_TITLE') ?></legend>
+		<legend><?php echo JText::_('COM_EVENTTABLEEDIT_XMLEXPORT_TITLE'); ?></legend>
 		
 		
 		<ul class="adminformlist" style="float: left;">
@@ -47,7 +48,7 @@ JHtml::_('behavior.formvalidation');
 
 			
 			<!--<li>
-				<label><?php //echo JText::_('COM_EVENTTABLEEDIT_SEPARATOR'); ?>: </label>
+				<label><?php //echo JText::_('COM_EVENTTABLEEDIT_SEPARATOR');?>: </label>
 				<select name="separator">
 					<option selected="selected">;</option>
 					<option>,</option>
@@ -55,10 +56,10 @@ JHtml::_('behavior.formvalidation');
 				</select>
 			</li>
 			<li>
-				<label><?php //echo JText::_('COM_EVENTTABLEEDIT_DOUBLEQUOTES'); ?>: </label>
+				<label><?php //echo JText::_('COM_EVENTTABLEEDIT_DOUBLEQUOTES');?>: </label>
 				<select name="doubleqt">
-					<option selected="selected" value="1"><?php //echo JText::_('JYES'); ?></option>
-					<option value="0"><?php //echo JText::_('JNO'); ?></option>
+					<option selected="selected" value="1"><?php //echo JText::_('JYES');?></option>
+					<option value="0"><?php //echo JText::_('JNO');?></option>
 				</select>
 			</li>-->
 		</ul>

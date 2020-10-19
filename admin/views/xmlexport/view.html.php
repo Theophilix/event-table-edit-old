@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: view.html.php 140 2011-01-11 08:11:30Z kapsl $
+ * $Id: view.html.php 140 2011-01-11 08:11:30Z kapsl $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,104 +21,108 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
-jimport( 'joomla.application.component.view');
+defined('_JEXEC') or die;
+jimport('joomla.application.component.view');
 require_once JPATH_COMPONENT.'/views/csvimport/view.html.php';
 require_once JPATH_COMPONENT.'/models/csvimport.php';
 
-class EventtableeditViewxmlexport extends JViewLegacy {
-	function display($tpl = null) {
-		$user = JFactory::getUser();
-		$app = JFactory::getApplication();
-		
-		if (!$user->authorise('core.csv', 'com_eventtableedit')) {
-			JError::raiseWarning(403, JText::_('JERROR_ALERTNOAUTHOR'));
-			return false;
-		}
-		$input  =  JFactory::getApplication()->input;
-		$layout = $input->get('com_eventtableedit.layout');
-		// Switch the differnet datatypes
-		
-		switch ($layout) {
-			case 'summary':
-				// Check for errors.
-				if (count($errors = $this->get('Errors'))) {
-					JError::raiseError(500, implode("\n", $errors));
-					return false;
-				}
-				$postget = $input->getArray($_REQUEST);
-				
-				$orderxml = $this->getXML();
-				$this->assignRef('orderxml',$orderxml);
-				
-				
-				$this->addSummaryToolbar();
-				break;
-			default:
-				$importView = new EventtableeditViewCsvimport();
-				$tableList = $importView->createTableSelectList();
-				
-				$this->assignRef('tables', $tableList);
-				
-				$this->addDefaultToolbar();
-		}
-		
-		$this->document->addStyleSheet($this->baseurl.'/components/com_eventtableedit/template/css/eventtableedit.css');
-		
-		$this->setLayout($layout);
-	    parent::display($tpl);
-	}
-	
-	protected function addDefaultToolbar()	{
-		//JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_MANAGER_XMLEXPORT'), 'export');
-		$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/eventtableedit.xml');
-		$currentversion = (string)$xml->version;
-		JToolBarHelper::title( JText::_( 'Event Table Edit '.$currentversion ) . ' - ' . JText::_( 'COM_EVENTTABLEEDIT_MANAGER_XMLEXPORT' ), 'etetables' );
-		JToolBarHelper::custom('xmlexport.export', 'apply.png', '', 'COM_EVENTTABLEEDIT_EXPORT', false);
-	}
-	
-	/**
-	 * The Toolbar for showing the summary of the export
-	 */
-	protected function addSummaryToolbar()	{
-		//JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_EXPORT_SUMMARY'), 'export');
-		$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/eventtableedit.xml');
-		$currentversion = (string)$xml->version;
-		JToolBarHelper::title( JText::_( 'Event Table Edit '.$currentversion ) . ' - ' . JText::_( 'COM_EVENTTABLEEDIT_EXPORT_SUMMARY' ), 'etetables' );
-		JToolBarHelper::custom('xmlexport.cancel', 'apply.png', '', 'COM_EVENTTABLEEDIT_OK', false);
-		JToolBarHelper::custom('xmlexport.download', 'apply.png', '', 'COM_EVENTTABLEEDIT_DOWNLOAD_FILE', false);
-	}
-	
-	function getXML(){
-		$xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR .'/eventtableedit.xml');
-		$version = (string)$xml->version;
-		
-		$this->model = $this->getModel('xmlexport');
-		$app = JFactory::getApplication();
-		$input  =  JFactory::getApplication()->input;
-		$postget = $input->getArray($_POST);
-		$this->xmlexporttimestamp  = $postget['xmlexporttimestamp'];
-		$this->id 		 = $postget['tableList'];
-		if(empty($this->id)){
-			$msg = JTEXT::_('COM_EVENTTABLEEDIT_PLEASE_SELECT_TABLE');
-			$app->redirect('index.php?option=com_eventtableedit&view=xmlexport',$msg);
-				
-		}	
-		$table = $this->model->getTabledata($this->id);
-			
+class EventtableeditViewxmlexport extends JViewLegacy
+{
+    public function display($tpl = null)
+    {
+        $user = JFactory::getUser();
+        $app = JFactory::getApplication();
 
-		$db = JFactory::GetDBO();
-		$query = 'SELECT CONCAT(\'head_\', a.id) AS head, a.name,a.datatype, a.defaultSorting FROM #__eventtableedit_heads AS a' .
-					' WHERE a.table_id = ' . $this->id .
-					' ORDER BY a.ordering ASC';
-		$db->setQuery($query);
-		$heads = $db->loadObjectList();
-	
-		$query = 'SELECT * FROM #__eventtableedit_rows_' . $this->id;
-		$db->setQuery($query);
-		$rows = $db->loadObjectList();
+        if (!$user->authorise('core.csv', 'com_eventtableedit')) {
+            JFactory::getApplication()->enqueueMessage(JText::_('JERROR_ALERTNOAUTHOR'), 'warning');
+            return false;
+        }
+        $input = JFactory::getApplication()->input;
+        $layout = $input->get('com_eventtableedit.layout');
+        // Switch the differnet datatypes
 
-		$orderxml = '<?xml version="1.0" encoding="utf-8"?> 
+        switch ($layout) {
+            case 'summary':
+                // Check for errors.
+                if (count($errors = $this->get('Errors'))) {
+                    foreach ($errors as $error) {
+                        JFactory::getApplication()->enqueueMessage($error, 'error');
+                    }
+                    return false;
+                }
+                $postget = $input->getArray();
+
+                $orderxml = $this->getXML();
+                $this->assignRef('orderxml', $orderxml);
+
+                $this->addSummaryToolbar();
+                break;
+            default:
+                $importView = new EventtableeditViewCsvimport();
+                $tableList = $importView->createTableSelectList();
+
+                $this->assignRef('tables', $tableList);
+
+                $this->addDefaultToolbar();
+        }
+
+        $this->document->addStyleSheet($this->baseurl.'/components/com_eventtableedit/template/css/eventtableedit.css');
+
+        $this->setLayout($layout);
+        parent::display($tpl);
+    }
+
+    protected function addDefaultToolbar()
+    {
+        //JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_MANAGER_XMLEXPORT'), 'export');
+        $xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR.'/eventtableedit.xml');
+        $currentversion = (string) $xml->version;
+        JToolBarHelper::title(JText::_('Event Table Edit '.$currentversion).' - '.JText::_('COM_EVENTTABLEEDIT_MANAGER_XMLEXPORT'), 'etetables');
+        JToolBarHelper::custom('xmlexport.export', 'apply.png', '', 'COM_EVENTTABLEEDIT_EXPORT', false);
+    }
+
+    /**
+     * The Toolbar for showing the summary of the export.
+     */
+    protected function addSummaryToolbar()
+    {
+        //JToolBarHelper::title(JText::_('COM_EVENTTABLEEDIT_EXPORT_SUMMARY'), 'export');
+        $xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR.'/eventtableedit.xml');
+        $currentversion = (string) $xml->version;
+        JToolBarHelper::title(JText::_('Event Table Edit '.$currentversion).' - '.JText::_('COM_EVENTTABLEEDIT_EXPORT_SUMMARY'), 'etetables');
+        JToolBarHelper::custom('xmlexport.cancel', 'apply.png', '', 'COM_EVENTTABLEEDIT_OK', false);
+        JToolBarHelper::custom('xmlexport.download', 'apply.png', '', 'COM_EVENTTABLEEDIT_DOWNLOAD_FILE', false);
+    }
+
+    public function getXML()
+    {
+        $xml = JFactory::getXML(JPATH_COMPONENT_ADMINISTRATOR.'/eventtableedit.xml');
+        $version = (string) $xml->version;
+
+        $this->model = $this->getModel('xmlexport');
+        $app = JFactory::getApplication();
+        $input = JFactory::getApplication()->input;
+        $postget = $input->getArray();
+        $this->xmlexporttimestamp = $postget['xmlexporttimestamp'];
+        $this->id = $postget['tableList'];
+        if (empty($this->id)) {
+            $msg = JTEXT::_('COM_EVENTTABLEEDIT_PLEASE_SELECT_TABLE');
+            $app->redirect('index.php?option=com_eventtableedit&view=xmlexport', $msg);
+        }
+        $table = $this->model->getTabledata($this->id);
+
+        $db = JFactory::GetDBO();
+        $query = 'SELECT CONCAT(\'head_\', a.id) AS head, a.name,a.datatype, a.defaultSorting FROM #__eventtableedit_heads AS a'.
+                    ' WHERE a.table_id = '.$this->id.
+                    ' ORDER BY a.ordering ASC';
+        $db->setQuery($query);
+        $heads = $db->loadObjectList();
+
+        $query = 'SELECT * FROM #__eventtableedit_rows_'.$this->id;
+        $db->setQuery($query);
+        $rows = $db->loadObjectList();
+
+        $orderxml = '<?xml version="1.0" encoding="utf-8"?> 
 		<Event_Table_Edit_XML_file>
 		<ETE_version>'.$version.'</ETE_version>
 		<id>'.$table->id.'</id>
@@ -136,8 +141,8 @@ class EventtableeditViewxmlexport extends JViewLegacy {
 		<show_pagination>'.$table->show_pagination.'</show_pagination>
 		<bbcode>'.$table->bbcode.'</bbcode>
 		<bbcode_img>'.$table->bbcode_img.'</bbcode_img>
-		<pretext>'.str_replace('&','&amp;',htmlentities($table->pretext)).'</pretext>
-		<aftertext>'.str_replace('&','&amp;',htmlentities($table->aftertext)).'</aftertext>
+		<pretext>'.str_replace('&', '&amp;', htmlentities($table->pretext)).'</pretext>
+		<aftertext>'.str_replace('&', '&amp;', htmlentities($table->aftertext)).'</aftertext>
 		<metakey>'.$table->metakey.'</metakey>
 		<metadesc>'.$table->metadesc.'</metadesc>
 		<metadata>'.$table->metadata.'</metadata>
@@ -161,10 +166,10 @@ class EventtableeditViewxmlexport extends JViewLegacy {
 		<location>'.$table->location.'</location>
 		<summary>'.$table->summary.'</summary>
 		<email>'.$table->email.'</email>
-		<adminemailsubject>'.str_replace('&','&amp;',htmlentities($table->adminemailsubject)).'</adminemailsubject>
-		<useremailsubject>'.str_replace('&','&amp;',htmlentities($table->useremailsubject)).'</useremailsubject>
-		<useremailtext>'.str_replace('&','&amp;',htmlentities($table->useremailtext)).'</useremailtext>
-		<adminemailtext>'.str_replace('&','&amp;',htmlentities($table->adminemailtext)).'</adminemailtext>
+		<adminemailsubject>'.str_replace('&', '&amp;', htmlentities($table->adminemailsubject)).'</adminemailsubject>
+		<useremailsubject>'.str_replace('&', '&amp;', htmlentities($table->useremailsubject)).'</useremailsubject>
+		<useremailtext>'.str_replace('&', '&amp;', htmlentities($table->useremailtext)).'</useremailtext>
+		<adminemailtext>'.str_replace('&', '&amp;', htmlentities($table->adminemailtext)).'</adminemailtext>
 		<displayname>'.$table->displayname.'</displayname>
 		<icsfilename>'.$table->icsfilename.'</icsfilename>
 		<sorting>'.$table->sorting.'</sorting>
@@ -178,52 +183,49 @@ class EventtableeditViewxmlexport extends JViewLegacy {
 		<showusernametouser>'.$table->showusernametouser.'</showusernametouser>
 		<rules>'.$table->rules.'</rules>';
 
-		$orderxml .= '<headdata>';
-		$a=1;
-		foreach ($heads as $value) {
-			$orderxml .= '<linehead>
+        $orderxml .= '<headdata>';
+        $a = 1;
+        foreach ($heads as $value) {
+            $orderxml .= '<linehead>
 							<no>'.$a.'</no>
 							<headtable>'.$value->head.'</headtable>
 							<name>'.$value->name.'</name>
 							<datatype>'.$value->datatype.'</datatype>
 						</linehead>';
-						$a++;
-		}
-		if($this->xmlexporttimestamp){
-			$orderxml .= '<linehead>
+            ++$a;
+        }
+        if ($this->xmlexporttimestamp) {
+            $orderxml .= '<linehead>
 							<no>'.$a.'</no>
 							<headtable>timestamp</headtable>
 							<name>timestamp</name>
 							<datatype>timestamp</datatype>
 						</linehead>';
-		}
-		$orderxml .= '</headdata>';
+        }
+        $orderxml .= '</headdata>';
 
+        $orderxml .= '<rowdata>';
+        $b = 1;
 
-
-		$orderxml .= '<rowdata>';
-		$b=1;
-
-		foreach ($rows as $row) {
-			$orderxml .= '<linerow>
+        foreach ($rows as $row) {
+            $orderxml .= '<linerow>
 							<no>'.$b.'</no>
 							<id>'.$row->id.'</id>
 							<ordering>'.$row->ordering.'</ordering>
 							<created_by>'.$row->created_by.'</created_by>';
-							for ($h=0; $h < count($heads); $h++) { 
-								$findrowval = $heads[$h]->head;
-								$orderxml .= '<'.$findrowval.'>'.htmlspecialchars($row->$findrowval).'</'.$findrowval.'>';	
-							}
-							if($this->xmlexporttimestamp){
-								$orderxml .= '<timestamp>'.htmlspecialchars($row->timestamp).'</timestamp>';	
-							}
-						$orderxml .= '</linerow>';
-						$b++;
-		}
-		
-		$orderxml .= '</rowdata>';
-		$orderxml .= '</Event_Table_Edit_XML_file>';
-		return $orderxml;
-	}
+            for ($h = 0; $h < count($heads); ++$h) {
+                $findrowval = $heads[$h]->head;
+                $orderxml .= '<'.$findrowval.'>'.htmlspecialchars($row->$findrowval).'</'.$findrowval.'>';
+            }
+            if ($this->xmlexporttimestamp) {
+                $orderxml .= '<timestamp>'.htmlspecialchars($row->timestamp).'</timestamp>';
+            }
+            $orderxml .= '</linerow>';
+            ++$b;
+        }
+
+        $orderxml .= '</rowdata>';
+        $orderxml .= '</Event_Table_Edit_XML_file>';
+        return $orderxml;
+    }
 }
-?>

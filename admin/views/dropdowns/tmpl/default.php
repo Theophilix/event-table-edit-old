@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: default.php 112 2010-05-09 12:20:14Z kapsl $
+ * $Id: default.php 112 2010-05-09 12:20:14Z kapsl $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,14 +21,14 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 JHtml::_('behavior.tooltip');
 
-$user		= JFactory::getUser();
-$userId		= $user->get('id');
-$listOrder	= $this->state->get('list.ordering');
-$listDirn	= $this->state->get('list.direction');
-$saveOrder	= $listOrder == 'a.ordering';
+$user = JFactory::getUser();
+$userId = $user->get('id');
+$listOrder = $this->state->get('list.ordering');
+$listDirn = $this->state->get('list.direction');
+$saveOrder = 'a.ordering' === $listOrder;
 ?>
 <style type="text/css">
 
@@ -58,8 +59,8 @@ $saveOrder	= $listOrder == 'a.ordering';
 		</div>-->
 		<div class="btn-wrapper input-append">
 			<select name="filter_published" class="inputbox" onchange="this.form.submit()">
-				<option value=""><?php echo JText::_('JOPTION_SELECT_PUBLISHED');?></option>
-				<?php echo JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true);?>
+				<option value=""><?php echo JText::_('JOPTION_SELECT_PUBLISHED'); ?></option>
+				<?php echo JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true); ?>
 			</select>
 		</div>
 	<!--</fieldset>-->
@@ -73,12 +74,12 @@ $saveOrder	= $listOrder == 'a.ordering';
 					<input type="checkbox" name="checkall-toggle" value="" onclick="checkAll(this)" />
 				</th>
 				<th>
-					<?php echo JHtml::_('grid.sort',  'JGLOBAL_TITLE', 'a.name', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort', 'JGLOBAL_TITLE', 'a.name', $listDirn, $listOrder); ?>
 				</th>
 				<th width="10%">
-					<?php echo JHtml::_('grid.sort',  'JGRID_HEADING_ORDERING', 'a.ordering', $listDirn, $listOrder); ?>
+					<?php echo JHtml::_('grid.sort', 'JGRID_HEADING_ORDERING', 'a.ordering', $listDirn, $listOrder); ?>
 					<?php if ($saveOrder) :?>
-						<?php echo JHtml::_('grid.order',  $this->items, 'filesave.png', 'dropdowns.saveorder'); ?>
+						<?php echo JHtml::_('grid.order', $this->items, 'filesave.png', 'dropdowns.saveorder'); ?>
 					<?php endif; ?>
 				</th>
 				<th width="5%">
@@ -99,15 +100,15 @@ $saveOrder	= $listOrder == 'a.ordering';
 
 		<tbody>
 		<?php
-		$n = count($this->items);
-		foreach ($this->items as $i => $item) :
-			$canCreate	= $user->authorise('core.create',		'com_eventtableedit');
-			$canEdit	= $user->authorise('core.edit',			'com_eventtableedit');
-			$canCheckin	= $user->authorise('core.manage',		'com_checkin') || $item->checked_out == $userId || $item->checked_out == 0;
-			$canChange	= $user->authorise('core.edit.state',	'com_eventtableedit') && $canCheckin;
-			$ordering	= $listOrder == 'a.ordering';
+        $n = count($this->items);
+        foreach ($this->items as $i => $item) :
+            $canCreate = $user->authorise('core.create', 'com_eventtableedit');
+            $canEdit = $user->authorise('core.edit', 'com_eventtableedit');
+            $canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out === $userId || 0 === (int)$item->checked_out;
+            $canChange = $user->authorise('core.edit.state', 'com_eventtableedit') && $canCheckin;
+            $ordering = 'a.ordering' === $listOrder;
 
-			?>
+            ?>
 			<tr class="row<?php echo $i % 2; ?>">
 				<td class="center">
 					<?php echo JHtml::_('grid.id', $i, $item->id); ?>
@@ -126,16 +127,16 @@ $saveOrder	= $listOrder == 'a.ordering';
 				<td class="order">
 					<?php if ($canChange) : ?>
 						<?php if ($saveOrder) :?>
-							<?php if ($listDirn == 'asc') : ?>
-								<span><?php echo $this->pagination->orderUpIcon($i, true,'dropdowns.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
+							<?php if ('asc' === $listDirn) : ?>
+								<span><?php echo $this->pagination->orderUpIcon($i, true, 'dropdowns.orderup', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
 								<span><?php echo $this->pagination->orderDownIcon($i, $n, true, 'dropdowns.orderdown', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
-							<?php elseif ($listDirn == 'desc') : ?>
-								<span><?php echo $this->pagination->orderUpIcon($i, true,'dropdowns.orderdown', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
+							<?php elseif ('desc' === $listDirn) : ?>
+								<span><?php echo $this->pagination->orderUpIcon($i, true, 'dropdowns.orderdown', 'JLIB_HTML_MOVE_UP', $ordering); ?></span>
 								<span><?php echo $this->pagination->orderDownIcon($i, $n, true, 'dropdowns.orderup', 'JLIB_HTML_MOVE_DOWN', $ordering); ?></span>
 							<?php endif; ?>
 						<?php endif; ?>
-						<?php $disabled = $saveOrder ?  '' : 'disabled="disabled"'; ?>
-						<input type="text" name="order[]" size="5" value="<?php echo $item->ordering;?>" <?php echo $disabled ?> class="text-area-order" />
+						<?php $disabled = $saveOrder ? '' : 'disabled="disabled"'; ?>
+						<input type="text" name="order[]" size="5" value="<?php echo $item->ordering; ?>" <?php echo $disabled; ?> class="text-area-order" />
 					<?php else : ?>
 						<?php echo $item->ordering; ?>
 					<?php endif; ?>

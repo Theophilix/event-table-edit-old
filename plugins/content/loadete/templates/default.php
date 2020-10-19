@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: default.php 144 2011-01-13 08:17:03Z kapsl $
+ * $Id: default.php 144 2011-01-13 08:17:03Z kapsl $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,14 +21,14 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
-jimport( 'joomla.application.component.view' );
+defined('_JEXEC') or die;
+jimport('joomla.application.component.view');
 JHtml::addIncludePath(JPATH_SITE.'/components/com_eventtableedit/helpers');
-$main  = JFactory::getApplication()->input;
-$Itemid = 	$main->getInt('Itemid', '');
+$main = JFactory::getApplication()->input;
+$Itemid = $main->getInt('Itemid', '');
 
-if($this->item->sorting == 1){
-?>
+if (1 === (int)$this->item->sorting) {
+    ?>
 <script>
 		/*
  * Natural Sort algorithm for Javascript - Version 0.8.1 - Released under MIT license
@@ -82,22 +83,27 @@ function naturalSort (a, b) {
 			    
     
 	</script>
-<style>
-<?php if($this->item->show_pagination) { ?>
-//#etetable-table_<?php echo $this->unique?>{display: none;}
-<?php } ?>
-span.filter-head{display: none;}
-div.etetable-button{display: none;}
-</style>
 <?php 
 
-foreach ($this->heads as $headSort) {
-   $sortcalssscript = '';
-	if($headSort->datatype == 'text'){
-		$sortcalssscript = 'custom-sort'.$headSort->id;	
+	$document = JFactory::getDocument();
+	if ($this->item->show_pagination) { 
+		$style = '//#etetable-table_'.$this->unique.'{display: none;}';
+		$document->addStyleDeclaration( $style );
+	} 
 	
-		?>
-		<script type="text/javascript">
+	$style = 'span.filter-head{display: none;}
+div.etetable-button{display: none;}';
+	$document->addStyleDeclaration( $style );
+	?>
+
+</style>
+<?php
+
+foreach ($this->heads as $headSort) {
+    $sortcalssscript = '';
+    if ('text' === $headSort->datatype) {
+        $sortcalssscript = 'custom-sort'.$headSort->id; ?>
+		<script >
 			jQuery(function() {
 				jQuery( "#<?php echo $sortcalssscript; ?>" ).data( "tablesaw-sort", function( ascending ) {
 					return  function( a, b ) {
@@ -170,81 +176,84 @@ foreach ($this->heads as $headSort) {
 
 		</script>
 
-<?php } } ?>
+<?php
+    }
+} ?>
 
-<?php } ?>
-<div class="eventtableedit<?php echo $this->params->get('pageclass_sfx')?>" id="<?php echo $this->unique?>">
+<?php
+} ?>
+<div class="eventtableedit<?php echo $this->params->get('pageclass_sfx'); ?>" id="<?php echo $this->unique; ?>">
 
 <ul class="actions">
-	<?php if($this->item->show_print_view) :?>
+	<?php if ($this->item->show_print_view) :?>
 	<li class="print-icon">
 		<?php if (!$this->print) : ?>
-			<?php echo JHtml::_('icon.print_popup',  $this->item, $this->params); ?>
+			<?php echo JHtml::_('icon.print_popup', $this->item, $this->params); ?>
 		<?php else : ?>
-			<?php echo JHtml::_('icon.print_screen',  $this->item, $this->params); ?>
+			<?php echo JHtml::_('icon.print_screen', $this->item, $this->params); ?>
 		<?php endif; ?>
 	</li>
 	<?php endif; ?>
 
-	<?php if($this->params->get('access-create_admin')) :?>
+	<?php if ($this->params->get('access-create_admin')) :?>
 	<li class="admin-icon">
 		<?php if ($this->heads) :?>
-			<?php echo JHtml::_('icon.adminTable',  $this->item, JText::_('COM_EVENTTABLEEDIT_ETETABLE_ADMIN')); ?>
+			<?php echo JHtml::_('icon.adminTable', $this->item, JText::_('COM_EVENTTABLEEDIT_ETETABLE_ADMIN')); ?>
 		<?php else: ?>
-			<?php echo JHtml::_('icon.adminTable',  $this->item, JText::_('COM_EVENTTABLEEDIT_ETETABLE_CREATE')); ?>
+			<?php echo JHtml::_('icon.adminTable', $this->item, JText::_('COM_EVENTTABLEEDIT_ETETABLE_CREATE')); ?>
 		<?php endif; ?>
 	</li>
 	<?php endif; ?>
 </ul>
 
-<?php 
-if($this->item->addtitle == 1){ ?>
+<?php
+if (1 === (int)$this->item->addtitle) { ?>
 <h2 class="etetable-title">
 	<?php echo $this->item->name; ?>
 </h2>
 <?php } ?>
 
-<?php if($this->item->pretext != '') :?>
+<?php if ('' !== $this->item->pretext) :?>
 	<div class="etetable-pretext">
 		<?php echo $this->item->pretext; ?>
 	</div>
 <?php endif; ?>
 
-<?php if($this->item->show_filter && count($this->heads) > 0) :?>
+<?php if ($this->item->show_filter && count($this->heads) > 0) :?>
 	<div class="etetable-filter">
-		<?php include(JPATH_SITE.'/plugins/content/loadete/templates/default_filter.php'); ?>
+		<?php include JPATH_SITE.'/plugins/content/loadete/templates/default_filter.php'; ?>
 	</div>
-<?php endif;  //etetable-tform ?>
+<?php endif;  //etetable-tform?>
 <div style="clear:both"></div>
 <!-- etetable-tform -->
-<form action="<?php echo JUri::getInstance();//echo JRoute::_('index.php?option=com_eventtableedit'); ?>" name="adminForm" id="adminForm_<?php echo $this->unique?>" method="post">
+<form action="<?php echo JUri::getInstance(); //echo JRoute::_('index.php?option=com_eventtableedit');?>" name="adminForm" id="adminForm_<?php echo $this->unique; ?>" method="post">
 	<?php // echo '<pre>';print_r($this->item);
 
-	//If there is already a table set up
-	if ($this->heads) :?>
+    //If there is already a table set up
+    if ($this->heads) :?>
   
 		<div class="etetable-outtable">
-			<?php include(JPATH_SITE.'/plugins/content/loadete/templates/default_table.php'); ?>
+			<?php include JPATH_SITE.'/plugins/content/loadete/templates/default_table.php'; ?>
 		</div>
 	<?php endif; ?>
 	
-	<input type="hidden" name="filter_order" value="<?php echo $this->state->get($this->item->id.'.list.ordering') ?>" />
-	<input type="hidden" name="filter_order_Dir" value="<?php echo $this->state->get($this->item->id.'.list.direction') ?>" />
-	<input type="hidden" name="filterstring" value="<?php echo $this->params->get($this->item->id.'.filterstring') ?>" />
+	<input type="hidden" name="filter_order" value="<?php echo $this->state->get($this->item->id.'.list.ordering'); ?>" />
+	<input type="hidden" name="filter_order_Dir" value="<?php echo $this->state->get($this->item->id.'.list.direction'); ?>" />
+	<input type="hidden" name="filterstring" value="<?php echo $this->params->get($this->item->id.'.filterstring'); ?>" />
 	<!--<input type="hidden" name="option" value="com_eventtableedit" />
 	<input type="hidden" name="view" value="etetable" />
 	<input type="hidden" name="task" value="" />-->
 	<input type="hidden" name="task" class="task" value="" />
 	<input type="hidden" name="Itemid" value="<?php echo $Itemid; ?>" />
 	<input type="hidden" name="table_id" value="<?php echo $this->item->id; ?>" />
-	<input type="hidden" name="<?php echo $this->item->alias;?>change_mode" id="cmode" value="" />
+	<input type="hidden" name="<?php echo $this->item->alias; ?>change_mode" id="cmode" value="" />
 	<?php echo JHtml::_('form.token'); ?>
 	<?php
-	/**
-	 * Adding a new row
-	 */
-	?>
-	<?php if($this->params->get('access-add') && $this->heads) : ?>
+    /**
+     * Adding a new row.
+     */
+    ?>
+	<?php if ($this->params->get('access-add') && $this->heads) : ?>
 		<div class="etetable-add" title="<?php echo JText::_('COM_EVENTTABLEEDIT_NEW_ROW'); ?>"></div>
 
 	<?php endif; ?>
@@ -252,7 +261,7 @@ if($this->item->addtitle == 1){ ?>
 
 
 
-<?php if($this->item->aftertext != '') :?>
+<?php if ('' !== $this->item->aftertext) :?>
 	<div class="etetable-aftertext">
 		<?php echo $this->item->aftertext; ?>
 	</div>
@@ -261,43 +270,58 @@ if($this->item->addtitle == 1){ ?>
 </div>
 <div style="clear:both"></div>
 <?php
-if($this->item->scroll_table){ 
-	$scroll_table_height = ($this->item->scroll_table_height)?$this->item->scroll_table_height.'px':"200px";
-?>
-<style>
-div.scroller {
-  display: inline-block;
-  height: <?php echo $scroll_table_height;?>;
-  overflow: auto;
-  float:left;
-  width:100%;
-  border-top: solid 1px #e5e5e4;
-}
+if ($this->item->scroll_table) {
+        $scroll_table_height = ($this->item->scroll_table_height) ? $this->item->scroll_table_height.'px' : '200px';
 
-table#etetable-table_<?php echo $this->unique?> th {
-  position: -webkit-sticky;
-  position: sticky;
-  top: -1px;
-  height: 34px;
-}
+	$document = JFactory::getDocument();
+		$style = '
+				div.scroller {
+				  display: inline-block;
+				  height: '. $scroll_table_height.';
+				  overflow: auto;
+				  float:left;
+				  width:100%;
+				  border-top: solid 1px #e5e5e4;
+				}
 
-#etetable-table_<?php echo $this->unique?> thead th{
-	border: 1px solid #e5e5e4;
-    background: #e2dfdc;
-    background-image: -webkit-linear-gradient(top, #fff, #e2dfdc);
-    background-image: linear-gradient(to bottom, #fff, #e2dfdc);
-}
+				table#etetable-table_'.$this->unique.' th {
+				  position: -webkit-sticky;
+				  position: sticky;
+				  top: -1px;
+				  height: 34px;
+				}
 
-</style>
-<?php  } ?>
-<?php if($this->item->show_pagination) { ?>
+				#etetable-table_'. $this->unique .' thead th{
+					border: 1px solid #e5e5e4;
+					background: #e2dfdc;
+					background-image: -webkit-linear-gradient(top, #fff, #e2dfdc);
+					background-image: linear-gradient(to bottom, #fff, #e2dfdc);
+				}
+				';
+		$document->addStyleDeclaration( $style );
+    }else{
+		$document = JFactory::getDocument();
+		$style = '
+				div.scroller {
+				  display: inline-block;
+				  height: auto;
+				  overflow: auto;
+				  float:left;
+				  width:100%;
+				  border-top: solid 1px #e5e5e4;
+				}
+				';
+		$document->addStyleDeclaration( $style );
+	}?>
+<?php if ($this->item->show_pagination) { ?>
 	<div>
-		<a href="#" class="paginate_<?php echo $this->unique?>" id="previous_<?php echo $this->unique?>">&laquo;</a> <a href="#" class="paginate_<?php echo $this->unique?>" id="next_<?php echo $this->unique?>">&raquo;</a>
+		<a href="#" class="paginate_<?php echo $this->unique; ?>" id="previous_<?php echo $this->unique; ?>">&laquo;</a> <a href="#" class="paginate_<?php echo $this->unique; ?>" id="next_<?php echo $this->unique; ?>">&raquo;</a>
 	</div>
 <?php } ?>
-<style>
-
-.paginate_<?php echo $this->unique?>{
+<?php 
+$document = JFactory::getDocument();
+$style = '
+.paginate_'. $this->unique.'{
 	width: 20px;
 	height: 20px;
 	text-align: center;
@@ -307,16 +331,17 @@ table#etetable-table_<?php echo $this->unique?> th {
 	color: #000;
 	text-decoration: none;
 }
-.paginate_<?php echo $this->unique?>:hover, .paginate_<?php echo $this->unique?>:active, .paginate_<?php echo $this->unique?>:focus{
+.paginate_'.$this->unique.':hover, .paginate_'.$this->unique.':active, .paginate_'.$this->unique.':focus{
 	text-decoration: none;
-}
-</style>
-<script type='text/javascript'>
+}';
+$document->addStyleDeclaration( $style );
+ ?>
+<script>
  
 
  
     // Starting table state
-    function initTable_<?php echo $this->unique?>(size, myTable) {
+    function initTable_<?php echo $this->unique; ?>(size, myTable) {
 		
 		var myTableBody = myTable + " tbody";
 		var myTableRows = myTableBody + " tr";
@@ -326,14 +351,14 @@ table#etetable-table_<?php echo $this->unique?> th {
 		}
         jQuery(myTableBody).attr("data-pageSize", size);
         jQuery(myTableBody).attr("data-firstRecord", 0);
-        jQuery('#previous_<?php echo $this->unique?>').hide();
-        jQuery('#next_<?php echo $this->unique?>').show();
+        jQuery('#previous_<?php echo $this->unique; ?>').hide();
+        jQuery('#next_<?php echo $this->unique; ?>').show();
  
         // Increment the table width for sort icon support
     
  
         // Start the pagination
-        paginate_<?php echo $this->unique?>(parseInt(jQuery(myTableBody).attr("data-firstRecord"), 10),
+        paginate_<?php echo $this->unique; ?>(parseInt(jQuery(myTableBody).attr("data-firstRecord"), 10),
                  parseInt(jQuery(myTableBody).attr("data-pageSize"), 10), myTable, myTableRows);
 		
 		
@@ -343,12 +368,12 @@ table#etetable-table_<?php echo $this->unique?> th {
 			
 	 
 			// Start the pagination
-			paginate_<?php echo $this->unique?>(parseInt(jQuery(myTableBody).attr("data-firstRecord"), 10),
+			paginate_<?php echo $this->unique; ?>(parseInt(jQuery(myTableBody).attr("data-firstRecord"), 10),
 					 parseInt(jQuery(myTableBody).attr("data-pageSize"), 10), myTable, myTableRows);
 		});
 	 
 		// Pager click
-		jQuery("a.paginate_<?php echo $this->unique?>").click(function (e) {
+		jQuery("a.paginate_<?php echo $this->unique; ?>").click(function (e) {
 			e.preventDefault();
 			var tableRows = jQuery(myTableRows);
 			
@@ -356,7 +381,7 @@ table#etetable-table_<?php echo $this->unique?> th {
 			var pageSize = parseInt(jQuery(myTableBody).attr("data-pageSize"), 10);
 			
 			// Define the new first record
-			if (jQuery(this).attr("id") == "next_<?php echo $this->unique?>") {
+			if (jQuery(this).attr("id") == "next_<?php echo $this->unique; ?>") {
 				tmpRec += pageSize;
 			} else {
 				tmpRec -= pageSize;
@@ -366,14 +391,14 @@ table#etetable-table_<?php echo $this->unique?> th {
 			if (tmpRec < 0 || tmpRec > tableRows.length) return
 			
 			jQuery(myTableBody).attr("data-firstRecord", tmpRec);
-			paginate_<?php echo $this->unique?>(tmpRec, pageSize, myTable, myTableRows);
+			paginate_<?php echo $this->unique; ?>(tmpRec, pageSize, myTable, myTableRows);
 		});
 	 
 		
     }
 	
 	// Paging function
-	var paginate_<?php echo $this->unique?> = function (start, size, myTable, myTableRows) {
+	var paginate_<?php echo $this->unique; ?> = function (start, size, myTable, myTableRows) {
 		var tableRows = jQuery(myTableRows).not('.musthide');
 		var end = start + size;
 		// Hide all the rows
@@ -383,69 +408,71 @@ table#etetable-table_<?php echo $this->unique?> th {
 		tableRows.slice(start, end).show();
 		jQuery(myTable).show();
 		// Show the pager
-		jQuery(".paginate_<?php echo $this->unique?>").show();
+		jQuery(".paginate_<?php echo $this->unique; ?>").show();
 		
-		jQuery('.paginate_<?php echo $this->unique?>').removeAttr('disabled');
+		jQuery('.paginate_<?php echo $this->unique; ?>').removeAttr('disabled');
 		// If the first row is visible hide prev
-		if (tableRows.eq(0).is(":visible")) jQuery('#previous_<?php echo $this->unique?>').hide();
+		if (tableRows.eq(0).is(":visible")) jQuery('#previous_<?php echo $this->unique; ?>').hide();
 		// If the last row is visible hide next 
-		if (tableRows.eq(tableRows.length - 1).is(":visible")) jQuery('#next_<?php echo $this->unique?>').hide();
+		if (tableRows.eq(tableRows.length - 1).is(":visible")) jQuery('#next_<?php echo $this->unique; ?>').hide();
 	}
  
     
 	
 	
 jQuery(function () { 
-   <?php if($this->item->show_pagination) { ?>
-    initTable_<?php echo $this->unique?>('<?php echo $this->item->pagebreak;?>', "#etetable-table_<?php echo $this->unique?>");
+   <?php if ($this->item->show_pagination) { ?>
+    initTable_<?php echo $this->unique; ?>('<?php echo $this->item->pagebreak; ?>', "#etetable-table_<?php echo $this->unique; ?>");
    <?php } ?> 
 });
 </script>
 
 <script>
-var $rows_<?php echo $this->unique?> = jQuery('#etetable-table_<?php echo $this->unique?> tbody tr');
+var $rows_<?php echo $this->unique; ?> = jQuery('#etetable-table_<?php echo $this->unique; ?> tbody tr');
 jQuery(document).ready(function() {
-	jQuery('.filterstring_<?php echo $this->unique?>').keyup(function() {
+	jQuery('.filterstring_<?php echo $this->unique; ?>').keyup(function() {
 		var val = jQuery.trim(jQuery(this).val()).replace(/ +/g, ' ').toLowerCase();
-		$rows_<?php echo $this->unique?>.show().removeClass('musthide').filter(function() {
+		$rows_<?php echo $this->unique; ?>.show().removeClass('musthide').filter(function() {
 			var text = jQuery(this).find('td:visible').text().replace(/\s+/g, ' ').toLowerCase();
 			//console.log(jQuery(this).find('td:visible').text());
 			return !~text.indexOf(val);
 		}).hide().addClass('musthide');
-		//initTable_<?php echo $this->unique?>(5);
-		<?php if($this->item->show_pagination) { ?>
-		initTable_<?php echo $this->unique?>('<?php echo $this->item->pagebreak;?>',"#etetable-table_<?php echo $this->unique?>");
+		//initTable_<?php echo $this->unique; ?>(5);
+		<?php if ($this->item->show_pagination) { ?>
+		initTable_<?php echo $this->unique; ?>('<?php echo $this->item->pagebreak; ?>',"#etetable-table_<?php echo $this->unique; ?>");
 	   <?php } ?> 
 	});
 });
 </script>
-
-<style>
-#etetable-table_<?php echo $this->unique?> {width: 100%;font-size: 12px;border-collapse: collapse;}
-#etetable-table_<?php echo $this->unique?> td {padding: 2px;}
-#etetable-table_<?php echo $this->unique?> td:hover {background-color: #F4F4F4;}
-#etetable-table_<?php echo $this->unique?> th {font-weight: bold;text-align: center;padding-left: 3px !important;padding-right: 3px !important;}
-#etetable-table_<?php echo $this->unique?> thead tr {border: none;}
-#etetable-table_<?php echo $this->unique?> th a {font-weight: bold;}
-#etetable-table_<?php echo $this->unique?> tr td {text-align: center;border: 1px solid #DDDDDD;overflow: hidden;}
-#etetable-table_<?php echo $this->unique?> #first_row {font-weight: bold;width: 8px;}
-#etetable-table_<?php echo $this->unique?> th a, #etetable-table_<?php echo $this->unique?> th a:link, #etetable-table_<?php echo $this->unique?> th a:visited {color: #444444 !important;text-decoration: none;}
-#etetable-table_<?php echo $this->unique?> tfoot td {text-align: center;background-color: #F4F4F4;font-size: 0.9em;}
-#etetable-table_<?php echo $this->unique?> #container {clear: both;text-align: center;}
-#etetable-table_<?php echo $this->unique?> .pagination-start, #etetable-table_<?php echo $this->unique?> .pagination-prev {background: url("../images/pagination/j_button2_right.png") no-repeat scroll 100% 0 transparent;float: left;margin-left: 5px;margin-right: 10px;}
-#etetable-table_<?php echo $this->unique?> .pagination-end, #etetable-table_<?php echo $this->unique?> .pagination-next {background: url("../images/pagination/j_button2_left.png") no-repeat scroll 0 0 transparent;float: left;margin-left: 5px;margin-right: 10px;}
-#etetable-table_<?php echo $this->unique?> .pagination-prev .pagenav, #_<?php echo $this->unique?> .pagination-start .pagenav {padding: 0 6px 0 24px;display: block;height: 22px;line-height: 22px;}
-#etetable-table_<?php echo $this->unique?> a.pagenav {text-decoration: none;}
-#etetable-table_<?php echo $this->unique?> .pagination {/*float: left;*/padding-top: 3px;}
-#etetable-table_<?php echo $this->unique?> .pagination-prev {margin-right: 5px;}
-#etetable-table_<?php echo $this->unique?> .pagination-next .pagenav, #etetable-table_<?php echo $this->unique?> .pagination-end .pagenav {padding: 0 24px 0 6px;text-decoration: none;display: block;height: 22px;line-height: 22px;float: left;}
-#etetable-table_<?php echo $this->unique?> .pagination-start .pagenav {background: url("../images/pagination/j_button2_first_off.png") no-repeat scroll 0 0 transparent;}
-#etetable-table_<?php echo $this->unique?> .pagination-prev .pagenav {background: url("../images/pagination/j_button2_prev_off.png") no-repeat scroll 0 0 transparent;}
-#etetable-table_<?php echo $this->unique?> .pagination-start a.pagenav {background: url("../images/pagination/j_button2_first.png") no-repeat scroll 0 0 transparent;}
-#etetable-table_<?php echo $this->unique?> .pagination-prev a.pagenav {background: url("../images/pagination/j_button2_prev.png") no-repeat scroll 0 0 transparent;}
-#etetable-table_<?php echo $this->unique?> .pagination-next .pagenav {background: url("../images/pagination/j_button2_next_off.png") no-repeat scroll 100% 0 transparent;}
-#etetable-table_<?php echo $this->unique?> .pagination-end .pagenav {background: url("../images/pagination/j_button2_last_off.png") no-repeat scroll 100% 0 transparent;}
-#etetable-table_<?php echo $this->unique?> .pagination-next a.pagenav {background: url("../images/pagination/j_button2_next.png") no-repeat scroll 100% 0 transparent;}
-#etetable-table_<?php echo $this->unique?> .pagination-end a.pagenav {background: url("../images/pagination/j_button2_last.png") no-repeat scroll 100% 0 transparent;}
-#etetable-table_<?php echo $this->unique?> tbody td{font-size: 9pt !important;}
-</style>
+<?php
+$document = JFactory::getDocument();
+$style = '
+#etetable-table_'.$this->unique.' {width: 100%;font-size: 12px;border-collapse: collapse;}
+#etetable-table_'.$this->unique.' td {padding: 2px;}
+#etetable-table_'.$this->unique.' td:hover {background-color: #F4F4F4;}
+#etetable-table_'.$this->unique.' th {font-weight: bold;text-align: center;padding-left: 3px !important;padding-right: 3px !important;}
+#etetable-table_'.$this->unique.' thead tr {border: none;}
+#etetable-table_'.$this->unique.' th a {font-weight: bold;}
+#etetable-table_'.$this->unique.' tr td {text-align: center;border: 1px solid #DDDDDD;overflow: hidden;}
+#etetable-table_'.$this->unique.' div[class^="first_row"] {font-weight: bold;width: 8px;}
+#etetable-table_'.$this->unique.' th a, #etetable-table_'.$this->unique.' th a:link, #etetable-table_'.$this->unique.' th a:visited {color: #444444 !important;text-decoration: none;}
+#etetable-table_'.$this->unique.' tfoot td {text-align: center;background-color: #F4F4F4;font-size: 0.9em;}
+#etetable-table_'.$this->unique.' #container {clear: both;text-align: center;}
+#etetable-table_'.$this->unique.' .pagination-start, #etetable-table_'.$this->unique.' .pagination-prev {background: url("../images/pagination/j_button2_right.png") no-repeat scroll 100% 0 transparent;float: left;margin-left: 5px;margin-right: 10px;}
+#etetable-table_'.$this->unique.' .pagination-end, #etetable-table_'.$this->unique.' .pagination-next {background: url("../images/pagination/j_button2_left.png") no-repeat scroll 0 0 transparent;float: left;margin-left: 5px;margin-right: 10px;}
+#etetable-table_'.$this->unique.' .pagination-prev .pagenav, #_'.$this->unique.' .pagination-start .pagenav {padding: 0 6px 0 24px;display: block;height: 22px;line-height: 22px;}
+#etetable-table_'.$this->unique.' a.pagenav {text-decoration: none;}
+#etetable-table_'.$this->unique.' .pagination {/*float: left;*/padding-top: 3px;}
+#etetable-table_'.$this->unique.' .pagination-prev {margin-right: 5px;}
+#etetable-table_'.$this->unique.' .pagination-next .pagenav, #etetable-table_'.$this->unique.' .pagination-end .pagenav {padding: 0 24px 0 6px;text-decoration: none;display: block;height: 22px;line-height: 22px;float: left;}
+#etetable-table_'.$this->unique.' .pagination-start .pagenav {background: url("../images/pagination/j_button2_first_off.png") no-repeat scroll 0 0 transparent;}
+#etetable-table_'.$this->unique.' .pagination-prev .pagenav {background: url("../images/pagination/j_button2_prev_off.png") no-repeat scroll 0 0 transparent;}
+#etetable-table_'.$this->unique.' .pagination-start a.pagenav {background: url("../images/pagination/j_button2_first.png") no-repeat scroll 0 0 transparent;}
+#etetable-table_'.$this->unique.' .pagination-prev a.pagenav {background: url("../images/pagination/j_button2_prev.png") no-repeat scroll 0 0 transparent;}
+#etetable-table_'.$this->unique.' .pagination-next .pagenav {background: url("../images/pagination/j_button2_next_off.png") no-repeat scroll 100% 0 transparent;}
+#etetable-table_'.$this->unique.' .pagination-end .pagenav {background: url("../images/pagination/j_button2_last_off.png") no-repeat scroll 100% 0 transparent;}
+#etetable-table_'.$this->unique.' .pagination-next a.pagenav {background: url("../images/pagination/j_button2_next.png") no-repeat scroll 100% 0 transparent;}
+#etetable-table_'.$this->unique.' .pagination-end a.pagenav {background: url("../images/pagination/j_button2_last.png") no-repeat scroll 100% 0 transparent;}
+#etetable-table_'.$this->unique.' tbody td{font-size: 9pt !important;}';
+$document->addStyleDeclaration( $style );
+?>

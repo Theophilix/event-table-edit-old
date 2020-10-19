@@ -1,15 +1,16 @@
 <?php
 /**
- * $Id: $
+ * $Id: $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL
  */
- 
+
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 ?>
 
-<script type="text/javascript">
+<script >
 <!--
 
 theads = null;
@@ -92,7 +93,7 @@ Theads.prototype.generateObjects = function() {
 	var thead = null;
 	
 	<?php foreach ($this->item as $item) : ?>
-		thead = new Thead(<?php echo $item->id . ", '" . $item->name . "', '" . $item->datatype . "'"; ?>);
+		thead = new Thead(<?php echo $item->id.", '".$item->name."', '".$item->datatype."'"; ?>);
 		thead.prepareDefaultSorting('<?php echo $item->defaultSorting; ?>');
 		this.theads.push(thead);
 	<?php endforeach; ?>
@@ -201,15 +202,15 @@ Thead.prototype.addDatatype = function() {
 	var option = null;
 	var selextedIndex = 0;
 	
-	<?php 
-	for($a = 0; $a < count($this->additional['datatypes']); $a++ ) :?>
+	<?php
+    for ($a = 0; $a < count($this->additional['datatypes']); ++$a) :?>
 		option = new Element('option', {
-			'value'		: '<?php echo $this->additional['datatypes'][$a] ?>',
-			'text'		: '<?php echo $this->additional['datatypes_desc'][$a] ?>'
+			'value'		: '<?php echo $this->additional['datatypes'][$a]; ?>',
+			'text'		: '<?php echo $this->additional['datatypes_desc'][$a]; ?>'
 		});
 		option.inject(select);	
 		
-		if ('<?php echo $this->additional['datatypes'][$a] ?>' == this.datatype) {
+		if ('<?php echo $this->additional['datatypes'][$a]; ?>' == this.datatype) {
 			selectedIndex = <?php echo $a; ?>;
 		} 
 	<?php endfor; ?>
@@ -302,6 +303,7 @@ Thead.prototype.addDeleteIcon = function() {
 	var deleteIcon = new Element('img', {
 		'src': '<?php echo JURI::root(); ?>administrator/components/com_eventtableedit/template/images/cross.png',
 		'id': 'changetable-deleteIcon',
+		'alt': 'cross',
 		'events': {
 			'click': (function(thead) {
 				return function () {

@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id:$
+ * $Id:$.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,11 +21,11 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 $app = JFactory::getApplication();
 ?>
 
-<legend><?php echo JText::_('COM_EVENTTABLEEDIT_APPEND_TABLE') ?></legend>
+<legend><?php echo JText::_('COM_EVENTTABLEEDIT_APPEND_TABLE'); ?></legend>
 
 <?php if (!$app->getUserState('com_eventtableedit.csvError', true)) :?>
 	<div id="summaryHead"><?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_REPORT_SUCCESS'); ?></div>
@@ -32,4 +33,4 @@ $app = JFactory::getApplication();
 <?php else: ?>
 	<div id="summaryHeadFailed"><?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_REPORT_FAILED'); ?></div>
 	<p><?php echo JText::_('COM_EVENTTABLEEDIT_IMPORT_REPORT_APPEND_FAILED'); ?></p>
-<?php endif;?>
+<?php endif; ?>

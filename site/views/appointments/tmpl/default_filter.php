@@ -1,7 +1,7 @@
 <?php
 /**
  * @version		$Id: $
- * @package		eventtableedit
+ *
  * @copyright	Copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
@@ -15,12 +15,12 @@ defined('_JEXEC') or die;
 		<?php echo JText::_('COM_EVENTTABLEEDIT_FILTER'); ?>
 	</span>
 	
-	<?php 
-	$filterstring = $this->params->get('filterstring');
-	if ($this->additional['containsDate']) :
-		echo JHTML::calendar($filterstring, 'filterstring', 'filterstring', '%Y-%m-%d', array ('class'=>'filterstring', 'size'=>'20', 'maxlength'=>'100'));
-	else : ?>
-		<input type="text" class="filterstring" name="filterstring" value="<?php echo $filterstring ?>" size="20" maxlength="100" />
+	<?php
+    $filterstring = $this->params->get('filterstring');
+    if ($this->additional['containsDate']) :
+        echo JHTML::calendar($filterstring, 'filterstring', 'filterstring', '%Y-%m-%d', ['class' => 'filterstring', 'size' => '20', 'maxlength' => '100']);
+    else : ?>
+		<input type="text" class="filterstring" name="filterstring" value="<?php echo $filterstring; ?>" size="20" maxlength="100" />
 	<?php endif; ?>
 	
 	&nbsp;
@@ -48,11 +48,11 @@ function checkMethod(){
 }
 
 jQuery(document).ready(function(){
-	<?php if(isset($_POST['currentmode']) && $_POST['currentmode']!=""){
-		?>
-		jQuery('.tablesaw-modeswitch span.btn-select select').val('<?php echo $_POST['currentmode'];?>');
+	<?php if (isset($postget['currentmode']) && '' !== $postget['currentmode']) {
+        ?>
+		jQuery('.tablesaw-modeswitch span.btn-select select').val('<?php echo $postget['currentmode']; ?>');
 		jQuery('.tablesaw-modeswitch span.btn-select select').change();
 		<?php
-	}?>
+    }?>
 })
 </script>

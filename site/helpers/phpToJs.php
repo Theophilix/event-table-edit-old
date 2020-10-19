@@ -1,31 +1,51 @@
 <?php
 /**
- * $Id: $
+ * $Id: $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL
- * 
+ *
  * Translates PHP Values to JS Variables
  */
- 
-$listOrder	= $this->state->get('list.ordering');
-$listDirn	= $this->state->get('list.direction');
-
-
-
-
+defined('_JEXEC') or die;
+$listOrder = $this->state->get('list.ordering');
+$listDirn = $this->state->get('list.direction');
 ?>
-
-<script type="text/javascript">
+<script >
 <!--
 
 function Access() {
-	this.edit 		= <?php if ($this->params->get('access-edit')) echo "1"; else echo "0"; ?>;
-	this.add 		= <?php if ($this->params->get('access-add')) echo "1"; else echo "0"; ?>;
-	this.deleteRowR = <?php if ($this->params->get('access-delete')) echo "1"; else echo "0"; ?>;
-	this.deleteRow 	= <?php if ($this->item->rowdelete) echo "1"; else echo "0"; ?>;
-	this.reorder	= <?php if ($this->params->get('access-reorder')) echo "1"; else echo "0"; ?>;
+	this.edit 		= <?php if ($this->params->get('access-edit')) {
+    echo '1';
+} else {
+    echo '0';
+} ?>;
+	this.add 		= <?php if ($this->params->get('access-add')) {
+    echo '1';
+} else {
+    echo '0';
+} ?>;
+	this.deleteRowR = <?php if ($this->params->get('access-delete')) {
+    echo '1';
+} else {
+    echo '0';
+} ?>;
+	this.deleteRow 	= <?php if ($this->item->rowdelete) {
+    echo '1';
+} else {
+    echo '0';
+} ?>;
+	this.reorder	= <?php if ($this->params->get('access-reorder')) {
+    echo '1';
+} else {
+    echo '0';
+} ?>;
 	
-	this.ownRows 	= <?php if ($this->params->get('access-ownRows')) echo "1"; else echo "0"; ?>;
+	this.ownRows 	= <?php if ($this->params->get('access-ownRows')) {
+    echo '1';
+} else {
+    echo '0';
+} ?>;
 	
 	// Saves what rows a user created himself
 	var createdTemp  = '<?php echo $this->additional['createdRows']; ?>';
@@ -45,7 +65,7 @@ function TableProperties() {
 	this.ordering	= orderTemp.split('|');
 	
 	
-	this.table 		= $('#etetable-table<?php echo (isset($this->unique)? "_" . $this->unique:"");?>');
+	this.table 		= $('#etetable-table<?php echo isset($this->unique) ? '_'.$this->unique : ''; ?>');
 	this.myTable 	= this.table[0];
 }
 
@@ -55,11 +75,11 @@ function Language() {
 	this.toolTip_desc = new Object();
 	
 	this.toolTip_title["text"] 	= '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_TIP_TEXT_TITLE'); ?>';
-	this.toolTip_desc["text"]	= '<?php 
-					   echo JTEXT::_('COM_EVENTTABLEEDIT_TIP_TEXT_DESC');
-					   if ($this->item->bbcode) {
-						echo JTEXT::_('COM_EVENTTABLEEDIT_TIP_TEXT_BBCODE');
-					   } ?>';
+	this.toolTip_desc["text"]	= '<?php
+                       echo JTEXT::_('COM_EVENTTABLEEDIT_TIP_TEXT_DESC');
+                       if ($this->item->bbcode) {
+                           echo JTEXT::_('COM_EVENTTABLEEDIT_TIP_TEXT_BBCODE');
+                       } ?>';
 
 	this.toolTip_title["int"]  	= '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_TIP_INT_TITLE'); ?>';
 	this.toolTip_desc["int"]	= '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_TIP_INT_DESC'); ?>';
@@ -97,7 +117,7 @@ function Language() {
 	this.clear				  = '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_CLEAR'); ?>';
 	this.saveOrder			  = '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_SAVE_ORDER'); ?>';
 	this.deleteRow			  = '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_DELETE_ROW'); ?>';
-	this.dropdownOption			= '<?php echo JText::_("COM_EVENTTABLEEDIT_DROPDOWN_INFOTEXT");?>';
+	this.dropdownOption			= '<?php echo JText::_('COM_EVENTTABLEEDIT_DROPDOWN_INFOTEXT'); ?>';
 }
 
 Language.prototype.getToolTip = function(datatype) {
@@ -111,7 +131,7 @@ Language.prototype.getToolTip = function(datatype) {
 function Others() {
 	this.rootUrl 			= '<?php echo JURI::root(); ?>';
 	this.windowOpen			= 0;
-	this.orderingLink		= '<?php echo str_replace('\'', '\\\'', JHTML::_( 'grid.sort', 'COM_EVENTTABLEEDIT_ORDERING', 'a.ordering', $listDirn, $listOrder)); ?>';
+	this.orderingLink		= '<?php echo str_replace('\'', '\\\'', JHTML::_('grid.sort', 'COM_EVENTTABLEEDIT_ORDERING', 'a.ordering', $listDirn, $listOrder)); ?>';
 	this.listOrder			= '<?php echo $listOrder; ?>';
 }
 
@@ -154,11 +174,11 @@ dropdowns = new Dropdowns();
 <?php
 $dropdowns = $this->additional['dropdowns'];
 
-for ($a = 0; $a < count($dropdowns); $a++) :?>
-	var dropdown = new Dropdown(<?php echo $dropdowns[$a]['meta']['id'] ?>, '<?php echo $dropdowns[$a]['meta']['name'] ?>');
+for ($a = 0; $a < count($dropdowns); ++$a) :?>
+	var dropdown = new Dropdown(<?php echo $dropdowns[$a]['meta']['id']; ?>, '<?php echo $dropdowns[$a]['meta']['name']; ?>');
 	
-	<?php for ($b = 0; $b < count($dropdowns[$a]['items']); $b++) : ?>
-		dropdown.elements.push('<?php echo $dropdowns[$a]['items'][$b] ?>');
+	<?php for ($b = 0; $b < count($dropdowns[$a]['items']); ++$b) : ?>
+		dropdown.elements.push('<?php echo $dropdowns[$a]['items'][$b]; ?>');
 	<?php endfor; ?>
 
 	dropdowns.dropdowns.push(dropdown);

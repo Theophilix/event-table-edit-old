@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: $
+ * $Id: $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -24,100 +25,103 @@ defined('_JEXEC') or die;
 
 jimport('joomla.application.component.modellist');
 
-class EventtableeditModelDropdowns extends JModelList {
-	/**
-	 * Method to auto-populate the model state.
-	 *
-	 * Note. Calling getState in this method will result in recursion.
-	 *
-	 * @return	void
-	 * @since	1.6
-	 */
-	protected function populateState($ordering = null, $direction = null)
-	{
-		// Initialise variables.
-		$app = JFactory::getApplication();
-		$input  =  $app->input;
-		// Adjust the context to support modal layouts.
-		if ($layout =  $input->get('view')) {
-			$this->context .= '.'.$layout;
-		}
+class EventtableeditModelDropdowns extends JModelList
+{
+    /**
+     * Method to auto-populate the model state.
+     *
+     * Note. Calling getState in this method will result in recursion.
+     *
+     * @return void
+     *
+     * @since	1.6
+     */
+    protected function populateState($ordering = null, $direction = null)
+    {
+        // Initialise variables.
+        $app = JFactory::getApplication();
+        $input = $app->input;
+        // Adjust the context to support modal layouts.
+        if ($layout = $input->get('view')) {
+            $this->context .= '.'.$layout;
+        }
 
-		$search = $app->getUserStateFromRequest($this->context.'.filter.search', 'filter_search');
-		 $this->setState('filter.search', $search);
-		
-		$published = $app->getUserStateFromRequest($this->context.'.filter.published', 'filter_published', '');
-		$this->setState('filter.published', $published);
+        $search = $app->getUserStateFromRequest($this->context.'.filter.search', 'filter_search');
+        $this->setState('filter.search', $search);
 
-		 $ordering = $app->getUserStateFromRequest($this->context.'list.ordering', 'filter_order', '');
-		 $this->setState('list.ordering', $ordering);
-		
-		
-		  $direction = $app->getUserStateFromRequest($this->context.'list.direction', 'filter_order_Dir', '');
-		 $this->setState('list.direction', $direction);
-		 if(!$ordering){
-			 $ordering = 'a.id';
-		 }
-		 if(!$direction){
-			 $direction = 'asc';
-		 }
-		 
-		// List state information.
-		parent::populateState($ordering, $direction);
-	}
+        $published = $app->getUserStateFromRequest($this->context.'.filter.published', 'filter_published', '');
+        $this->setState('filter.published', $published);
 
-	/**
-	 * Build an SQL query to load the list data.
-	 *
-	 * @return	JDatabaseQuery
-	 * @since	1.6
-	 */
-	protected function getListQuery() {
-		// Create a new query object.
-		$db = $this->getDbo();
-		$query = $db->getQuery(true);
+        $ordering = $app->getUserStateFromRequest($this->context.'list.ordering', 'filter_order', '');
+        $this->setState('list.ordering', $ordering);
 
-		// Select the required fields from the table.
-		$query->select(
-			$this->getState('list.select', 'a.*')
-		);
-		$query->from('#__eventtableedit_dropdowns AS a');
+        $direction = $app->getUserStateFromRequest($this->context.'list.direction', 'filter_order_Dir', '');
+        $this->setState('list.direction', $direction);
+        if (!$ordering) {
+            $ordering = 'a.id';
+        }
+        if (!$direction) {
+            $direction = 'asc';
+        }
 
-		// Join over the users for the checked out user.
-		$query->select('uc.name AS editor');
-		$query->join('LEFT', '#__users AS uc ON uc.id = a.checked_out');
+        // List state information.
+        parent::populateState($ordering, $direction);
+    }
 
-		// Filter by published state
-		$published = $this->getState('filter.published');
-		if (is_numeric($published)) {
-			$query->where('a.published = ' . (int) $published);
-		}
-		else if ($published === '') {
-			$query->where('(a.published = 0 OR a.published = 1)');
-		}
+    /**
+     * Build an SQL query to load the list data.
+     *
+     * @return JDatabaseQuery
+     *
+     * @since	1.6
+     */
+    protected function getListQuery()
+    {
+        // Create a new query object.
+        $db = $this->getDbo();
+        $query = $db->getQuery(true);
 
-		// Filter by search in name.
-		//$search = $this->getState('filter.search');
-		$input  =  JFactory::getApplication()->input;
-		$search = $input->get('filter_search');
-		/*if (!empty($search)) {
-			if (stripos($search, 'id:') === 0) {
-				$query->where('a.id = '.(int) substr($search, 3));
-			}
-			else {
-				$search = $db->Quote('%'.$db->getEscaped($search, true).'%');
-				$query->where('(a.name LIKE '.$search.')');
-			}
-		}*/
-		if($search!=''){
-				$query->where('(a.name LIKE "%'.$search.'%")');
-		}
-		// Add the list ordering clause.
-		 $orderCol	= $this->state->get('list.ordering');
-		 $orderDirn	= $this->state->get('list.direction');
-		
-		//$query->order($db->getEscaped($orderCol.' '.$orderDirn));
-		  $query = $query.' ORDER BY '.$orderCol.' '.$orderDirn;
-		return $query;
-	}
+        // Select the required fields from the table.
+        $query->select(
+            $this->getState('list.select', 'a.*')
+        );
+        $query->from('#__eventtableedit_dropdowns AS a');
+
+        // Join over the users for the checked out user.
+        $query->select('uc.name AS editor');
+        $query->join('LEFT', '#__users AS uc ON uc.id = a.checked_out');
+
+        // Filter by published state
+        $published = $this->getState('filter.published');
+        if (is_numeric($published)) {
+            $query->where('a.published = '.(int) $published);
+        } elseif ('' === $published) {
+            $query->where('(a.published = 0 OR a.published = 1)');
+        }
+
+        // Filter by search in name.
+        //$search = $this->getState('filter.search');
+        $input = JFactory::getApplication()->input;
+        $search = $input->get('filter_search');
+        /*if (!empty($search)) {
+            if (stripos($search, 'id:') === 0) {
+                $query->where('a.id = '.(int) substr($search, 3));
+            }
+            else {
+                $search = $db->Quote('%'.$db->escape($search, true).'%');
+                $query->where('(a.name LIKE '.$search.')');
+            }
+        }*/
+        if ('' !== $search) {
+            $search = $db->Quote('%'.$db->escape($search, true).'%');
+            $query->where('(a.name LIKE '.$search.')');
+        }
+        // Add the list ordering clause.
+        $orderCol = $this->state->get('list.ordering');
+        $orderDirn = $this->state->get('list.direction');
+
+        //$query->order($db->escape($orderCol.' '.$orderDirn));
+        $query = $query.' ORDER BY '.$orderCol.' '.$orderDirn;
+        return $query;
+    }
 }

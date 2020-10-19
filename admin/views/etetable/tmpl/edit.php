@@ -1,12 +1,13 @@
 <?php
 /**
-* $Id: edit.php 140 2011-01-11 08:11:30Z kapsl $
+* $Id: edit.php 140 2011-01-11 08:11:30Z kapsl $.
+*
 * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
 * @license GNU/GPL
 */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 
 JHtml::_('behavior.tooltip');
 JHtml::_('behavior.formvalidation');
@@ -103,7 +104,7 @@ if (task == 'etetable.cancel' || document.formvalidator.isValid(document.id('adm
 Joomla.submitform(task, document.getElementById('adminForm'));
 }
 else {
-alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED'));?>');
+alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED')); ?>');
 }
 }
 </script>
@@ -123,9 +124,9 @@ float: left;
 margin-left: 5px;
 }
 <?php
-if($this->item->show_pagination == 1){ ?>
+if (1 === (int)$this->item->show_pagination) { ?>
 .pagebreak{display:block;list-style: none;}
-<?php }else{ ?>
+<?php } else { ?>
 .pagebreak{display:none;list-style: none;}
 <?php }
 ?>
@@ -138,9 +139,9 @@ if($this->item->show_pagination == 1){ ?>
 	<div class="span10 form-horizontal">
 		<ul class="nav nav-tabs">
 			<li class="active"><a href="#general" data-toggle="tab"><?php echo empty($this->item->id) ? JText::_('COM_EVENTTABLEEDIT_NEW_ETETABLE') : JText::sprintf('COM_EVENTTABLEEDIT_EDIT_ETETABLE', $this->item->id); ?></a></li>
-			<li><a href="#style" data-toggle="tab"><?php echo JText::_('COM_EVENTTABLEEDIT_STYLE');?></a></li>
-			<li><a href="#meta" data-toggle="tab"><?php echo JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS');?></a></li>
-			<li><a href="#rules" data-toggle="tab"><?php echo JText::_('COM_EVENTTABLEEDIT_FIELDSET_RULES');?></a></li>
+			<li><a href="#style" data-toggle="tab"><?php echo JText::_('COM_EVENTTABLEEDIT_STYLE'); ?></a></li>
+			<li><a href="#meta" data-toggle="tab"><?php echo JText::_('JGLOBAL_FIELDSET_METADATA_OPTIONS'); ?></a></li>
+			<li><a href="#rules" data-toggle="tab"><?php echo JText::_('COM_EVENTTABLEEDIT_FIELDSET_RULES'); ?></a></li>
 		</ul>
 		<div class="tab-content">
 			<div  class="tab-pane active" id="general">
@@ -171,41 +172,48 @@ if($this->item->show_pagination == 1){ ?>
 							<div class="fieldlabel"><?php echo $this->form->getLabel('sorting'); ?></div>
 							<div class="field"><?php echo $this->form->getInput('sorting'); ?></div>
 						</li>
-						<?php if($this->id){ ?>
+						<?php if ($this->id) { ?>
 						<li class="automate_sort">
 							<div class="fieldlabel">
 								<label id="jform_automate_sort-lbl" for="jform_automate_sort" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_ENABLE_AUTOMATIC_SORTING_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_ENABLE_AUTOMATIC_SORTING_LABEL'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_ENABLE_AUTOMATIC_SORTING_LABEL'); ?></label>
 							</div>
 							<div class="field">
 								<fieldset id="jform_automate_sort" class="radio">
-									<input type="radio" id="jform_automate_sort0" name="jform[automate_sort]" value="1" <?php if($this->item->automate_sort == 1){?> checked="checked" <?php } ?> aria-invalid="false">
-									<label for="jform_automate_sort0"><?php echo JText::_('JYES');?></label>
-									<li class="automate_sort_column" style="<?php if(!$this->form->getValue('automate_sort') || !$this->id){?>display:none;<?php } ?> list-style:none; width:50%;">
+									<input type="radio" id="jform_automate_sort0" name="jform[automate_sort]" value="1" <?php if (1 === (int)$this->item->automate_sort) {?> checked="checked" <?php } ?> aria-invalid="false">
+									<label for="jform_automate_sort0"><?php echo JText::_('JYES'); ?></label>
+									<li class="automate_sort_column" style="<?php if (!$this->form->getValue('automate_sort') || !$this->id) {?>display:none;<?php } ?> list-style:none; width:50%;">
 										<label id="jform_automate_sort_column-lbl" for="jform_automate_sort_column" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_CHOOSE_COLUMN_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_CHOOSE_COLUMN_LABEL'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_CHOOSE_COLUMN_LABEL'); ?></label>
 										<fieldset id="" class="select">
 											<?php
-											if(!empty($this->fields)){
-											?>
+                                            if (!empty($this->fields)) {
+                                                ?>
 											<select id="jform_automate_sort_column" name="jform[automate_sort_column]">
 												<?php
-												$updown = array("asc","desc");
-												$updown_html = array("asc"=>"&uarr;","desc"=>"&darr;");
-												foreach($this->fields as $re){
-													foreach($updown as $ud){
-														?>
-														<option value="head_<?php echo $re->id?>,<?php echo $ud?>" <?php if($this->form->getValue('automate_sort_column') == 'head_'.$re->id.','.$ud){ echo "selected=selected";}?>><?php echo $re->name?> <?php echo $updown_html[$ud];?></option>
+                                                $updown = ['asc', 'desc'];
+                                                $updown_html = ['asc' => '&uarr;', 'desc' => '&darr;'];
+                                                foreach ($this->fields as $re) {
+                                                    foreach ($updown as $ud) {
+                                                        ?>
+														<option value="head_<?php echo $re->id; ?>,<?php echo $ud; ?>" <?php if ($this->form->getValue('automate_sort_column') === 'head_'.$re->id.','.$ud) {
+                                                            echo 'selected=selected';
+                                                        } ?>><?php echo $re->name; ?> <?php echo $updown_html[$ud]; ?></option>
 													<?php
-													}
-												}?>
-												<option <?php if($this->form->getValue('automate_sort_column') == 'timestamp,asc'){ echo "selected=selected";}?> value="timestamp,asc">Timestamp &uarr;</option>
-												<option <?php if($this->form->getValue('automate_sort_column') == 'timestamp,desc'){ echo "selected=selected";}?> value="timestamp,desc">Timestamp &darr;</option>
+                                                    }
+                                                } ?>
+												<option <?php if ('timestamp,asc' === $this->form->getValue('automate_sort_column')) {
+                                                    echo 'selected=selected';
+                                                } ?> value="timestamp,asc">Timestamp &uarr;</option>
+												<option <?php if ('timestamp,desc' === $this->form->getValue('automate_sort_column')) {
+                                                    echo 'selected=selected';
+                                                } ?> value="timestamp,desc">Timestamp &darr;</option>
 											</select>
-											<?php } ?>
+											<?php
+                                            } ?>
 										</fieldset>
 									</li>
 									<div style="clear:both;"></div>
-									<input type="radio" id="jform_automate_sort1" name="jform[automate_sort]" value="0" <?php if($this->item->automate_sort == 0){?> checked="checked" <?php } ?> aria-invalid="false">
-									<label for="jform_automate_sort1"><?php echo JText::_('JNO');?></label>
+									<input type="radio" id="jform_automate_sort1" name="jform[automate_sort]" value="0" <?php if (0 === (int)$this->item->automate_sort) {?> checked="checked" <?php } ?> aria-invalid="false">
+									<label for="jform_automate_sort1"><?php echo JText::_('JNO'); ?></label>
 								</fieldset>
 							</div>
 						</li>
@@ -304,7 +312,7 @@ if($this->item->show_pagination == 1){ ?>
 							<div class="fieldlabel"><?php echo $this->form->getLabel('showusernametouser'); ?></div>
 							<div class="field"><?php echo $this->form->getInput('showusernametouser'); ?></div>
 						</li>
-						<?php if($this->item->id == ''){ ?>
+						<?php if ('' === $this->item->id) { ?>
 						<li>
 							<div class="fieldlabel"><?php echo $this->form->getLabel('row'); ?></div>
 							<div class="field"><?php echo $this->form->getInput('row'); ?></div>
@@ -313,7 +321,7 @@ if($this->item->show_pagination == 1){ ?>
 							<div class="fieldlabel"><?php echo $this->form->getLabel('col'); ?></div>
 							<div class="field"><?php echo $this->form->getInput('col'); ?></div>
 						</li>
-						<?php }else{ ?>
+						<?php } else { ?>
 							<input type="hidden" aria-required="true" required="required" step="1" size="30" class="inputbox required" value="<?php echo $this->item->row; ?>" id="jform_row" name="jform[row]"></li>
 							<input type="hidden" aria-required="true" required="required" step="1" size="30" class="inputbox required" value="<?php echo $this->item->col; ?>" id="jform_col" name="jform[col]"></li>
 
@@ -343,7 +351,7 @@ if($this->item->show_pagination == 1){ ?>
 								<fieldset class="inputbox radio" id="jform_show_pagination" style="padding-left: 0px;">
 									<ul class="adminformlist" style="list-style: none;float: left;margin-left: 20px;">
 										<li>
-											<input type="radio" value="1" name="jform[show_pagination]" id="jform_show_pagination0" <?php if($this->item->show_pagination == 1){?> checked="checked" <?php } ?> onclick="jQuery('.pagebreak').show();">
+											<input type="radio" value="1" name="jform[show_pagination]" id="jform_show_pagination0" <?php if (1 === (int)$this->item->show_pagination) {?> checked="checked" <?php } ?> onclick="jQuery('.pagebreak').show();">
 											<label for="jform_show_pagination0"><?php echo JText::_('JSHOW'); ?></label>
 										</li>
 										<li class="pagebreak">
@@ -351,7 +359,7 @@ if($this->item->show_pagination == 1){ ?>
 											<?php echo $this->form->getInput('pagebreak'); ?>
 										</li>
 										<li>
-											<input type="radio" value="0" name="jform[show_pagination]" id="jform_show_pagination1" <?php if($this->item->show_pagination == 0){?> checked="checked" <?php } ?> onclick="jQuery('.pagebreak').hide();">
+											<input type="radio" value="0" name="jform[show_pagination]" id="jform_show_pagination1" <?php if (0 === (int)$this->item->show_pagination) {?> checked="checked" <?php } ?> onclick="jQuery('.pagebreak').hide();">
 											<label for="jform_show_pagination1"><?php echo JText::_('JHIDE'); ?></label>
 										</li>
 									</ul>
@@ -395,15 +403,15 @@ if($this->item->show_pagination == 1){ ?>
 						
 						<li>
 							<div class="fieldlabel">
-								<label id="jform_dateformat-lbl" for="jform_dateformat" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_DATEFORMAT_DESC');?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_DATEFORMAT_LABEL')?>"><?php echo JText::_('COM_EVENTTABLEEDIT_DATEFORMAT_LABEL')?></label>
+								<label id="jform_dateformat-lbl" for="jform_dateformat" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_DATEFORMAT_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_DATEFORMAT_LABEL'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_DATEFORMAT_LABEL'); ?></label>
 							</div>
 							<div class="field">
 							
 								<span class="input-append" style="float: left;">
-									<input type="text" name="jform[dateformat]" readonly="readonly" id="jform_dateformat" value="<?php echo $this->item->dateformat?>" class="inputbox"  aria-invalid="false">
+									<input type="text" name="jform[dateformat]" readonly="readonly" id="jform_dateformat" value="<?php echo $this->item->dateformat; ?>" class="inputbox"  aria-invalid="false">
 									<button data-target="#jform_dateformat_modal" class="btn" data-toggle="modal" value="Change"><span class="icon-edit icon-white" aria-hidden="true"></span></button>
 								</span>
-								<div id="date_format" style='border: solid 1px transparent;padding: 3px;float: left;margin-left: 5px;'><?php echo strftime($this->item->dateformat,strtotime("12/24/2018 12:00:00"));;?></div><div style="float: left;border: solid 1px transparent;padding: 3px;">(<?php echo JText::_('COM_EVENTTABLEEDIT_STANDARD_VALUE')?>: %d.%m.%Y)</div>
+								<div id="date_format" style='border: solid 1px transparent;padding: 3px;float: left;margin-left: 5px;'><?php echo strftime($this->item->dateformat, strtotime('12/24/2018 12:00:00')); ?></div><div style="float: left;border: solid 1px transparent;padding: 3px;">(<?php echo JText::_('COM_EVENTTABLEEDIT_STANDARD_VALUE'); ?>: %d.%m.%Y)</div>
 							</div>
 							<div id="jform_dateformat_modal" tabindex="-1" class="modal fade" aria-hidden="false">
 								<div class="modal-header">
@@ -413,7 +421,7 @@ if($this->item->show_pagination == 1){ ?>
 									<h3>Change Value</h3>
 								</div>
 								<div class="modal-body jviewport-height70" style="padding: 20px;text-align: center;">
-									<label for="dateformat_popup"><?php echo JText::_('COM_EVENTTABLEEDIT_DATEFORMAT_LABEL')?></label>
+									<label for="dateformat_popup"><?php echo JText::_('COM_EVENTTABLEEDIT_DATEFORMAT_LABEL'); ?></label>
 									<input type="text" id="dateformat_popup" value="" />
 								</div>
 								<div class="modal-footer">
@@ -424,14 +432,14 @@ if($this->item->show_pagination == 1){ ?>
 						</li>
 						<li>
 							<div class="fieldlabel"> 
-								<label id="jform_timeformat-lbl" for="jform_timeformat" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_TIMEFORMAT_DESC');?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_TIMEFORMAT_LABEL')?>"><?php echo JText::_('COM_EVENTTABLEEDIT_TIMEFORMAT_LABEL')?></label>
+								<label id="jform_timeformat-lbl" for="jform_timeformat" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_TIMEFORMAT_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_TIMEFORMAT_LABEL'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_TIMEFORMAT_LABEL'); ?></label>
 							</div>
 							<div class="field">
 								<span class="input-append" style="float: left;">
-									<input type="text" name="jform[timeformat]" readonly="readonly" id="jform_timeformat" value="<?php echo $this->item->timeformat?>" class="inputbox"  aria-invalid="false">
+									<input type="text" name="jform[timeformat]" readonly="readonly" id="jform_timeformat" value="<?php echo $this->item->timeformat; ?>" class="inputbox"  aria-invalid="false">
 									<button data-target="#jform_timeformat_modal" class="btn" data-toggle="modal" value="Change"><span class="icon-edit icon-white" aria-hidden="true"></span></button>
 								</span>
-								<div id="time_format" style='border: solid 1px transparent;padding: 3px;float: left;margin-left: 5px;'><?php echo strftime($this->item->timeformat,strtotime("12/24/2018 12:00:00"));;?></div><div style="float: left;border: solid 1px transparent;padding: 3px;">(<?php echo JText::_('COM_EVENTTABLEEDIT_STANDARD_VALUE')?>: %H:%M)</div>
+								<div id="time_format" style='border: solid 1px transparent;padding: 3px;float: left;margin-left: 5px;'><?php echo strftime($this->item->timeformat, strtotime('12/24/2018 12:00:00')); ?></div><div style="float: left;border: solid 1px transparent;padding: 3px;">(<?php echo JText::_('COM_EVENTTABLEEDIT_STANDARD_VALUE'); ?>: %H:%M)</div>
 							</div>
 							<div id="jform_timeformat_modal" tabindex="-1" class="modal fade" aria-hidden="false">
 								<div class="modal-header">
@@ -441,7 +449,7 @@ if($this->item->show_pagination == 1){ ?>
 									<h3>Change Value</h3>
 								</div>
 								<div class="modal-body jviewport-height70" style="padding: 20px;text-align: center;">
-									<label for="timeformat_popup"><?php echo JText::_('COM_EVENTTABLEEDIT_TIMEFORMAT_LABEL')?></label>
+									<label for="timeformat_popup"><?php echo JText::_('COM_EVENTTABLEEDIT_TIMEFORMAT_LABEL'); ?></label>
 									<input type="text" id="timeformat_popup" value="" />
 								</div>
 								<div class="modal-footer">
@@ -465,18 +473,18 @@ if($this->item->show_pagination == 1){ ?>
 						</li>
 						<li>
 							<div class="fieldlabel">
-								<label id="jform_tablecolor1-lbl" for="jform_tablecolor1" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR1_DESC');?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR1_LABEL');?>"><?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR1_LABEL');?></label>
+								<label id="jform_tablecolor1-lbl" for="jform_tablecolor1" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR1_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR1_LABEL'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR1_LABEL'); ?></label>
 							</div>
 							<div class="field">
-								<?php echo $this->form->getInput('tablecolor1'); ?><div id="tablecolor1" style='cursor: text;border-radius: 3px;border: 1px solid rgb(204, 204, 204);padding: 3px;width: 100px;float: left;margin-left: 5px;background-color:#<?php echo $this->item->tablecolor1;?>'><?php echo JText::_('COM_EVENTTABLEEDIT_DATATYPE_TEXT');?></div><div style="margin-left: 5px;float: left;">(<?php echo JText::_('COM_EVENTTABLEEDIT_STANDARD_VALUE')?>: #CCCCCC)</div>
+								<?php echo $this->form->getInput('tablecolor1'); ?><div id="tablecolor1" style='cursor: text;border-radius: 3px;border: 1px solid rgb(204, 204, 204);padding: 3px;width: 100px;float: left;margin-left: 5px;background-color:#<?php echo $this->item->tablecolor1; ?>'><?php echo JText::_('COM_EVENTTABLEEDIT_DATATYPE_TEXT'); ?></div><div style="margin-left: 5px;float: left;">(<?php echo JText::_('COM_EVENTTABLEEDIT_STANDARD_VALUE'); ?>: #CCCCCC)</div>
 							</div>
 						</li>
 						<li>
 							<div class="fieldlabel">
-								<label id="jform_tablecolor2-lbl" for="jform_tablecolor2" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR2_DESC');?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR2_LABEL');?>"><?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR2_LABEL');?></label>
+								<label id="jform_tablecolor2-lbl" for="jform_tablecolor2" class="hasPopover" title="" data-content="<?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR2_DESC'); ?>" data-original-title="<?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR2_LABEL'); ?>"><?php echo JText::_('COM_EVENTTABLEEDIT_TABLECOLOR2_LABEL'); ?></label>
 							</div>
 							<div class="field">
-								<?php echo $this->form->getInput('tablecolor2'); ?><div id="tablecolor2" style='cursor: text;border-radius: 3px;border: 1px solid rgb(204, 204, 204);padding: 3px;width: 100px;float: left;margin-left: 5px;background-color:#<?php echo $this->item->tablecolor2;?>'><?php echo JText::_('COM_EVENTTABLEEDIT_DATATYPE_TEXT');?></div><div style="margin-left: 5px;float: left;">(<?php echo JText::_('COM_EVENTTABLEEDIT_STANDARD_VALUE')?>: #FFFFFF)</div>
+								<?php echo $this->form->getInput('tablecolor2'); ?><div id="tablecolor2" style='cursor: text;border-radius: 3px;border: 1px solid rgb(204, 204, 204);padding: 3px;width: 100px;float: left;margin-left: 5px;background-color:#<?php echo $this->item->tablecolor2; ?>'><?php echo JText::_('COM_EVENTTABLEEDIT_DATATYPE_TEXT'); ?></div><div style="margin-left: 5px;float: left;">(<?php echo JText::_('COM_EVENTTABLEEDIT_STANDARD_VALUE'); ?>: #FFFFFF)</div>
 							</div>
 						</li>
 						<li>
@@ -625,20 +633,20 @@ jQuery(document).ready(function(){
 })
 </script>
 <div class="clr"></div>
-<?php 
-if($this->item->id > 0){
-?>
+<?php
+if ($this->item->id > 0) {
+                                                ?>
 <script type="text/javascript">
-checkics(<?php echo $this->item->normalorappointment ?>);
+checkics(<?php echo $this->item->normalorappointment; ?>);
 </script>
-<?php 
-}else{
-?>
+<?php
+                                            } else {
+                                                ?>
 <script type="text/javascript">
 checkics(0);
 </script>
-<?php 
-}
+<?php
+                                            }
 ?>
 <script type="text/javascript">
 jQuery(document).ready(function(){

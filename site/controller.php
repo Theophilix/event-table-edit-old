@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: controller.php 140 2011-01-11 08:11:30Z kapsl $
+ * $Id: controller.php 140 2011-01-11 08:11:30Z kapsl $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,35 +21,36 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+defined('_JEXEC') or die('Restricted access');
 jimport('joomla.application.component.controller');
 
-class EventtableeditController extends JControllerLegacy {
-	function __construct() {
-		parent::__construct();
-	}
-	
-	public function display($cachable = false, $urlparams = false)
-	{
-		$cachable = true;
+class EventtableeditController extends JControllerLegacy
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
-		// Get the document object.
-		$document = JFactory::getDocument();
+    public function display($cachable = false, $urlparams = false)
+    {
+        $cachable = true;
 
-		// Set the default view name and format from the Request.
-		$main  = JFactory::getApplication()->input;
-		$vName = 	$main->get('view', '');
-		$main->get('view', $vName);
+        // Get the document object.
+        $document = JFactory::getDocument();
 
-		$user = JFactory::getUser();
+        // Set the default view name and format from the Request.
+        $main = JFactory::getApplication()->input;
+        $vName = $main->get('view', '');
+        $main->get('view', $vName);
 
-		$safeurlparams = array('id'=>'INT','cid'=>'ARRAY','limit'=>'INT','limitstart'=>'INT',
-			'filter'=>'STRING','print'=>'BOOLEAN','lang'=>'CMD', 'filterstring'=>'STRING',
-			'filter_order' =>'STRING', 'filter_order_Dir' =>'STRING');
+        $user = JFactory::getUser();
 
-		parent::display($cachable, $safeurlparams);
+        $safeurlparams = ['id' => 'INT', 'cid' => 'ARRAY', 'limit' => 'INT', 'limitstart' => 'INT',
+            'filter' => 'STRING', 'print' => 'BOOLEAN', 'lang' => 'CMD', 'filterstring' => 'STRING',
+            'filter_order' => 'STRING', 'filter_order_Dir' => 'STRING', ];
 
-		return $this;
-	}
+        parent::display($cachable, $safeurlparams);
+
+        return $this;
+    }
 }
-?>

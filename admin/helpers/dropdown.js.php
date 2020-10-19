@@ -1,6 +1,7 @@
-<?php 
+<?php
 /**
- * $Id:$
+ * $Id:$.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL, see LICENSE.php in the installation package
  * This file is part of Event Table Edit
@@ -20,7 +21,7 @@
  */
 
 // no direct access
-defined( '_JEXEC' ) or die;
+defined('_JEXEC') or die;
 ?>
 
 <script type="text/javascript">
@@ -77,12 +78,12 @@ Dropdowns.prototype.generateObjects = function() {
 	var dropdown = null;
 	
 	<?php if (count($this->dropdowns) > 0) :
-	
-		foreach ($this->dropdowns as $dropdown) : ?>
-			dropdown = new Dropdown(<?php echo "'" . $dropdown->name . "'" ?>);
+
+        foreach ($this->dropdowns as $dropdown) : ?>
+			dropdown = new Dropdown(<?php echo "'".$dropdown->name."'"; ?>);
 			this.dropdowns.push(dropdown);
-		<?php endforeach; 
-	endif; ?>
+		<?php endforeach;
+    endif; ?>
 }
 
 /**
@@ -336,7 +337,7 @@ Dropdowns.prototype.addHiddenField = function(name, value) {
 Dropdowns.prototype.validate = function() {
 	// Check name
 	if ($('jform_name').value == '') {
-		alert('<?php echo JText::_('COM_EVENTTABLEEDIT_ERROR_ENTER_NAME') ?>');
+		alert('<?php echo JText::_('COM_EVENTTABLEEDIT_ERROR_ENTER_NAME'); ?>');
 		return false;
 	} 
 
@@ -345,7 +346,7 @@ Dropdowns.prototype.validate = function() {
 	for (var a = 0; a < this.dropdowns.length - 1; a++) {
 		for (var b = a + 1; b < this.dropdowns.length; b++) {
 			if (this.dropdowns[a].name == this.dropdowns[b].name) {
-				alert('<?php echo JText::_('COM_EVENTTABLEEDIT_ERROR_SAME_NAME') ?>');
+				alert('<?php echo JText::_('COM_EVENTTABLEEDIT_ERROR_SAME_NAME'); ?>');
 				return false;
 			}
 		}

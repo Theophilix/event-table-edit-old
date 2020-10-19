@@ -1,6 +1,7 @@
 <?php
 /**
- * $Id: $
+ * $Id: $.
+ *
  * @copyright (C) 2007 - 2020 Manuel Kaspar and Theophilix
  * @license GNU/GPL
  */
@@ -10,24 +11,27 @@ defined('_JEXEC') or die;
 
 jimport('joomla.application.component.controlleradmin');
 
-class EventtableeditControllerDropdowns extends JControllerAdmin {
-	
-	public function __construct($config = array()) {
-		parent::__construct($config);
-	}
+class EventtableeditControllerDropdowns extends JControllerAdmin
+{
+    public function __construct($config = [])
+    {
+        parent::__construct($config);
+    }
 
-	/**
-	 * Proxy for getModel.
-	 *
-	 * @param	string	$name	The name of the model.
-	 * @param	string	$prefix	The prefix for the PHP class name.
-	 *
-	 * @return	JModel
-	 * @since	1.6
-	 */
-	public function &getModel($name = 'Dropdown', $prefix = 'EventtableeditModel') {
-		$model = parent::getModel($name, $prefix, array('ignore_request' => true));
+    /**
+     * Proxy for getModel.
+     *
+     * @param string $name   the name of the model
+     * @param string $prefix the prefix for the PHP class name
+     *
+     * @return JModel
+     *
+     * @since	1.6
+     */
+    public function &getModel($name = 'Dropdown', $prefix = 'EventtableeditModel')
+    {
+        $model = parent::getModel($name, $prefix, ['ignore_request' => true]);
 
-		return $model;
-	}
+        return $model;
+    }
 }
