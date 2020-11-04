@@ -80,6 +80,7 @@ Please post all feature requests in the issues tab.
 ## II Version history
 
 **For version 4.8.6:**
+
 [1] Normal mode
 - enhancement: Frontend: Admin view: Search and replace values https://github.com/Theophilix/event-table-edit/issues/172
 
