@@ -688,4 +688,56 @@ function addAnchorEventsExe_<?php echo $this->unique; ?>(elem) {
 	}
 }
 
+function searchReplace_<?php echo $this->unique; ?>(){
+	var filterstring = jQuery('.filterstring_<?php echo $this->unique; ?>').val();
+	var replacestring = jQuery('.replacestring_<?php echo $this->unique; ?>').val();
+	if(filterstring!="" && replacestring!=""){
+			
+			jQuery('#popup_confirm_<?php echo $this->unique; ?>').show();
+			
+		//if(confirm(lang.areYouSure)){
+			
+		//}
+	}
+}
+jQuery(document).ready(function(){
+	jQuery('#confirm_no_<?php echo $this->unique; ?>').on('click',function(){
+		console.log("test");
+		jQuery('#popup_confirm_<?php echo $this->unique; ?>').hide();
+	})
+
+	jQuery('#confirm_yes_<?php echo $this->unique; ?>').on('click',function(){
+		jQuery('#popup_confirm_<?php echo $this->unique; ?>').hide();
+		doReplace_<?php echo $this->unique; ?>();
+	})
+})
+function doReplace_<?php echo $this->unique; ?>(){
+	var filterstring = jQuery('.filterstring_<?php echo $this->unique; ?>').val();
+	var replacestring = jQuery('.replacestring_<?php echo $this->unique; ?>').val();
+	showLoad();
+	var url = '<?php echo JURI::base(); ?>index.php?option=com_eventtableedit' +
+					  '&task=etetable.ajaxReplaceRows';
+	var post = "filterstring=" + filterstring +
+				"&replacestring=" + replacestring +
+				"&tableId=" + var_tableProperties_<?php echo $this->unique; ?>.id;
+				
+	var myAjax = new Request({
+		method: 'post',
+		url: url,
+		data: post,
+		onComplete: function (response) {
+			
+			jQuery('#etetable-table_<?php echo $this->unique; ?> td:contains("'+filterstring+'")').each(function(){
+				var html = jQuery(this).html();
+				var newHtml = html.replaceAll(filterstring, replacestring);
+				jQuery(this).html(newHtml);
+				jQuery('.filterstring_<?php echo $this->unique; ?>').val('');
+				jQuery('.replacestring_<?php echo $this->unique; ?>').val('');
+			});
+			
+			removeLoad();
+			window.location.reload();
+		}
+	}).send();
+}
 </script>

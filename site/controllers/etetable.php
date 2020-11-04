@@ -229,4 +229,66 @@ class EventtableeditControllerEtetable extends JControllerLegacy
         $session = JFactory::getSession();
         $session->set('corresponding_table', $jinput->get('corresponding_table'));
     }
+	
+	public function ajaxReplaceRows(){
+		
+		$jinput = JFactory::getApplication()->input;
+		$db = JFactory::getDBO();
+		$model = $this->getModel('etetable');
+		
+		$filterstring = $jinput->get('filterstring','','string');
+		$replacestring = $jinput->get('replacestring','','string');
+		
+		$tableId = $jinput->get('tableId');
+		
+		
+		
+		if($filterstring!="" && $replacestring!=""){
+			if($item = $model->checkTable($tableId)){
+				
+				$db->setQuery("SELECT * FROM #__eventtableedit_rows_$tableId");
+				$table = $db->loadObjectList();
+				
+				$db->setQuery("SELECT * FROM #__eventtableedit_heads where table_id = '$tableId'");
+				$heads = $db->loadObjectList();
+				
+				
+				foreach($table as $rows){
+					$rowId = $rows->id;
+					foreach($heads as $head){
+						
+						$cell = $rows->{'head_'.$head->id};
+						//$cell = $model->parseCellForReplace($cell, $head->datatype, $item);
+						$filter = $filterstring;
+						$replace = $replacestring;
+						
+						if ('float' === $head->datatype) {
+							$cell = eteHelper::parseFloat($cell, $item->float_separator);
+						}
+						if ('date' === $head->datatype) {
+							$cell = eteHelper::date_mysql_to_german_to($cell, $item->dateformat);
+						}
+						
+						$content = str_replace($filter, $replace, $cell);
+						if ('date' === $head->datatype) {
+							$content = eteHelper::date_german_to_mysql($content);
+						}
+						if ('float' === $head->datatype) {
+							$content = str_replace(',', '.', $content);
+						}
+						
+						$currentTime = new DateTime();
+						$timestamp = $currentTime->format('Y-m-d H:i:s');
+						$query = 'UPDATE #__eventtableedit_rows_'.$tableId.
+							' SET `head_'.$head->id.'` = \''.$content.'\', timestamp = \''.$timestamp.'\' WHERE id = '.$rowId;
+						//echo $query . '<br>';
+						$db->setQuery($query);
+						$db->query();
+					}
+				}
+				echo json_encode(array('status'=>true));die;
+			}
+		}
+		
+	}
 }

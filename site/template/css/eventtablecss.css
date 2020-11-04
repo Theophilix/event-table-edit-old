@@ -881,7 +881,8 @@ span.uparrow {
 	margin-top: -10px;
 
 	margin-bottom: 7px;
-
+    z-index: 99999999;
+    position: relative;
 }
 
 
@@ -1325,3 +1326,49 @@ td.tdblue{
 
 span.filter-head{display: none;}
 div.etetable-button{display: none;}
+
+input.replaceButton {
+    margin-left: 5px;
+    height: 27px;
+    border: solid 1px;
+    border-radius: 3px;
+}
+.flash_msg{
+    width: 100%;
+    position: absolute;
+    height: 20px;
+    text-align: center;
+    margin-top: -44px;
+    font-size: 14px;
+    color: #2ede02;
+}
+
+.margin_right{
+	margin-right: 10px;
+}
+
+.popup_confirm p{
+	color: #000;
+    font-size: 14px;
+    text-align: center;
+}
+.popup_confirm{
+	display: none;
+	position: fixed;
+    background: #fff;
+    width: auto;
+    height: auto;
+    padding: 12px;
+    box-shadow: 0px 0px 4px 4px #ccc;
+    z-index: 9999;
+	margin: 0 auto;
+    left: 0;
+    right: 0;
+    width: 105px;
+	top: 150px;
+}
+
+.filterstext input[type=button]{
+	font-size: 13px;
+    vertical-align: top;
+}

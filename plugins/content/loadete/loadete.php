@@ -20,8 +20,16 @@
  * along with Event Table Edit. If not, see <http://www.gnu.org/licenses/>.
  */
 defined('_JEXEC') or die;
-//require_once JPATH_SITE.'/components/com_eventtableedit/helpers/etetable.php';
 
+
+require_once JPATH_SITE.'/components/com_eventtableedit/helpers/icon.php';
+
+JHtml::addIncludePath(JPATH_SITE.'/components/com_eventtableedit/helpers');
+
+
+JHTML::_('behavior.tooltip');
+JHTML::_('behavior.calendar');
+JHtml::_('behavior.framework');
 class PlgContentLoadete extends JPlugin
 {
     protected static $modules = [];
@@ -32,6 +40,7 @@ class PlgContentLoadete extends JPlugin
 
     public function onContentPrepare($context, &$article, &$params, $page = 0)
     {
+		
         if ('com_finder.indexer' === $context) {
             return true;
         }
@@ -145,7 +154,7 @@ class PlgContentLoadete extends JPlugin
         $this->item = $model->getItem();
         $this->unique = 'ETE_'.$this->item->alias.'_'.rand(0, 999);
         $this->uniques[] = $this->unique;
-
+		
         // Check for errors.
         if (!$this->checkError()) {
             return false;

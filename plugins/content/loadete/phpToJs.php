@@ -127,6 +127,7 @@ function Language() {
 	this.saveOrder			  = '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_SAVE_ORDER'); ?>';
 	this.deleteRow			  = '<?php echo JTEXT::_('COM_EVENTTABLEEDIT_DELETE_ROW'); ?>';
 	this.dropdownOption			= '<?php echo JText::_('COM_EVENTTABLEEDIT_DROPDOWN_INFOTEXT'); ?>';
+	this.areYouSure			= '<?php echo JText::_('COM_EVENTTABLEEDIT_ARE_YOU_SURE'); ?>';
 }
 
 Language.prototype.getToolTip = function(datatype) {

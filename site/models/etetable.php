@@ -92,7 +92,9 @@ class EventtableeditModelEtetable extends JModelList
 		$this->db->setQuery($query);
 
 		$data = $this->db->loadObject();
-		
+		if(empty($data)){
+			return;
+		}
 		$automate_sort = explode(',',$data->automate_sort_column);
 		return $automate_sort[0];
 	}
@@ -389,10 +391,11 @@ class EventtableeditModelEtetable extends JModelList
 
                 return $data;
             }
-
+			
             $data['additional'] = $this->prepareData($data['rows']);
+			
             $data['rows'] = $this->parseRows($data['rows']);
-
+			
             return $data;
         } catch (JException $e) {
             $this->setError($e);
@@ -573,14 +576,18 @@ class EventtableeditModelEtetable extends JModelList
 
         // Translating mySQL Date
         if ('date' === $dt) {
-            $cell = eteHelper::date_mysql_to_german($cell, $this->_item->dateformat);
+			if($cell){
+				$cell = eteHelper::date_mysql_to_german($cell, $this->_item->dateformat);
+			}
             if ('' === $cell) {
                 $cell = '<input value="0" type="hidden">';
             }
         }
         // Translate Time
         elseif ('time' === $dt) {
-            $cell = eteHelper::format_time($cell, $this->_item->timeformat);
+			if($cell){
+				$cell = eteHelper::format_time($cell, $this->_item->timeformat);
+			}
         }
         //Handle Booleans
         elseif ('boolean' === $dt) {
@@ -748,7 +755,7 @@ class EventtableeditModelEtetable extends JModelList
         }
 
         $content = $this->prepareContentForDb($content, $datatype);
-
+		
         if ('text' === $colInfo['datatype']) {
             $breaks = ['<br />', '<br>', '<br/>', '<br /> ', '<br> ', '<br/> '];
             $content = str_ireplace($breaks, '<br />', $content);
@@ -762,9 +769,10 @@ class EventtableeditModelEtetable extends JModelList
             $query = 'UPDATE #__eventtableedit_rows_'.$this->id.
                      ' SET '.$headName.' = '.$content.", timestamp = '".$timestamp."' WHERE id = ".$rowId;
         }
+		
         $this->db->setQuery($query);
         $this->db->query();
-
+	
         // Get the saved cell
         // To see if bbcode is used, the table params has to be loaded
         $this->getItem($this->id);
@@ -780,7 +788,7 @@ class EventtableeditModelEtetable extends JModelList
     /**
      * Prepare content before saving it in the database.
      */
-    private function prepareContentForDb($content, $datatype)
+    public function prepareContentForDb($content, $datatype)
     {
         $content = str_replace("\n", ' ', $content);
         $content = str_replace("\r", ' ', $content);
@@ -905,4 +913,20 @@ class EventtableeditModelEtetable extends JModelList
             return false;
         }
     }
+	
+	function checkTable($tableId){
+		$query = 'SELECT * '.
+                 ' FROM #__eventtableedit_details'.
+                 ' WHERE id = '.$tableId;
+
+        $this->db->setQuery($query);
+        $table = $this->db->loadObject();
+		if(!empty($table)){
+			$this->setState('etetable.id', $table->id);
+			return $table;
+		}else{
+			return false;
+		}
+	}
+	
 }
