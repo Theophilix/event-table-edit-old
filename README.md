@@ -20,7 +20,7 @@ Version history: scroll down to "II".
 - Choice of layout mode (stack, swipe, toggle) for enhanced responsiveness
 - Instant filter / search
 - Search and replace function (if admin is logged in)
-- Multiple appointment booking function with confirmation email and ICAL calendar (.ics file) attachment
+- Multiple appointment booking function with confirmation email and ICAL calendar (.ics file) attachment, admin can edit cells (bookings) from frontend.
 - Complete rights management (Joomla ACL: add/delete rows, edit cells, rearrange rows, administer table from frontend)
 - Multilingual (currently available: DE, EN)
 - CSV and TXT import with different formats (text, date, time, integer, float, boolean, four state, link, mail) 
