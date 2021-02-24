@@ -8,12 +8,25 @@
 
 // no direct access
 defined('_JEXEC') or die;
-?>
 
+$main = JFactory::getApplication()->input;
+$postget = $main->getArray();
+//echo "<pre>";print_r($postget);die;
+$switcher_enable = 'columntoggle';
+if (@$postget['currentmode']) {
+    $tmodes = $postget['currentmode'];
+} elseif (@$postget[$this->item->alias.'change_mode']) {
+    $tmodes = $postget[$this->item->alias.'change_mode'];
+} else {
+    $tmodes = ($this->item->standardlayout) ? $this->item->standardlayout : $switcher_enable;
+}
+?>
 <!--<table data-tablesaw-mode-switch="" data-tablesaw-minimap="" data-tablesaw-sortable-switch="" data-tablesaw-sortable=""
  data-tablesaw-mode="swipe" class="tablesaw tablesaw-swipe tablesaw-sortable" id="etetable-table" style="">
+ <table class="tablesaw" data-tablesaw-mode="columntoggle" data-tablesaw-minimap  id="etetable-table">
 -->
-<table class="tablesaw" data-tablesaw-mode="columntoggle" data-tablesaw-minimap  id="etetable-table">
+
+<table data-tablesaw-mode-switch="" data-tablesaw-minimap="" data-tablesaw-mode="<?php echo $tmodes; ?>" class="tablesaw" id="etetable-table" style="">
 	<thead class="etetable-thead">
 		<tr>
 			<?php echo $this->loadTemplate('thead'); ?>
@@ -27,9 +40,9 @@ defined('_JEXEC') or die;
      */
     if ($this->rows) {
         for ($this->rowCount = 0; $this->rowCount < count($this->rows); ++$this->rowCount) { ?>
-			<tr>
+			
 				<?php echo $this->loadTemplate('row'); ?> 
-			</tr>
+			
 			
 			<?php
         }

@@ -8,6 +8,12 @@
 
 // no direct access
 defined('_JEXEC') or die;
+$switcher_enable = 'columntoggle';
+if (@$postget['currentmode']) {
+    $tmodes = $postget['currentmode'];
+} else {
+    $tmodes = ($this->item->standardlayout) ? $this->item->standardlayout : $switcher_enable;
+}
 ?>
 
 <form method="post" name="filterform" action="<?php echo JRoute::_('index.php?option=com_eventtableedit&view=appointments&id='.$this->item->slug); ?>" class="filterform" onsubmit="return checkMethod();">
@@ -36,7 +42,7 @@ defined('_JEXEC') or die;
 			<?php echo JText::_('COM_EVENTTABLEEDIT_RESET'); ?>
 		</a>
 	</div>
-	<input type="hidden" name="currentmode" id="currentmode" value=""/>
+	<input type="hidden" name="currentmode" id="currentmode" value="<?php echo $tmodes; ?>"/>
 	&nbsp;
 	<?php echo JHTML::tooltip(JText::_('COM_EVENTTABLEEDIT_FILTER_TOOL_TIP'), JText::_('COM_EVENTTABLEEDIT_FILTER'), 'tooltip.png', '', '', false); ?>
 </form>

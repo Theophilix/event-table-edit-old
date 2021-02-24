@@ -43,7 +43,7 @@ function EventTableEditBuildRoute(&$query)
     if (isset($query['id'])) {
         if (!isset($menuItem)) {
             $segments[] = $query['id'];
-        } elseif ('appointmentform' === $query['view'] || 'changetable' === $query['view'] || 'appointments' === $query['view']) {
+        } elseif ('appointmentform' === $query['view'] || 'changetable' === $query['view'] || 'appointments' === $query['view'] || 'csvexport' === $query['view'] || 'csvimport' === $query['view']) {
             $segments[] = $query['id'];
         }
         unset($query['view']);
@@ -79,7 +79,7 @@ function EventTableEditParseRoute($segments)
 
             $val = explode(':', $segments[1]);
             $vars['id'] = $val[0];
-         break;
+        break;
         case 'etetable':
         case 'eventtableedit':
 
@@ -87,21 +87,30 @@ function EventTableEditParseRoute($segments)
             if (isset($segments[1])) {
                 $vars['id'] = $segments[1];
             }
-         break;
+        break;
         case 'appointments':
 
             $vars['view'] = 'appointments';
             if (isset($segments[1])) {
                 $vars['id'] = $segments[1];
             }
-         break;
+        break;
         case 'appointmentform':
 
             $vars['view'] = 'appointmentform';
             $vars['id'] = $segments[1];
             $vars['row'] = $segments[2];
             $vars['col'] = $segments[3];
-         break;
+        break;
+		case 'csvexport':
+            $vars['view'] = 'csvexport';
+            $vars['id'] = $segments[1];
+        break;
+		case 'csvimport':
+		
+            $vars['view'] = 'csvimport';
+            $vars['id'] = $segments[1];
+        break;
     }
 
     return $vars;

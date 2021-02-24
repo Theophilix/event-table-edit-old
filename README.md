@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-**Download latest version 4.8.6** (release date: 04.11.2020): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+**Download latest version 4.8.7** (release date: 24.02.2021): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -20,7 +20,7 @@ Version history: scroll down to "II".
 - Choice of layout mode (stack, swipe, toggle) for enhanced responsiveness
 - Instant filter / search
 - Search and replace function (if admin is logged in)
-- Multiple appointment booking function with confirmation email and ICAL calendar (.ics file) attachment
+- Multiple appointment booking function with confirmation email and ICAL calendar (.ics file) attachment, admin can edit cells (bookings) from frontend.
 - Complete rights management (Joomla ACL: add/delete rows, edit cells, rearrange rows, administer table from frontend)
 - Multilingual (currently available: DE, EN)
 - CSV and TXT import with different formats (text, date, time, integer, float, boolean, four state, link, mail) 
@@ -37,7 +37,7 @@ Frontend view options:
 - Filter rows / Instant search
 - Pagination
 - Print view
-- Administer table (setting in rights management)
+- Administer table (setting in rights management) with quick csv export and import (new since 4.8.7)
 
 
 Backend options:
@@ -48,7 +48,7 @@ a) General
   + ICAL / .ics-File options (location, subject, name of file)
   + Set admin email address and email display name
   + Confirmation email settings (chose subject and message text with appointment-date and -time-variables)
-  + CSV Import and Export
+  + CSV Import and Export (quick csv export and import via admin login in frontend)
   + Show or hide user names to user or admin
   + Set timelimit for bookings
   + option to send two or more appoinment informations in one ics file
@@ -78,6 +78,20 @@ Please post all feature requests in the issues tab.
 
 
 ## II Version history
+
+
+**For version 4.8.7:**
+
+[1] Normal mode
+- enhancement: Frontend: Admin view: New buttons for csv export + import next to administrate table button with drop field https://github.com/Theophilix/event-table-edit/issues/113
+- enhancement: Frontend: Appointment tables: Frontend and backend: Enable all layout modes https://github.com/Theophilix/event-table-edit/issues/180
+-bugfix: Normal tables: Can not create a new table - forms are missing https://github.com/Theophilix/event-table-edit/issues/182
+
+[2] Appointment mode
+- enhancement: Frontend: Admin view: New buttons for csv export + import next to administrate table button with drop field https://github.com/Theophilix/event-table-edit/issues/113
+- bugfix:  Appointment tables: Frontend: Admin can't edit and change values while logged in https://github.com/Theophilix/event-table-edit/issues/181
+-bugfix: Normal tables: Can not create a new table - forms are missing https://github.com/Theophilix/event-table-edit/issues/182
+
 
 **For version 4.8.6:**
 

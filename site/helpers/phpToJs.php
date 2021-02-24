@@ -10,6 +10,7 @@
 defined('_JEXEC') or die;
 $listOrder = $this->state->get('list.ordering');
 $listDirn = $this->state->get('list.direction');
+
 ?>
 <script >
 <!--
@@ -30,7 +31,13 @@ function Access() {
 } else {
     echo '0';
 } ?>;
-	this.deleteRow 	= <?php if ($this->item->rowdelete) {
+	this.deleteRow 	= <?php if ($this->item->normalorappointment == 1){
+		if ($this->params->get('access-delete')) {
+			echo '1';
+		} else {
+			echo '0';
+		} 
+	}elseif($this->item->rowdelete) {
     echo '1';
 } else {
     echo '0';

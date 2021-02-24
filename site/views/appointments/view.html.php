@@ -38,7 +38,9 @@ class EventtableeditViewappointments extends JViewLegacy
         $app = JFactory::getApplication();
         $user = JFactory::getUser();
         $this->state = $this->get('State');
+		$this->dropdowns	= $this->get('Dropdowns');
         $this->item = $this->get('Item');
+		$this->pagination	= $this->get('Pagination');
         $this->option_id = $this->get('OptionID');
 
         // Check for errors.
@@ -63,17 +65,28 @@ class EventtableeditViewappointments extends JViewLegacy
         $groups = $user->getAuthorisedViewLevels();
 
         $rows = $this->rows['rows'];
+		$additional = $this->rows['additional'];
+		
+		$additional['defaultSorting'] = $this->isDefaultSorted();
+		$additional['dropdowns'] = $this->buildDropdownJsArray();
+		$additional['containsDate'] = $this->containsDate();
 
         if (isset($active->query['layout'])) {
             // We need to set the layout in case this is an alternative menu item (with an alternative layout)
             $this->setLayout($active->query['layout']);
         }
+		JText::script('COM_EVENTTABLEEDIT_LAYOUT_LAYOUTMODE');
+		JText::script('COM_EVENTTABLEEDIT_LAYOUT_STACK');
+        JText::script('COM_EVENTTABLEEDIT_LAYOUT_SWIPE');
+        JText::script('COM_EVENTTABLEEDIT_LAYOUT_TOGGLE');
 
         $this->assignRef('params', $params);
         $this->assignRef('item', $this->item);
         $this->assignRef('heads', $this->heads);
         $this->assignRef('rows', $rows);
         $this->assignRef('state', $this->state);
+		$this->assignRef('pagination',   $this->pagination);
+		$this->assignRef('additional', 	$additional);
         $this->assignRef('print', $this->print);
 
         $this->_prepareDocument();
@@ -90,7 +103,57 @@ class EventtableeditViewappointments extends JViewLegacy
         }
         return true;
     }
+	
+	private function isDefaultSorted() {
+		if (!count($this->heads)) {
+			return 0;
+		}
 
+		foreach ($this->heads as $head) {
+			if ($head->defaultSorting != '' && $head->defaultSorting != ':') {
+				return 1;
+			}
+		}
+		return 0;
+	}
+	/**
+	 * Create a String that can be parsed easily into a javascript array
+	 */
+	private function buildDropdownJsArray() {
+		$ret = array();
+		if(is_array($this->dropdowns)){
+			for($a = 0; $a < count($this->dropdowns); $a++) {
+				// If Dropdown was deleted
+				if ($this->dropdowns[$a]['name'] == null) {
+					$ret[$a]['meta']['name'] = '';
+					$ret[$a]['meta']['id'] = -1;
+					continue;
+				}
+
+				$ret[$a]['meta']['name'] = $this->dropdowns[$a]['name']['name'];
+				$ret[$a]['meta']['id'] = $this->dropdowns[$a]['name']['id'];
+				
+				if (!count($this->dropdowns[$a]['items'])) continue;
+
+				foreach ($this->dropdowns[$a]['items'] as $item) {
+					$ret[$a]['items'][] = $item->name;
+				}
+			}
+		}
+		
+		return $ret;		
+	}
+	/**
+	 * Show a date picker, if at least one column is a date
+	 */
+	private function containsDate() {
+		if (!count($this->heads)) return false;
+
+		foreach($this->heads as $row) {
+			if($row->datatype == 'date') return true;
+		}
+		return false;
+	}
     /**
      * Prepares the document.
      */
@@ -161,8 +224,30 @@ class EventtableeditViewappointments extends JViewLegacy
         //require JPATH_SITE.'/components/com_eventtableedit/helpers/phpToJs.php';
 
         $doc = JFactory::getDocument();
-        $this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw.js');
-        $this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw-init.js');
+        //$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw.js');
+        //$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw-init.js');
+		//require_once JPATH_COMPONENT.'/helpers/phpToJs.php';
+		require JPATH_SITE.'/components/com_eventtableedit/helpers/phpToJs.php';
+		//$doc = JFactory::getDocument();
+		$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw.js');
+		$this->document->addScript($this->baseurl.'/components/com_eventtableedit/template/js/tablesaw-init.js');
+		
+		
+		//$this->document->addScript($this->baseurl.'/components/com_eventtableedit/helpers/tableAjax.js');
+		echo "<script src='".$this->baseurl.'/components/com_eventtableedit/helpers/tableAjax.js'."'>";
+		echo "</script>";
+		// Start appintment edit popup install // 
+		$user = JFactory::GetUser();
+		if(in_array(8,$user->groups)){
+			$this->document->addScript($this->baseurl.'/components/com_eventtableedit/helpers/popup.js');
+			$style = '.etetable-linecolor0{background-color:#fff;}';
+			$this->document->addStyleDeclaration( $style );
+			
+		}
+		if ($this->item->rowsort == 0) {
+		$this->document->addStyleDeclaration(".eventtableedit .tablesaw-priority-50 {display: none !important;}");;
+		$this->document->addStyleDeclaration(".eventtableedit .tablesaw-priority-60 {display: none !important;}");;
+		}
     }
 
     private function getVariableStyles($cellspacing, $cellpadding, $linecolor0, $linecolor1)

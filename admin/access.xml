@@ -14,5 +14,6 @@
 		<action name="core.delete" title="JACTION_DELETE" description="COM_EVENTTABLEEDIT_ACL_DELETE_DESC" />
 		<action name="core.reorder" title="COM_EVENTTABLEEDIT_ACL_REORDER" description="COM_EVENTTABLEEDIT_ACL_REORDER_DESC" />
 		<action name="core.create_admin" title="COM_EVENTTABLEEDIT_ACL_CREATE_ADMIN" description="COM_EVENTTABLEEDIT_ACL_CREATE_ADMIN_DESC" />
+		<action name="core.csv" title="COM_EVENTTABLEEDIT_ACL_CSV" description="COM_EVENTTABLEEDIT_ACL_CSV_DESC" />
 	</section>
 </access>

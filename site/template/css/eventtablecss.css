@@ -303,7 +303,7 @@ margin-bottom:0;
 
  .eventtableedit .actions {
 
- 	width: 150px !important;
+ 	width: 100px !important;
 
  	float: right;
 
@@ -1371,4 +1371,13 @@ input.replaceButton {
 .filterstext input[type=button]{
 	font-size: 13px;
     vertical-align: top;
+}
+
+.actions li {
+    float: left;
+    margin-right: 5px;
+}
+.actions li img{
+    width: 18px!important;
+    height: 18px!important;
 }

@@ -111,6 +111,22 @@
 			class="inputbox"
 			size="1"
 		/>
+		
+		<field name="switcher" type="radio" default="0" class="inputbox" label="COM_EVENTTABLEEDIT_SHOW_SWITCHER" description="COM_EVENTTABLEEDIT_SHOW_SWITCHER_DESC">
+			<option value="1">JSHOW</option>
+			<option value="0">JHIDE</option>
+		</field>
+		
+		<field name="standardlayout"
+			type="list"
+			default="columntoggle"
+			class="inputbox"
+			label="COM_EVENTTABLEEDIT_STANDARD_LAYOUT"
+			description="COM_EVENTTABLEEDIT_STANDARD_LAYOUT_DESC">
+			<option value="columntoggle">COM_EVENTTABLEEDIT_LAYOUT_TOGGLE</option>
+			<option value="swipe">COM_EVENTTABLEEDIT_LAYOUT_SWIPE</option>
+			<option value="stack">COM_EVENTTABLEEDIT_LAYOUT_STACK</option>
+		</field>
 		<!--
 		<field name="show_filter"
 			type="radio"

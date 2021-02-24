@@ -45,7 +45,7 @@ JHtml::_('behavior.formvalidation');
 	function checkics(val){
 		if(val == 0){
 			jQuery('.location').hide();
-			jQuery('.normalshows').show();
+			//jQuery('.normalshows').show();
 			// jQuery('#jform_location').removeClass('required');
 			// jQuery('#jform_location').removeAttr( "required" );
 
@@ -90,7 +90,7 @@ JHtml::_('behavior.formvalidation');
 			
 		}else{
 			jQuery('.location').show();
-			jQuery('.normalshows').hide();
+			//jQuery('.normalshows').hide();
 			// jQuery('#jform_location').addClass('required');
 			// jQuery('#jform_location').attr( "required","required" );
 
@@ -212,8 +212,7 @@ JHtml::_('behavior.formvalidation');
 					<li class="normalshows"><?php echo $this->form->getLabel('sorting'); ?>
 					<?php echo $this->form->getInput('sorting'); ?></li>-->
 
-					<li class="normalshows"><?php echo $this->form->getLabel('switcher'); ?>
-					<?php echo $this->form->getInput('switcher'); ?></li>
+					
 
 				<li class="location"><?php echo $this->form->getLabel('hours'); ?>
 					<?php echo $this->form->getInput('hours'); ?></li>
@@ -221,6 +220,12 @@ JHtml::_('behavior.formvalidation');
 					<li class="location"><?php echo $this->form->getLabel('showdayname'); ?>
 					<?php echo $this->form->getInput('showdayname'); ?></li>
 					
+					<li class="normalshows"><?php echo $this->form->getLabel('switcher'); ?>
+					<?php echo $this->form->getInput('switcher'); ?></li>
+					<li>
+						<div class="fieldlabel"><?php echo $this->form->getLabel('standardlayout'); ?></div>
+						<div class="field"><?php echo $this->form->getInput('standardlayout'); ?></div>
+					</li>
 					
 					
 					<li class="add_option_list">
@@ -382,7 +387,7 @@ JHtml::_('behavior.formvalidation');
 					<?php echo $this->form->getInput('showusernametouser'); ?></li>
 				
 
-					<?php if ('' === $this->item->id) { ?>
+					<?php if ('' == $this->item->id) { ?>
 						<li><?php echo $this->form->getLabel('row'); ?>
 						<?php echo $this->form->getInput('row'); ?></li>
 

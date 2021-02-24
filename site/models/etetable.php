@@ -248,6 +248,7 @@ class EventtableeditModelEtetable extends JModelList
         $data->params->set('access-reorder', false);
         $data->params->set('access-create_admin', false);
         $data->params->set('access-ownRows', false);
+        $data->params->set('access-csv', false);
 
         if ($user->authorise('core.edit', $asset)) {
             $data->params->set('access-edit', true);
@@ -263,6 +264,9 @@ class EventtableeditModelEtetable extends JModelList
         }
         if ($user->authorise('core.create_admin', $asset)) {
             $data->params->set('access-create_admin', true);
+        }
+        if ($user->authorise('core.csv', $asset)) {
+            $data->params->set('access-csv', true);
         }
 
         // See if edit_own_rows is set to yes and if a user is logged in

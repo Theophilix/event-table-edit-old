@@ -312,7 +312,7 @@ if (1 === (int)$this->item->show_pagination) { ?>
 							<div class="fieldlabel"><?php echo $this->form->getLabel('showusernametouser'); ?></div>
 							<div class="field"><?php echo $this->form->getInput('showusernametouser'); ?></div>
 						</li>
-						<?php if ('' === $this->item->id) { ?>
+						<?php if ('' == $this->item->id) { ?>
 						<li>
 							<div class="fieldlabel"><?php echo $this->form->getLabel('row'); ?></div>
 							<div class="field"><?php echo $this->form->getInput('row'); ?></div>

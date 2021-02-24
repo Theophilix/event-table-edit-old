@@ -16,7 +16,9 @@ defined('_JEXEC') or die;
 $main = JFactory::getApplication()->input;
 $id = $main->getInt('id');
 $Itemid = $main->getInt('Itemid');
-
+?>
+<tr id="rowId_<?php echo $this->rowCount; ?>"  data-id="<?php echo $this->rows[$this->rowCount]['id']; ?>">
+<?php
 /*
 
  * Optional first row
@@ -86,8 +88,9 @@ for ($colCount = 0; $colCount < count($this->rows[0]) - 1; ++$colCount) {
 
 	<td class="etetable-row_<?php echo $this->rowCount.'_'.$colCount.'  '.$temptd; ?>" 
 
-		id="etetable-row_<?php echo $this->rowCount.'_'.$colCount; ?>">
-
+		
+		id="etetable-row_<?php echo $this->rows[$this->rowCount]['id'].'_'.$colCount; ?>" data-id="etetable-row_<?php echo $this->rowCount.'_'.$colCount; ?>"> 
+<!--id="etetable-row_<?php //echo $this->rowCount.'_'.$colCount; ?>">-->
 		<?php
 
         //$effectiveDate = strtotime("-$hoursitem hours", strtotime($bookdats));
@@ -156,3 +159,4 @@ for ($colCount = 0; $colCount < count($this->rows[0]) - 1; ++$colCount) {
 }
 
 ?>
+</tr>

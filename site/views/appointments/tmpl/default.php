@@ -26,6 +26,8 @@ defined('_JEXEC') or die;
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
 $main = JFactory::getApplication()->input;
 $postget = $main->getArray();
+
+
 ?>
 <?php
 if (isset($requests['print'])) {
@@ -63,6 +65,18 @@ if (isset($requests['print'])) {
 		<?php else: ?>
 			<?php echo JHtml::_('icon.adminTable', $this->item, JText::_('COM_EVENTTABLEEDIT_ETETABLE_CREATE')); ?>
 		<?php endif; ?>
+	</li>
+	<?php endif; ?>
+	<?php if ($this->params->get('access-csv')) :?>
+	<li class="admin-icon">
+		<a href="<?php echo JRoute::_('index.php?option=com_eventtableedit&view=csvexport&id=' . $this->item->id . '&return=' . base64_encode(JUri::getInstance()))?>" title="<?php echo JText::_('COM_EVENTTABLEEDIT_ETETABLE_EXPORT')?>">
+			<img src="components/com_eventtableedit/template/images/csv-download.png" alt="<?php echo JText::_('COM_EVENTTABLEEDIT_ETETABLE_EXPORT')?>"/>
+		</a>
+	</li>
+	<li class="admin-icon">
+		<a href="<?php echo JRoute::_('index.php?option=com_eventtableedit&view=csvimport&id=' . $this->item->id . '&return=' . base64_encode(JUri::getInstance())) . '&checkfun=1'?>" title="<?php echo JText::_('COM_EVENTTABLEEDIT_ETETABLE_IMPORT')?>">
+			<img src="components/com_eventtableedit/template/images/csv-upload.png" alt="<?php echo JText::_('COM_EVENTTABLEEDIT_ETETABLE_IMPORT')?>"/>
+		</a>
 	</li>
 	<?php endif; ?>
 </ul>
@@ -183,7 +197,8 @@ jQuery(document).ready(function(){
 function subappointments(){
 	var array = [];
 	jQuery('.highlighted').each(function(){
-	  	var rowcolmixs = jQuery(this).attr('id').split('row_');
+	  	var rowcolmixs = jQuery(this).data('id').split('row_');
+		console.log(rowcolmixs);
 	  	array.push(rowcolmixs[1]);
 	  	
 	});
