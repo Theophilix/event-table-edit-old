@@ -90,7 +90,7 @@ Please post all feature requests in the issues tab.
 [2] Appointment mode
 - enhancement: Frontend: Admin view: New buttons for csv export + import next to administrate table button with drop field https://github.com/Theophilix/event-table-edit/issues/113
 - bugfix:  Appointment tables: Frontend: Admin can't edit and change values while logged in https://github.com/Theophilix/event-table-edit/issues/181
--bugfix: Normal tables: Can not create a new table - forms are missing https://github.com/Theophilix/event-table-edit/issues/182
+- bugfix: Normal tables: Can not create a new table - forms are missing https://github.com/Theophilix/event-table-edit/issues/182
 
 
 **For version 4.8.6:**
