@@ -152,7 +152,7 @@ class PlgContentLoadete extends JPlugin
         $this->state = $model->getState();
         $model->setState('etetable.id', $id);
         $this->item = $model->getItem();
-        $this->unique = 'ETE_'.$this->item->alias.'_'.rand(0, 999);
+        $this->unique = 'ETE_'.str_replace('-','_',$this->item->alias).'_'.rand(0, 999);
         $this->uniques[] = $this->unique;
 		
         // Check for errors.

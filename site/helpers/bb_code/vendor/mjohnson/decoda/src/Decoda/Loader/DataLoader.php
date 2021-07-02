@@ -2,9 +2,9 @@
 /**
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
-
-defined('_JEXEC') or die;
 namespace Decoda\Loader;
+defined('_JEXEC') or die;
+
 
 /**
  * A resource loader that returns data passed directly through the constructor.

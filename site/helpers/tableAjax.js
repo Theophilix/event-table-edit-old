@@ -136,6 +136,9 @@ function addClickEvent(row) {
  * @param row: The row from that the action should be started
  */
 function addActionRow(row, singleOrdering) {
+	if(!access.rowsort){
+		return false;
+	}
 	// If the user has not engough rights
 	if (!access.reorder && !access.ownRows) {
 		if (!tableProperties.show_pagination) {
@@ -183,7 +186,9 @@ function addActionRow(row, singleOrdering) {
  * @param row: The row from that the action should be started
  */
 function addActionRow2(row, singleOrdering) {
-	
+	if(!access.rowsort){
+		return false;
+	}
 	// If the user has not engough rights
 	if (!access.deleteRow && !access.ownRows) {
 		return false;

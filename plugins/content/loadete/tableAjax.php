@@ -629,7 +629,7 @@ function addCells_<?php echo $this->unique; ?>(nmbPageRows, rowId) {
 	}
 	
 	// Normal cells
-	for (a = var_tableProperties_<?php echo $this->unique; ?>.show_first_row, b = 0; a <= var_tableProperties_<?php echo $this->unique; ?>.nmbCells; a++, b++) {
+	for (a = var_tableProperties_<?php echo $this->unique; ?>.show_first_row, b = 0; a < totNmbCells; a++, b++) {
 		var cell = tempTable.rows[nmbPageRows].cells[a];
 		cell.setAttribute('id', 'etetable-row_' + rowId + '_' + b);
 		cell.setAttribute('class', 'etetable-row_' + nmbPageRows + '_' + b);

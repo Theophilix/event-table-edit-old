@@ -26,7 +26,7 @@ if (@$postget['currentmode']) {
 } elseif (@$postget[$this->item->alias.'change_mode']) {
     $tmodes = $postget[$this->item->alias.'change_mode'];
 } else {
-    $tmodes = ($this->item->standardlayout) ? $this->item->standardlayout : $switcher_enable;
+    $tmodes = (isset($this->item->standardlayout) && $this->item->standardlayout) ? $this->item->standardlayout : $switcher_enable;
 }
 
 $sortdy = @$postget['sort'] ? @$postget['sort'] : '0_asc';

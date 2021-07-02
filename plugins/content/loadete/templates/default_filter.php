@@ -12,7 +12,7 @@ $switcher_enable = 'columntoggle';
 if (@$postget['currentmode']) {
     $tmodes = $postget['currentmode'];
 } else {
-    $tmodes = ($this->item->standardlayout) ? $this->item->standardlayout : $switcher_enable;
+    $tmodes = (isset($this->item->standardlayout) && $this->item->standardlayout) ? $this->item->standardlayout : $switcher_enable;
 }
 
 ?>

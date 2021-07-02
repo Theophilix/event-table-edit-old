@@ -2,9 +2,9 @@
 /**
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
-
-defined('_JEXEC') or die;
 namespace Decoda;
+defined('_JEXEC') or die;
+
 
 /**
  * This interface represents the rendering engine for tags that use a template.

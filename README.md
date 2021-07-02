@@ -7,7 +7,7 @@ As it is based on a CSS-template, the layout of the table can be changed easily.
 
 Try all the functions (including backend) on the demo site: https://demo.eventtableedit.com. Log in as user or admin with the given login credentials.
 
-**Download latest version 4.8.7** (release date: 24.02.2021): https://github.com/Theophilix/event-table-edit/archive/master.zip.
+**Download latest version 4.8.8** (release date: 02.07.2021): https://github.com/Theophilix/event-table-edit/archive/master.zip.
 
 Download older versions here: https://github.com/Theophilix/event-table-edit/releases.
 
@@ -79,13 +79,23 @@ Please post all feature requests in the issues tab.
 
 ## II Version history
 
+**For version 4.8.7:**
+
+[1] Normal mode
+- bugfix: Frontend problems after updating to 4.8.6 https://github.com/Theophilix/event-table-edit/issues/183
+- bugfix: Fehler 1054 - Unknown column 'corresptable' in 'field list' #186 https://github.com/Theophilix/event-table-edit/issues/186
+- bugfix: Error '500 - JHtmlIcon::email not found.' when plugin Content - Load ETE is activated https://github.com/Theophilix/event-table-edit/issues/187
+
+[2] Appointment mode
+- bugfix: Frontend: Appointment tables: Swipe layout - Last swiping - move produces error https://github.com/Theophilix/event-table-edit/issues/185
+
 
 **For version 4.8.7:**
 
 [1] Normal mode
 - enhancement: Frontend: Admin view: New buttons for csv export + import next to administrate table button with drop field https://github.com/Theophilix/event-table-edit/issues/113
 - enhancement: Frontend: Appointment tables: Frontend and backend: Enable all layout modes https://github.com/Theophilix/event-table-edit/issues/180
--bugfix: Normal tables: Can not create a new table - forms are missing https://github.com/Theophilix/event-table-edit/issues/182
+- bugfix: Normal tables: Can not create a new table - forms are missing https://github.com/Theophilix/event-table-edit/issues/182
 
 [2] Appointment mode
 - enhancement: Frontend: Admin view: New buttons for csv export + import next to administrate table button with drop field https://github.com/Theophilix/event-table-edit/issues/113
