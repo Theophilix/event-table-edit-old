@@ -79,7 +79,7 @@ Please post all feature requests in the issues tab.
 
 ## II Version history
 
-**For version 4.8.7:**
+**For version 4.8.8:**
 
 [1] Normal mode
 - bugfix: Frontend problems after updating to 4.8.6 https://github.com/Theophilix/event-table-edit/issues/183
