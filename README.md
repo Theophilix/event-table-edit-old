@@ -2,7 +2,7 @@
 
 Event Table Edit (abbrev. ETE) is a free and open source table plugin for **Joomla 3.x** (I am working on Joomla 4.x and PHP 8.0 right now). 
 
-### Update 12.10.2021: There won't be any new ETE versions or fixes based on Joomla 3.x. I have to rebuild ETE from scratch for Joomla 4. This will take half a year as I am only a hobby programmer. Any financial help (I hire freelancer programmers to help me) or donations are appreciated and will accelerate the process. Paypal-User: theophilix@gmx.de
+### Update 12.10.2021: There won't be any new ETE versions or fixes based on Joomla 3.x. I have to rebuild ETE from scratch for Joomla 4. This will take half a year as I am only a hobby programmer. Any financial help (I hire freelancer programmers to help me) or donations are appreciated and will accelerate the process. Paypal-user: theophilix@gmx.de
 
 
 With the plugin, you can create a responsive, editable table with CSV import and export function and XML export/import for table settings. It also has a full rights management (Joomla ACL). A *small additional plugin (Content - Load ETE)* allows users to display two or more tables in an article (since 4.8.4 version). It is installed automatically, but can be uninstalled without any consequences if this function is not desired.
