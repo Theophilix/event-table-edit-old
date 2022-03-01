@@ -1,4 +1,4 @@
-# Event Table Edit Old versions
+# Event Table Edit Old
 
 Event Table Edit (abbrev. ETE) is a free and open source table plugin for **Joomla 3.x** (I am working on Joomla 4.x and PHP 8.0 right now). 
 
